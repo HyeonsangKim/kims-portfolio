@@ -13,28 +13,28 @@ const experiences = [
     period: "2025.02 - Present",
     projects: [
       {
-        name: "ODIYA (Location)",
+        name: "Mohani (Parental Control)",
+        desc: "학부모 대상 자녀 스마트폰 사용 관리 앱으로, 앱 차단·콘텐츠 필터링·사용 통계를 제공하는 플랫폼입니다.",
+        highlights: ["유튜브 쇼츠, 카톡 숏폼 등 10개+ 앱 콘텐츠 필터링", "DNS VPN + Accessibility Service 듀얼 아키텍처", "Spring Boot + Redis SSO 통합 인증 서버", "Docker + Nginx + SSL 자동화 배포"],
+        stack: ['React Native', 'Android Native', 'Spring Boot', 'Redis', 'Docker']
+      },
+      {
+        name: "ODYA (Location)",
         desc: "제한된 네트워크 환경에서 IPC 통신과 Redis를 활용한 고가용성 위치 추적 시스템입니다.",
-        highlights: ["Android Native Module & IPC 통신", "Redis 기반 실시간 위치 데이터 파이프라인", "React Native CLI 크로스 플랫폼 배포"],
-        stack: ['React Native', 'Spring Boot', 'Redis', 'Native Modules']
+        highlights: ["Android Native Module & IPC 통신", "Redis 기반 실시간 위치 데이터 파이프라인", "FCM 활용 자녀-부모 간 양방향 푸시 알림", "React Native CLI 크로스 플랫폼 배포"],
+        stack: ['React Native', 'Spring Boot', 'Redis', 'FCM', 'Native Modules']
+      },
+      {
+        name: "KOCCA 세종어학당 평가 시스템",
+        desc: "KOCCA 국가 과제로, 학생 음성 녹음 제출 및 교수진 평가·피드백 워크플로우를 지원하는 교육용 웹 플랫폼입니다.",
+        highlights: ["Next.js 15 SSR 아키텍처", "Prisma & PostgreSQL 스키마 설계", "Server Actions 기반 파일 처리", "Nginx 리버스 프록시 및 SSL 보안 강화"],
+        stack: ['Next.js 15', 'TypeScript', 'Prisma', 'PostgreSQL', 'Nginx']
       },
       {
         name: "Launcher (Offline)",
         desc: "인터넷이 없는 환경에서도 S3와 로컬 파일 시스템을 연동해 대용량 콘텐츠를 재생하는 런처입니다.",
         highlights: ["Android 커스텀 런처 및 키오스크 모드", "대용량 비디오 청크 다운로드/캐싱", "S3 API 콘텐츠 버전 관리"],
         stack: ['React Native', 'Amazon S3', 'FileSystem', 'Android']
-      },
-      {
-        name: "Admin (Next.js)",
-        desc: "Next.js 15의 Server Actions와 SSR을 도입하여 보안과 성능을 강화한 교육 평가 플랫폼입니다.",
-        highlights: ["Next.js 15 SSR 아키텍처", "Prisma & PostgreSQL 스키마 설계", "Server Actions 기반 파일 처리"],
-        stack: ['Next.js 15', 'TypeScript', 'Prisma', 'PostgreSQL']
-      },
-      {
-        name: "Other",
-        desc: "기타 유지보수 및 신규 기능 개발을 담당하고 있습니다.",
-        highlights: ["레거시 코드 리팩토링", "성능 최적화 및 버그 수정"],
-        stack: ['Next.js', 'React', 'TypeScript']
       },
     ],
     color: "from-blue-500 to-cyan-400"

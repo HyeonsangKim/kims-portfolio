@@ -46,7 +46,9 @@ export default function Home() {
 
         <div className="h-[20vh]" />
 
-        <FeaturedProjects />
+        <section id="projects">
+            <FeaturedProjects />
+        </section>
 
         <div className="h-[20vh]" />
 
