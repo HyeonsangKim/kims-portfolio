@@ -3,8 +3,10 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { SiGithub, SiLinkedin } from 'react-icons/si'
 import { FiMail, FiCopy, FiCheck, FiSend } from 'react-icons/fi'
+import { useI18n } from '@/lib/i18n'
 
 export default function Contact() {
+  const { locale } = useI18n()
   const [form, setForm] = useState({ name: '', email: '', message: '' })
   const [isSending, setIsSending] = useState(false)
   const [isSent, setIsSent] = useState(false)
@@ -47,7 +49,7 @@ export default function Contact() {
               Let&apos;s Start a <br /> Conversation.
             </h2>
             <p className="text-gray-400 text-lg leading-relaxed">
-              새로운 프로젝트 논의나 커피챗은 언제나 환영입니다.<br />
+              {locale === 'ko' ? '새로운 프로젝트 논의나 커피챗은 언제나 환영합니다.' : locale === 'ja' ? '新しいプロジェクトやコーヒーチャット、いつでも歓迎です。' : 'Always open for new projects and coffee chats.'}<br />
             </p>
           </div>
 
@@ -124,7 +126,7 @@ export default function Contact() {
 
             <div className="space-y-6 relative z-10">
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-400 ml-1">Your Name</label>
+                <label className="text-sm font-medium text-gray-400 ml-1">{locale === 'ko' ? '이름' : locale === 'ja' ? 'お名前' : 'Your Name'}</label>
                 <input 
                   type="text" 
                   value={form.name}
@@ -136,7 +138,7 @@ export default function Contact() {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-400 ml-1">Your Email</label>
+                <label className="text-sm font-medium text-gray-400 ml-1">{locale === 'ko' ? '이메일' : locale === 'ja' ? 'メール' : 'Your Email'}</label>
                 <input 
                   type="email" 
                   value={form.email}
@@ -148,7 +150,7 @@ export default function Contact() {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-400 ml-1">Message</label>
+                <label className="text-sm font-medium text-gray-400 ml-1">{locale === 'ko' ? '메시지' : locale === 'ja' ? 'メッセージ' : 'Message'}</label>
                 <textarea 
                   rows={4}
                   value={form.message}
@@ -171,14 +173,14 @@ export default function Contact() {
                 `}
               >
                 {isSending ? (
-                  <span className="animate-pulse">Transmitting...</span>
+                  <span className="animate-pulse">{locale === 'ko' ? '전송 중...' : locale === 'ja' ? '送信中...' : 'Transmitting...'}</span>
                 ) : isSent ? (
                   <>
-                    <FiCheck size={20} /> Signal Sent!
+                    <FiCheck size={20} /> {locale === 'ko' ? '전송 완료!' : locale === 'ja' ? '送信完了！' : 'Signal Sent!'}
                   </>
                 ) : (
                   <>
-                    <FiSend size={18} /> Send Message
+                    <FiSend size={18} /> {locale === 'ko' ? '메시지 보내기' : locale === 'ja' ? 'メッセージ送信' : 'Send Message'}
                   </>
                 )}
               </button>

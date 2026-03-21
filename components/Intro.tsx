@@ -2,10 +2,12 @@
 import { useRef, useEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useI18n } from '@/lib/i18n'
 
 gsap.registerPlugin(ScrollTrigger)
 
 export default function Intro() {
+  const { t, locale } = useI18n()
   const containerRef = useRef<HTMLElement>(null)
   const textRef = useRef<HTMLDivElement>(null)
   const lineRef = useRef<HTMLDivElement>(null)
@@ -61,19 +63,22 @@ export default function Intro() {
 
       <div ref={textRef} className="max-w-4xl mx-auto text-center z-10">
         <h2 className="text-sm md:text-base font-bold tracking-[0.2em] text-purple-400 mb-8 uppercase">
-          Who I am
+          {t('intro.subtitle') as string}
         </h2>
-        
+
         <h3 className="text-3xl md:text-5xl lg:text-7xl font-bold text-white mb-10 leading-tight">
-          Creative Developer<br />
-          <span className="text-gray-600">Based in Korea.</span>
+          {t('intro.heading1') as string}<br />
+          <span className="text-gray-600">{t('intro.heading2') as string}</span>
         </h3>
 
         <p className="text-lg md:text-2xl text-gray-400 max-w-3xl mx-auto leading-relaxed font-light">
-          단순히 기능을 구현하는 것을 넘어, <br className="hidden md:block" />
-          사용자에게 <strong className="text-white font-medium">기억에 남는 경험</strong>을 선물하는 웹을 만듭니다.
-          <br className="mt-6" />
-          디자인과 기술의 경계에서, 완벽한 조화를 추구합니다.
+          {locale === 'en' ? (
+            <>{t('intro.desc1') as string}<br /><strong className="text-white font-medium">{t('intro.stack') as string}</strong></>
+          ) : (
+            <><strong className="text-white font-medium">{t('intro.stack') as string}</strong>{t('intro.desc1') as string}</>
+          )}
+          <br />
+          {t('intro.desc3') as string}
         </p>
       </div>
     </section>

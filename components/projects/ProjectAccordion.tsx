@@ -5,6 +5,7 @@ import { FiGithub, FiExternalLink, FiPlay } from 'react-icons/fi'
 import { useState } from 'react'
 import type { Project, ProjectLink } from '@/data/projects'
 import { badgeStyle } from '@/data/projects'
+import { useI18n } from '@/lib/i18n'
 
 const iconMap = {
   github: FiGithub,
@@ -117,6 +118,7 @@ export default function ProjectAccordion({
   project: Project
   isOpen: boolean
 }) {
+  const { locale } = useI18n()
   const hasMedia = project.media.type !== 'none'
 
   return (
@@ -143,7 +145,7 @@ export default function ProjectAccordion({
                 </div>
                 <div className="w-full md:w-[42%] md:pt-2">
                   <p className="text-gray-400 leading-relaxed text-sm">
-                    {project.description}
+                    {project.description[locale]}
                   </p>
                   <div className="flex flex-wrap gap-2 md:hidden mt-3">
                     {project.badges.map((b) => (
@@ -160,7 +162,7 @@ export default function ProjectAccordion({
             ) : (
               <div className="max-w-2xl space-y-4">
                 <p className="text-gray-400 leading-relaxed text-sm">
-                  {project.description}
+                  {project.description[locale]}
                 </p>
                 <div className="flex flex-wrap gap-2 md:hidden">
                   {project.badges.map((b) => (

@@ -2,6 +2,7 @@
 import Hero from '@/components/Hero'
 import Intro from '@/components/Intro'
 import FloatingDock from '@/components/FloatingDock'
+import LanguageToggle from '@/components/LanguageToggle'
 import dynamic from 'next/dynamic'
 
 const Orb = dynamic(() => import('@/components/Orb'), { ssr: false })
@@ -21,6 +22,8 @@ export default function Home() {
         <div className="absolute inset-0 opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
         <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black" />
       </div>
+
+      <LanguageToggle />
 
       <div className="relative z-10 pb-32">
 

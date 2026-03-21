@@ -4,8 +4,10 @@ import { useState, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import { projects } from '@/data/projects'
 import ProjectRow from './projects/ProjectRow'
+import { useI18n } from '@/lib/i18n'
 
 export default function FeaturedProjects() {
+  const { locale } = useI18n()
   const [openId, setOpenId] = useState<string | null>(null)
 
   const handleToggle = useCallback((id: string) => {
@@ -30,7 +32,7 @@ export default function FeaturedProjects() {
           transition={{ delay: 0.1 }}
           className="text-gray-400"
         >
-          WIGTN 팀에서 만든 프로젝트들입니다.
+          {locale === 'ko' ? 'WIGTN 크루와 함께 만든 사이드 프로젝트.' : locale === 'ja' ? 'WIGTNクルーと作ったサイドプロジェクト。' : 'Side projects built with WIGTN crew.'}
         </motion.p>
       </div>
 
