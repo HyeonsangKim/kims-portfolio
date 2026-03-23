@@ -14,9 +14,9 @@ const translations = {
       ja: 'Who I am',
     },
     heading1: {
-      ko: 'Product Engineer',
-      en: 'Product Engineer',
-      ja: 'Product Engineer',
+      ko: 'AI Product Engineer',
+      en: 'AI Product Engineer',
+      ja: 'AI Product Engineer',
     },
     heading2: {
       ko: 'Based in Seoul.',
