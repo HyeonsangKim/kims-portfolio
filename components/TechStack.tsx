@@ -46,8 +46,8 @@ const skills: Record<SkillCategory, Skill[]> = {
     { name: "React Native", icon: <SiReact />, color: "text-violet-500" },
     { name: "TypeScript", icon: <SiTypescript />, color: "text-blue-500" },
     { name: "JavaScript", icon: <SiJavascript />, color: "text-yellow-400" },
-    { name: "HTML5", icon: <SiHtml5 />, color: "text-orange-500" },
-    { name: "CSS3", icon: <SiCss3 />, color: "text-blue-600" },
+    // { name: "HTML5", icon: <SiHtml5 />, color: "text-orange-500" },
+    // { name: "CSS3", icon: <SiCss3 />, color: "text-blue-600" },
   ],
   Backend: [
     { name: "NestJS", icon: <SiNestjs />, color: "text-red-600" },
