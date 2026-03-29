@@ -13,6 +13,7 @@ const gradientMap: Record<Gradient, string> = {
   'from-emerald-500 to-teal-500': 'linear-gradient(to right, #10b981, #14b8a6)',
   'from-sky-500 to-cyan-500': 'linear-gradient(to right, #0ea5e9, #06b6d4)',
   'from-rose-500 to-pink-500': 'linear-gradient(to right, #f43f5e, #ec4899)',
+  'from-fuchsia-500 to-purple-600': 'linear-gradient(to right, #d946ef, #9333ea)',
 }
 
 export default function ProjectRow({

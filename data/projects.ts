@@ -15,6 +15,7 @@ export type Gradient =
   | 'from-emerald-500 to-teal-500'
   | 'from-sky-500 to-cyan-500'
   | 'from-rose-500 to-pink-500'
+  | 'from-fuchsia-500 to-purple-600'
 
 export interface ProjectLink {
   label: string
@@ -40,8 +41,30 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    id: 'wigvo',
+    id: 'wigent',
     num: '01',
+    title: 'WIGENT',
+    tagline: 'Multi-Agent AI Debate Platform',
+    description: {
+      ko: 'Wigent는 사용자가 주제를 입력하면 AI 에이전트들이 실시간으로 토론하는 멀티 에이전트 플랫폼입니다. PM 에이전트가 주제를 분석해 전문가 에이전트를 동적 생성/퇴장시키며, 7가지 에이전틱 패턴을 적용했습니다.\n Build with TRAE 해커톤 1등 수상작.',
+      en: 'Multi-agent AI debate platform where autonomous agents discuss topics in real-time. PM agent dynamically spawns/retires domain experts. Implements 7 agentic design patterns.\n1st Place at Build with TRAE Hackathon.',
+      ja: 'ユーザーがテーマを入力するとAIエージェントがリアルタイムで議論するマルチエージェントプラットフォーム。PMエージェントが専門家を動的に生成・退場。7つのエージェンティックパターンを適用。Build with TRAEハッカソン1位。',
+    },
+    badges: [
+      { label: 'Live', variant: 'live' },
+      { label: '1st Place', variant: 'award' },
+    ],
+    tech: ['Next.js 16', 'React 19', 'GPT-4o', 'SSE Streaming', 'Framer Motion', 'TypeScript'],
+    links: [
+      { label: 'Live', url: 'https://traewigentonxb.vercel.app', icon: 'external' },
+      { label: 'GitHub', url: 'https://github.com/wigtn/wigent', icon: 'github' },
+    ],
+    gradient: 'from-fuchsia-500 to-purple-600',
+    media: { type: 'none' },
+  },
+  {
+    id: 'wigvo',
+    num: '02',
     title: 'WIGVO',
     tagline: 'Real-time Phone Translation',
     description: {
@@ -63,7 +86,7 @@ export const projects: Project[] = [
   },
   {
     id: 'timelens',
-    num: '02',
+    num: '03',
     title: 'TimeLens',
     tagline: 'AI Cultural Heritage Guide',
     description: {
@@ -85,7 +108,7 @@ export const projects: Project[] = [
   },
   {
     id: 'wigvu',
-    num: '03',
+    num: '04',
     title: 'WIGVU',
     tagline: 'AI Korean Language Learning',
     description: {
@@ -101,7 +124,7 @@ export const projects: Project[] = [
   },
   {
     id: 'wigex',
-    num: '04',
+    num: '05',
     title: 'WIGEX',
     tagline: 'Travel Expense Tracker + OCR',
     description: {
@@ -117,7 +140,7 @@ export const projects: Project[] = [
   },
   {
     id: 'wigplugin',
-    num: '05',
+    num: '06',
     title: 'WigPlugin',
     tagline: 'Claude Code Plugin Collection',
     description: {

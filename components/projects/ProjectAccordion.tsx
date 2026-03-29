@@ -144,7 +144,7 @@ export default function ProjectAccordion({
                   <LinkList links={project.links} />
                 </div>
                 <div className="w-full md:w-[42%] md:pt-2">
-                  <p className="text-gray-400 leading-relaxed text-sm">
+                  <p className="text-gray-400 leading-relaxed text-sm whitespace-pre-line">
                     {project.description[locale]}
                   </p>
                   <div className="flex flex-wrap gap-2 md:hidden mt-3">
@@ -161,7 +161,7 @@ export default function ProjectAccordion({
               </div>
             ) : (
               <div className="max-w-2xl space-y-4">
-                <p className="text-gray-400 leading-relaxed text-sm">
+                <p className="text-gray-400 leading-relaxed text-sm whitespace-pre-line">
                   {project.description[locale]}
                 </p>
                 <div className="flex flex-wrap gap-2 md:hidden">
