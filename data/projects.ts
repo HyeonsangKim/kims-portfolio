@@ -68,13 +68,12 @@ export const projects: Project[] = [
     title: 'WIGVO',
     tagline: 'Real-time Phone Translation',
     description: {
-      ko: 'WIGVO는 실시간 전화 통번역 솔루션입니다. 듀얼 AI 세션 아키텍처로 에코 없는 양방향 통번역을 구현했으며, 557ms 평균 지연시간으로 169건 이상의 실제 통화를 처리했습니다. ACL 2026 System Demonstration에 채택되었습니다.',
-      en: 'Real-time phone translation system with dual AI session architecture — zero echo, 557ms avg latency, 169+ live calls processed. Accepted at ACL 2026 System Demonstration.',
-      ja: 'リアルタイム電話通訳ソリューション。デュアルAIセッションアーキテクチャでエコーゼロの双方向通訳を実現。平均遅延557ms、169件以上の実通話を処理。ACL 2026 System Demonstrationに採択。',
+      ko: 'WIGVO는 실시간 전화 통번역 솔루션입니다. 듀얼 AI 세션 아키텍처로 에코 없는 양방향 통번역을 구현했으며, 앱 설치 없이 일반 전화로 실시간 통번역이 가능합니다.',
+      en: 'Real-time phone translation system with dual AI session architecture — zero echo, bidirectional translation via regular phone calls without app installation.',
+      ja: 'リアルタイム電話通訳ソリューション。デュアルAIセッションアーキテクチャでエコーゼロの双方向通訳を実現。アプリ不要で一般電話からリアルタイム通訳が可能。',
     },
     badges: [
       { label: 'Live', variant: 'live' },
-      { label: 'ACL 2026', variant: 'award' },
     ],
     tech: ['React Native', 'WebSocket', 'OpenAI Realtime API', 'FastAPI', 'Twilio', 'Docker'],
     links: [
