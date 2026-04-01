@@ -24,16 +24,30 @@ const experiences = [
       {
         name: "Mohani (Parental Control)",
         desc: {
-          ko: '학부모 대상 자녀 스마트폰 사용 관리 앱으로, 앱 차단·콘텐츠 필터링·사용 통계를 제공하는 플랫폼입니다.',
-          en: 'Parental device management platform with app blocking, content filtering, and usage statistics for 10+ apps including YouTube Shorts and KakaoTalk.',
-          ja: '保護者向けの子供スマートフォン管理アプリ。アプリブロック・コンテンツフィルタリング・使用統計を提供するプラットフォームです。',
+          ko: '학부모 대상 자녀 스마트폰 사용 관리 앱으로, Samsung Knox Firewall API를 활용한 앱 제어와 사용 통계를 제공하는 플랫폼입니다.',
+          en: 'Parental device management platform with app control powered by Samsung Knox Firewall API, real-time remote device control, and usage statistics.',
+          ja: '保護者向けの子供スマートフォン管理アプリ。Samsung Knox Firewall APIを活用したアプリ制御と使用統計を提供するプラットフォームです。',
         } as L,
         highlights: {
-          ko: ["유튜브 쇼츠, 카톡 숏폼 등 10개+ 앱 대상 콘텐츠 필터링 시스템 구축", "DNS VPN + Accessibility Service 듀얼 아키텍처 설계", "Spring Boot + Redis SSO 통합 인증 서버 설계", "Docker + Nginx + SSL 자동화 배포 파이프라인"],
-          en: ["Content filtering system targeting 10+ apps (YouTube Shorts, KakaoTalk)", "Dual architecture: DNS VPN + Accessibility Service", "Spring Boot + Redis SSO authentication server", "Docker + Nginx + SSL automated deployment pipeline"],
-          ja: ["YouTube Shorts、KakaoTalkなど10以上のアプリ対象コンテンツフィルタリング", "DNS VPN + Accessibility Service デュアルアーキテクチャ設計", "Spring Boot + Redis SSO統合認証サーバー設計", "Docker + Nginx + SSL自動化デプロイパイプライン"],
+          ko: ["Samsung Knox Firewall API를 활용한 앱 제어 시스템 구축", "4-tier 시스템 설계 (SSO + Business Server + Parent App + Child App)", "FCM 기반 동기식 명령/응답 패턴으로 실시간 원격 디바이스 제어", "Docker + Nginx + SSL 자동화 배포 파이프라인"],
+          en: ["App control system using Samsung Knox Firewall API", "Designed 4-tier system (SSO + Business Server + Parent App + Child App) from scratch", "FCM-based synchronous command/response for real-time remote device control", "Docker + Nginx + SSL automated deployment pipeline"],
+          ja: ["Samsung Knox Firewall APIを活用したアプリ制御システム構築", "4-tierシステム設計 (SSO + Business Server + Parent App + Child App)", "FCMベースの同期式コマンド/レスポンスでリアルタイムリモートデバイス制御", "Docker + Nginx + SSL自動化デプロイパイプライン"],
         } as LA,
-        stack: ['React Native', 'Android Native', 'Spring Boot', 'Redis', 'Docker']
+        stack: ['React Native', 'Android Native', 'Spring Boot', 'Knox SDK', 'Docker']
+      },
+      {
+        name: "SSO Auth Server",
+        desc: {
+          ko: 'MSA 기반 SSO 인증 서버를 처음부터 설계·구축. JWT 듀얼 토큰(Access + Refresh) + Token Rotation으로 3개 이상의 내부 제품의 인증 백본으로 운영 중.',
+          en: 'Designed and built MSA-based SSO authentication server from scratch. JWT dual-token (Access + Refresh) with Token Rotation, serving as auth backbone for 3+ internal products.',
+          ja: 'MSAベースのSSO認証サーバーをゼロから設計・構築。JWTデュアルトークン(Access + Refresh) + Token Rotationで3つ以上の社内プロダクトの認証基盤として運用中。',
+        } as L,
+        highlights: {
+          ko: ["JWT Access + Refresh 듀얼 토큰 + Token Rotation 설계", "Webhook 기반 SSO ↔ 다운스트림 서버 이벤트 동기화", "Flyway 마이그레이션으로 멀티 서비스 DB 스키마 관리"],
+          en: ["JWT dual-token (Access + Refresh) with Token Rotation", "Webhook-based event sync between SSO and downstream servers", "Flyway migrations for multi-service DB schema management"],
+          ja: ["JWT Access + Refresh デュアルトークン + Token Rotation設計", "WebhookベースSSO ↔ ダウンストリームサーバーイベント同期", "Flyway マイグレーションでマルチサービスDBスキーマ管理"],
+        } as LA,
+        stack: ['Spring Boot', 'MariaDB', 'Redis', 'JWT', 'Flyway']
       },
       {
         name: "ODYA (Location)",
@@ -62,20 +76,6 @@ const experiences = [
           ja: ["Next.js 15 SSRアーキテクチャ", "Prisma & PostgreSQLスキーマ設計", "Server Actionsベースのファイル処理", "Nginxリバースプロキシ及びSSLセキュリティ強化"],
         } as LA,
         stack: ['Next.js 15', 'TypeScript', 'Prisma', 'PostgreSQL', 'Nginx']
-      },
-      {
-        name: "Launcher (Offline)",
-        desc: {
-          ko: '인터넷이 없는 환경에서도 S3와 로컬 파일 시스템을 연동해 대용량 콘텐츠를 재생하는 런처입니다.',
-          en: 'Offline-first launcher syncing S3 with local file system to play large-scale content without internet.',
-          ja: 'インターネットがない環境でもS3とローカルファイルシステムを連動し、大容量コンテンツを再生するランチャー。',
-        } as L,
-        highlights: {
-          ko: ["Android 커스텀 런처 및 키오스크 모드", "대용량 비디오 청크 다운로드/캐싱", "S3 API 콘텐츠 버전 관리"],
-          en: ["Android custom launcher & kiosk mode", "Large-scale video chunk download/caching", "S3 API content version management"],
-          ja: ["Androidカスタムランチャー＆キオスクモード", "大容量ビデオチャンクダウンロード/キャッシュ", "S3 APIコンテンツバージョン管理"],
-        } as LA,
-        stack: ['React Native', 'Amazon S3', 'FileSystem', 'Android']
       },
     ],
     color: "from-blue-500 to-cyan-400"
