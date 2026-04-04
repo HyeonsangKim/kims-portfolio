@@ -168,7 +168,7 @@ export default function TechStack() {
           {/* 아이콘: isTouched(모바일) 혹은 group-hover(PC) 상태일 때 활성화 */}
           <div 
             className={`
-              text-5xl sm:text-6xl mb-3 transition-all duration-300 drop-shadow-lg
+              text-5xl sm:text-6xl mb-1 transition-all duration-300 drop-shadow-lg
               ${(isTouched) ? 'scale-110 grayscale-0 opacity-100' : 'scale-100 grayscale opacity-50 group-hover:scale-110 group-hover:grayscale-0 group-hover:opacity-100'}
               ${(isTouched || 'group-hover') ? skill.color : ''} 
             `}
@@ -176,13 +176,8 @@ export default function TechStack() {
              {skill.icon}
           </div>
           
-          {/* 라벨 텍스트 */}
-          <span 
-            className={`
-              absolute -bottom-2 text-xs font-medium text-gray-300 bg-black/50 px-2 py-1 rounded backdrop-blur-sm transition-all duration-300
-              ${isTouched ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0'}
-            `}
-          >
+          {/* 라벨 텍스트 - 항상 표시 */}
+          <span className="text-xs font-medium text-gray-400 mt-1 transition-colors duration-300 group-hover:text-gray-200">
             {skill.name}
           </span>
         </motion.div>
