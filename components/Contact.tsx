@@ -63,7 +63,7 @@ export default function Contact() {
             </div>
             <div className="flex flex-col">
               <span className="text-xs text-gray-400 uppercase tracking-wider">Email Address</span>
-              <span className="text-lg font-mono text-white">hyeonsang@email.com</span>
+              <span className="text-lg font-mono text-white">hyeonsangyy@gmail.com</span>
             </div>
             <div className="absolute right-5 text-gray-500 group-hover:text-white transition-colors">
               {copied ? <FiCheck size={20} className="text-green-400" /> : <FiCopy size={20} />}
