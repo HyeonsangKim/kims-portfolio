@@ -14,7 +14,7 @@ export default function Contact() {
 
   // 이메일 복사 기능
   const copyEmail = () => {
-    navigator.clipboard.writeText('hyeonsang0107@gmail.com') // 실제 이메일 주소 기입
+    navigator.clipboard.writeText('hyeonsangyy@gmail.com')
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
   }
@@ -85,7 +85,7 @@ export default function Contact() {
             {[
               { 
                 icon: <SiGithub size={24} />, 
-                href: "https://github.com", 
+                href: "https://github.com/HyeonsangKim",
                 label: "GitHub",
                 // ✅ GitHub: 진한 회색/검정 배경
                 colorClass: "hover:bg-gray-800 hover:border-gray-600" 

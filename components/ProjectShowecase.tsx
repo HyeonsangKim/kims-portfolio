@@ -13,7 +13,7 @@ const experiences = [
   {
     id: 1,
     company: "Soundmind",
-    role: "Frontend & Backend",
+    role: "MX Team Lead",
     period: "2025.02 - Present",
     tagline: {
       ko: 'Leading offline-first mobile & web solutions.',
@@ -24,56 +24,56 @@ const experiences = [
       {
         name: "Mohani (Parental Control)",
         desc: {
-          ko: '학부모 대상 자녀 스마트폰 사용 관리 앱으로, Samsung Knox Firewall API를 활용한 앱 제어와 사용 통계를 제공하는 플랫폼입니다.',
-          en: 'Parental device management platform with app control powered by Samsung Knox Firewall API, real-time remote device control, and usage statistics.',
-          ja: '保護者向けの子供スマートフォン管理アプリ。Samsung Knox Firewall APIを活用したアプリ制御と使用統計を提供するプラットフォームです。',
+          ko: '자녀 스마트폰 관리 앱. Android Native Module 7개(Java/Kotlin↔JS Bridge)로 시스템 레벨 앱 차단·콘텐츠 차단·사용 제한을 제공합니다.',
+          en: 'Parental device management app with 7 Android Native Modules (Java/Kotlin↔JS Bridge) for system-level app blocking, content filtering, and usage limits.',
+          ja: '子供スマートフォン管理アプリ。Android Native Module 7個（Java/Kotlin↔JS Bridge）でシステムレベルのアプリ遮断・コンテンツ遮断・使用制限を提供。',
         } as L,
         highlights: {
-          ko: ["Samsung Knox Firewall API를 활용한 앱 제어 시스템 구축", "4-tier 시스템 설계 (SSO + Business Server + Parent App + Child App)", "FCM 기반 동기식 명령/응답 패턴으로 실시간 원격 디바이스 제어", "Docker + Nginx + SSL 자동화 배포 파이프라인"],
-          en: ["App control system using Samsung Knox Firewall API", "Designed 4-tier system (SSO + Business Server + Parent App + Child App) from scratch", "FCM-based synchronous command/response for real-time remote device control", "Docker + Nginx + SSL automated deployment pipeline"],
-          ja: ["Samsung Knox Firewall APIを活用したアプリ制御システム構築", "4-tierシステム設計 (SSO + Business Server + Parent App + Child App)", "FCMベースの同期式コマンド/レスポンスでリアルタイムリモートデバイス制御", "Docker + Nginx + SSL自動化デプロイパイプライン"],
+          ko: ["Android Native Module 7개 (Java/Kotlin↔JS Bridge)", "AccessibilityService 기반 앱 차단 시스템", "유튜브 쇼츠·카카오톡 실시간 콘텐츠 차단", "Samsung Knox Firewall API 도메인 차단"],
+          en: ["7 Android Native Modules (Java/Kotlin↔JS Bridge)", "AccessibilityService-based app blocking", "YouTube Shorts & KakaoTalk real-time content blocking", "Samsung Knox Firewall API domain blocking"],
+          ja: ["Android Native Module 7個 (Java/Kotlin↔JS Bridge)", "AccessibilityServiceベースのアプリ遮断", "YouTubeショート・カカオトーク リアルタイムコンテンツ遮断", "Samsung Knox Firewall APIドメイン遮断"],
         } as LA,
         stack: ['React Native', 'Android Native', 'Spring Boot', 'Knox SDK', 'Docker']
       },
       {
         name: "SSO Auth Server",
         desc: {
-          ko: 'MSA 기반 SSO 인증 서버를 처음부터 설계·구축. JWT 듀얼 토큰(Access + Refresh) + Token Rotation으로 3개 이상의 내부 제품의 인증 백본으로 운영 중.',
-          en: 'Designed and built MSA-based SSO authentication server from scratch. JWT dual-token (Access + Refresh) with Token Rotation, serving as auth backbone for 3+ internal products.',
-          ja: 'MSAベースのSSO認証サーバーをゼロから設計・構築。JWTデュアルトークン(Access + Refresh) + Token Rotationで3つ以上の社内プロダクトの認証基盤として運用中。',
+          ko: 'MSA 기반 SSO 인증 서버. JWT 듀얼 토큰 + Token Rotation으로 사내 3개 서비스의 인증 백본으로 운영 중.',
+          en: 'MSA-based SSO auth server. JWT dual-token with Token Rotation, serving as auth backbone for 3 internal services.',
+          ja: 'MSAベースSSO認証サーバー。JWTデュアルトークン + Token Rotationで社内3サービスの認証基盤として運用中。',
         } as L,
         highlights: {
-          ko: ["JWT Access + Refresh 듀얼 토큰 + Token Rotation 설계", "Webhook 기반 SSO ↔ 다운스트림 서버 이벤트 동기화", "Flyway 마이그레이션으로 멀티 서비스 DB 스키마 관리"],
-          en: ["JWT dual-token (Access + Refresh) with Token Rotation", "Webhook-based event sync between SSO and downstream servers", "Flyway migrations for multi-service DB schema management"],
-          ja: ["JWT Access + Refresh デュアルトークン + Token Rotation設計", "WebhookベースSSO ↔ ダウンストリームサーバーイベント同期", "Flyway マイグレーションでマルチサービスDBスキーマ管理"],
+          ko: ["JWT 듀얼 토큰 + Token Family Tracking", "AES-256-GCM 개인정보 암호화", "Redis Rate Limiting 11종 정책", "유저 유형별 차별화된 인증 정책"],
+          en: ["JWT dual-token + Token Family Tracking", "AES-256-GCM PII encryption", "Redis Rate Limiting (11 policies)", "Differentiated auth policies per user type"],
+          ja: ["JWTデュアルトークン + Token Family Tracking", "AES-256-GCM個人情報暗号化", "Redis Rate Limiting 11種ポリシー", "ユーザータイプ別差別化認証ポリシー"],
         } as LA,
         stack: ['Spring Boot', 'MariaDB', 'Redis', 'JWT', 'Flyway']
       },
       {
         name: "ODYA (Location)",
         desc: {
-          ko: '30,000+ 사용자 대상 위치 추적 플랫폼. JPA 직접 Write에서 Redis Write-behind 캐싱으로 아키텍처를 재설계하여 DB 부하 95% 감소 및 서버 장애를 해결했습니다.',
-          en: 'Location tracking platform for 30,000+ users. Redesigned from direct JPA writes to Redis write-behind caching, reducing DB load by 95% and eliminating server outages.',
-          ja: '30,000人以上のユーザー向け位置追跡プラットフォーム。JPA直接WriteからRedis Write-behindキャッシュにアーキテクチャを再設計し、DB負荷95%削減・サーバー障害を解決。',
+          ko: '30,000+ 유저 위치 관리 플랫폼. Redis 이중 큐 배치 아키텍처로 DB 부하 95% 감소.',
+          en: 'Location management platform for 30,000+ users. Redis dual-queue batch architecture reduced DB load by 95%.',
+          ja: '30,000+ユーザー位置管理プラットフォーム。Redis二重キューバッチでDB負荷95%削減。',
         } as L,
         highlights: {
-          ko: ["Redis Write-behind 캐싱으로 분당 30,000건 처리, DB 부하 95% 감소", "Android Native Module & IPC 통신 구현", "FCM 활용 자녀-부모 간 양방향 푸시 알림", "React Native CLI로 iOS/Android 양쪽 스토어 출시"],
-          en: ["Redis write-behind caching: 30,000 writes/min, 95% DB load reduction", "Android Native Module & IPC communication", "Bidirectional parent-child push notifications via FCM", "Shipped to both App Store and Google Play via React Native CLI"],
-          ja: ["Redis Write-behindキャッシュで毎分30,000件処理、DB負荷95%削減", "Android Native Module & IPC通信実装", "FCMによる親子間双方向プッシュ通知", "React Native CLIでiOS/Android両ストアリリース"],
+          ko: ["Redis 이중 큐 배치 아키텍처, DB 부하 95% 감소", "AES-256 좌표 암호화 + Haversine 지오펜싱", "Activity Recognition API 기반 배터리 최적화", "App Store/Google Play 동시 출시 (30,000+ 유저)"],
+          en: ["Redis dual-queue batch architecture, 95% DB load reduction", "AES-256 coordinate encryption + Haversine geofencing", "Activity Recognition API for battery optimization", "Shipped to App Store & Google Play (30,000+ users)"],
+          ja: ["Redis二重キューバッチ、DB負荷95%削減", "AES-256座標暗号化 + Haversineジオフェンシング", "Activity Recognition APIでバッテリー最適化", "App Store/Google Play同時リリース（30,000+）"],
         } as LA,
         stack: ['React Native', 'Spring Boot', 'Redis', 'FCM', 'Native Modules']
       },
       {
         name: { ko: 'KOCCA 세종어학당 평가 시스템', en: 'KOCCA Language Assessment', ja: 'KOCCA世宗学堂評価システム' } as L,
         desc: {
-          ko: 'KOCCA 국가 과제로, 학생 음성 녹음 제출 및 교수진 평가·피드백 워크플로우를 지원하는 교육용 웹 플랫폼입니다.',
-          en: 'National R&D educational platform supporting student voice recording submissions and faculty assessment/feedback workflows.',
-          ja: 'KOCCA国家課題。学生の音声録音提出と教授陣の評価・フィードバックワークフローを支援する教育用Webプラットフォーム。',
+          ko: '한국어 말하기/발음 평가 웹 플랫폼. 녹음 → S3 → STT → 채점 전체 파이프라인 제공.',
+          en: 'Korean speaking/pronunciation assessment platform. Full pipeline: recording → S3 → STT → grading.',
+          ja: '韓国語スピーキング/発音評価Webプラットフォーム。録音→S3→STT→採点の全パイプライン。',
         } as L,
         highlights: {
-          ko: ["Next.js 15 SSR 아키텍처", "Prisma & PostgreSQL 스키마 설계", "Server Actions 기반 파일 처리", "Nginx 리버스 프록시 및 SSL 보안 강화"],
-          en: ["Next.js 15 SSR architecture", "Prisma & PostgreSQL schema design", "Server Actions-based file handling", "Nginx reverse proxy with SSL"],
-          ja: ["Next.js 15 SSRアーキテクチャ", "Prisma & PostgreSQLスキーマ設計", "Server Actionsベースのファイル処理", "Nginxリバースプロキシ及びSSLセキュリティ強化"],
+          ko: ["AudioWorklet 커스텀 WAV 녹음기 (16kHz)", "녹음 → S3 → STT → 채점 파이프라인", "학생/교사/관리자 3-role 접근 제어", "Prisma + PostgreSQL 스키마, JWT 인증"],
+          en: ["Custom AudioWorklet WAV recorder (16kHz)", "Recording → S3 → STT → grading pipeline", "3-role access control (student/teacher/admin)", "Prisma + PostgreSQL schema, JWT auth"],
+          ja: ["AudioWorkletカスタムWAV録音機（16kHz）", "録音→S3→STT→採点パイプライン", "学生/教師/管理者 3-roleアクセス制御", "Prisma + PostgreSQLスキーマ、JWT認証"],
         } as LA,
         stack: ['Next.js 15', 'TypeScript', 'Prisma', 'PostgreSQL', 'Nginx']
       },
@@ -99,9 +99,9 @@ const experiences = [
           ja: '5,000以上のWeb学習コンテンツを制作し、React Nativeへ移行、GSAP/SVGでインタラクティブな体験を実装。',
         } as L,
         highlights: {
-          ko: ["5000개가 넘는 유아용 영아 학습 컨턴츠 웹 제작", "Web → React Native 앱 마이그레이션", "SVG Path 활용 인터랙티브 학습 구현"],
-          en: ["Built 5,000+ early childhood learning web activities", "Web → React Native app migration", "Interactive learning with SVG Path animations"],
-          ja: ["5,000以上の幼児向け学習Webコンテンツ制作", "Web → React Nativeアプリマイグレーション", "SVG Pathを活用したインタラクティブ学習実装"],
+          ko: ["5,000개+ 유아용 영어 학습 콘텐츠 웹 제작", "Web → React Native 앱 마이그레이션", "GSAP + SVG Path 인터랙티브 학습 구현"],
+          en: ["Built 5,000+ early childhood English learning web activities", "Web → React Native app migration", "Interactive learning with GSAP + SVG Path animations"],
+          ja: ["5,000以上の幼児向け英語学習Webコンテンツ制作", "Web → React Nativeアプリマイグレーション", "GSAP + SVG Pathインタラクティブ学習実装"],
         } as LA,
         stack: ['React Native', 'React', 'GSAP', 'TypeScript']
       }
@@ -111,7 +111,7 @@ const experiences = [
   {
     id: 3,
     company: "IEZLAB",
-    role: "Backend Developer",
+    role: "Full-Stack Developer",
     period: "2022.04 - 2023.03",
     tagline: {
       ko: 'R&D and Full-stack system architecture.',
@@ -120,18 +120,18 @@ const experiences = [
     } as L,
     projects: [
       {
-        name: "R&D Visualization",
+        name: "AIGOSEO",
         desc: {
-          ko: '자바 스프링과 Jquery, Thyme-leaf등을 활용해 웹을 제작 하였습니다.',
-          en: 'Built web applications using Java Spring, jQuery, and Thymeleaf.',
-          ja: 'Java SpringとjQuery、Thymeleafを活用してWebを制作。',
+          ko: '고문헌 번역 플랫폼 (정부 R&D). Canvas API로 글자 단위 이미지 세그멘테이션을 구현하여 AI 모델 전처리 파이프라인 제공.',
+          en: 'Ancient manuscript translation platform (Government R&D). Canvas API character-level image segmentation for AI model preprocessing.',
+          ja: '古文献翻訳プラットフォーム（政府R&D）。Canvas APIで文字単位の画像セグメンテーションを実装しAIモデル前処理を提供。',
         } as L,
         highlights: {
-          ko: ["Jquery, Spring을 활용한 와인 이커머스 제작", "Spring Boot/JPA 사내 ERP 구축", "레거시 데이터 시각화"],
-          en: ["Wine e-commerce platform with jQuery & Spring", "In-house ERP system with Spring Boot/JPA", "Legacy data visualization"],
-          ja: ["jQuery、Springを活用したワインEC制作", "Spring Boot/JPA社内ERP構築", "レガシーデータ可視化"],
+          ko: ["Canvas API 기반 글자 단위 이미지 세그멘테이션", "AI 모델 전처리 파이프라인 연동", "Spring Boot + JPA 백엔드 API", "정부 R&D 납품 완료"],
+          en: ["Canvas API character-level image segmentation", "AI model preprocessing pipeline integration", "Spring Boot + JPA backend API", "Government R&D delivered"],
+          ja: ["Canvas APIベースの文字単位画像セグメンテーション", "AIモデル前処理パイプライン連携", "Spring Boot + JPA バックエンドAPI", "政府R&D納品完了"],
         } as LA,
-        stack: ['React', 'Canvas API', 'Spring Boot', 'JPA']
+        stack: ['Canvas API', 'Spring Boot', 'JPA', 'JavaScript']
       }
     ],
     color: "from-orange-400 to-amber-500"

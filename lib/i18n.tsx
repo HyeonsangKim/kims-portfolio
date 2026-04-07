@@ -169,9 +169,9 @@ const translations = {
       ja: 'WIGTNチームで作ったプロジェクトです。',
     },
     wigvo: {
-      ko: 'WIGVO는 실시간 전화 통번역 솔루션입니다. 듀얼 AI 세션 아키텍처로 에코 없는 양방향 통번역을 구현했으며, 557ms 평균 지연시간으로 169건 이상의 실제 통화를 처리했습니다. ACL 2026 System Demonstration에 채택되었습니다.',
-      en: 'Real-time phone translation system with dual AI session architecture — zero echo, 557ms avg latency, 169+ live calls processed. Accepted at ACL 2026 System Demonstration.',
-      ja: 'リアルタイム電話通訳ソリューション。デュアルAIセッションアーキテクチャでエコーゼロの双方向通訳を実現。平均遅延557ms、169件以上の実通話を処理。ACL 2026 System Demonstrationに採択。',
+      ko: 'WIGVO는 실시간 전화 통번역 솔루션입니다. 듀얼 AI 세션 아키텍처로 에코 없는 양방향 통번역을 구현했으며, 557ms 평균 지연시간으로 169건 이상의 실제 통화를 처리했습니다.',
+      en: 'Real-time phone translation system with dual AI session architecture — zero echo, 557ms avg latency, 169+ live calls processed.',
+      ja: 'リアルタイム電話通訳ソリューション。デュアルAIセッションアーキテクチャでエコーゼロの双方向通訳を実現。平均遅延557ms、169件以上の実通話を処理。',
     },
     timelens: {
       ko: 'TimeLens는 AI 기반 문화유산 가이드 앱입니다. 카메라로 문화재를 비추면 실시간으로 AI 큐레이터가 역사적 맥락을 설명하고, AR 복원 시각화를 제공합니다. 기획 및 프론트엔드 리드를 담당했습니다.',
