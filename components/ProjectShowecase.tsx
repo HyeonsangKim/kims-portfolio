@@ -127,9 +127,9 @@ const experiences = [
           ja: '古文献翻訳プラットフォーム（政府R&D）。Canvas APIで文字単位の画像セグメンテーションを実装しAIモデル前処理を提供。',
         } as L,
         highlights: {
-          ko: ["Canvas API 기반 글자 단위 이미지 세그멘테이션", "AI 모델 전처리 파이프라인 연동", "Spring Boot + JPA 백엔드 API", "정부 R&D 납품 완료"],
-          en: ["Canvas API character-level image segmentation", "AI model preprocessing pipeline integration", "Spring Boot + JPA backend API", "Government R&D delivered"],
-          ja: ["Canvas APIベースの文字単位画像セグメンテーション", "AIモデル前処理パイプライン連携", "Spring Boot + JPA バックエンドAPI", "政府R&D納品完了"],
+          ko: ["Canvas API 기반 글자 단위 이미지 세그멘테이션", "Spring Boot + JPA 백엔드 API", "정부 R&D 납품 완료"],
+          en: ["Canvas API character-level image segmentation",  "Spring Boot + JPA backend API", "Government R&D delivered"],
+          ja: ["Canvas APIベースの文字単位画像セグメンテーション", "Spring Boot + JPA バックエンドAPI", "政府R&D納品完了"],
         } as LA,
         stack: ['Canvas API', 'Spring Boot', 'JPA', 'JavaScript']
       }
