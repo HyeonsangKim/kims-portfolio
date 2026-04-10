@@ -236,9 +236,14 @@ export default function ProjectReportOverlay({
               <Section id="problem" title={t('problem', locale)} icon={FiTarget} gradient={gradient}>
                 <ul className="space-y-3">
                   {problem.map((p, i) => (
-                    <li key={i} className="flex gap-3 text-[15px] text-gray-300 leading-relaxed">
-                      <span className="text-rose-400/80 mt-[0.45rem]">—</span>
-                      <span>{p}</span>
+                    <li
+                      key={i}
+                      className="flex items-baseline gap-3 text-[15px] text-gray-300 leading-relaxed"
+                    >
+                      <span aria-hidden className="shrink-0 text-rose-400/80">
+                        —
+                      </span>
+                      <span className="flex-1 min-w-0">{p}</span>
                     </li>
                   ))}
                 </ul>
@@ -249,9 +254,14 @@ export default function ProjectReportOverlay({
               <Section id="solution" title={t('solution', locale)} icon={FiZap} gradient={gradient}>
                 <ul className="space-y-3">
                   {solution.map((s, i) => (
-                    <li key={i} className="flex gap-3 text-[15px] text-gray-300 leading-relaxed">
-                      <span className="text-emerald-400/80 mt-[0.45rem]">→</span>
-                      <span>{s}</span>
+                    <li
+                      key={i}
+                      className="flex items-baseline gap-3 text-[15px] text-gray-300 leading-relaxed"
+                    >
+                      <span aria-hidden className="shrink-0 text-emerald-400/80">
+                        →
+                      </span>
+                      <span className="flex-1 min-w-0">{s}</span>
                     </li>
                   ))}
                 </ul>
@@ -403,9 +413,14 @@ export default function ProjectReportOverlay({
                       </div>
                       <ul className="space-y-2">
                         {worked.map((w, i) => (
-                          <li key={i} className="text-[13px] text-gray-300 leading-relaxed flex gap-2">
-                            <span className="text-emerald-400/80 mt-0.5">✓</span>
-                            <span>{w}</span>
+                          <li
+                            key={i}
+                            className="flex items-baseline gap-2 text-[13px] text-gray-300 leading-relaxed"
+                          >
+                            <span aria-hidden className="shrink-0 text-emerald-400/80">
+                              ✓
+                            </span>
+                            <span className="flex-1 min-w-0">{w}</span>
                           </li>
                         ))}
                       </ul>
@@ -419,9 +434,14 @@ export default function ProjectReportOverlay({
                       </div>
                       <ul className="space-y-2">
                         {wouldChange.map((w, i) => (
-                          <li key={i} className="text-[13px] text-gray-300 leading-relaxed flex gap-2">
-                            <span className="text-amber-400/80 mt-0.5">↻</span>
-                            <span>{w}</span>
+                          <li
+                            key={i}
+                            className="flex items-baseline gap-2 text-[13px] text-gray-300 leading-relaxed"
+                          >
+                            <span aria-hidden className="shrink-0 text-amber-400/80">
+                              ↻
+                            </span>
+                            <span className="flex-1 min-w-0">{w}</span>
                           </li>
                         ))}
                       </ul>
