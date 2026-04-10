@@ -1,16 +1,33 @@
 'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
-import { FiGithub, FiExternalLink, FiPlay } from 'react-icons/fi'
+import { FiGithub, FiExternalLink, FiPlay, FiArrowRight, FiFileText } from 'react-icons/fi'
 import { useState } from 'react'
-import type { Project, ProjectLink } from '@/data/projects'
+import type { Project, ProjectLink, Gradient } from '@/data/projects'
 import { badgeStyle } from '@/data/projects'
-import { useI18n } from '@/lib/i18n'
+import { useI18n, type Locale } from '@/lib/i18n'
+import { projectReports } from '@/data/reports'
+import ProjectReportOverlay from './ProjectReportOverlay'
 
 const iconMap = {
   github: FiGithub,
   external: FiExternalLink,
 } as const
+
+const reportLabel: Record<Locale, string> = {
+  ko: '전체 리포트 보기',
+  en: 'View Full Report',
+  ja: '詳細レポートを見る',
+}
+
+const gradientCssMap: Record<Gradient, string> = {
+  'from-violet-500 to-fuchsia-500': 'linear-gradient(135deg, #8b5cf6, #d946ef)',
+  'from-amber-500 to-orange-500': 'linear-gradient(135deg, #f59e0b, #f97316)',
+  'from-emerald-500 to-teal-500': 'linear-gradient(135deg, #10b981, #14b8a6)',
+  'from-sky-500 to-cyan-500': 'linear-gradient(135deg, #0ea5e9, #06b6d4)',
+  'from-rose-500 to-pink-500': 'linear-gradient(135deg, #f43f5e, #ec4899)',
+  'from-fuchsia-500 to-purple-600': 'linear-gradient(135deg, #d946ef, #9333ea)',
+}
 
 function MediaEmbed({ project }: { project: Project }) {
   const [ytLoaded, setYtLoaded] = useState(false)
@@ -90,7 +107,7 @@ function TechTags({ tech }: { tech: string[] }) {
 
 function LinkList({ links }: { links: ProjectLink[] }) {
   return (
-    <div className="flex gap-4">
+    <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
       {links.map((link) => {
         const Icon = iconMap[link.icon]
         return (
@@ -111,6 +128,36 @@ function LinkList({ links }: { links: ProjectLink[] }) {
   )
 }
 
+/**
+ * Primary CTA: clearly a button (solid gradient fill, arrow, shadow).
+ * Opens the full case-study overlay.
+ */
+function ReportCTA({
+  onClick,
+  label,
+  gradient,
+}: {
+  onClick: () => void
+  label: string
+  gradient: string
+}) {
+  return (
+    <button
+      type="button"
+      onClick={(e) => {
+        e.stopPropagation()
+        onClick()
+      }}
+      className="group relative inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold text-white shadow-lg shadow-black/30 transition-transform hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus:ring-2 focus:ring-white/30"
+      style={{ backgroundImage: gradient }}
+    >
+      <FiFileText className="w-4 h-4" />
+      <span>{label}</span>
+      <FiArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+    </button>
+  )
+}
+
 export default function ProjectAccordion({
   project,
   isOpen,
@@ -120,6 +167,19 @@ export default function ProjectAccordion({
 }) {
   const { locale } = useI18n()
   const hasMedia = project.media.type !== 'none'
+  const report = projectReports[project.id]
+  const [reportOpen, setReportOpen] = useState(false)
+
+  const gradientCss =
+    gradientCssMap[project.gradient] ?? gradientCssMap['from-violet-500 to-fuchsia-500']
+
+  const reportCTA = report ? (
+    <ReportCTA
+      label={reportLabel[locale]}
+      onClick={() => setReportOpen(true)}
+      gradient={gradientCss}
+    />
+  ) : null
 
   return (
     <AnimatePresence initial={false}>
@@ -143,11 +203,11 @@ export default function ProjectAccordion({
                   <TechTags tech={project.tech} />
                   <LinkList links={project.links} />
                 </div>
-                <div className="w-full md:w-[42%] md:pt-2">
+                <div className="w-full md:w-[42%] md:pt-2 space-y-4">
                   <p className="text-gray-400 leading-relaxed text-sm whitespace-pre-line">
                     {project.description[locale]}
                   </p>
-                  <div className="flex flex-wrap gap-2 md:hidden mt-3">
+                  <div className="flex flex-wrap gap-2 md:hidden">
                     {project.badges.map((b) => (
                       <span
                         key={b.label}
@@ -157,6 +217,7 @@ export default function ProjectAccordion({
                       </span>
                     ))}
                   </div>
+                  {reportCTA}
                 </div>
               </div>
             ) : (
@@ -176,10 +237,18 @@ export default function ProjectAccordion({
                 </div>
                 <TechTags tech={project.tech} />
                 <LinkList links={project.links} />
+                {reportCTA}
               </div>
             )}
           </div>
         </motion.div>
+      )}
+      {reportOpen && report && (
+        <ProjectReportOverlay
+          project={project}
+          report={report}
+          onClose={() => setReportOpen(false)}
+        />
       )}
     </AnimatePresence>
   )

@@ -41,8 +41,24 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    id: 'wigent',
+    id: 'wigplugin',
     num: '01',
+    title: 'WigPlugin',
+    tagline: 'Claude Code Plugin Collection',
+    description: {
+      ko: 'WigPlugin은 Claude Code 마켓플레이스에 공개된 AI 개발 워크플로우 플러그인입니다(44★). 12개의 전문 에이전트가 병렬로 PRD 생성, 아키텍처 결정, 빌드, 코드 리뷰, 커밋까지 자동화합니다.',
+      en: 'AI development workflow plugin on Claude Code marketplace (44★). 12 specialized agents run in parallel to automate PRD, architecture, build, review, and commit.',
+      ja: 'Claude Codeマーケットプレイス公開のAI開発ワークフロープラグイン（44★）。12の専門エージェントが並列でPRD生成、アーキテクチャ決定、ビルド、レビュー、コミットまで自動化。',
+    },
+    badges: [{ label: 'Active', variant: 'active' }, { label: '44★', variant: 'award' }],
+    tech: ['TypeScript', 'Claude API', 'MCP', 'Bash'],
+    links: [{ label: 'GitHub', url: 'https://github.com/wigtn/wigtn-plugins-with-claude-code', icon: 'github' }],
+    gradient: 'from-rose-500 to-pink-500',
+    media: { type: 'none' },
+  },
+  {
+    id: 'wigent',
+    num: '02',
     title: 'WIGENT',
     tagline: 'Multi-Agent AI Debate Platform',
     description: {
@@ -64,7 +80,7 @@ export const projects: Project[] = [
   },
   {
     id: 'wigvo',
-    num: '02',
+    num: '03',
     title: 'WIGVO',
     tagline: 'Real-time Phone Translation',
     description: {
@@ -85,7 +101,7 @@ export const projects: Project[] = [
   },
   {
     id: 'timelens',
-    num: '03',
+    num: '04',
     title: 'TimeLens',
     tagline: 'AI Cultural Heritage Guide',
     description: {
@@ -107,7 +123,7 @@ export const projects: Project[] = [
   },
   {
     id: 'wigvu',
-    num: '04',
+    num: '05',
     title: 'WIGVU',
     tagline: 'AI Korean Language Learning',
     description: {
@@ -123,7 +139,7 @@ export const projects: Project[] = [
   },
   {
     id: 'wigex',
-    num: '05',
+    num: '06',
     title: 'WIGEX',
     tagline: 'Travel Expense Tracker + OCR',
     description: {
@@ -136,21 +152,5 @@ export const projects: Project[] = [
     links: [{ label: 'GitHub', url: 'https://github.com/wigtn', icon: 'github' }],
     gradient: 'from-sky-500 to-cyan-500',
     media: { type: 'video', src: '/videos/wigex_video.mp4' },
-  },
-  {
-    id: 'wigplugin',
-    num: '06',
-    title: 'WigPlugin',
-    tagline: 'Claude Code Plugin Collection',
-    description: {
-      ko: 'WigPlugin은 Claude Code 마켓플레이스에 공개된 AI 개발 워크플로우 플러그인입니다(37★). PRD 생성, AI 코드 리뷰, 병렬 멀티에이전트 빌드 등 개발 프로세스를 자동화합니다.',
-      en: 'AI development workflow plugin on Claude Code marketplace (37★). Automates PRD generation, AI code review, and parallel multi-agent builds.',
-      ja: 'Claude Codeマーケットプレイス公開のAI開発ワークフロープラグイン（37★）。PRD生成、AIコードレビュー、並列マルチエージェントビルドを自動化。',
-    },
-    badges: [{ label: 'Active', variant: 'active' }, { label: '37★', variant: 'award' }],
-    tech: ['TypeScript', 'Claude API', 'MCP', 'Bash'],
-    links: [{ label: 'GitHub', url: 'https://github.com/wigtn/wigtn-plugins-with-claude-code', icon: 'github' }],
-    gradient: 'from-rose-500 to-pink-500',
-    media: { type: 'none' },
   },
 ]
