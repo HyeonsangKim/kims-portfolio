@@ -690,12 +690,325 @@ export const projectReports: Record<string, ProjectReport> = {
     sourceUrl: 'https://wigtn.com/projects/wigent',
   },
 
+  wigtnflake: {
+    slug: 'wigtnflake',
+    oneLiner: {
+      en: 'Pick a goal — open a cafe, allocate rental-ad budget, find a billboard site. Five Cortex-powered experts cross-debate four real datasets and answer with a Top 3 ranking, anomaly badges, and a 6-month forecast.',
+      ko: '목적을 고르면 — 카페 창업, 렌탈 광고 예산, 광고판 입지 — Cortex 전문가 5명이 네 개의 실데이터를 교차 토론해 Top 3 동네 + 이상 시그널 + 6개월 예측을 답으로 던진다.',
+      ja: '目的を選べば — カフェ創業、レンタル広告予算、看板立地 — Cortex専門家5名が4つの実データを横断議論し、Top 3地域 + 異常シグナル + 6ヶ月予測を返す。',
+    },
+    problem: {
+      en: [
+        'Picking where to open a cafe, where to invest, or where to move is a billion-won decision — and most people make it on gut.',
+        'The signals are out there (foot traffic, card sales, telecom contracts, real-estate prices) but they live in four different vendors with four different schemas. No one combines them.',
+        'Professional consulting that actually does the cross-dataset read costs millions of won per report — out of reach for small business owners.',
+        'Single-LLM tools (ChatGPT, Gemini) give one biased, hallucination-prone answer. There is no second opinion, no dissent, no data grounding.',
+      ],
+      ko: [
+        '창업 입지, 부동산 투자, 거주지 이사는 수억 원짜리 결정인데, 대부분 감으로 한다.',
+        '시그널은 흩어져 있다 — 유동인구, 카드매출, 통신계약, 부동산 시세. 네 개 벤더에 네 개 스키마. 아무도 합쳐주지 않는다.',
+        '실제로 네 가지를 교차해서 읽어주는 전문 컨설팅은 보고서 한 건에 수백만 원. 소상공인에겐 진입 자체가 막힌다.',
+        '단일 LLM 도구(ChatGPT, Gemini)는 편향되고 환각이 섞인 한 가지 답을 준다. 반론도, 교차 검증도, 데이터 그라운딩도 없다.',
+      ],
+      ja: [
+        '創業立地、不動産投資、引越しは数億円が動く決定なのに、ほとんどが勘で決まる。',
+        'シグナルは散らばっている — 人流、カード売上、通信契約、不動産価格。4ベンダー、4スキーマ、誰も統合しない。',
+        '実際に4つを横断して読み解く専門コンサルは1レポート数百万円。個人事業主には入り口自体がない。',
+        '単体LLMツール(ChatGPT, Gemini)は偏向と幻覚を混ぜた一つの答えを返すだけ。反論も交差検証もデータグラウンディングもない。',
+      ],
+    },
+    solution: {
+      en: [
+        'Purpose-first UX — the user picks *what they want to do* (5 presets + free input), not a topic. Same district scores differently depending on the goal.',
+        'Five-expert Cortex debate — PM facilitator, data analyst, forecast analyst, insight analyst, sentiment/news analyst — each grounded in real Snowflake data, not vibes.',
+        'ANOMALY_DETECTION promoted from supporting role to demo climax — auto-injects "watch this district" badges into the ranking when something is statistically off.',
+        'Hybrid AI: Cortex for SQL/forecast/report, GPT-4o for personas and function calling. Each model does what benchmarks say it does best.',
+        '3-tier fallback ladder: Cortex Agent → Cortex Analyst direct call → GPT-4o function calling → GPT-4o pure reasoning. Trial-account ceiling never breaks the demo.',
+      ],
+      ko: [
+        '목적 우선 UX — 사용자는 *무엇을 하고 싶은지* 고른다(5개 프리셋 + 자유 입력). 같은 동네라도 목적에 따라 점수가 달라진다.',
+        '5인 Cortex 토론 — PM 진행자, 데이터 분석가, 예측 분석가, 인사이트 분석가, 감성/뉴스 분석가. 모두 실제 Snowflake 데이터에 그라운딩된다. 분위기가 아니라.',
+        'ANOMALY_DETECTION을 보조에서 주연으로 승격 — 통계적 이상치가 잡히면 랭킹에 "지금 이 동네 주목" 배지를 자동 주입. 데모 클라이맥스.',
+        '하이브리드 AI: Cortex는 SQL/예측/리포트, GPT-4o는 페르소나/함수콜링. 벤치마크가 잘한다고 한 일을 각자에게 맡긴다.',
+        '3단 폴백 사다리: Cortex Agent → Cortex Analyst 직접 호출 → GPT-4o Function Calling → GPT-4o 순수 추론. Trial 계정 한계가 데모를 절대 깨지 않는다.',
+      ],
+      ja: [
+        '目的優先UX — ユーザーは*何をしたいか*を選ぶ(5プリセット + 自由入力)。同じ地域でも目的によりスコアが変わる。',
+        '5名Cortex議論 — PM進行役、データアナリスト、予測アナリスト、インサイトアナリスト、センチメント/ニュースアナリスト。全員Snowflake実データに接地、雰囲気ではない。',
+        'ANOMALY_DETECTIONを脇役から主役に昇格 — 統計的異常を検知するとランキングに「今この地域注目」バッジを自動注入。デモのクライマックス。',
+        'ハイブリッドAI：CortexはSQL/予測/レポート、GPT-4oはペルソナ/関数呼び出し。ベンチマークで得意と言われた仕事を各々に任せる。',
+        '3段フォールバック：Cortex Agent → Cortex Analyst直接呼び出し → GPT-4o Function Calling → GPT-4o純粋推論。トライアル制約がデモを絶対に壊さない。',
+      ],
+    },
+    metrics: [
+      { value: '2nd', label: { en: 'Snowflake Hackathon 2026', ko: 'Snowflake 해커톤 2026', ja: 'Snowflakeハッカソン 2026' } },
+      { value: '11', label: { en: 'Cortex Functions Used', ko: 'Cortex 기능 활용', ja: 'Cortex機能活用' } },
+      { value: '4', label: { en: 'Datasets Cross-Queried', ko: '데이터셋 교차 조회', ja: 'データセット横断クエリ' } },
+      { value: '5', label: { en: 'Experts per Session', ko: '세션당 전문가', ja: 'セッションあたり専門家' } },
+    ],
+    techStack: [
+      {
+        category: { en: 'Snowflake Cortex (11 functions)', ko: 'Snowflake Cortex (11개 기능)', ja: 'Snowflake Cortex (11機能)' },
+        items: [
+          'Cortex Agent (orchestration; Analyst-direct fallback)',
+          'Cortex Analyst × 4 (text-to-SQL on Semantic YAML)',
+          'Cortex LLM (claude-4-sonnet) — streaming markdown',
+          'FORECAST × 3 (pre-trained time-series models)',
+          'ANOMALY_DETECTION ⭐ (demo climax)',
+          'AI_SENTIMENT · AI_CLASSIFY · data_to_chart',
+          'Dynamic Tables × 2 (DT_DISTRICT_HEALTH / DNA)',
+          'Python UDF × 2 (decoupling index, DNA similarity)',
+          'Semantic Model YAML × 4',
+        ],
+      },
+      {
+        category: { en: 'Application', ko: '애플리케이션', ja: 'アプリケーション' },
+        items: [
+          'Next.js 16 (App Router · API Routes/SSE)',
+          'React 19 (React Compiler)',
+          'TypeScript 5.9 (strict)',
+          'Tailwind CSS 4',
+          'Framer Motion 12',
+          'Vega-Lite 6 (chart rendering)',
+        ],
+      },
+      {
+        category: { en: 'AI Bridge & Data', ko: 'AI 브리지 & 데이터', ja: 'AIブリッジ & データ' },
+        items: [
+          'GPT-4o (debate personas · function calling)',
+          'OpenAI SDK 6 (Cortex LLM via OpenAI-compatible endpoint)',
+          'snowflake-sdk 1.15 (direct connection)',
+          'Tavily (web search for news analyst)',
+          'MOLIT public API (real-estate transactions)',
+          'SPH · RichGo · NextTrade · AJD (4 datasets)',
+        ],
+      },
+    ],
+    architecture: [
+      {
+        title: { en: 'Brain Layer — GPT-4o Orchestrator', ko: 'Brain Layer — GPT-4o 오케스트레이터', ja: 'Brain Layer — GPT-4oオーケストレーター' },
+        body: {
+          en: 'Cortex inside Snowflake cannot yet drive a multi-agent debate with distinct personas reliably, so we put GPT-4o on top as the orchestrator. It owns turn-taking, persona dispatch, and reasoning across the five experts (PM facilitator, data analyst, forecast analyst, insight analyst, sentiment/news analyst).',
+          ko: 'Snowflake 내부 Cortex로는 아직 멀티 에이전트 토론에 필요한 뚜렷한 페르소나 구현이 어렵다. 그래서 GPT-4o를 오케스트레이터로 얹었다. 턴 진행, 페르소나 디스패치, 5명 전문가(PM 진행자, 데이터 분석가, 예측 분석가, 인사이트 분석가, 감성/뉴스 분석가)에 걸친 추론을 책임진다.',
+          ja: 'Snowflake内部Cortexだけではマルチエージェント議論に必要な明確なペルソナ表現が難しいため、GPT-4oをオーケストレーターとして上に置いた。ターン進行、ペルソナディスパッチ、5名の専門家にまたがる推論を担当する。',
+        },
+      },
+      {
+        title: { en: 'Data Layer — Cortex Analyst × 4', ko: 'Data Layer — Cortex Analyst × 4', ja: 'Data Layer — Cortex Analyst × 4' },
+        body: {
+          en: 'Per-dataset Semantic YAMLs (SPH foot traffic + card sales + KCB income, RichGo real estate, NextTrade equities, AJD telecom) feed Cortex Analyst, which converts each natural-language question into precise SQL. Forecast and anomaly answers come from FORECAST and ANOMALY_DETECTION called as the experts hand the floor to each other — debate triggers ML, not the other way around.',
+          ko: '데이터셋별 Semantic YAML(SPH 유동인구+카드매출+KCB 자산소득, RichGo 부동산, NextTrade 주식, AJD 통신)이 Cortex Analyst의 입력이 된다. 자연어 질문이 정확한 SQL로 변환된다. 예측·이상치 답은 전문가들이 발언권을 넘기는 사이 FORECAST와 ANOMALY_DETECTION이 호출돼서 나온다. 토론이 ML을 부른다, 그 반대가 아니다.',
+          ja: 'データセット別Semantic YAML(SPH人流+カード売上+KCB資産所得、RichGo不動産、NextTrade株式、AJD通信)がCortex Analystの入力になる。自然言語の質問が正確なSQLに変換される。予測・異常値の答えは専門家が発言を回す中でFORECASTとANOMALY_DETECTIONが呼ばれて出る。議論がMLを呼ぶ。逆ではない。',
+        },
+      },
+      {
+        title: { en: 'Render Layer — Cortex LLM Streaming Markdown', ko: 'Render Layer — Cortex LLM 스트리밍 마크다운', ja: 'Render Layer — Cortex LLM ストリーミングマークダウン' },
+        body: {
+          en: 'Final report is rendered by Cortex LLM (claude-4-sonnet) as streaming markdown — Top 3 ranking cards, anomaly badges, 6-month forecast charts (Vega-Lite), and a purpose-specific action checklist. Benchmarked at 17.3s / 1657 chars / 0 garbage tokens vs. snowflake-llama-3.3-70b at 38.4s with token collapse in some sessions.',
+          ko: '최종 리포트는 Cortex LLM(claude-4-sonnet)이 스트리밍 마크다운으로 렌더링한다 — Top 3 랭킹 카드, 이상 시그널 배지, 6개월 예측 차트(Vega-Lite), 목적별 액션 체크리스트. 벤치 17.3초 / 1657자 / 가비지 0건. snowflake-llama-3.3-70b는 같은 태스크에서 38.4초 + 일부 세션 토큰 붕괴.',
+          ja: '最終レポートはCortex LLM(claude-4-sonnet)がストリーミングマークダウンでレンダリング — Top 3ランキングカード、異常シグナルバッジ、6ヶ月予測チャート(Vega-Lite)、目的別アクションチェックリスト。ベンチで17.3秒/1657文字/ゴミトークン0、snowflake-llama-3.3-70bは同タスクで38.4秒+一部セッションでトークン崩壊。',
+        },
+      },
+      {
+        title: { en: '3-Tier Fallback Ladder', ko: '3단 폴백 사다리', ja: '3段フォールバックラダー' },
+        body: {
+          en: 'Tier 1: Cortex Agent runs Analyst×4 + data_to_chart. Tier 2 (when the trial account blocks Agent): Cortex Analyst is called as an endpoint directly. Tier 3: GPT-4o function calling with `execute_snowflake_sql`, `web_search`, `real_estate_transaction`, `statistical_analysis`. Tier 4: GPT-4o pure reasoning. The demo never crashes — it just downgrades gracefully.',
+          ko: 'Tier 1: Cortex Agent가 Analyst×4 + data_to_chart 실행. Tier 2(Trial 계정이 Agent를 막을 때): Cortex Analyst를 Endpoint로 직접 호출. Tier 3: GPT-4o Function Calling — `execute_snowflake_sql`, `web_search`, `real_estate_transaction`, `statistical_analysis`. Tier 4: GPT-4o 순수 추론. 데모는 절대 죽지 않고, 우아하게 계급만 내려간다.',
+          ja: 'Tier 1: Cortex AgentがAnalyst×4 + data_to_chart実行。Tier 2(トライアル制限時): Cortex AnalystをEndpoint直接呼び出し。Tier 3: GPT-4o Function Calling — `execute_snowflake_sql`, `web_search`, `real_estate_transaction`, `statistical_analysis`。Tier 4: GPT-4o純粋推論。デモは絶対に落ちず、優雅にダウングレードする。',
+        },
+      },
+    ],
+    deepDives: [
+      {
+        title: { en: 'Purpose Beats Topic', ko: '목적이 토픽을 이긴다', ja: '目的がトピックに勝つ' },
+        body: {
+          en: 'Most LLM products start with a free-text prompt. We started with five purpose cards (cafe / rental ads / billboard / investment / anomaly check) because the same district reads differently depending on the goal. Banpo-dong reads "saturated" to a cafe owner and "undervalued" to an investor. Topic-first asks the wrong question; purpose-first asks the right one.',
+          ko: '대부분 LLM 제품은 자유 텍스트 프롬프트로 시작한다. 우리는 5개 목적 카드(카페 / 렌탈 / 광고판 / 투자 / 이상 시그널)로 시작했다. 같은 동네라도 목적에 따라 다르게 읽힌다. 반포동은 카페 사장에겐 "포화", 투자자에겐 "저평가". 토픽 우선은 틀린 질문을 던지고, 목적 우선은 맞는 질문을 던진다.',
+          ja: 'ほとんどのLLM製品は自由テキストから始まる。我々は5つの目的カード(カフェ/レンタル/看板/投資/異常検知)から始めた。同じ地域でも目的により読みが変わる。盤浦洞はカフェ経営者には「飽和」、投資家には「低評価」。トピックファーストは間違った問いを投げ、目的ファーストは正しい問いを投げる。',
+        },
+      },
+      {
+        title: { en: 'Semantic YAML × 4 — Data Grounding', ko: 'Semantic YAML × 4 — 데이터 그라운딩', ja: 'Semantic YAML × 4 — データグラウンディング' },
+        body: {
+          en: 'Cortex Analyst is only as good as its Semantic Model. We hand-wrote four YAMLs (SPH, RichGo, NextTrade, AJD) with synonyms, dimension hierarchies, and pre-defined measures so a question like "30대 여성 직장인 유동인구 상위 동네" lands on the right columns. Cuts the hallucinated-column rate from "demo-killing" to "rare."',
+          ko: 'Cortex Analyst는 Semantic Model 품질만큼만 잘한다. SPH/RichGo/NextTrade/AJD 4개 YAML을 동의어, 디멘전 계층, 사전 정의된 측정치까지 손으로 짰다. "30대 여성 직장인 유동인구 상위 동네" 같은 질문이 정확한 컬럼에 꽂히도록. 환각 컬럼 비율을 "데모 킬러"에서 "희귀 사건"으로 낮춤.',
+          ja: 'Cortex AnalystはSemantic Model品質と同じだけ賢い。SPH/RichGo/NextTrade/AJDの4 YAMLを同義語、ディメンション階層、事前定義されたメジャーまで手書きした。「30代女性会社員の人流上位地域」のような問いが正確な列に着地するように。幻覚列率を「デモキラー」から「稀」に下げた。',
+        },
+      },
+      {
+        title: { en: 'Anomaly as Demo Climax', ko: 'Anomaly를 데모 클라이맥스로', ja: 'Anomalyをデモのクライマックスに' },
+        body: {
+          en: 'In v3 ANOMALY_DETECTION was a side feature. In v4 it became the demo climax — when the experts finish ranking, a final pass injects "watch this district" badges based on statistical outliers, and the panel literally reacts. Same Snowflake function, different staging.',
+          ko: 'v3에서 ANOMALY_DETECTION은 보조 기능이었다. v4에서 데모 클라이맥스로 승격했다 — 전문가들이 랭킹을 끝내면, 마지막 패스에서 통계적 이상치 기반 "지금 이 동네 주목" 배지가 주입되고, 심사위원이 실제로 반응한다. 같은 Snowflake 기능, 다른 무대 연출.',
+          ja: 'v3ではANOMALY_DETECTIONはサブ機能だった。v4でデモのクライマックスに昇格 — 専門家がランキングを終えると、最終パスで統計的外れ値に基づく「今この地域注目」バッジが注入され、審査員が実際に反応する。同じSnowflake機能、違う演出。',
+        },
+      },
+      {
+        title: { en: 'Hybrid Model Strategy', ko: '하이브리드 모델 전략', ja: 'ハイブリッドモデル戦略' },
+        body: {
+          en: 'Cortex LLM (claude-4-sonnet) for long Korean reports — 17.3s / 1657 chars / no garbage. GPT-4o for personas and function calling because Cortex personas felt flat and Cortex function calling was unreliable in the trial environment. We picked per task, not per principle.',
+          ko: '긴 한글 리포트는 Cortex LLM(claude-4-sonnet) — 17.3초 / 1657자 / 가비지 없음. 페르소나와 Function Calling은 GPT-4o — Cortex 페르소나는 평평하게 느껴졌고 Trial 환경에서 Function Calling이 불안정. 원칙이 아니라 태스크별로 골랐다.',
+          ja: '長い韓国語レポートはCortex LLM(claude-4-sonnet) — 17.3秒/1657文字/ゴミなし。ペルソナとFunction CallingはGPT-4o — Cortexペルソナは平板に感じ、トライアル環境でFunction Callingが不安定。原則ではなくタスク単位で選んだ。',
+        },
+      },
+      {
+        title: { en: 'Trial Account Workaround', ko: 'Trial 계정 우회', ja: 'トライアルアカウント回避' },
+        body: {
+          en: 'Snowflake trial blocks Cortex Agent, which is the official multi-tool orchestration entry point. We sidestepped it by calling Cortex Analyst as a REST endpoint directly — same Semantic Model, same SQL output, just one layer down. The fallback ladder catches the rest.',
+          ko: 'Snowflake Trial은 Cortex Agent(공식 멀티 툴 오케스트레이션 입구)를 막는다. Cortex Analyst를 REST Endpoint로 직접 호출해서 한 계층 아래로 우회했다. 같은 Semantic Model, 같은 SQL 출력. 폴백 사다리가 나머지를 받쳐준다.',
+          ja: 'SnowflakeトライアルはCortex Agent(公式マルチツール入口)をブロックする。Cortex AnalystをRESTエンドポイントとして直接呼び出し、一層下に回避した。同じSemantic Model、同じSQL出力。残りはフォールバックラダーが受け止める。',
+        },
+      },
+      {
+        title: { en: 'Token-Collapse Guard', ko: '토큰 붕괴 가드', ja: 'トークン崩壊ガード' },
+        body: {
+          en: 'Cortex LLM occasionally emits `<|reserved_special_token|>`, German nouns ("Dünnschicht"), or random surnames mid-stream. `hasGarbageTokens()` watches the stream live; first hit, we abort and fail over to GPT-4o without the user ever seeing junk in the report.',
+          ko: 'Cortex LLM이 가끔 스트리밍 도중 `<|reserved_special_token|>`, 독일어 명사("Dünnschicht"), 무작위 성씨를 뱉는다. `hasGarbageTokens()`가 스트림을 라이브로 감시. 첫 번째 적중에서 즉시 중단하고 GPT-4o로 페일오버. 사용자는 리포트에서 쓰레기를 보지 않는다.',
+          ja: 'Cortex LLMがストリーミング中に時々`<|reserved_special_token|>`、ドイツ語名詞(「Dünnschicht」)、ランダムな姓を吐く。`hasGarbageTokens()`がストリームをライブ監視。初ヒットで即中断しGPT-4oにフェイルオーバー。ユーザーはレポートでゴミを見ない。',
+        },
+      },
+      {
+        title: { en: '~90% Reuse from WIGENT', ko: 'WIGENT에서 ~90% 재활용', ja: 'WIGENTから~90%再利用' },
+        body: {
+          en: 'WIGENT (Build with TRAE 1st place) shipped a multi-agent orchestrator + SSE streaming + Slack-style chat in 3.5 hours. WIGTN FLAKE pivoted that codebase: the orchestrator, the SSE event protocol, the reducer, even the speaker-selection algorithm carried over. We spent the budget on the parts that were actually new — Cortex integration, Semantic YAMLs, fallback ladder.',
+          ko: 'WIGENT(Build with TRAE 1등)는 3.5시간 만에 멀티 에이전트 오케스트레이터 + SSE 스트리밍 + Slack 스타일 채팅을 출시했다. WIGTN FLAKE는 그 코드베이스에서 피봇했다. 오케스트레이터, SSE 이벤트 프로토콜, 리듀서, 심지어 스피커 선택 알고리즘까지 그대로 가져왔다. 예산은 진짜 새로운 부분 — Cortex 통합, Semantic YAML, 폴백 사다리 — 에 썼다.',
+          ja: 'WIGENT(Build with TRAE 1位)は3.5時間でマルチエージェントオーケストレーター + SSEストリーミング + Slack風チャットを出荷した。WIGTN FLAKEはそのコードベースからピボットした。オーケストレーター、SSEイベントプロトコル、リデューサー、スピーカー選択アルゴリズムまでそのまま継承。予算は本当に新しい部分 — Cortex統合、Semantic YAML、フォールバックラダー — に投じた。',
+        },
+      },
+      {
+        title: { en: 'Forced Convergence on Purpose', ko: '목적 기반 강제 수렴', ja: '目的駆動の強制収束' },
+        body: {
+          en: 'In WIGENT we forced agents to stop ideating after turn 25. Here we force them to *commit to a Top 3* — even "do not recommend" is a valid output, but it has to be a ranked, dataset-cited verdict, not a hedge. No "it depends" allowed in the final report.',
+          ko: 'WIGENT에선 턴 25 이후 아이디어 발산을 강제로 멈췄다. 여기선 *Top 3 커밋*을 강제한다 — "추천 안 함"도 유효한 출력이지만, 데이터셋 인용이 붙은 랭킹 형태여야 한다. 최종 리포트에 "상황에 따라 다릅니다"는 허용 안 됨.',
+          ja: 'WIGENTではターン25以降のアイデア発散を強制停止した。ここでは*Top 3への確約*を強制する — 「推奨しない」も有効な出力だが、データセット引用付きのランキング形式でなければならない。最終レポートに「場合による」は許されない。',
+        },
+      },
+    ],
+    timeline: [
+      {
+        time: '04-03',
+        title: { en: 'Project kickoff · idea exploration', ko: '프로젝트 킥오프 · 아이디어 탐색', ja: 'プロジェクトキックオフ・アイデア探索' },
+        body: {
+          en: 'Snowflake Hackathon 2026 Korea registration. First idea board.',
+          ko: 'Snowflake Hackathon 2026 Korea 등록. 첫 아이디어 보드.',
+          ja: 'Snowflake Hackathon 2026 Korea登録。最初のアイデアボード。',
+        },
+      },
+      {
+        time: '04-04',
+        title: { en: 'Cortex Agent / Analyst / LLM pipeline integrated', ko: 'Cortex Agent / Analyst / LLM 파이프라인 연결', ja: 'Cortex Agent / Analyst / LLMパイプライン統合' },
+        body: {
+          en: 'First end-to-end Snowflake call working through the Wigent orchestrator.',
+          ko: 'Wigent 오케스트레이터를 통한 첫 E2E Snowflake 호출 성공.',
+          ja: 'Wigentオーケストレーター経由の初E2E Snowflakeコール成功。',
+        },
+      },
+      {
+        time: '04-06',
+        title: { en: 'DataPulse v2 PRD — 12-Cortex-feature multi-agent architecture', ko: 'DataPulse v2 PRD — 12개 Cortex 기능 멀티 에이전트 아키텍처', ja: 'DataPulse v2 PRD — Cortex 12機能マルチエージェント' },
+        body: {
+          en: 'First serious feature audit. 12 candidate Cortex functions ranked by demo value.',
+          ko: '첫 본격 기능 감사. 데모 가치 기준 Cortex 후보 12개 랭킹.',
+          ja: '初の本格機能監査。デモ価値基準でCortex候補12個をランキング。',
+        },
+      },
+      {
+        time: '04-10',
+        title: { en: 'v3 — DNA profiling + FORECAST signal diagnosis', ko: 'v3 — DNA 프로파일링 + FORECAST 시그널 진단', ja: 'v3 — DNAプロファイリング + FORECASTシグナル診断' },
+        body: {
+          en: 'Dynamic Tables and Python UDFs added. District DNA scoring went live.',
+          ko: 'Dynamic Tables와 Python UDF 추가. 동네 DNA 스코어링 가동.',
+          ja: 'Dynamic TablesとPython UDF追加。地域DNAスコアリング稼働。',
+        },
+      },
+      {
+        time: '04-11',
+        title: { en: 'Rebrand → WIGTN FLAKE · purpose-driven pivot', ko: '리브랜드 → WIGTN FLAKE · 목적 기반 피봇', ja: 'リブランド → WIGTN FLAKE · 目的駆動ピボット' },
+        body: {
+          en: 'The decisive turn: 5 purpose presets, autonomous agents, 9-section report layout. Topic-first thrown out.',
+          ko: '결정적 전환: 5개 목적 프리셋, 자율 에이전트, 9개 섹션 리포트 레이아웃. 토픽 우선 폐기.',
+          ja: '決定的な転換：5つの目的プリセット、自律エージェント、9セクションレポートレイアウト。トピックファースト廃棄。',
+        },
+      },
+      {
+        time: '04-27',
+        title: { en: 'Final polish · intro video + TTS narration', ko: '최종 폴리싱 · 인트로 영상 + TTS 내레이션', ja: '最終仕上げ · イントロ映像 + TTSナレーション' },
+        body: {
+          en: 'Demo recorded. 79 commits over 25 days. Submitted.',
+          ko: '데모 녹화. 25일 동안 79 커밋. 제출.',
+          ja: 'デモ録画。25日間で79コミット。提出。',
+        },
+      },
+    ],
+    lessons: {
+      worked: {
+        en: [
+          'Promoting ANOMALY_DETECTION from supporting role to demo climax — the panel reaction was the difference between "interesting" and "memorable."',
+          'Hybrid model strategy was benchmark-driven, not vibes-driven. We measured Cortex vs Llama vs GPT-4o per task and let the numbers decide.',
+          'Cortex Analyst direct-call as the Tier-2 fallback unblocked the trial-account ceiling without anyone in the demo noticing.',
+          '~90% reuse from Wigent freed the team to spend the entire budget on the actually-new Snowflake parts.',
+          'Purpose-first UX dodged the generic "AI chat" framing every other team showed up with.',
+        ],
+        ko: [
+          'ANOMALY_DETECTION을 보조에서 데모 클라이맥스로 승격 — 심사위원 반응이 "흥미롭다"와 "기억에 남는다"의 차이를 만들었다.',
+          '하이브리드 모델 전략은 벤치 기반이지 분위기 기반이 아니었다. Cortex vs Llama vs GPT-4o를 태스크별로 측정하고 숫자가 결정하게 했다.',
+          'Cortex Analyst 직접 호출을 Tier-2 폴백으로 둔 게 Trial 계정 천장을 데모에서 아무도 모르게 뚫었다.',
+          'Wigent에서 ~90% 재활용한 덕에 팀이 진짜 새로운 Snowflake 부분에 예산 전부를 쓸 수 있었다.',
+          '목적 우선 UX가 다른 팀들이 다 들고 온 일반적인 "AI 챗" 프레이밍을 피했다.',
+        ],
+        ja: [
+          'ANOMALY_DETECTIONを脇役からデモクライマックスに昇格 — 審査員の反応が「興味深い」と「記憶に残る」の差を生んだ。',
+          'ハイブリッドモデル戦略はベンチ駆動で雰囲気駆動ではなかった。Cortex vs Llama vs GPT-4oをタスク単位で測定し数字に決めさせた。',
+          'Cortex Analyst直接呼び出しをTier-2フォールバックに置いたことで、トライアル天井をデモで誰にも気付かれずに突破した。',
+          'Wigentから~90%再利用したおかげで、チームは本当に新しいSnowflake部分に予算全てを投じられた。',
+          '目的ファーストUXが、他チームが全員持ってきた一般的な「AIチャット」フレーミングを回避した。',
+        ],
+      },
+      wouldChange: {
+        en: [
+          'Every purpose pivot forced re-tuning all four Semantic YAMLs by hand — a YAML schema linter would have caught half the wrong-column SQL early.',
+          'Cortex per-query billing made a public live deploy infeasible inside trial limits. Should have planned a result-cache layer from Day 1, not Day 22.',
+          'No tests at all — orchestrator, Cortex bridge, fallback ladder, garbage-token detector all need integration coverage before the next demo.',
+          'The 4-dataset × 11-Cortex story did not survive without verbal explanation. Need a one-screen architecture diagram on the landing page so judges grasp the depth before the chat starts.',
+        ],
+        ko: [
+          '목적이 피봇될 때마다 4개 Semantic YAML 전부를 손으로 재튜닝해야 했다. YAML 스키마 린터가 있었다면 잘못된 컬럼 SQL의 절반은 일찍 잡혔을 것.',
+          'Cortex 쿼리당 과금 때문에 Trial 한도 안에서 퍼블릭 라이브 배포가 불가능했다. 결과 캐시 레이어를 22일째가 아니라 1일째에 계획했어야 했다.',
+          '테스트가 아예 없다 — 오케스트레이터, Cortex 브리지, 폴백 사다리, 가비지 토큰 디텍터 전부 다음 데모 전에 통합 테스트 필요.',
+          '4 데이터셋 × 11 Cortex 스토리가 구두 설명 없이는 안 전달됐다. 채팅 시작 전에 심사위원이 깊이를 파악하도록 랜딩 페이지에 한 화면짜리 아키텍처 다이어그램이 필요하다.',
+        ],
+        ja: [
+          '目的がピボットするたびに4つのSemantic YAMLを全て手で再調整しなければならなかった。YAMLスキーマリンターがあれば誤った列SQLの半分は早期に捕まえられたはず。',
+          'Cortexのクエリ単位課金でトライアル枠内のパブリックライブデプロイが不可能だった。結果キャッシュ層を22日目ではなく1日目に計画すべきだった。',
+          'テストがゼロ — オーケストレーター、Cortexブリッジ、フォールバックラダー、ゴミトークン検出器全て次のデモまでに統合テストが必要。',
+          '4データセット × 11 Cortexのストーリーは口頭説明なしでは伝わらなかった。チャット開始前に審査員が深度を把握できるよう、ランディングに1画面のアーキテクチャ図が必要。',
+        ],
+      },
+    },
+    byTheNumbers: [
+      { label: { en: 'Development time', ko: '개발 시간', ja: '開発期間' }, value: '25 days' },
+      { label: { en: 'Commits', ko: '커밋', ja: 'コミット' }, value: '79' },
+      { label: { en: 'Cortex functions used', ko: 'Cortex 기능 사용', ja: 'Cortex機能使用' }, value: '11' },
+      { label: { en: 'Datasets cross-queried', ko: '교차 조회 데이터셋', ja: '横断クエリデータセット' }, value: '4 (SPH · RichGo · NextTrade · AJD)' },
+      { label: { en: 'Semantic Model YAMLs', ko: 'Semantic Model YAML', ja: 'Semantic Model YAML' }, value: '4' },
+      { label: { en: 'AI experts per session', ko: '세션당 AI 전문가', ja: 'セッションあたりAI専門家' }, value: '5' },
+      { label: { en: 'Pre-trained FORECAST models', ko: '사전학습 FORECAST 모델', ja: '事前学習FORECASTモデル' }, value: '3' },
+      { label: { en: 'Dynamic Tables', ko: 'Dynamic Tables', ja: 'Dynamic Tables' }, value: '2' },
+      { label: { en: 'Python UDFs', ko: 'Python UDF', ja: 'Python UDF' }, value: '2' },
+      { label: { en: 'Fallback tiers', ko: '폴백 단계', ja: 'フォールバック段階' }, value: '3' },
+      { label: { en: 'Reuse from WIGENT', ko: 'WIGENT에서 재활용', ja: 'WIGENTから再利用' }, value: '~90%' },
+      { label: { en: 'Cortex LLM benchmark', ko: 'Cortex LLM 벤치', ja: 'Cortex LLMベンチ' }, value: '17.3s / 1657 chars / 0 garbage' },
+      { label: { en: 'Hackathon result', ko: '해커톤 결과', ja: 'ハッカソン結果' }, value: '2nd Place · Tech Track' },
+    ],
+    sourceUrl: 'https://wigtn.com/projects/wigtn-flake',
+  },
+
   wigvo: {
     slug: 'wigvo',
     oneLiner: {
-      en: 'Break language barriers in Korea. Call anyone, in any language.',
-      ko: '한국의 언어 장벽을 허문다. 누구든, 어떤 언어로든 전화하라.',
-      ja: '韓国の言語の壁を打ち破る。誰にでも、どんな言語でも電話できる。',
+      en: 'Break language barriers in Korea — call anyone, in any language. Accepted at ACL 2026 System Demonstrations.',
+      ko: '한국의 언어 장벽을 허문다. 누구든, 어떤 언어로든 전화하라. ACL 2026 System Demonstrations 채택.',
+      ja: '韓国の言語の壁を打ち破る。誰にでも、どんな言語でも電話できる。ACL 2026 System Demonstrations採択。',
     },
     problem: {
       en: [
@@ -862,6 +1175,7 @@ export const projectReports: Record<string, ProjectReport> = {
       },
     },
     byTheNumbers: [
+      { label: { en: 'Publication', ko: '논문', ja: '論文' }, value: 'ACL 2026 · System Demonstrations (accepted)' },
       { label: { en: 'Echo loops', ko: '에코 루프', ja: 'エコーループ' }, value: '0 / 148' },
       { label: { en: 'Echo gate activations / call', ko: '에코 게이트 발동 / 통화', ja: 'エコーゲート発動 / 通話' }, value: '7.0 avg' },
       { label: { en: 'VAD false positives / call', ko: 'VAD 오탐 / 통화', ja: 'VAD誤検知 / 通話' }, value: '1.8 avg' },

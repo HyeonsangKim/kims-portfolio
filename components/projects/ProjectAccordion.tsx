@@ -25,6 +25,7 @@ const gradientCssMap: Record<Gradient, string> = {
   'from-amber-500 to-orange-500': 'linear-gradient(135deg, #f59e0b, #f97316)',
   'from-emerald-500 to-teal-500': 'linear-gradient(135deg, #10b981, #14b8a6)',
   'from-sky-500 to-cyan-500': 'linear-gradient(135deg, #0ea5e9, #06b6d4)',
+  'from-sky-500 to-blue-600': 'linear-gradient(135deg, #0ea5e9, #2563eb)',
   'from-rose-500 to-pink-500': 'linear-gradient(135deg, #f43f5e, #ec4899)',
   'from-fuchsia-500 to-purple-600': 'linear-gradient(135deg, #d946ef, #9333ea)',
 }

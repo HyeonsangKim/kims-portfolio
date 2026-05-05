@@ -2,10 +2,10 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 // 아이콘 import
-import { 
-  SiNextdotjs, SiReact, SiTypescript, SiJavascript, SiHtml5, SiCss3, 
+import {
+  SiNextdotjs, SiReact, SiTypescript, SiJavascript,
   SiNestjs, SiSpring, SiMongodb, SiPostgresql, SiMysql,
-  SiNodedotjs, SiDocker, SiGit
+  SiNodedotjs, SiDocker, SiGit, SiPython, SiFastapi, SiGooglecloud, SiSupabase, SiRedis,
 } from 'react-icons/si'
 import { FaJava } from 'react-icons/fa'
 
@@ -46,23 +46,26 @@ const skills: Record<SkillCategory, Skill[]> = {
     { name: "React Native", icon: <SiReact />, color: "text-violet-500" },
     { name: "TypeScript", icon: <SiTypescript />, color: "text-blue-500" },
     { name: "JavaScript", icon: <SiJavascript />, color: "text-yellow-400" },
-    // { name: "HTML5", icon: <SiHtml5 />, color: "text-orange-500" },
-    // { name: "CSS3", icon: <SiCss3 />, color: "text-blue-600" },
   ],
   Backend: [
     { name: "NestJS", icon: <SiNestjs />, color: "text-red-600" },
     { name: "Java", icon: <FaJava />, color: "text-orange-400" },
     { name: "Spring Boot", icon: <SiSpring />, color: "text-green-500" },
-    { name: "Node.js", icon: <SiNodedotjs />, color: "text-green-600" }
+    { name: "Node.js", icon: <SiNodedotjs />, color: "text-green-600" },
+    { name: "Python", icon: <SiPython />, color: "text-yellow-300" },
+    { name: "FastAPI", icon: <SiFastapi />, color: "text-teal-400" },
   ],
   Database: [
     { name: "MongoDB", icon: <SiMongodb />, color: "text-green-500" },
     { name: "PostgreSQL", icon: <SiPostgresql />, color: "text-blue-300" },
     { name: "MySQL", icon: <SiMysql />, color: "text-blue-500" },
+    { name: "Supabase", icon: <SiSupabase />, color: "text-emerald-400" },
+    { name: "Redis", icon: <SiRedis />, color: "text-red-500" },
   ],
   DevOps: [
     { name: "Docker", icon: <SiDocker />, color: "text-blue-500" },
-    { name: "Git", icon: <SiGit />, color: "text-orange-600" }
+    { name: "Git", icon: <SiGit />, color: "text-orange-600" },
+    { name: "Cloud Run", icon: <SiGooglecloud />, color: "text-blue-400" },
   ]
 }
 

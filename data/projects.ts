@@ -14,6 +14,7 @@ export type Gradient =
   | 'from-amber-500 to-orange-500'
   | 'from-emerald-500 to-teal-500'
   | 'from-sky-500 to-cyan-500'
+  | 'from-sky-500 to-blue-600'
   | 'from-rose-500 to-pink-500'
   | 'from-fuchsia-500 to-purple-600'
 
@@ -79,19 +80,42 @@ export const projects: Project[] = [
     media: { type: 'none' },
   },
   {
-    id: 'wigvo',
+    id: 'wigtnflake',
     num: '03',
-    title: 'WIGVO',
-    tagline: 'Real-time Phone Translation',
+    title: 'WIGTN FLAKE',
+    tagline: 'Purpose-Driven Neighborhood Intelligence',
     description: {
-      ko: 'WIGVO는 실시간 전화 통번역 솔루션입니다. 듀얼 AI 세션 아키텍처로 에코 없는 양방향 통번역을 구현했으며, 앱 설치 없이 일반 전화로 실시간 통번역이 가능합니다.',
-      en: 'Real-time phone translation system with dual AI session architecture — zero echo, bidirectional translation via regular phone calls without app installation.',
-      ja: 'リアルタイム電話通訳ソリューション。デュアルAIセッションアーキテクチャでエコーゼロの双方向通訳を実現。アプリ不要で一般電話からリアルタイム通訳が可能。',
+      ko: 'WIGTN FLAKE는 창업·투자·이사처럼 수억 원이 걸린 결정을 멀티 에이전트 토론으로 풀어내는 동네 인텔리전스 플랫폼입니다. "무엇을 하고 싶은지" 목적을 선택하면 GPT-4o 오케스트레이터가 5명의 Cortex 전문가를 소환해 부동산·유동인구·카드매출·통신계약 4개 데이터셋을 교차 토론하고, Top 3 동네 + 6개월 예측 + 이상 시그널 + 실행 액션을 자동 생성합니다.\nSnowflake AI & Data Hackathon Korea 2026 Tech Track 2등 수상작.',
+      en: 'WIGTN FLAKE turns Snowflake Cortex into a purpose-driven neighborhood-intelligence platform for billion-won decisions — opening a cafe, allocating rental-appliance ad budget, finding a billboard site, real-estate investing. A GPT-4o orchestrator summons 5 Cortex-powered experts who cross-debate four datasets (real estate, foot traffic, card sales, telecom) and answer with a Top 3 ranking, anomaly badges, a 6-month forecast, and an action checklist.\n2nd Place at Snowflake AI & Data Hackathon Korea 2026 (Tech Track).',
+      ja: 'WIGTN FLAKEは、創業・投資・引越しなど数億円が動く意思決定をマルチエージェント議論で解く地域インテリジェンス基盤。ユーザーが「何をしたいか」目的を選ぶと、GPT-4oオーケストレーターがCortex専門家5名を召喚し、不動産・人流・カード売上・通信契約の4データセットを横断議論。Top 3地域 + 6ヶ月予測 + 異常シグナル + アクションを自動生成。Snowflake AI & Data Hackathon Korea 2026 Tech Track 2位。',
     },
     badges: [
+      { label: '2nd Place', variant: 'award' },
+      { label: 'Snowflake', variant: 'active' },
+    ],
+    tech: ['Next.js 16', 'React 19', 'TypeScript', 'Snowflake Cortex', 'GPT-4o', 'snowflake-sdk', 'Vega-Lite', 'SSE'],
+    links: [
+      { label: 'GitHub', url: 'https://github.com/wigtn/wigtn-for-snowflake', icon: 'github' },
+      { label: 'News', url: 'https://www.newswire.co.kr/newsRead.php?no=1033575', icon: 'external' },
+    ],
+    gradient: 'from-sky-500 to-blue-600',
+    media: { type: 'youtube', videoId: '1YzSp3SdzTk' },
+  },
+  {
+    id: 'wigvo',
+    num: '04',
+    title: 'WIGVO',
+    tagline: 'Real-time Phone Interpreter',
+    description: {
+      ko: 'WIGVO는 일반 전화선 위에서 동작하는 실시간 음성 통역 시스템입니다. 방향별로 OpenAI Realtime 세션을 두 개 병렬로 돌리는 듀얼 세션 아키텍처와 소프트웨어 전용 에코 캔슬레이션 파이프라인으로 평균 557ms 지연, 148건 실통화 0건의 에코 루프를 달성했습니다. 수신자는 앱 설치 없이 일반 전화로 받기만 하면 됩니다.\nACL 2026 System Demonstrations 채택.',
+      en: 'Real-time voice translation for PSTN phone calls. A dual-session architecture (two parallel OpenAI Realtime sessions, one per speaker) and a software-only echo-cancellation pipeline deliver 557ms average latency and zero echo-loop incidents across 148 production calls. Recipients answer a normal phone call — no app required.\nAccepted at ACL 2026 System Demonstrations.',
+      ja: 'PSTN電話線上で動作するリアルタイム音声通訳システム。話者ごとにOpenAI Realtimeセッションを2つ並列で動かすデュアルセッションアーキテクチャと、ソフトウェアのみのエコーキャンセレーションパイプラインで平均557msのレイテンシ、本番148コールでエコーループ0件を達成。受信者はアプリ不要で普通の電話に出るだけ。ACL 2026 System Demonstrations採択。',
+    },
+    badges: [
+      { label: 'ACL 2026', variant: 'award' },
       { label: 'Live', variant: 'live' },
     ],
-    tech: ['React Native', 'WebSocket', 'OpenAI Realtime API', 'FastAPI', 'Twilio', 'Docker'],
+    tech: ['Python 3.12', 'FastAPI', 'OpenAI Realtime API', 'Whisper-1', 'Silero VAD', 'Twilio', 'React Native (Expo 54)', 'Cloud Run'],
     links: [
       { label: 'Live', url: 'https://wigvo-web-gzjzn35jyq-du.a.run.app/', icon: 'external' },
       { label: 'GitHub', url: 'https://github.com/wigtn/wigvo-v2', icon: 'github' },
@@ -101,7 +125,7 @@ export const projects: Project[] = [
   },
   {
     id: 'timelens',
-    num: '04',
+    num: '05',
     title: 'TimeLens',
     tagline: 'AI Cultural Heritage Guide',
     description: {
@@ -123,7 +147,7 @@ export const projects: Project[] = [
   },
   {
     id: 'wigvu',
-    num: '05',
+    num: '06',
     title: 'WIGVU',
     tagline: 'AI Korean Language Learning',
     description: {
@@ -139,7 +163,7 @@ export const projects: Project[] = [
   },
   {
     id: 'wigex',
-    num: '06',
+    num: '07',
     title: 'WIGEX',
     tagline: 'Travel Expense Tracker + OCR',
     description: {
