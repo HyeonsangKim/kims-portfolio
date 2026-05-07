@@ -54,9 +54,9 @@ const translations = {
     },
     soundmind: {
       tagline: {
-        ko: 'Leading offline-first mobile & web solutions.',
-        en: 'Leading offline-first mobile & web solutions.',
-        ja: 'オフラインファーストのモバイル＆Webソリューションをリード。',
+        ko: 'MX팀 리드 — 모바일 앱·인증 서버·웹 플랫폼 4개 프로젝트 리딩.',
+        en: 'MX Team Lead — driving 4 projects across mobile, auth, and web platforms.',
+        ja: 'MXチームリード — モバイル・認証・Webプラットフォームの4プロジェクトを統括。',
       },
     },
     purple: {
