@@ -16,66 +16,66 @@ const experiences = [
     role: "MX Team Lead",
     period: "2025.02 - Present",
     tagline: {
-      ko: 'MX팀 리드 — 모바일 앱·인증 서버·웹 플랫폼 4개 프로젝트 리딩.',
-      en: 'MX Team Lead — driving 4 projects across mobile, auth, and web platforms.',
-      ja: 'MXチームリード — モバイル・認証・Webプラットフォームの4プロジェクトを統括。',
+      ko: 'OEM Pre-Installed App Platform — 특화폰 B2B 서비스 + 정부 R&D 리딩.',
+      en: 'OEM pre-installed app platform — leading B2B specialized-phone services and Government R&D.',
+      ja: 'OEMプリインストールアプリプラットフォーム — 特化スマホB2Bサービスと政府R&Dを統括。',
     } as L,
     projects: [
       {
         name: "ODIYA (Location)",
         desc: {
-          ko: '자녀 위치 조회 서비스. 30,000+ 활성 유저 대상 React Native 크로스플랫폼 앱과 Spring Boot 백엔드로 구성.',
-          en: 'Child location-tracking service for 30,000+ active users. React Native cross-platform app with Spring Boot backend.',
-          ja: '子供位置確認サービス。30,000+アクティブユーザー対象のReact Nativeクロスプラットフォームアプリ + Spring Bootバックエンド。',
+          ko: '자녀 위치 조회 서비스. 노란마켓·공부폰 OEM 탑재로 30,000+ 사용자 대상 React Native 앱 + Spring Boot 백엔드 운영.',
+          en: 'Child location-tracking service. Pre-installed on Yellow Market & Studyphone OEM devices, serving 30,000+ users with React Native app + Spring Boot backend.',
+          ja: '子供位置確認サービス。イエローマーケット・スタディフォンOEM搭載で30,000+ユーザー対象のReact Nativeアプリ + Spring Bootバックエンドを運用。',
         } as L,
         highlights: {
-          ko: ["Redis 이중 큐 배치 아키텍처 — 분당 30,000건 처리, DB 쓰기 부하 95% 감소·반복 장애 해소", "AES-256 좌표 암호화 + Haversine 기반 SQL 지오펜싱 (안심존 이탈 감지)", "FCM 기반 양방향 푸시 알림 시스템 구현", "App Store/Google Play 동시 출시, 30,000+ 활성 유저 확보"],
-          en: ["Redis dual-queue batch — 30,000 writes/min, 95% DB load reduction, eliminated recurring outages", "AES-256 coordinate encryption + Haversine SQL geofencing (safe-zone exit detection)", "Bidirectional FCM push notification system", "Shipped to App Store & Google Play, 30,000+ active users"],
-          ja: ["Redis二重キューバッチ — 毎分30,000件処理、DB書き込み負荷95%削減・再発障害を解消", "AES-256座標暗号化 + HaversineベースSQLジオフェンシング（安心ゾーン離脱検知）", "FCMによる双方向プッシュ通知システム実装", "App Store/Google Play同時リリース、30,000+アクティブユーザー獲得"],
+          ko: ["App Store / Google Play 출시 및 30,000+ 사용자 운영", "Redis 이중 큐 배치 아키텍처 — 분당 수만 건 처리, DB 쓰기 부하 95% 감소·반복 장애 해결", "Haversine 기반 SQL 지오펜싱으로 안심존 출이탈 감지", "Hotupdater + Supabase 기반 코드푸시 적용 및 사내 매뉴얼 작성"],
+          en: ["Shipped to App Store / Google Play, operating with 30,000+ users", "Redis dual-queue batch — tens of thousands writes/min, 95% DB load reduction, resolved recurring outages", "Haversine SQL geofencing for safe-zone entry/exit detection", "Hotupdater + Supabase code-push integration with internal documentation"],
+          ja: ["App Store / Google Playリリース、30,000+ユーザーを運用", "Redis二重キューバッチ — 毎分数万件処理、DB書き込み負荷95%削減・再発障害を解消", "HaversineベースSQLジオフェンシングで安心ゾーン出入検知", "Hotupdater + Supabaseベースのコードプッシュ適用と社内マニュアル作成"],
         } as LA,
-        stack: ['React Native', 'Spring Boot', 'Redis', 'FCM', 'Native Modules']
-      },
-      {
-        name: "SSO Auth Server",
-        desc: {
-          ko: 'Spring Boot MSA 기반 SSO 인증 서버. 인증/비즈니스 서버 분리 구조와 Webhook 기반 이벤트 동기화로 사내 인증 백본 운영.',
-          en: 'Spring Boot MSA-based SSO auth server. Auth/business server separation with Webhook-driven event sync, serving as internal auth backbone.',
-          ja: 'Spring Boot MSAベースSSO認証サーバー。認証/ビジネスサーバー分離構造とWebhookイベント同期で社内認証バックボーンを運用。',
-        } as L,
-        highlights: {
-          ko: ["JWT Access/Refresh 이중 토큰 + Token Rotation 구현", "Token Family Tracking — 리프레시 토큰 탈취 시 전체 패밀리 즉시 폐기", "AES-256-GCM 개인정보(전화번호·이메일) 암호화", "Redis 기반 11개 Rate Limiting 정책 (IP/계정/엔드포인트별)", "Flyway 마이그레이션 + Webhook 이벤트 동기화"],
-          en: ["JWT Access/Refresh dual-token with Token Rotation", "Token Family Tracking — instant family-wide revocation on refresh-token theft", "AES-256-GCM PII encryption ", "Redis-based 11 Rate Limiting policies (IP/account/endpoint)", "Flyway migrations + Webhook-based service event sync"],
-          ja: ["JWT Access/Refresh デュアルトークン + Token Rotation実装", "Token Family Tracking — リフレッシュトークン奪取時にファミリー全体を即時無効化", "AES-256-GCM個人情報（電話番号・メール）暗号化", "Redisベース11種Rate Limitingポリシー（IP/アカウント/エンドポイント別）", "Flywayマイグレーション + Webhookサービス間イベント同期"],
-        } as LA,
-        stack: ['Spring Boot', 'MariaDB', 'Redis', 'JWT', 'Flyway']
+        stack: ['React Native', 'Spring Boot', 'Redis', 'Supabase', 'Hotupdater']
       },
       {
         name: "Mohani (Parental Control)",
         desc: {
-          ko: '자녀 디바이스 관리 앱. React Native + Samsung Knox SDK로 시스템 레벨 앱·콘텐츠 차단과 원격 제어 제공.',
-          en: 'Parental device management app. System-level app/content blocking and remote control via React Native + Samsung Knox SDK.',
-          ja: '子供デバイス管理アプリ。React Native + Samsung Knox SDKでシステムレベルのアプリ・コンテンツ遮断と遠隔制御を提供。',
+          ko: '자녀 디바이스 관리 서비스. 노란마켓·공부폰 OEM 탑재. Samsung Knox SDK + AccessibilityService 기반 시스템 레벨 차단·원격 제어 제공.',
+          en: 'Parental device management service. Pre-installed on Yellow Market & Studyphone OEM. System-level blocking and remote control via Samsung Knox SDK + AccessibilityService.',
+          ja: '子供デバイス管理サービス。イエローマーケット・スタディフォンOEM搭載。Samsung Knox SDK + AccessibilityServiceでシステムレベル遮断・遠隔制御を提供。',
         } as L,
         highlights: {
-          ko: ["React Native Native Module 7개 구현 (Java↔JS Bridge)", "Samsung Knox Firewall API 도메인 차단", "AccessibilityService 기반 YouTube Shorts·카카오톡 실시간 감지·차단", "FCM command/request-response 구조 설계 및 원격 제어 구현", "Android FCM Broadcast ANR 분석·해결 (RN Bridge Queue 병목·Knox IPC 지연)"],
-          en: ["7 React Native Native Modules (Java↔JS Bridge)", "Samsung Knox Firewall API domain blocking", "AccessibilityService-based real-time blocking of YouTube Shorts & KakaoTalk", "FCM command/request-response architecture for remote device control", "Resolved Android FCM Broadcast ANR (RN Bridge Queue & Knox IPC bottleneck)"],
-          ja: ["React Native Native Module 7個実装（Java↔JS Bridge）", "Samsung Knox Firewall APIドメイン遮断", "AccessibilityServiceベース YouTube Shorts・カカオトーク リアルタイム検知・遮断", "FCM command/request-response構造設計と遠隔制御実装", "Android FCM Broadcast ANR分析・解決（RN Bridge Queue・Knox IPC遅延）"],
+          ko: ["Samsung Knox Firewall 기반 API 도메인 차단 구현", "AccessibilityService 기반 앱 실시간 감지·차단 구현", "FCM command/request-response 구조 설계 및 원격 제어 구현", "Android FCM Broadcast ANR 분석·해결 (RN Bridge Queue 병목·Knox IPC 지연)", "무거운 Native 작업을 백그라운드 비동기 처리로 분리하여 ANR 해소"],
+          en: ["Samsung Knox Firewall-based API domain blocking", "AccessibilityService-based real-time app detection & blocking", "FCM command/request-response architecture for remote device control", "Resolved Android FCM Broadcast ANR (RN Bridge Queue & Knox IPC bottleneck)", "Offloaded heavy native work to background async to eliminate ANR"],
+          ja: ["Samsung Knox FirewallベースAPIドメイン遮断実装", "AccessibilityServiceベースのアプリリアルタイム検知・遮断実装", "FCM command/request-response構造設計と遠隔制御実装", "Android FCM Broadcast ANR分析・解決（RN Bridge Queue・Knox IPC遅延）", "重いNative処理をバックグラウンド非同期に分離しANR解消"],
         } as LA,
         stack: ['React Native', 'Android Native', 'Knox SDK', 'FCM', 'Java/Kotlin']
       },
       {
-        name: { ko: 'KOCCA 한국어 평가 시스템', en: 'KOCCA Korean Assessment', ja: 'KOCCA韓国語評価システム' } as L,
+        name: { ko: 'OEM 통합 서버', en: 'OEM Integration Server', ja: 'OEM統合サーバー' } as L,
         desc: {
-          ko: '국가 R&D 교육용 웹 플랫폼. Next.js Server Components 기반 프론트·백엔드 통합 구현 및 음성 평가 파이프라인 제공.',
-          en: 'National R&D educational web platform. Integrated frontend/backend on Next.js Server Components with voice assessment pipeline.',
-          ja: '国家R&D教育用Webプラットフォーム。Next.js Server Componentsベースのフロント・バックエンド統合実装と音声評価パイプラインを提供。',
+          ko: 'OEM 앱 통합 인증 서버 + 통합 페이지. 인증/비즈니스 서버 분리 구조와 Webhook 기반 이벤트 동기화로 OEM 서비스 백본 설계·운영.',
+          en: 'OEM unified auth server + integration page. Designed and operated OEM service backbone with auth/business separation and Webhook event sync.',
+          ja: 'OEMアプリ統合認証サーバー + 統合ページ。認証/ビジネスサーバー分離構造とWebhookイベント同期でOEMサービスのバックボーンを設計・運用。',
         } as L,
         highlights: {
-          ko: ["WAV 녹음 (16kHz 샘플링) + S3 업로드 파이프라인 구축", "Nginx 리버스 프록시 설정 및 SSL 인증서 적용으로 보안 강화", "PostgreSQL 스키마 설계 + Prisma ORM 쿼리 구현", "ExcelJS 기반 채점 결과 내보내기"],
-          en: ["WAV recording (16kHz) + S3 upload pipeline", "Nginx reverse proxy with SSL hardening", "PostgreSQL schema design + Prisma ORM queries", "ExcelJS-based assessment result export"],
-          ja: ["WAV録音（16kHzサンプリング）+ S3アップロードパイプライン構築", "Nginxリバースプロキシ設定とSSL証明書適用によるセキュリティ強化", "PostgreSQLスキーマ設計 + Prisma ORMクエリ実装", "ExcelJSベースの採点結果エクスポート"],
+          ko: ["인증 서버와 비즈니스 서버 분리 구조 설계", "Token Rotation + Token Family Tracking 기반 인증 구조 구현", "Refresh Token 탈취 시 전체 토큰 패밀리 즉시 폐기", "Redis 기반 Rate Limiting 정책 설계", "OEM 서비스 간 Webhook 이벤트 동기화 + 통합 페이지 개발·운영"],
+          en: ["Auth/business server separation architecture", "Token Rotation + Token Family Tracking-based auth architecture", "Instant family-wide revocation on Refresh Token theft", "Redis-based Rate Limiting policy design", "Webhook event sync across OEM services + integration page operation"],
+          ja: ["認証サーバーとビジネスサーバーの分離構造設計", "Token Rotation + Token Family Trackingベース認証構造実装", "Refresh Token奪取時にトークンファミリー全体を即時無効化", "RedisベースRate Limitingポリシー設計", "OEMサービス間Webhookイベント同期 + 統合ページ開発・運用"],
         } as LA,
-        stack: ['Next.js', 'Server Components', 'Prisma', 'PostgreSQL', 'Nginx', 'ExcelJS']
+        stack: ['Spring Boot', 'MariaDB', 'Redis', 'JWT', 'Webhook']
+      },
+      {
+        name: { ko: 'KOCCA 한국어 평가 시스템', en: 'KOCCA Korean Assessment', ja: 'KOCCA韓国語評価システム' } as L,
+        desc: {
+          ko: '정부지원사업 R&D. 외국인 학생 대상 한국어 시험 웹 플랫폼. Next.js Server Components 기반 프론트·백엔드 통합 구현.',
+          en: 'Government R&D project. Korean assessment web platform for foreign students. Integrated frontend/backend on Next.js Server Components.',
+          ja: '政府支援事業R&D。外国人学生向け韓国語試験Webプラットフォーム。Next.js Server Componentsベースでフロント・バックエンド統合実装。',
+        } as L,
+        highlights: {
+          ko: ["외국인 학생 대상 한국어 시험 웹 플랫폼 프론트·백엔드 구현", "외부 STT 연동을 위한 WAV 녹음 (16kHz) + AWS S3 업로드 파이프라인 구현", "서버 Nginx 리버스 프록시 설정 및 SSL 배포 환경 세팅", "PostgreSQL 스키마 설계 + Prisma ORM 쿼리 구현"],
+          en: ["Built full-stack Korean assessment platform for foreign students", "WAV recording (16kHz) + AWS S3 upload pipeline for external STT integration", "Nginx reverse proxy + SSL deployment environment setup", "PostgreSQL schema design + Prisma ORM queries"],
+          ja: ["外国人学生向け韓国語試験Webプラットフォームのフロント・バックエンド実装", "外部STT連携のためのWAV録音（16kHz）+ AWS S3アップロードパイプライン実装", "サーバーNginxリバースプロキシ設定とSSL配備環境構築", "PostgreSQLスキーマ設計 + Prisma ORMクエリ実装"],
+        } as LA,
+        stack: ['Next.js', 'Server Components', 'Prisma', 'PostgreSQL', 'Nginx', 'AWS S3']
       },
     ],
     color: "from-blue-500 to-cyan-400"

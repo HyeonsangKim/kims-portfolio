@@ -54,9 +54,9 @@ const translations = {
     },
     soundmind: {
       tagline: {
-        ko: 'MX팀 리드 — 모바일 앱·인증 서버·웹 플랫폼 4개 프로젝트 리딩.',
-        en: 'MX Team Lead — driving 4 projects across mobile, auth, and web platforms.',
-        ja: 'MXチームリード — モバイル・認証・Webプラットフォームの4プロジェクトを統括。',
+        ko: 'OEM Pre-Installed App Platform — 특화폰 B2B 서비스 + 정부 R&D 리딩.',
+        en: 'OEM pre-installed app platform — leading B2B specialized-phone services and Government R&D.',
+        ja: 'OEMプリインストールアプリプラットフォーム — 特化スマホB2Bサービスと政府R&Dを統括。',
       },
     },
     purple: {
