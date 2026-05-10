@@ -29,11 +29,29 @@ const experiences = [
           ja: '子供位置確認サービス。イエローマーケット・スタディフォンOEM搭載で30,000+ユーザー対象のReact Nativeアプリ + Spring Bootバックエンドを運用。',
         } as L,
         highlights: {
-          ko: ["App Store / Google Play 출시 및 30,000+ 사용자 운영", "Redis 이중 큐 배치 아키텍처 — 분당 수만 건 처리, DB 쓰기 부하 95% 감소·반복 장애 해결", "Haversine 기반 SQL 지오펜싱으로 안심존 출이탈 감지", "Hotupdater + Supabase 기반 코드푸시 적용 및 사내 매뉴얼 작성"],
-          en: ["Shipped to App Store / Google Play, operating with 30,000+ users", "Redis dual-queue batch — tens of thousands writes/min, 95% DB load reduction, resolved recurring outages", "Haversine SQL geofencing for safe-zone entry/exit detection", "Hotupdater + Supabase code-push integration with internal documentation"],
-          ja: ["App Store / Google Playリリース、30,000+ユーザーを運用", "Redis二重キューバッチ — 毎分数万件処理、DB書き込み負荷95%削減・再発障害を解消", "HaversineベースSQLジオフェンシングで安心ゾーン出入検知", "Hotupdater + Supabaseベースのコードプッシュ適用と社内マニュアル作成"],
+          ko: [
+            "App Store / Google Play 출시 및 30,000+ 사용자 운영",
+            "Redis buffering + batch processing 아키텍처 재설계 — DB write 부하 95% 감소, 인프라 증설 없이 안정화",
+            "Haversine distance 기반 안심존 출입 감지 (위치 좌표 계산)",
+            "HotUpdater + Supabase OTA 코드푸시 파이프라인 구축 및 운영 프로세스 정립",
+            "위치 데이터 파티션 관리 + 배치 동기화 자동화 — 장기 운영 데이터 비용 절감",
+          ],
+          en: [
+            "Shipped to App Store / Google Play, operating with 30,000+ users",
+            "Redis buffering + batch architecture — 95% DB write reduction, stabilized service without infra scale-up",
+            "Haversine-based safe-zone entry/exit detection (coordinate distance calc)",
+            "HotUpdater + Supabase OTA code-push pipeline + operational process documented",
+            "Location-data partition management + batch sync automation — long-term data cost reduction",
+          ],
+          ja: [
+            "App Store / Google Playリリース、30,000+ユーザーを運用",
+            "Redis buffering + batch processingアーキテクチャ再設計 — DB write負荷95%削減、インフラ増設なしで安定化",
+            "Haversine distanceベースの安心ゾーン出入検知（位置座標計算）",
+            "HotUpdater + Supabase OTAコードプッシュパイプライン構築および運用プロセス整備",
+            "位置データパーティション管理 + バッチ同期自動化 — 長期運用データコスト削減",
+          ],
         } as LA,
-        stack: ['React Native', 'Spring Boot', 'Redis', 'Supabase', 'Hotupdater']
+        stack: ['React Native', 'Spring Boot', 'Redis', 'Supabase', 'HotUpdater']
       },
       {
         name: "Mohani (Parental Control)",
@@ -43,25 +61,61 @@ const experiences = [
           ja: '子供デバイス管理サービス。イエローマーケット・スタディフォンOEM搭載。Samsung Knox SDK + AccessibilityServiceでシステムレベル遮断・遠隔制御を提供。',
         } as L,
         highlights: {
-          ko: ["Samsung Knox Firewall 기반 API 도메인 차단 구현", "AccessibilityService 기반 앱 실시간 감지·차단 구현", "FCM command/request-response 구조 설계 및 원격 제어 구현", "Android FCM Broadcast ANR 분석·해결 (RN Bridge Queue 병목·Knox IPC 지연)", "무거운 Native 작업을 백그라운드 비동기 처리로 분리하여 ANR 해소"],
-          en: ["Samsung Knox Firewall-based API domain blocking", "AccessibilityService-based real-time app detection & blocking", "FCM command/request-response architecture for remote device control", "Resolved Android FCM Broadcast ANR (RN Bridge Queue & Knox IPC bottleneck)", "Offloaded heavy native work to background async to eliminate ANR"],
-          ja: ["Samsung Knox FirewallベースAPIドメイン遮断実装", "AccessibilityServiceベースのアプリリアルタイム検知・遮断実装", "FCM command/request-response構造設計と遠隔制御実装", "Android FCM Broadcast ANR分析・解決（RN Bridge Queue・Knox IPC遅延）", "重いNative処理をバックグラウンド非同期に分離しANR解消"],
+          ko: [
+            "Samsung Knox Firewall 기반 API 도메인 차단 — 보호자 정책 기반 디바이스 도메인 제어",
+            "AccessibilityService 기반 앱 실시간 감지·차단 시스템 — 실시간 사용 제어",
+            "FCM 기반 command/request-response 구조 설계 — 원격 디바이스 제어 구현",
+            "Android Broadcast timeout / RN Bridge Queue 병목 / Knox IPC 지연 분석 — 반복 ANR 원인 파악",
+            "무거운 Native 작업을 백그라운드 비동기 구조로 분리 — 실시간 제어 안정성 확보",
+          ],
+          en: [
+            "Samsung Knox Firewall API domain blocking — guardian-policy-driven device domain control",
+            "AccessibilityService-based real-time app detection & blocking system",
+            "FCM command/request-response architecture — remote device control",
+            "Diagnosed recurring ANR — Android Broadcast timeout / RN Bridge Queue / Knox IPC latency",
+            "Offloaded heavy native work to background async — restored real-time control stability",
+          ],
+          ja: [
+            "Samsung Knox FirewallベースAPIドメイン遮断 — 保護者ポリシーに基づくデバイスドメイン制御",
+            "AccessibilityServiceベースのアプリリアルタイム検知・遮断システム — リアルタイム使用制御",
+            "FCMベースのcommand/request-response構造設計 — 遠隔デバイス制御実装",
+            "Android Broadcast timeout / RN Bridge Queueボトルネック / Knox IPC遅延を分析 — 反復ANR原因究明",
+            "重いNative処理をバックグラウンド非同期構造に分離 — リアルタイム制御の安定性確保",
+          ],
         } as LA,
         stack: ['React Native', 'Android Native', 'Knox SDK', 'FCM', 'Java/Kotlin']
       },
       {
         name: { ko: 'OEM 통합 서버', en: 'OEM Integration Server', ja: 'OEM統合サーバー' } as L,
         desc: {
-          ko: 'OEM 앱 통합 인증 서버 + 통합 페이지. 인증/비즈니스 서버 분리 구조와 Webhook 기반 이벤트 동기화로 OEM 서비스 백본 설계·운영.',
-          en: 'OEM unified auth server + integration page. Designed and operated OEM service backbone with auth/business separation and Webhook event sync.',
-          ja: 'OEMアプリ統合認証サーバー + 統合ページ。認証/ビジネスサーバー分離構造とWebhookイベント同期でOEMサービスのバックボーンを設計・運用。',
+          ko: 'OEM 앱 통합 인증 서버 + 통합 페이지. 인증/비즈니스 분리부터 비동기 재처리·RBAC·Audit log까지 OEM 백본 전반 설계·운영.',
+          en: 'OEM unified auth server + integration page. End-to-end backbone — auth separation, async retry, RBAC, audit log.',
+          ja: 'OEMアプリ統合認証サーバー + 統合ページ。認証分離から非同期再処理・RBAC・Audit logまでOEMバックボーンを設計・運用。',
         } as L,
         highlights: {
-          ko: ["인증 서버와 비즈니스 서버 분리 구조 설계", "Token Rotation + Token Family Tracking 기반 인증 구조 구현", "Refresh Token 탈취 시 전체 토큰 패밀리 즉시 폐기", "Redis 기반 Rate Limiting 정책 설계", "OEM 서비스 간 Webhook 이벤트 동기화 + 통합 페이지 개발·운영"],
-          en: ["Auth/business server separation architecture", "Token Rotation + Token Family Tracking-based auth architecture", "Instant family-wide revocation on Refresh Token theft", "Redis-based Rate Limiting policy design", "Webhook event sync across OEM services + integration page operation"],
-          ja: ["認証サーバーとビジネスサーバーの分離構造設計", "Token Rotation + Token Family Trackingベース認証構造実装", "Refresh Token奪取時にトークンファミリー全体を即時無効化", "RedisベースRate Limitingポリシー設計", "OEMサービス間Webhookイベント同期 + 統合ページ開発・運用"],
+          ko: [
+            "인증/비즈니스 서버 분리 — 인증 장애 전파 차단",
+            "Token Rotation + Token Family Tracking — Refresh Token 재사용 공격 탐지·세션 즉시 무효화",
+            "Redis Rate Limiting + Webhook 이벤트 전파 — 과부하 방지·polling 트래픽 제거",
+            "Retry + DLQ 비동기 처리 + DLQ 관리자 콘솔(목록/재시도/포기)",
+            "RBAC 권한 분리 + lifecycle PII 암호화·익명화 + Audit log",
+          ],
+          en: [
+            "Auth/business server separation — auth outages no longer propagate",
+            "Token Rotation + Token Family Tracking — detects Refresh Token reuse, instantly revokes session family",
+            "Redis Rate Limiting + Webhook event propagation — prevents overload, removes polling",
+            "Retry + DLQ async + DLQ admin console (list/retry/abandon)",
+            "RBAC + lifecycle PII encryption/anonymization + Audit log",
+          ],
+          ja: [
+            "認証/ビジネスサーバー分離 — 認証障害の伝播を遮断",
+            "Token Rotation + Token Family Tracking — Refresh Token再利用攻撃検知・セッション即時無効化",
+            "Redis Rate Limiting + Webhookイベント伝播 — 過負荷防止・polling削除",
+            "Retry + DLQ非同期処理 + DLQ管理コンソール（一覧/再試行/放棄）",
+            "RBAC + lifecycle PII暗号化・匿名化 + Audit log",
+          ],
         } as LA,
-        stack: ['Spring Boot', 'MariaDB', 'Redis', 'JWT', 'Webhook']
+        stack: ['Spring Boot', 'MariaDB', 'Redis', 'JWT', 'Webhook', 'DLQ']
       },
       {
         name: { ko: 'KOCCA 한국어 평가 시스템', en: 'KOCCA Korean Assessment', ja: 'KOCCA韓国語評価システム' } as L,
@@ -86,24 +140,39 @@ const experiences = [
     role: "Frontend Developer",
     period: "2023.06 - 2024.06",
     tagline: {
-      ko: 'Innovating EdTech with interactive UX.',
-      en: 'Innovating EdTech with interactive UX.',
-      ja: 'インタラクティブUXでEdTechを革新。',
+      ko: '퍼플 잉글리시 — 영어 교육 모바일 앱 / 웹 플랫폼.',
+      en: 'Purple English — English-learning mobile app / web platform.',
+      ja: 'パープルイングリッシュ — 英語教育モバイルアプリ / Webプラットフォーム。',
     } as L,
     projects: [
       {
-        name: "LMS App Migration",
+        name: { ko: '퍼플 잉글리시', en: 'Purple English', ja: 'パープルイングリッシュ' } as L,
         desc: {
-          ko: '5,000여 개의 웹 콘텐츠를 제작하고, React Native로 마이그레이션 하고, GSAP/SVG로 인터랙티브한 경험을 구현했습니다.',
-          en: 'Built 5,000+ web learning activities, migrated to React Native, and implemented interactive experiences with GSAP/SVG.',
-          ja: '5,000以上のWeb学習コンテンツを制作し、React Nativeへ移行、GSAP/SVGでインタラクティブな体験を実装。',
+          ko: '영어 교육 모바일 앱 / 웹 플랫폼. 기존 React 웹 코드베이스를 React Native 앱으로 마이그레이션하고, 모바일·웹 채널을 일원화하여 5,000+ 인터랙티브 학습 액티비티를 운영.',
+          en: 'English-learning mobile app / web platform. Migrated the legacy React web codebase to React Native, unified mobile/web channels, and shipped 5,000+ interactive learning activities.',
+          ja: '英語教育モバイルアプリ / Webプラットフォーム。既存のReact WebコードベースをReact Nativeアプリへ移行し、モバイル・Webチャネルを一元化して5,000+のインタラクティブ学習アクティビティを運用。',
         } as L,
         highlights: {
-          ko: ["5,000개+ 유아용 영어 학습 콘텐츠 웹 제작", "Web → React Native 앱 마이그레이션", "GSAP + SVG Path 인터랙티브 학습 구현"],
-          en: ["Built 5,000+ early childhood English learning web activities", "Web → React Native app migration", "Interactive learning with GSAP + SVG Path animations"],
-          ja: ["5,000以上の幼児向け英語学習Webコンテンツ制作", "Web → React Nativeアプリマイグレーション", "GSAP + SVG Pathインタラクティブ学習実装"],
+          ko: [
+            "기존 React 웹 코드베이스 → React Native 앱 마이그레이션 + App Store / Google Play 출시",
+            "Custom Hook 기반 비즈니스 로직 모듈화 — 웹·앱 공통 로직 재사용 구조 구축",
+            "GSAP + SVG Path Animation 기반 알파벳 트레이싱 기능 구현",
+            "모바일·웹 채널 일원화 + 5,000+ 인터랙티브 학습 액티비티 제작",
+          ],
+          en: [
+            "Migrated legacy React web codebase → React Native app, shipped to App Store / Google Play",
+            "Custom Hook-based business logic modularization — shared logic across web and app",
+            "Alphabet tracing built with GSAP + SVG Path Animation",
+            "Unified mobile/web channels + 5,000+ interactive learning activities",
+          ],
+          ja: [
+            "既存のReact WebコードベースをReact Nativeアプリへ移行 + App Store / Google Playリリース",
+            "Custom Hookベースのビジネスロジックモジュール化 — Web/アプリ共通ロジック再利用構造の構築",
+            "GSAP + SVG Path Animationベースのアルファベットトレーシング機能実装",
+            "モバイル・Webチャネル一元化 + 5,000+のインタラクティブ学習アクティビティ制作",
+          ],
         } as LA,
-        stack: ['React Native', 'React', 'GSAP', 'TypeScript']
+        stack: ['React Native', 'React', 'GSAP', 'SVG', 'Custom Hooks', 'TypeScript']
       }
     ],
     color: "from-purple-500 to-pink-400"
@@ -114,22 +183,37 @@ const experiences = [
     role: "Full-Stack Developer",
     period: "2022.04 - 2023.03",
     tagline: {
-      ko: 'R&D and Full-stack system architecture.',
-      en: 'R&D and Full-stack system architecture.',
-      ja: 'R&Dとフルスタックシステムアーキテクチャ。',
+      ko: 'AIGOSEO — 고문헌 번역 플랫폼. 정부 R&D 풀스택 개발.',
+      en: 'AIGOSEO — ancient manuscript translation platform. Government R&D full-stack delivery.',
+      ja: 'AIGOSEO — 古文献翻訳プラットフォーム。政府R&Dフルスタック開発。',
     } as L,
     projects: [
       {
         name: "AIGOSEO",
         desc: {
-          ko: '고문헌 번역 플랫폼 (정부 R&D). Canvas API로 글자 단위 이미지 세그멘테이션을 구현하여 AI 모델 전처리 파이프라인 제공.',
-          en: 'Ancient manuscript translation platform (Government R&D). Canvas API character-level image segmentation for AI model preprocessing.',
-          ja: '古文献翻訳プラットフォーム（政府R&D）。Canvas APIで文字単位の画像セグメンテーションを実装しAIモデル前処理を提供。',
+          ko: '고문헌 번역 플랫폼 (정부 R&D). Canvas API 기반 글자 단위 세그멘테이션과 Spring Boot 백엔드, 고문헌 디지털화 자동화 파이프라인을 구축하여 정부 과제 산출물을 납품.',
+          en: 'Ancient manuscript translation platform (Government R&D). Built character-level segmentation with Canvas API, Spring Boot backend, and an automated digitization pipeline; delivered as a national R&D output.',
+          ja: '古文献翻訳プラットフォーム（政府R&D）。Canvas APIベースの文字単位セグメンテーションとSpring Bootバックエンド、古文献デジタル化自動化パイプラインを構築し、政府課題成果物を納品。',
         } as L,
         highlights: {
-          ko: ["Canvas API 기반 글자 단위 이미지 세그멘테이션", "Spring Boot + JPA 백엔드 API", "정부 R&D 납품 완료"],
-          en: ["Canvas API character-level image segmentation",  "Spring Boot + JPA backend API", "Government R&D delivered"],
-          ja: ["Canvas APIベースの文字単位画像セグメンテーション", "Spring Boot + JPA バックエンドAPI", "政府R&D納品完了"],
+          ko: [
+            "Canvas API 기반 글자 단위 이미지 세그멘테이션 시스템 구현",
+            "Spring Boot + JPA 기반 백엔드 API 설계·개발",
+            "고문헌 디지털화 자동화 파이프라인 구축",
+            "정부 R&D 과제 산출물 납품 완료",
+          ],
+          en: [
+            "Canvas API character-level image segmentation system",
+            "Spring Boot + JPA backend API design & implementation",
+            "Automated digitization pipeline for ancient manuscripts",
+            "National R&D project deliverable shipped to government",
+          ],
+          ja: [
+            "Canvas APIベースの文字単位画像セグメンテーションシステム実装",
+            "Spring Boot + JPAベースのバックエンドAPI設計・開発",
+            "古文献デジタル化自動化パイプラインの構築",
+            "政府R&D課題成果物の納品完了",
+          ],
         } as LA,
         stack: ['Canvas API', 'Spring Boot', 'JPA', 'JavaScript']
       }
@@ -248,7 +332,7 @@ export default function ProjectShowcase() {
                   ref={(el) => { cardsRef.current[i] = el }}
                   className={`
                     w-full relative
-                    lg:absolute lg:inset-0 lg:max-w-[500px] lg:h-[620px] lg:m-auto
+                    lg:absolute lg:inset-0 lg:max-w-[500px] lg:h-[680px] lg:m-auto
                   `}
                   style={{ zIndex: i }}
                 >

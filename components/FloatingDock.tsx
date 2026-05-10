@@ -1,12 +1,13 @@
 'use client'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState, useEffect } from 'react'
-import { FiHome, FiCpu, FiBriefcase, FiLayers, FiMail } from 'react-icons/fi'
+import { FiHome, FiCpu, FiBriefcase, FiAward, FiLayers, FiMail } from 'react-icons/fi'
 
 const links = [
   { id: 'home', icon: <FiHome />, label: 'Home' },
   { id: 'skills', icon: <FiCpu />, label: 'Skills' },
   { id: 'career', icon: <FiBriefcase />, label: 'Career' },
+  { id: 'awards', icon: <FiAward />, label: 'Awards' },
   { id: 'projects', icon: <FiLayers />, label: 'Projects' },
   { id: 'contact', icon: <FiMail />, label: 'Contact' },
 ]

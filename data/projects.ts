@@ -24,6 +24,12 @@ export interface ProjectLink {
   icon: 'github' | 'external'
 }
 
+export interface ProjectGalleryImage {
+  src: string
+  alt: string
+  caption?: string
+}
+
 export interface Project {
   id: string
   num: string
@@ -38,6 +44,12 @@ export interface Project {
     | { type: 'youtube'; videoId: string }
     | { type: 'video'; src: string }
     | { type: 'none' }
+  /**
+   * Architecture diagrams, screenshots, and result charts shown only inside
+   * `ProjectReportOverlay` (i.e. after clicking "View Full Report"). Kept off
+   * the row + accordion so the project list stays scan-friendly.
+   */
+  gallery?: ProjectGalleryImage[]
 }
 
 export const projects: Project[] = [
@@ -78,6 +90,13 @@ export const projects: Project[] = [
     ],
     gradient: 'from-fuchsia-500 to-purple-600',
     media: { type: 'none' },
+    gallery: [
+      {
+        src: '/images/projects/trae_hackthon_seoul.png',
+        alt: 'WIGENT — Build with TRAE Seoul Grand Prize',
+        caption: 'Build with TRAE Seoul (ByteDance) Grand Prize — 3 engineers, 3.5 hours, 0 merge conflicts.',
+      },
+    ],
   },
   {
     id: 'wigtnflake',
@@ -122,6 +141,28 @@ export const projects: Project[] = [
     ],
     gradient: 'from-violet-500 to-fuchsia-500',
     media: { type: 'youtube', videoId: '_ixVEnHJxjk' },
+    gallery: [
+      {
+        src: '/images/projects/wigvo_architecture.png',
+        alt: 'WIGVO dual-session echo-gating architecture',
+        caption: 'Dual-session relay — Session A translates user voice to G.711 for Twilio; Session B processes PSTN audio through the 3-stage filter pipeline.',
+      },
+      {
+        src: '/images/projects/wigvo_screenshot_call.png',
+        alt: 'WIGVO call screen',
+        caption: 'Live PSTN translation — recipient answers a normal phone call, no app required.',
+      },
+      {
+        src: '/images/projects/wigvo_latency_histogram.png',
+        alt: 'WIGVO E2E latency distribution',
+        caption: 'E2E latency distribution from 148 production calls — Session A 555ms P50, Session B 2,868ms P50.',
+      },
+      {
+        src: '/images/projects/wigvo_utterance_scatter.png',
+        alt: 'WIGVO utterance length vs latency',
+        caption: 'Utterance length × latency — Pearson r=0.400 (p<0.001).',
+      },
+    ],
   },
   {
     id: 'timelens',
@@ -135,7 +176,6 @@ export const projects: Project[] = [
     },
     badges: [
       { label: 'Live', variant: 'live' },
-      { label: 'Competition', variant: 'award' },
     ],
     tech: ['Next.js', 'React', 'TypeScript', 'YOLOv8', 'FastAPI', 'Google Cloud Run'],
     links: [
@@ -144,26 +184,17 @@ export const projects: Project[] = [
     ],
     gradient: 'from-amber-500 to-orange-500',
     media: { type: 'youtube', videoId: 'ITaMtVO5jFg' },
-  },
-  {
-    id: 'wigvu',
-    num: '06',
-    title: 'WIGVU',
-    tagline: 'AI Korean Language Learning',
-    description: {
-      ko: 'WIGVU는 AI 기반 한국어 학습 앱입니다. 개인 맞춤형 커리큘럼과 실시간 발음 교정, 대화 연습 기능을 제공합니다.',
-      en: 'AI-powered Korean language learning app with personalized curriculum, real-time pronunciation correction, and conversation practice.',
-      ja: 'AI韓国語学習アプリ。パーソナライズされたカリキュラムとリアルタイム発音矯正、会話練習機能を提供。',
-    },
-    badges: [{ label: 'Preparing', variant: 'preparing' }],
-    tech: ['React Native', 'STT', 'TTS', 'LLM', 'Supabase'],
-    links: [{ label: 'GitHub', url: 'https://github.com/wigtn', icon: 'github' }],
-    gradient: 'from-emerald-500 to-teal-500',
-    media: { type: 'none' },
+    gallery: [
+      {
+        src: '/images/projects/timelens_logo.png',
+        alt: 'TimeLens — AI cultural heritage guide',
+        caption: 'AI museum curator — point your camera at an artifact and get real-time historical context with AR restoration.',
+      },
+    ],
   },
   {
     id: 'wigex',
-    num: '07',
+    num: '06',
     title: 'WIGEX',
     tagline: 'Travel Expense Tracker + OCR',
     description: {

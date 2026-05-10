@@ -15,6 +15,7 @@ import {
   FiBarChart2,
   FiCheckCircle,
   FiRefreshCw,
+  FiImage,
 } from 'react-icons/fi'
 import type { Project, Gradient } from '@/data/projects'
 import { pickL, type ProjectReport } from '@/data/reports'
@@ -42,6 +43,7 @@ const ui: Record<string, Record<Locale, string>> = {
   metrics: { en: 'Key Metrics', ko: '핵심 지표', ja: '主要指標' },
   stack: { en: 'Tech Stack', ko: '기술 스택', ja: '技術スタック' },
   architecture: { en: 'Architecture', ko: '아키텍처', ja: 'アーキテクチャ' },
+  visuals: { en: 'Architecture & Visuals', ko: '아키텍처 & 시각자료', ja: 'アーキテクチャ・ビジュアル' },
   deepDives: { en: 'Technical Deep Dives', ko: '기술 심화', ja: '技術ディープダイブ' },
   timeline: { en: 'Timeline', ko: '타임라인', ja: 'タイムライン' },
   lessons: { en: 'Lessons Learned', ko: '배운 점', ja: '学び' },
@@ -101,6 +103,7 @@ export default function ProjectReportOverlay({
 
   const sections: Section[] = useMemo(
     () => [
+      { id: 'visuals', title: t('visuals', locale), icon: FiImage, show: !!project.gallery?.length },
       { id: 'problem', title: t('problem', locale), icon: FiTarget, show: !!problem?.length },
       { id: 'solution', title: t('solution', locale), icon: FiZap, show: !!solution?.length },
       { id: 'metrics', title: t('metrics', locale), icon: FiBarChart2, show: !!report.metrics?.length },
@@ -111,7 +114,7 @@ export default function ProjectReportOverlay({
       { id: 'lessons', title: t('lessons', locale), icon: FiCheckCircle, show: !!(worked?.length || wouldChange?.length) },
       { id: 'numbers', title: t('numbers', locale), icon: FiBarChart2, show: !!report.byTheNumbers?.length },
     ],
-    [report, locale, problem, solution, worked, wouldChange],
+    [project.gallery, report, locale, problem, solution, worked, wouldChange],
   )
   const visibleSections = sections.filter((s) => s.show)
 
@@ -233,6 +236,39 @@ export default function ProjectReportOverlay({
 
           {/* Body */}
           <div className="px-6 md:px-12 py-10 md:py-14 space-y-14">
+            {project.gallery && project.gallery.length > 0 && (
+              <Section id="visuals" title={t('visuals', locale)} icon={FiImage} gradient={gradient}>
+                <div
+                  className={`grid gap-4 ${
+                    project.gallery.length === 1 ? 'grid-cols-1' : 'sm:grid-cols-2'
+                  }`}
+                >
+                  {project.gallery.map((img, i) => (
+                    <figure
+                      key={i}
+                      className="rounded-xl border border-white/10 bg-black/40 overflow-hidden flex flex-col"
+                    >
+                      {/* Uniform 16:9 frame with object-contain — diagrams stay readable, all cells align. */}
+                      <div className="aspect-video bg-black/60 flex items-center justify-center p-3">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={img.src}
+                          alt={img.alt}
+                          loading="lazy"
+                          className="max-w-full max-h-full object-contain"
+                        />
+                      </div>
+                      {img.caption && (
+                        <figcaption className="px-4 py-3 text-[12px] text-gray-400 leading-snug border-t border-white/5">
+                          {img.caption}
+                        </figcaption>
+                      )}
+                    </figure>
+                  ))}
+                </div>
+              </Section>
+            )}
+
             {problem && problem.length > 0 && (
               <Section id="problem" title={t('problem', locale)} icon={FiTarget} gradient={gradient}>
                 <ul className="space-y-3">

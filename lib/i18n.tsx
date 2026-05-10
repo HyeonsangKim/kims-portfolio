@@ -61,16 +61,16 @@ const translations = {
     },
     purple: {
       tagline: {
-        ko: 'Innovating EdTech with interactive UX.',
-        en: 'Innovating EdTech with interactive UX.',
-        ja: 'インタラクティブUXでEdTechを革新。',
+        ko: '퍼플 잉글리시 — 영어 교육 모바일 앱 / 웹 플랫폼.',
+        en: 'Purple English — English-learning mobile app / web platform.',
+        ja: 'パープルイングリッシュ — 英語教育モバイルアプリ / Webプラットフォーム。',
       },
     },
     iezlab: {
       tagline: {
-        ko: 'R&D and Full-stack system architecture.',
-        en: 'R&D and Full-stack system architecture.',
-        ja: 'R&Dとフルスタックシステムアーキテクチャ。',
+        ko: 'AIGOSEO — 고문헌 번역 플랫폼. 정부 R&D 풀스택 개발.',
+        en: 'AIGOSEO — ancient manuscript translation platform. Government R&D full-stack delivery.',
+        ja: 'AIGOSEO — 古文献翻訳プラットフォーム。政府R&Dフルスタック開発。',
       },
     },
   },
@@ -177,11 +177,6 @@ const translations = {
       ko: 'TimeLens는 AI 기반 문화유산 가이드 앱입니다. 카메라로 문화재를 비추면 실시간으로 AI 큐레이터가 역사적 맥락을 설명하고, AR 복원 시각화를 제공합니다. 기획 및 프론트엔드 리드를 담당했습니다.',
       en: 'AI-powered cultural heritage companion. Point your camera at artifacts for real-time AI curator explanations with historical context and AR restoration visualizations. Led product planning and frontend development.',
       ja: 'AI文化遺産ガイドアプリ。カメラで文化財を映すとAIキュレーターがリアルタイムで歴史的背景を解説し、AR復元を可視化。企画及びフロントエンドリードを担当。',
-    },
-    wigvu: {
-      ko: 'WIGVU는 AI 기반 한국어 학습 앱입니다. 개인 맞춤형 커리큘럼과 실시간 발음 교정, 대화 연습 기능을 제공합니다.',
-      en: 'AI-powered Korean language learning app with personalized curriculum, real-time pronunciation correction, and conversation practice.',
-      ja: 'AI韓国語学習アプリ。パーソナライズされたカリキュラムとリアルタイム発音矯正、会話練習機能を提供。',
     },
     wigex: {
       ko: 'WIGEX는 여행 경비 관리 앱입니다. OCR로 영수증을 자동 인식하고, 환율 변환과 경비 분류를 자동으로 처리합니다.',

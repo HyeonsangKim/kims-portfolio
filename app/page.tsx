@@ -9,6 +9,7 @@ const Orb = dynamic(() => import('@/components/Orb'), { ssr: false })
 const TechStack = dynamic(() => import('@/components/TechStack'), { ssr: false })
 const ProjectShowcase = dynamic(() => import('@/components/ProjectShowecase'), { ssr: false })
 const FeaturedProjects = dynamic(() => import('@/components/FeaturedProjects'), { ssr: false })
+const AwardsPapers = dynamic(() => import('@/components/AwardsPapers'), { ssr: false })
 const Contact = dynamic(() => import('@/components/Contact'), { ssr: false })
 
 export default function Home() {
@@ -45,6 +46,12 @@ export default function Home() {
 
         <section id="career">
             <ProjectShowcase />
+        </section>
+
+        <div className="h-[20vh]" />
+
+        <section id="awards">
+            <AwardsPapers />
         </section>
 
         <div className="h-[20vh]" />

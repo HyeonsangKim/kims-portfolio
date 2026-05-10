@@ -77,10 +77,36 @@ export default function Hero() {
           </motion.p>
         </AnimatePresence>
       </div>
-      
-      <motion.div 
-        initial={{ opacity: 0 }} 
-        animate={{ opacity: 1 }} 
+
+      {/* Credential strip — 0-second visibility for external validation signals */}
+      <motion.button
+        type="button"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.4, duration: 0.8 }}
+        onClick={() => {
+          const el = document.getElementById('awards')
+          if (el) el.scrollIntoView({ behavior: 'smooth' })
+        }}
+        className="mt-6 sm:mt-8 group flex flex-wrap items-center justify-center gap-2 sm:gap-3 px-4 py-2 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md hover:bg-white/[0.08] hover:border-white/20 transition-all"
+        aria-label="Jump to Awards & Papers section"
+      >
+        <span className="text-[10px] sm:text-xs font-bold tracking-widest text-violet-300/90">
+          ACL 2026 PAPER
+        </span>
+        <span className="w-px h-3 bg-white/10" />
+        <span className="text-[10px] sm:text-xs font-bold tracking-widest text-amber-300/90">
+          TRAE GRAND PRIZE
+        </span>
+        <span className="w-px h-3 bg-white/10 hidden sm:block" />
+        <span className="text-[10px] sm:text-xs font-bold tracking-widest text-sky-300/90 hidden sm:inline">
+          SNOWFLAKE TOP 3
+        </span>
+      </motion.button>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
         transition={{ delay: 2, duration: 1 }}
         className="absolute bottom-10 animate-bounce"
       >

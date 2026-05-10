@@ -1218,33 +1218,6 @@ export const projectReports: Record<string, ProjectReport> = {
     sourceUrl: 'https://wigtn.com/projects/timelens',
   },
 
-  wigvu: {
-    slug: 'wigvu',
-    oneLiner: {
-      en: 'Learn Korean through the content you love — K-Drama, K-POP, YouTube, and more.',
-      ko: '좋아하는 콘텐츠로 한국어를 배운다 — K-드라마, K-POP, 유튜브, 그 이상.',
-      ja: '好きなコンテンツで韓国語を学ぶ — K-ドラマ、K-POP、YouTubeなど。',
-    },
-    solution: {
-      en: [
-        'Browse real Korean content — K-Drama clips, K-POP lyrics, news articles and YouTube videos — curated by difficulty and topic.',
-        'Every sentence is translated with context-aware AI. Key expressions, grammar patterns and cultural nuances are automatically extracted.',
-        'Track progress with AI-generated quizzes, vocabulary lists and comprehension scores.',
-      ],
-      ko: [
-        '진짜 한국 콘텐츠를 탐색한다 — K-드라마 클립, K-POP 가사, 뉴스 기사, 유튜브 영상을 난이도와 주제별로 큐레이션.',
-        '모든 문장은 컨텍스트 인식 AI로 번역된다. 핵심 표현, 문법 패턴, 문화적 뉘앙스가 자동 추출된다.',
-        'AI 생성 퀴즈, 단어장, 이해도 점수로 진행 상황을 추적한다.',
-      ],
-      ja: [
-        '本物の韓国コンテンツを閲覧 — K-ドラマクリップ、K-POP歌詞、ニュース記事、YouTube動画を難易度とトピックでキュレーション。',
-        'すべての文は文脈認識AIで翻訳される。重要表現、文法パターン、文化的ニュアンスが自動抽出される。',
-        'AI生成のクイズ、単語帳、理解度スコアで進捗を追跡する。',
-      ],
-    },
-    sourceUrl: 'https://wigtn.com/projects/wigvu',
-  },
-
   wigex: {
     slug: 'wigex',
     oneLiner: {
