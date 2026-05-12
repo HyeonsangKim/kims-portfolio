@@ -2,34 +2,89 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { SiGithub, SiLinkedin } from 'react-icons/si'
-import { FiMail, FiCopy, FiCheck, FiSend } from 'react-icons/fi'
-import { useI18n } from '@/lib/i18n'
+import { FiMail, FiCopy, FiCheck, FiSend, FiAlertCircle } from 'react-icons/fi'
+import { useI18n, type Locale } from '@/lib/i18n'
+
+const CONTACT_EMAIL = 'hyeonsang@wigtn.com'
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xpqbblby'
+
+const messages: Record<'sending' | 'sent' | 'send' | 'errorGeneric' | 'errorNetwork', Record<Locale, string>> = {
+  sending: { ko: '전송 중...', en: 'Sending...', ja: '送信中...' },
+  sent: { ko: '전송 완료! 곧 답변드릴게요', en: "Sent! I'll get back to you soon", ja: '送信完了！すぐに返信します' },
+  send: { ko: '메시지 보내기', en: 'Send Message', ja: 'メッセージ送信' },
+  errorGeneric: {
+    ko: '전송에 실패했습니다. 잠시 후 다시 시도하거나 이메일로 직접 보내주세요.',
+    en: 'Failed to send. Please retry or email directly.',
+    ja: '送信に失敗しました。再試行するかメールで直接ご連絡ください。',
+  },
+  errorNetwork: {
+    ko: '네트워크 오류. 인터넷 연결을 확인해주세요.',
+    en: 'Network error. Please check your connection.',
+    ja: 'ネットワークエラー。接続をご確認ください。',
+  },
+}
 
 export default function Contact() {
   const { locale } = useI18n()
   const [form, setForm] = useState({ name: '', email: '', message: '' })
   const [isSending, setIsSending] = useState(false)
   const [isSent, setIsSent] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
 
   // 이메일 복사 기능
   const copyEmail = () => {
-    navigator.clipboard.writeText('hyeonsangyy@gmail.com')
+    navigator.clipboard.writeText(CONTACT_EMAIL)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
   }
 
-  // 폼 제출 핸들러
+  // 폼 제출 — Formspree로 POST. 실패 시 에러 표시, 재시도 가능
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (isSending || isSent) return
+
     setIsSending(true)
-    
-    setTimeout(() => {
+    setError(null)
+
+    const subjectMap = {
+      ko: `포트폴리오 문의 — ${form.name}`,
+      en: `Portfolio inquiry from ${form.name}`,
+      ja: `ポートフォリオお問い合わせ — ${form.name}`,
+    }
+
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          message: form.message,
+          _subject: subjectMap[locale],
+          _replyto: form.email,
+        }),
+      })
+
+      if (res.ok) {
+        setIsSent(true)
+        setForm({ name: '', email: '', message: '' })
+        setTimeout(() => setIsSent(false), 5000)
+      } else {
+        const data = (await res.json().catch(() => null)) as
+          | { errors?: { message?: string }[] }
+          | null
+        const apiError = data?.errors?.[0]?.message
+        setError(apiError ?? messages.errorGeneric[locale])
+      }
+    } catch {
+      setError(messages.errorNetwork[locale])
+    } finally {
       setIsSending(false)
-      setIsSent(true)
-      setForm({ name: '', email: '', message: '' })
-      setTimeout(() => setIsSent(false), 3000)
-    }, 2000)
+    }
   }
 
   return (
@@ -63,7 +118,7 @@ export default function Contact() {
             </div>
             <div className="flex flex-col">
               <span className="text-xs text-gray-400 uppercase tracking-wider">Email Address</span>
-              <span className="text-lg font-mono text-white">hyeonsangyy@gmail.com</span>
+              <span className="text-lg font-mono text-white">{CONTACT_EMAIL}</span>
             </div>
             <div className="absolute right-5 text-gray-500 group-hover:text-white transition-colors">
               {copied ? <FiCheck size={20} className="text-green-400" /> : <FiCopy size={20} />}
@@ -161,26 +216,38 @@ export default function Contact() {
                 />
               </div>
 
+              {error && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  role="alert"
+                  className="flex items-start gap-2 px-4 py-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-300 text-sm"
+                >
+                  <FiAlertCircle className="w-4 h-4 mt-0.5 shrink-0" />
+                  <span>{error}</span>
+                </motion.div>
+              )}
+
               <button
                 type="submit"
                 disabled={isSending || isSent}
                 className={`w-full py-4 rounded-xl font-bold text-lg flex items-center justify-center gap-2 transition-all duration-300 shadow-lg
-                  ${isSent 
-                    ? "bg-green-500 text-black cursor-default" 
+                  ${isSent
+                    ? "bg-green-500 text-black cursor-default"
                     : "bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white hover:scale-[1.02]"
                   }
                   disabled:opacity-70 disabled:cursor-not-allowed
                 `}
               >
                 {isSending ? (
-                  <span className="animate-pulse">{locale === 'ko' ? '전송 중...' : locale === 'ja' ? '送信中...' : 'Transmitting...'}</span>
+                  <span className="animate-pulse">{messages.sending[locale]}</span>
                 ) : isSent ? (
                   <>
-                    <FiCheck size={20} /> {locale === 'ko' ? '전송 완료!' : locale === 'ja' ? '送信完了！' : 'Signal Sent!'}
+                    <FiCheck size={20} /> {messages.sent[locale]}
                   </>
                 ) : (
                   <>
-                    <FiSend size={18} /> {locale === 'ko' ? '메시지 보내기' : locale === 'ja' ? 'メッセージ送信' : 'Send Message'}
+                    <FiSend size={18} /> {messages.send[locale]}
                   </>
                 )}
               </button>
