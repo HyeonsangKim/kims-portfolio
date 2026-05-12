@@ -2,7 +2,9 @@
 import { useRef, useState, useLayoutEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { FiLayers, FiArrowRight } from 'react-icons/fi'
 import { useI18n, Locale } from '@/lib/i18n'
+import OemArchitectureOverlay from './career/OemArchitectureOverlay'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -22,36 +24,37 @@ const experiences = [
     } as L,
     projects: [
       {
-        name: "ODIYA (Location)",
+        name: { ko: 'OEM 통합 서버', en: 'OEM Integration Server', ja: 'OEM統合サーバー' } as L,
         desc: {
-          ko: '자녀 위치 조회 서비스. 노란마켓·공부폰 OEM 탑재로 30,000+ 사용자 대상 React Native 앱 + Spring Boot 백엔드 운영.',
-          en: 'Child location-tracking service. Pre-installed on Yellow Market & Studyphone OEM devices, serving 30,000+ users with React Native app + Spring Boot backend.',
-          ja: '子供位置確認サービス。イエローマーケット・スタディフォンOEM搭載で30,000+ユーザー対象のReact Nativeアプリ + Spring Bootバックエンドを運用。',
+          ko: 'OEM 앱 통합 인증 서버 + 통합 페이지. 인증/비즈니스 분리부터 비동기 재처리·RBAC·Audit log까지 OEM 백본 전반 설계·운영.',
+          en: 'OEM unified auth server + integration page. End-to-end backbone — auth separation, async retry, RBAC, audit log.',
+          ja: 'OEMアプリ統合認証サーバー + 統合ページ。認証分離から非同期再処理・RBAC・Audit logまでOEMバックボーンを設計・運用。',
         } as L,
         highlights: {
           ko: [
-            "App Store / Google Play 출시 및 30,000+ 사용자 운영",
-            "Redis buffering + batch processing 아키텍처 재설계 — DB write 부하 95% 감소, 인프라 증설 없이 안정화",
-            "Haversine distance 기반 안심존 출입 감지 (위치 좌표 계산)",
-            "HotUpdater + Supabase OTA 코드푸시 파이프라인 구축 및 운영 프로세스 정립",
-            "위치 데이터 파티션 관리 + 배치 동기화 자동화 — 장기 운영 데이터 비용 절감",
+            "인증/비즈니스 서버 분리 — 인증 장애 전파 차단",
+            "Token Rotation + Token Family Tracking — Refresh Token 재사용 공격 탐지·세션 즉시 무효화",
+            "Redis Rate Limiting + Webhook 이벤트 전파 — 과부하 방지·polling 트래픽 제거",
+            "Retry + DLQ 비동기 처리 + DLQ 관리자 콘솔(목록/재시도/포기)",
+            "RBAC 권한 분리 + lifecycle PII 암호화·익명화 + Audit log",
           ],
           en: [
-            "Shipped to App Store / Google Play, operating with 30,000+ users",
-            "Redis buffering + batch architecture — 95% DB write reduction, stabilized service without infra scale-up",
-            "Haversine-based safe-zone entry/exit detection (coordinate distance calc)",
-            "HotUpdater + Supabase OTA code-push pipeline + operational process documented",
-            "Location-data partition management + batch sync automation — long-term data cost reduction",
+            "Auth/business server separation — auth outages no longer propagate",
+            "Token Rotation + Token Family Tracking — detects Refresh Token reuse, instantly revokes session family",
+            "Redis Rate Limiting + Webhook event propagation — prevents overload, removes polling",
+            "Retry + DLQ async + DLQ admin console (list/retry/abandon)",
+            "RBAC + lifecycle PII encryption/anonymization + Audit log",
           ],
           ja: [
-            "App Store / Google Playリリース、30,000+ユーザーを運用",
-            "Redis buffering + batch processingアーキテクチャ再設計 — DB write負荷95%削減、インフラ増設なしで安定化",
-            "Haversine distanceベースの安心ゾーン出入検知（位置座標計算）",
-            "HotUpdater + Supabase OTAコードプッシュパイプライン構築および運用プロセス整備",
-            "位置データパーティション管理 + バッチ同期自動化 — 長期運用データコスト削減",
+            "認証/ビジネスサーバー分離 — 認証障害の伝播を遮断",
+            "Token Rotation + Token Family Tracking — Refresh Token再利用攻撃検知・セッション即時無効化",
+            "Redis Rate Limiting + Webhookイベント伝播 — 過負荷防止・polling削除",
+            "Retry + DLQ非同期処理 + DLQ管理コンソール（一覧/再試行/放棄）",
+            "RBAC + lifecycle PII暗号化・匿名化 + Audit log",
           ],
         } as LA,
-        stack: ['React Native', 'Spring Boot', 'Redis', 'Supabase', 'HotUpdater']
+        stack: ['Spring Boot', 'MariaDB', 'Redis', 'JWT', 'Webhook', 'DLQ'],
+        architectureKey: 'oem-integration-server' as const,
       },
       {
         name: "Mohani (Parental Control)",
@@ -86,36 +89,36 @@ const experiences = [
         stack: ['React Native', 'Android Native', 'Knox SDK', 'FCM', 'Java/Kotlin']
       },
       {
-        name: { ko: 'OEM 통합 서버', en: 'OEM Integration Server', ja: 'OEM統合サーバー' } as L,
+        name: "ODIYA (Location)",
         desc: {
-          ko: 'OEM 앱 통합 인증 서버 + 통합 페이지. 인증/비즈니스 분리부터 비동기 재처리·RBAC·Audit log까지 OEM 백본 전반 설계·운영.',
-          en: 'OEM unified auth server + integration page. End-to-end backbone — auth separation, async retry, RBAC, audit log.',
-          ja: 'OEMアプリ統合認証サーバー + 統合ページ。認証分離から非同期再処理・RBAC・Audit logまでOEMバックボーンを設計・運用。',
+          ko: '자녀 위치 조회 서비스. 노란마켓·공부폰 OEM 탑재로 30,000+ 사용자 대상 React Native 앱 + Spring Boot 백엔드 운영.',
+          en: 'Child location-tracking service. Pre-installed on Yellow Market & Studyphone OEM devices, serving 30,000+ users with React Native app + Spring Boot backend.',
+          ja: '子供位置確認サービス。イエローマーケット・スタディフォンOEM搭載で30,000+ユーザー対象のReact Nativeアプリ + Spring Bootバックエンドを運用。',
         } as L,
         highlights: {
           ko: [
-            "인증/비즈니스 서버 분리 — 인증 장애 전파 차단",
-            "Token Rotation + Token Family Tracking — Refresh Token 재사용 공격 탐지·세션 즉시 무효화",
-            "Redis Rate Limiting + Webhook 이벤트 전파 — 과부하 방지·polling 트래픽 제거",
-            "Retry + DLQ 비동기 처리 + DLQ 관리자 콘솔(목록/재시도/포기)",
-            "RBAC 권한 분리 + lifecycle PII 암호화·익명화 + Audit log",
+            "App Store / Google Play 출시 및 30,000+ 사용자 운영",
+            "Redis buffering + batch processing 아키텍처 재설계 — DB write 부하 95% 감소, 인프라 증설 없이 안정화",
+            "Haversine distance 기반 안심존 출입 감지 (위치 좌표 계산)",
+            "HotUpdater + Supabase OTA 코드푸시 파이프라인 구축 및 운영 프로세스 정립",
+            "위치 데이터 파티션 관리 + 배치 동기화 자동화 — 장기 운영 데이터 비용 절감",
           ],
           en: [
-            "Auth/business server separation — auth outages no longer propagate",
-            "Token Rotation + Token Family Tracking — detects Refresh Token reuse, instantly revokes session family",
-            "Redis Rate Limiting + Webhook event propagation — prevents overload, removes polling",
-            "Retry + DLQ async + DLQ admin console (list/retry/abandon)",
-            "RBAC + lifecycle PII encryption/anonymization + Audit log",
+            "Shipped to App Store / Google Play, operating with 30,000+ users",
+            "Redis buffering + batch architecture — 95% DB write reduction, stabilized service without infra scale-up",
+            "Haversine-based safe-zone entry/exit detection (coordinate distance calc)",
+            "HotUpdater + Supabase OTA code-push pipeline + operational process documented",
+            "Location-data partition management + batch sync automation — long-term data cost reduction",
           ],
           ja: [
-            "認証/ビジネスサーバー分離 — 認証障害の伝播を遮断",
-            "Token Rotation + Token Family Tracking — Refresh Token再利用攻撃検知・セッション即時無効化",
-            "Redis Rate Limiting + Webhookイベント伝播 — 過負荷防止・polling削除",
-            "Retry + DLQ非同期処理 + DLQ管理コンソール（一覧/再試行/放棄）",
-            "RBAC + lifecycle PII暗号化・匿名化 + Audit log",
+            "App Store / Google Playリリース、30,000+ユーザーを運用",
+            "Redis buffering + batch processingアーキテクチャ再設計 — DB write負荷95%削減、インフラ増設なしで安定化",
+            "Haversine distanceベースの安心ゾーン出入検知（位置座標計算）",
+            "HotUpdater + Supabase OTAコードプッシュパイプライン構築および運用プロセス整備",
+            "位置データパーティション管理 + バッチ同期自動化 — 長期運用データコスト削減",
           ],
         } as LA,
-        stack: ['Spring Boot', 'MariaDB', 'Redis', 'JWT', 'Webhook', 'DLQ']
+        stack: ['React Native', 'Spring Boot', 'Redis', 'Supabase', 'HotUpdater']
       },
       {
         name: { ko: 'KOCCA 한국어 평가 시스템', en: 'KOCCA Korean Assessment', ja: 'KOCCA韓国語評価システム' } as L,
@@ -234,6 +237,13 @@ export default function ProjectShowcase() {
 
   const [activeCardIndex, setActiveCardIndex] = useState(0)
   const [tabState, setTabState] = useState<{ [key: number]: number }>({ 1: 0, 2: 0, 3: 0 })
+  const [archOverlay, setArchOverlay] = useState<null | 'oem-integration-server'>(null)
+
+  const archButtonLabel: Record<Locale, string> = {
+    ko: '서버 아키텍처 보기',
+    en: 'View Server Architecture',
+    ja: 'サーバーアーキテクチャを見る',
+  }
 
   useLayoutEffect(() => {
     const mm = gsap.matchMedia()
@@ -332,12 +342,12 @@ export default function ProjectShowcase() {
                   ref={(el) => { cardsRef.current[i] = el }}
                   className={`
                     w-full relative
-                    lg:absolute lg:inset-0 lg:max-w-[500px] lg:h-[680px] lg:m-auto
+                    lg:absolute lg:inset-0 lg:max-w-[500px] lg:h-[720px] lg:m-auto
                   `}
                   style={{ zIndex: i }}
                 >
                   <div className="w-full h-full rounded-[2rem] p-[1px] bg-gradient-to-b from-white/15 to-transparent backdrop-blur-md shadow-2xl overflow-hidden ring-1 ring-white/10">
-                    <div className="relative h-full w-full bg-[#0a0a0a]/95 rounded-[31px] p-6 sm:p-8 lg:p-10 flex flex-col hover:bg-[#0f0f0f] transition-colors duration-500">
+                    <div className="relative h-full w-full bg-[#0a0a0a]/95 rounded-[31px] p-5 sm:p-7 lg:p-9 flex flex-col hover:bg-[#0f0f0f] transition-colors duration-500">
 
                       {/* Glow Effect */}
                       <div className={`absolute -top-24 -right-24 w-72 h-72 bg-gradient-to-br ${exp.color} opacity-20 blur-[90px] rounded-full pointer-events-none`} />
@@ -395,6 +405,18 @@ export default function ProjectShowcase() {
                             </li>
                           ))}
                         </ul>
+
+                        {'architectureKey' in currentProject && currentProject.architectureKey && (
+                          <button
+                            type="button"
+                            onClick={() => setArchOverlay(currentProject.architectureKey ?? null)}
+                            className="group/btn mt-2 self-start inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-semibold text-slate-300 hover:text-white transition-colors px-3 py-1.5 rounded-full border border-white/10 hover:border-white/30 bg-white/[0.03] hover:bg-white/[0.06]"
+                          >
+                            <FiLayers className="w-3 h-3" />
+                            {archButtonLabel[locale]}
+                            <FiArrowRight className="w-3 h-3 transition-transform group-hover/btn:translate-x-0.5" />
+                          </button>
+                        )}
                       </div>
 
                       {/* Tech Stack */}
@@ -415,6 +437,11 @@ export default function ProjectShowcase() {
             })}
         </div>
       </div>
+
+      <OemArchitectureOverlay
+        isOpen={archOverlay === 'oem-integration-server'}
+        onClose={() => setArchOverlay(null)}
+      />
     </section>
   )
 }
