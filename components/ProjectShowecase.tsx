@@ -91,31 +91,31 @@ const experiences = [
       {
         name: "ODIYA (Location)",
         desc: {
-          ko: '자녀 위치 조회 서비스. 노란마켓·공부폰 OEM 탑재로 30,000+ 사용자 대상 React Native 앱 + Spring Boot 백엔드 운영.',
-          en: 'Child location-tracking service. Pre-installed on Yellow Market & Studyphone OEM devices, serving 30,000+ users with React Native app + Spring Boot backend.',
-          ja: '子供位置確認サービス。イエローマーケット・スタディフォンOEM搭載で30,000+ユーザー対象のReact Nativeアプリ + Spring Bootバックエンドを運用。',
+          ko: '자녀 위치 조회 서비스. 노란마켓·공부폰 OEM 사전탑재. React Native 앱 + Spring Boot 백엔드로 분당 수천 건의 위치 데이터를 안정 처리.',
+          en: 'Child location-tracking service. Pre-installed on Yellow Market & Studyphone OEM. React Native app + Spring Boot backend handling thousands of location events per minute.',
+          ja: '子供位置確認サービス。イエローマーケット・スタディフォンOEM事前搭載。React Nativeアプリ + Spring Bootバックエンドで分間数千件の位置データを安定処理。',
         } as L,
         highlights: {
           ko: [
-            "App Store / Google Play 출시 및 30,000+ 사용자 운영",
+            "App Store / Google Play 출시 · 분당 3,000~5,000건 위치 데이터 처리",
             "Redis buffering + batch processing 아키텍처 재설계 — DB write 부하 95% 감소, 인프라 증설 없이 안정화",
             "Haversine distance 기반 안심존 출입 감지 (위치 좌표 계산)",
             "HotUpdater + Supabase OTA 코드푸시 파이프라인 구축 및 운영 프로세스 정립",
-            "위치 데이터 파티션 관리 + 배치 동기화 자동화 — 장기 운영 데이터 비용 절감",
+            "OEM 사전탑재 확산으로 B2B 매출 약 230% 성장에 기여",
           ],
           en: [
-            "Shipped to App Store / Google Play, operating with 30,000+ users",
+            "Shipped to App Store / Google Play · 3,000~5,000 location events/min in production",
             "Redis buffering + batch architecture — 95% DB write reduction, stabilized service without infra scale-up",
             "Haversine-based safe-zone entry/exit detection (coordinate distance calc)",
             "HotUpdater + Supabase OTA code-push pipeline + operational process documented",
-            "Location-data partition management + batch sync automation — long-term data cost reduction",
+            "OEM pre-install rollout drove ~230% B2B revenue growth",
           ],
           ja: [
-            "App Store / Google Playリリース、30,000+ユーザーを運用",
+            "App Store / Google Playリリース · 分間3,000~5,000件の位置データ処理",
             "Redis buffering + batch processingアーキテクチャ再設計 — DB write負荷95%削減、インフラ増設なしで安定化",
             "Haversine distanceベースの安心ゾーン出入検知（位置座標計算）",
             "HotUpdater + Supabase OTAコードプッシュパイプライン構築および運用プロセス整備",
-            "位置データパーティション管理 + バッチ同期自動化 — 長期運用データコスト削減",
+            "OEM事前搭載拡大によりB2B売上約230%成長に貢献",
           ],
         } as LA,
         stack: ['React Native', 'Spring Boot', 'Redis', 'Supabase', 'HotUpdater']
