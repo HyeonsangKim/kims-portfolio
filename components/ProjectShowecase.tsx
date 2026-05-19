@@ -2,9 +2,17 @@
 import { useRef, useState, useLayoutEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { FiLayers, FiArrowRight } from 'react-icons/fi'
+import { FiLayers, FiArrowRight, FiFileText } from 'react-icons/fi'
 import { useI18n, Locale } from '@/lib/i18n'
 import OemArchitectureOverlay from './career/OemArchitectureOverlay'
+import CareerReportOverlay from './career/CareerReportOverlay'
+import type { CareerReportKey } from '@/data/career-reports'
+
+const companyGradientCss: Record<string, string> = {
+  'from-blue-500 to-cyan-400': 'linear-gradient(135deg, #3b82f6, #22d3ee)',
+  'from-purple-500 to-pink-400': 'linear-gradient(135deg, #a855f7, #f472b6)',
+  'from-orange-400 to-amber-500': 'linear-gradient(135deg, #fb923c, #f59e0b)',
+}
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -55,6 +63,7 @@ const experiences = [
         } as LA,
         stack: ['Spring Boot', 'MariaDB', 'Redis', 'JWT', 'Webhook', 'DLQ'],
         architectureKey: 'oem-integration-server' as const,
+        reportKey: 'oem-integration-server' as CareerReportKey,
       },
       {
         name: "Mohani (Parental Control)",
@@ -86,7 +95,8 @@ const experiences = [
             "重いNative処理をバックグラウンド非同期構造に分離 — リアルタイム制御の安定性確保",
           ],
         } as LA,
-        stack: ['React Native', 'Android Native', 'Knox SDK', 'FCM', 'Java/Kotlin']
+        stack: ['React Native', 'Android Native', 'Knox SDK', 'FCM', 'Java/Kotlin'],
+        reportKey: 'mohani' as CareerReportKey,
       },
       {
         name: "ODIYA (Location)",
@@ -118,7 +128,8 @@ const experiences = [
             "OEM事前搭載拡大によりB2B売上約230%成長に貢献",
           ],
         } as LA,
-        stack: ['React Native', 'Spring Boot', 'Redis', 'Supabase', 'HotUpdater']
+        stack: ['React Native', 'Spring Boot', 'Redis', 'Supabase', 'HotUpdater'],
+        reportKey: 'odiya' as CareerReportKey,
       },
       {
         name: { ko: 'KOCCA 한국어 평가 시스템', en: 'KOCCA Korean Assessment', ja: 'KOCCA韓国語評価システム' } as L,
@@ -132,7 +143,8 @@ const experiences = [
           en: ["Built full-stack Korean assessment platform for foreign students", "WAV recording (16kHz) + AWS S3 upload pipeline for external STT integration", "Nginx reverse proxy + SSL deployment environment setup", "PostgreSQL schema design + Prisma ORM queries"],
           ja: ["外国人学生向け韓国語試験Webプラットフォームのフロント・バックエンド実装", "外部STT連携のためのWAV録音（16kHz）+ AWS S3アップロードパイプライン実装", "サーバーNginxリバースプロキシ設定とSSL配備環境構築", "PostgreSQLスキーマ設計 + Prisma ORMクエリ実装"],
         } as LA,
-        stack: ['Next.js', 'Server Components', 'Prisma', 'PostgreSQL', 'Nginx', 'AWS S3']
+        stack: ['Next.js', 'Server Components', 'Prisma', 'PostgreSQL', 'Nginx', 'AWS S3'],
+        reportKey: 'kocca' as CareerReportKey,
       },
     ],
     color: "from-blue-500 to-cyan-400"
@@ -175,7 +187,8 @@ const experiences = [
             "モバイル・Webチャネル一元化 + 5,000+のインタラクティブ学習アクティビティ制作",
           ],
         } as LA,
-        stack: ['React Native', 'React', 'GSAP', 'SVG', 'Custom Hooks', 'TypeScript']
+        stack: ['React Native', 'React', 'GSAP', 'SVG', 'Custom Hooks', 'TypeScript'],
+        reportKey: 'purple-english' as CareerReportKey,
       }
     ],
     color: "from-purple-500 to-pink-400"
@@ -218,7 +231,8 @@ const experiences = [
             "政府R&D課題成果物の納品完了",
           ],
         } as LA,
-        stack: ['Canvas API', 'Spring Boot', 'JPA', 'JavaScript']
+        stack: ['Canvas API', 'Spring Boot', 'JPA', 'JavaScript'],
+        reportKey: 'aigoseo' as CareerReportKey,
       }
     ],
     color: "from-orange-400 to-amber-500"
@@ -238,11 +252,25 @@ export default function ProjectShowcase() {
   const [activeCardIndex, setActiveCardIndex] = useState(0)
   const [tabState, setTabState] = useState<{ [key: number]: number }>({ 1: 0, 2: 0, 3: 0 })
   const [archOverlay, setArchOverlay] = useState<null | 'oem-integration-server'>(null)
+  const [reportOverlay, setReportOverlay] = useState<CareerReportKey | null>(null)
+  const [reportContext, setReportContext] = useState<{
+    company: string
+    role: string
+    period: string
+    projectName: string
+    gradientCss: string
+  } | null>(null)
 
   const archButtonLabel: Record<Locale, string> = {
     ko: '서버 아키텍처 보기',
     en: 'View Server Architecture',
     ja: 'サーバーアーキテクチャを見る',
+  }
+
+  const reportButtonLabel: Record<Locale, string> = {
+    ko: '전체 리포트 보기',
+    en: 'View Full Report',
+    ja: 'フルレポートを見る',
   }
 
   useLayoutEffect(() => {
@@ -406,16 +434,41 @@ export default function ProjectShowcase() {
                           ))}
                         </ul>
 
-                        {'architectureKey' in currentProject && currentProject.architectureKey && (
-                          <button
-                            type="button"
-                            onClick={() => setArchOverlay(currentProject.architectureKey ?? null)}
-                            className="group/btn mt-2 self-start inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-semibold text-slate-300 hover:text-white transition-colors px-3 py-1.5 rounded-full border border-white/10 hover:border-white/30 bg-white/[0.03] hover:bg-white/[0.06]"
-                          >
-                            <FiLayers className="w-3 h-3" />
-                            {archButtonLabel[locale]}
-                            <FiArrowRight className="w-3 h-3 transition-transform group-hover/btn:translate-x-0.5" />
-                          </button>
+                        {(('architectureKey' in currentProject && currentProject.architectureKey) ||
+                          ('reportKey' in currentProject && currentProject.reportKey)) && (
+                          <div className="mt-2 flex flex-wrap gap-2">
+                            {'reportKey' in currentProject && currentProject.reportKey && (
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setReportContext({
+                                    company: exp.company,
+                                    role: exp.role,
+                                    period: exp.period,
+                                    projectName: getName(currentProject.name, locale),
+                                    gradientCss: companyGradientCss[exp.color] ?? companyGradientCss['from-blue-500 to-cyan-400'],
+                                  })
+                                  setReportOverlay(currentProject.reportKey ?? null)
+                                }}
+                                className="group/btn inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-semibold text-slate-300 hover:text-white transition-colors px-3 py-1.5 rounded-full border border-white/10 hover:border-white/30 bg-white/[0.03] hover:bg-white/[0.06]"
+                              >
+                                <FiFileText className="w-3 h-3" />
+                                {reportButtonLabel[locale]}
+                                <FiArrowRight className="w-3 h-3 transition-transform group-hover/btn:translate-x-0.5" />
+                              </button>
+                            )}
+                            {'architectureKey' in currentProject && currentProject.architectureKey && (
+                              <button
+                                type="button"
+                                onClick={() => setArchOverlay(currentProject.architectureKey ?? null)}
+                                className="group/btn inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-semibold text-slate-300 hover:text-white transition-colors px-3 py-1.5 rounded-full border border-white/10 hover:border-white/30 bg-white/[0.03] hover:bg-white/[0.06]"
+                              >
+                                <FiLayers className="w-3 h-3" />
+                                {archButtonLabel[locale]}
+                                <FiArrowRight className="w-3 h-3 transition-transform group-hover/btn:translate-x-0.5" />
+                              </button>
+                            )}
+                          </div>
                         )}
                       </div>
 
@@ -441,6 +494,16 @@ export default function ProjectShowcase() {
       <OemArchitectureOverlay
         isOpen={archOverlay === 'oem-integration-server'}
         onClose={() => setArchOverlay(null)}
+      />
+
+      <CareerReportOverlay
+        reportKey={reportOverlay}
+        gradientCss={reportContext?.gradientCss ?? 'linear-gradient(135deg, #3b82f6, #22d3ee)'}
+        company={reportContext?.company ?? ''}
+        period={reportContext?.period ?? ''}
+        role={reportContext?.role ?? ''}
+        projectName={reportContext?.projectName ?? ''}
+        onClose={() => setReportOverlay(null)}
       />
     </section>
   )
