@@ -13,9 +13,9 @@ const ui: Record<string, Record<Locale, string>> = {
     ja: 'Architecture · OEM Pre-installed App Platform',
   },
   title: {
-    ko: 'SSO Auth Server + Service Backbones',
-    en: 'SSO Auth Server + Service Backbones',
-    ja: 'SSO Auth Server + Service Backbones',
+    ko: 'OEM Auth Server + Service Backbones',
+    en: 'OEM Auth Server + Service Backbones',
+    ja: 'OEM Auth Server + Service Backbones',
   },
   subtitle: {
     ko: '단일 Auth Server가 Mohani / Odiya 두 서비스 백엔드를 인증·동기화한다. Webhook (X-Webhook-Secret · 3-retry · DLQ) + Internal API (X-API-Key · IP whitelist)로 분리, Token Family Tracking으로 Refresh 재사용 공격을 즉시 차단.',
@@ -23,9 +23,9 @@ const ui: Record<string, Record<Locale, string>> = {
     ja: '単一のAuth ServerがMohani / Odiyaの2バックエンドを認証・同期。Webhook（X-Webhook-Secret · 3-retry · DLQ）+ Internal API（X-API-Key · IPホワイトリスト）で分離し、Token Family TrackingでRefresh再利用攻撃を即時遮断。',
   },
   bottom: {
-    ko: 'Client → SSO Auth Server → 서비스 백엔드 (Mohani / Odiya) → 데이터 계층까지 이어지는 4-tier 구조. 인증 장애가 비즈니스로 전파되지 않고, Webhook이 실시간 동기화하며 DLQ로 메시지 유실을 복구한다.',
-    en: 'Four-tier — Client → SSO Auth Server → Service backbones (Mohani / Odiya) → Data. Auth outages do not propagate to business; Webhooks keep state in sync and the DLQ recovers from message loss.',
-    ja: 'Client → SSO Auth Server → サービスバックボーン（Mohani / Odiya）→ Dataの4階層。認証障害はビジネスに伝播せず、Webhookで実時間同期、DLQでメッセージ消失を復旧します。',
+    ko: 'Client → OEM Auth Server → 서비스 백엔드 (Mohani / Odiya) → 데이터 계층까지 이어지는 4-tier 구조. 인증 장애가 비즈니스로 전파되지 않고, Webhook이 실시간 동기화하며 DLQ로 메시지 유실을 복구한다.',
+    en: 'Four-tier — Client → OEM Auth Server → Service backbones (Mohani / Odiya) → Data. Auth outages do not propagate to business; Webhooks keep state in sync and the DLQ recovers from message loss.',
+    ja: 'Client → OEM Auth Server → サービスバックボーン（Mohani / Odiya）→ Dataの4階層。認証障害はビジネスに伝播せず、Webhookで実時間同期、DLQでメッセージ消失を復旧します。',
   },
 }
 
@@ -136,7 +136,7 @@ function OemArchitectureDiagram() {
   return (
     <svg
       role="img"
-      aria-label="OEM Pre-installed App Platform — SSO Auth Server architecture"
+      aria-label="OEM Pre-installed App Platform — OEM Auth Server architecture"
       viewBox="0 0 1080 820"
       className="w-full h-auto min-w-[640px]"
       preserveAspectRatio="xMidYMid meet"
@@ -355,7 +355,7 @@ function AuthServerNode() {
       {/* Main panel */}
       <rect x={x} y={y} width={w} height={h} rx={14} fill="url(#authbg)" stroke="url(#accent)" strokeWidth={1.5} />
       <text x={x + 22} y={y + 30} fontSize="17" fontWeight="800" fill="#fafafa" fontFamily="ui-sans-serif,system-ui">
-        SSO Auth Server
+        OEM Auth Server
       </text>
       <text x={x + 22} y={y + 50} fontSize="11" fill="rgba(255,255,255,0.55)" fontFamily="ui-sans-serif,system-ui">
         sso.soundmind.life · Spring Boot 17 · MariaDB · Redis · Flyway V1–V23

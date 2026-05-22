@@ -106,9 +106,9 @@ export default function AwardsPapers() {
   const { locale } = useI18n()
 
   const heading: Record<typeof locale, string> = {
-    ko: 'Awards & Papers',
-    en: 'Awards & Papers',
-    ja: 'Awards & Papers',
+    ko: 'Awards',
+    en: 'Awards',
+    ja: 'Awards',
   }
   const subtitle: Record<typeof locale, string> = {
     ko: '외부 검증 기록.',

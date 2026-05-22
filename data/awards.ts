@@ -27,20 +27,6 @@ export interface Award {
 
 export const awards: Award[] = [
   {
-    id: 'acl-2026-wigvo',
-    kind: 'paper',
-    badge: 'paper-accepted',
-    event: 'ACL 2026',
-    organizer: 'Association for Computational Linguistics',
-    result: {
-      ko: 'WIGVO — System Demonstrations 채택',
-      en: 'WIGVO — System Demonstrations Accepted',
-      ja: 'WIGVO — System Demonstrations 採択',
-    },
-    date: '2026',
-    projectSlug: 'wigvo',
-  },
-  {
     id: 'snowflake-2026-flake',
     kind: 'hackathon',
     badge: '2nd-place',

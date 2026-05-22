@@ -89,12 +89,8 @@ export default function Hero() {
           if (el) el.scrollIntoView({ behavior: 'smooth' })
         }}
         className="mt-6 sm:mt-8 group flex flex-wrap items-center justify-center gap-2 sm:gap-3 px-4 py-2 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md hover:bg-white/[0.08] hover:border-white/20 transition-all"
-        aria-label="Jump to Awards & Papers section"
+        aria-label="Jump to Awards section"
       >
-        <span className="text-[10px] sm:text-xs font-bold tracking-widest text-violet-300/90">
-          ACL 2026 PAPER
-        </span>
-        <span className="w-px h-3 bg-white/10" />
         <span className="text-[10px] sm:text-xs font-bold tracking-widest text-amber-300/90">
           TRAE GRAND PRIZE
         </span>
