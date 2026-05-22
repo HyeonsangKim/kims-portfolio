@@ -137,19 +137,19 @@ const translations = {
         ja: '5,000以上のWeb学習コンテンツを制作し、React Nativeへ移行、GSAP/SVGでインタラクティブな体験を実装。',
       },
       highlights: {
-        ko: ["5000개가 넘는 유아용 영아 학습 컨턴츠 웹 제작", "Web → React Native 앱 마이그레이션", "SVG Path 활용 인터랙티브 학습 구현"],
+        ko: ["5,000개가 넘는 영유아 학습 콘텐츠 웹 제작", "Web → React Native 앱 마이그레이션", "SVG Path 활용 인터랙티브 학습 구현"],
         en: ["Built 5,000+ early childhood learning web activities", "Web → React Native app migration", "Interactive learning with SVG Path animations"],
         ja: ["5,000以上の幼児向け学習Webコンテンツ制作", "Web → React Nativeアプリマイグレーション", "SVG Pathを活用したインタラクティブ学習実装"],
       },
     },
     iezlab: {
       desc: {
-        ko: '자바 스프링과 Jquery, Thyme-leaf등을 활용해 웹을 제작 하였습니다.',
+        ko: 'Java Spring과 jQuery, Thymeleaf 등을 활용해 웹을 제작했습니다.',
         en: 'Built web applications using Java Spring, jQuery, and Thymeleaf.',
         ja: 'Java SpringとjQuery、Thymeleafを活用してWebを制作。',
       },
       highlights: {
-        ko: ["Jquery, Spring을 활용한 와인 이커머스 제작", "Spring Boot/JPA 사내 ERP 구축", "레거시 데이터 시각화"],
+        ko: ["jQuery, Spring을 활용한 와인 이커머스 제작", "Spring Boot/JPA 사내 ERP 구축", "레거시 데이터 시각화"],
         en: ["Wine e-commerce platform with jQuery & Spring", "In-house ERP system with Spring Boot/JPA", "Legacy data visualization"],
         ja: ["jQuery、Springを活用したワインEC制作", "Spring Boot/JPA社内ERP構築", "レガシーデータ可視化"],
       },

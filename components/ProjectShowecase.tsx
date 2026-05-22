@@ -163,7 +163,7 @@ const experiences = [
       {
         name: { ko: '퍼플 잉글리시', en: 'Purple English', ja: 'パープルイングリッシュ' } as L,
         desc: {
-          ko: '영어 교육 모바일 앱 / 웹 플랫폼. 기존 React 웹 코드베이스를 React Native 앱으로 마이그레이션하고, 모바일·웹 채널을 일원화하여 5,000+ 인터랙티브 학습 액티비티를 운영.',
+          ko: '영어 교육 모바일 앱 / 웹 플랫폼. 기존 React 웹 코드베이스를 React Native 앱으로 마이그레이션하고, 모바일·웹 채널을 일원화하여 5,000+ 인터랙티브 학습 활동을 운영.',
           en: 'English-learning mobile app / web platform. Migrated the legacy React web codebase to React Native, unified mobile/web channels, and shipped 5,000+ interactive learning activities.',
           ja: '英語教育モバイルアプリ / Webプラットフォーム。既存のReact WebコードベースをReact Nativeアプリへ移行し、モバイル・Webチャネルを一元化して5,000+のインタラクティブ学習アクティビティを運用。',
         } as L,
@@ -172,7 +172,7 @@ const experiences = [
             "기존 React 웹 코드베이스 → React Native 앱 마이그레이션 + App Store / Google Play 출시",
             "Custom Hook 기반 비즈니스 로직 모듈화 — 웹·앱 공통 로직 재사용 구조 구축",
             "GSAP + SVG Path Animation 기반 알파벳 트레이싱 기능 구현",
-            "모바일·웹 채널 일원화 + 5,000+ 인터랙티브 학습 액티비티 제작",
+            "모바일·웹 채널 일원화 + 5,000+ 인터랙티브 학습 활동 제작",
           ],
           en: [
             "Migrated legacy React web codebase → React Native app, shipped to App Store / Google Play",

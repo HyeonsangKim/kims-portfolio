@@ -77,10 +77,10 @@ export const projectReports: Record<string, ProjectReport> = {
         'Coordinating multiple specialized roles by hand means context constantly slips between agents.',
       ],
       ko: [
-        '순차 개발 워크플로우(PRD → 아키텍처 → 빌드 → 리뷰)는 기능 하나당 약 20분의 실시간을 먹는다.',
+        '순차 개발 워크플로우(PRD → 아키텍처 → 빌드 → 리뷰)는 기능 하나당 약 20분이 통째로 걸린다.',
         '주니어 개발자는 풀스택 구현에 필요한 구조화된 가이드가 없다 — MSA vs 모놀리식 결정, 패턴 선택, 제대로 된 리뷰.',
         '공유 계약 없이 여러 트랙이 병렬로 작업하면 코드 품질과 아키텍처 일관성이 무너진다.',
-        '여러 전문 역할을 수동으로 조율하면 에이전트 사이에서 컨텍스트가 계속 빠져나간다.',
+        '여러 전문 역할을 수동으로 조율하면 에이전트 사이에서 컨텍스트가 계속 유실된다.',
       ],
       ja: [
         '順次開発ワークフロー（PRD → アーキテクチャ → ビルド → レビュー）は機能ひとつで約20分の実時間を消費する。',
@@ -198,7 +198,7 @@ export const projectReports: Record<string, ProjectReport> = {
         },
         body: {
           en: 'team-build-coordinator dispatches parallel teams · parallel-review-coordinator merges 3-agent review scores · parallel-digging-coordinator runs a 4-category PRD analysis · architecture-decision picks MSA / Monolithic / Modular Monolith.',
-          ko: 'team-build-coordinator는 병렬 팀을 투입 · parallel-review-coordinator는 3 에이전트 리뷰 점수를 병합 · parallel-digging-coordinator는 4개 카테고리 PRD 분석 수행 · architecture-decision은 MSA / 모놀리식 / 모듈러 모놀리식을 선택한다.',
+          ko: 'team-build-coordinator는 병렬 팀 투입 · parallel-review-coordinator는 3 에이전트 리뷰 점수 병합 · parallel-digging-coordinator는 4개 카테고리 PRD 분석 · architecture-decision은 MSA / 모놀리식 / 모듈러 모놀리식 선택.',
           ja: 'team-build-coordinatorが並列チームを投入 · parallel-review-coordinatorが3エージェントのレビュースコアを統合 · parallel-digging-coordinatorが4カテゴリのPRD分析を実行 · architecture-decisionがMSA / モノリス / モジュラーモノリスを選択。',
         },
       },
@@ -296,7 +296,7 @@ export const projectReports: Record<string, ProjectReport> = {
         },
         body: {
           en: 'code-review-levels skill unlocks Level 3 (call chains, concurrency, data flow) and Level 4 (SOLID, scalability, architecture).',
-          ko: 'code-review-levels 스킬이 Level 3(호출 체인, 동시성, 데이터 흐름)와 Level 4(SOLID, 확장성, 아키텍처)를 해제한다.',
+          ko: 'code-review-levels 스킬이 Level 3(호출 체인, 동시성, 데이터 흐름)와 Level 4(SOLID, 확장성, 아키텍처)를 해금한다.',
           ja: 'code-review-levelsスキルがLevel 3（呼び出しチェーン、並行性、データフロー）とLevel 4（SOLID、スケーラビリティ、アーキテクチャ）を解放する。',
         },
       },
@@ -308,7 +308,7 @@ export const projectReports: Record<string, ProjectReport> = {
         },
         body: {
           en: 'Analyzes PRD for domain complexity and NFRs, then returns a structured MSA vs. Monolithic vs. Modular Monolith recommendation with rationale — no more gut-feel splits.',
-          ko: 'PRD에서 도메인 복잡도와 NFR을 분석한 뒤, MSA vs 모놀리식 vs 모듈러 모놀리식 구조화된 추천을 근거와 함께 반환한다. 감에 의존한 분리 끝.',
+          ko: 'PRD에서 도메인 복잡도와 NFR을 분석한 뒤, MSA vs 모놀리식 vs 모듈러 모놀리식 구조화된 추천을 근거와 함께 반환한다. 감에 의존한 분리는 이제 끝.',
           ja: 'PRDからドメインの複雑度とNFRを分析し、MSA vs モノリス vs モジュラーモノリスの構造化された推薦を根拠とともに返す。勘に頼った分割は終わり。',
         },
       },
@@ -332,7 +332,7 @@ export const projectReports: Record<string, ProjectReport> = {
         },
         body: {
           en: 'PostToolUse hooks on `.tsx/.jsx/.css` enforce formatting, and on `.ts/.py/.go` run backend pattern-compliance checks — quality is continuous, not a final gate.',
-          ko: '`.tsx/.jsx/.css`의 PostToolUse 훅이 포매팅을 강제하고, `.ts/.py/.go`에는 백엔드 패턴 컴플라이언스 검사가 돈다. 품질은 최종 게이트가 아닌 지속 프로세스.',
+          ko: '`.tsx/.jsx/.css`의 PostToolUse 훅이 포매팅을 강제하고, `.ts/.py/.go`에는 백엔드 패턴 컴플라이언스 검사가 돈다. 품질은 최종 게이트가 아닌 지속 프로세스다.',
           ja: '`.tsx/.jsx/.css`のPostToolUseフックがフォーマットを強制し、`.ts/.py/.go`ではバックエンドパターン準拠チェックが走る。品質は最終ゲートではなく継続プロセス。',
         },
       },
@@ -348,7 +348,7 @@ export const projectReports: Record<string, ProjectReport> = {
         ],
         ko: [
           '병렬 우선 설계: 가능한 모든 곳에서 팬아웃, 게이트에서만 합류. 20분 파이프라인을 약 6분으로 단축.',
-          '감이 아닌 증거 기반 스코어링. 100점 루브릭 + 카테고리 분할로 리뷰 결정이 감사 가능해짐.',
+          '감이 아닌 증거 기반 스코어링. 100점 루브릭 + 카테고리 분할로 리뷰 결정을 감사할 수 있게 된다.',
           '디자인 디스커버리를 1급 단계로. "모델 디폴트에 맡기기"보다 VS 기반 추천이 낫다.',
           'team-memory-protocol: 공유 컨텍스트 파일이 병렬 에이전트 간 조용한 덮어쓰기를 방지한다.',
           'Bash 레이어 안전 훅 — 파괴적 작업이 하네스 자체에서 차단된다.',
@@ -413,7 +413,7 @@ export const projectReports: Record<string, ProjectReport> = {
       ko: [
         '혼자 하는 브레인스토밍은 편향된다 — 자기 아이디어에 빠져서 맹점을 못 본다.',
         '팀 토론은 느리다 — 반쯤 설익은 결론에 도달하는 데도 몇 시간이 걸린다.',
-        'AI 챗 도구는 1차원적이다 — ChatGPT는 하나의 순응적 답변만 준다. 토론이 없다.',
+        'AI 챗 도구는 1차원적이다 — ChatGPT는 동조하는 답변 하나만 준다. 반론이 없다.',
       ],
       ja: [
         '一人のブレインストーミングは偏る — 自分のアイデアに惚れ込み、盲点が見えなくなる。',
@@ -516,7 +516,7 @@ export const projectReports: Record<string, ProjectReport> = {
         title: { en: 'Agent Persona Engineering', ko: '에이전트 페르소나 엔지니어링', ja: 'エージェントペルソナエンジニアリング' },
         body: {
           en: 'Specific speech patterns (e.g. "근데 이거 누가 쓰는데?" for PM) create natural conversation instead of generic LLM voice.',
-          ko: '특정 말투(예: PM의 "근데 이거 누가 쓰는데?") 가 일반적인 LLM 목소리 대신 자연스러운 대화를 만든다.',
+          ko: '특정 말투(예: PM의 "근데 이거 누가 쓰는데?")가 일반적인 LLM 어투 대신 자연스러운 대화를 만든다.',
           ja: '特定の口調（例：PMの「근데 이거 누가 쓰는데?」）が一般的なLLMの声ではなく自然な会話を生み出す。',
         },
       },
@@ -524,7 +524,7 @@ export const projectReports: Record<string, ProjectReport> = {
         title: { en: 'Random Inter-Agent Delay', ko: '에이전트 간 랜덤 딜레이', ja: 'エージェント間ランダム遅延' },
         body: {
           en: '800–2500ms delay injected between turns to break the instant-response illusion and make the debate feel human.',
-          ko: '턴 사이에 800~2500ms 딜레이를 주입해 즉답 환상을 깨고 토론이 사람 같이 느껴지게 한다.',
+          ko: '턴 사이에 800~2500ms 딜레이를 주입해 즉답 환상을 깨고 토론이 사람같이 느껴지게 한다.',
           ja: 'ターン間に800〜2500msの遅延を注入し、即答の幻想を壊して議論を人間らしく感じさせる。',
         },
       },
@@ -556,7 +556,7 @@ export const projectReports: Record<string, ProjectReport> = {
         title: { en: 'Reject → Continue Pattern', ko: 'Reject → Continue 패턴', ja: 'Reject → Continueパターン' },
         body: {
           en: 'Rejection triggers 8 more turns without the user re-entering the debate. One click, more signal.',
-          ko: '거절 한 번이면 사용자가 토론에 재진입하지 않고도 8턴이 추가된다. 클릭 한 번, 시그널은 더.',
+          ko: '거절 한 번이면 사용자가 토론에 재진입하지 않고도 8턴이 추가된다. 클릭 한 번으로 더 많은 시그널을.',
           ja: '却下一つでユーザーが議論に再参加せずとも8ターンが追加される。ワンクリック、より多くのシグナル。',
         },
       },
@@ -603,7 +603,7 @@ export const projectReports: Record<string, ProjectReport> = {
         title: { en: 'Rounds → free 30-turn debate', ko: '라운드 → 자유 30턴 토론', ja: 'ラウンド → 自由30ターン議論' },
         body: {
           en: "Real meetings don't announce 'Round 2' — the discrete rounds felt robotic.",
-          ko: "실제 회의는 '2라운드'를 선언하지 않는다 — 이산적 라운드는 로봇 같았다.",
+          ko: "실제 회의는 '2라운드'를 선언하지 않는다 — 분절된 라운드는 로봇 같았다.",
           ja: "実際の会議は「2ラウンド目」と宣言しない — 離散的なラウンドはロボット的だった。",
         },
       },
@@ -727,10 +727,10 @@ export const projectReports: Record<string, ProjectReport> = {
       ],
       ko: [
         '목적 우선 UX — 사용자는 *무엇을 하고 싶은지* 고른다(5개 프리셋 + 자유 입력). 같은 동네라도 목적에 따라 점수가 달라진다.',
-        '5인 Cortex 토론 — PM 진행자, 데이터 분석가, 예측 분석가, 인사이트 분석가, 감성/뉴스 분석가. 모두 실제 Snowflake 데이터에 그라운딩된다. 분위기가 아니라.',
+        '5인 Cortex 토론 — PM 진행자, 데이터 분석가, 예측 분석가, 인사이트 분석가, 감성/뉴스 분석가. 모두 실제 Snowflake 데이터에 그라운딩된다. 분위기에 기대지 않는다.',
         'ANOMALY_DETECTION을 보조에서 주연으로 승격 — 통계적 이상치가 잡히면 랭킹에 "지금 이 동네 주목" 배지를 자동 주입. 데모 클라이맥스.',
-        '하이브리드 AI: Cortex는 SQL/예측/리포트, GPT-4o는 페르소나/함수콜링. 벤치마크가 잘한다고 한 일을 각자에게 맡긴다.',
-        '3단 폴백 사다리: Cortex Agent → Cortex Analyst 직접 호출 → GPT-4o Function Calling → GPT-4o 순수 추론. Trial 계정 한계가 데모를 절대 깨지 않는다.',
+        '하이브리드 AI: Cortex는 SQL/예측/리포트, GPT-4o는 페르소나/함수콜링. 벤치마크로 검증된 일을 각자에게 맡긴다.',
+        '3단 폴백 사다리: Cortex Agent → Cortex Analyst 직접 호출 → GPT-4o Function Calling → GPT-4o 순수 추론. Trial 계정 한계가 데모를 절대 무너뜨리지 않는다.',
       ],
       ja: [
         '目的優先UX — ユーザーは*何をしたいか*を選ぶ(5プリセット + 自由入力)。同じ地域でも目的によりスコアが変わる。',
@@ -797,7 +797,7 @@ export const projectReports: Record<string, ProjectReport> = {
         title: { en: 'Data Layer — Cortex Analyst × 4', ko: 'Data Layer — Cortex Analyst × 4', ja: 'Data Layer — Cortex Analyst × 4' },
         body: {
           en: 'Per-dataset Semantic YAMLs (SPH foot traffic + card sales + KCB income, RichGo real estate, NextTrade equities, AJD telecom) feed Cortex Analyst, which converts each natural-language question into precise SQL. Forecast and anomaly answers come from FORECAST and ANOMALY_DETECTION called as the experts hand the floor to each other — debate triggers ML, not the other way around.',
-          ko: '데이터셋별 Semantic YAML(SPH 유동인구+카드매출+KCB 자산소득, RichGo 부동산, NextTrade 주식, AJD 통신)이 Cortex Analyst의 입력이 된다. 자연어 질문이 정확한 SQL로 변환된다. 예측·이상치 답은 전문가들이 발언권을 넘기는 사이 FORECAST와 ANOMALY_DETECTION이 호출돼서 나온다. 토론이 ML을 부른다, 그 반대가 아니다.',
+          ko: '데이터셋별 Semantic YAML(SPH 유동인구+카드매출+KCB 자산소득, RichGo 부동산, NextTrade 주식, AJD 통신)이 Cortex Analyst의 입력이 된다. 자연어 질문이 정확한 SQL로 변환된다. 예측·이상치 답은 전문가들이 발언권을 넘기는 사이 FORECAST와 ANOMALY_DETECTION이 호출돼서 나온다. 토론이 ML을 부른다. 그 반대가 아니다.',
           ja: 'データセット別Semantic YAML(SPH人流+カード売上+KCB資産所得、RichGo不動産、NextTrade株式、AJD通信)がCortex Analystの入力になる。自然言語の質問が正確なSQLに変換される。予測・異常値の答えは専門家が発言を回す中でFORECASTとANOMALY_DETECTIONが呼ばれて出る。議論がMLを呼ぶ。逆ではない。',
         },
       },
@@ -831,7 +831,7 @@ export const projectReports: Record<string, ProjectReport> = {
         title: { en: 'Semantic YAML × 4 — Data Grounding', ko: 'Semantic YAML × 4 — 데이터 그라운딩', ja: 'Semantic YAML × 4 — データグラウンディング' },
         body: {
           en: 'Cortex Analyst is only as good as its Semantic Model. We hand-wrote four YAMLs (SPH, RichGo, NextTrade, AJD) with synonyms, dimension hierarchies, and pre-defined measures so a question like "30대 여성 직장인 유동인구 상위 동네" lands on the right columns. Cuts the hallucinated-column rate from "demo-killing" to "rare."',
-          ko: 'Cortex Analyst는 Semantic Model 품질만큼만 잘한다. SPH/RichGo/NextTrade/AJD 4개 YAML을 동의어, 디멘전 계층, 사전 정의된 측정치까지 손으로 짰다. "30대 여성 직장인 유동인구 상위 동네" 같은 질문이 정확한 컬럼에 꽂히도록. 환각 컬럼 비율을 "데모 킬러"에서 "희귀 사건"으로 낮춤.',
+          ko: 'Cortex Analyst는 Semantic Model 품질만큼만 잘한다. SPH/RichGo/NextTrade/AJD 4개 YAML을 동의어, 디멘전 계층, 사전 정의된 측정치까지 손으로 짰다. "30대 여성 직장인 유동인구 상위 동네" 같은 질문이 정확한 컬럼에 꽂히도록. 환각 컬럼 비율을 "데모 킬러"에서 "희귀 사건"으로 낮췄다.',
           ja: 'Cortex AnalystはSemantic Model品質と同じだけ賢い。SPH/RichGo/NextTrade/AJDの4 YAMLを同義語、ディメンション階層、事前定義されたメジャーまで手書きした。「30代女性会社員の人流上位地域」のような問いが正確な列に着地するように。幻覚列率を「デモキラー」から「稀」に下げた。',
         },
       },
@@ -847,7 +847,7 @@ export const projectReports: Record<string, ProjectReport> = {
         title: { en: 'Hybrid Model Strategy', ko: '하이브리드 모델 전략', ja: 'ハイブリッドモデル戦略' },
         body: {
           en: 'Cortex LLM (claude-4-sonnet) for long Korean reports — 17.3s / 1657 chars / no garbage. GPT-4o for personas and function calling because Cortex personas felt flat and Cortex function calling was unreliable in the trial environment. We picked per task, not per principle.',
-          ko: '긴 한글 리포트는 Cortex LLM(claude-4-sonnet) — 17.3초 / 1657자 / 가비지 없음. 페르소나와 Function Calling은 GPT-4o — Cortex 페르소나는 평평하게 느껴졌고 Trial 환경에서 Function Calling이 불안정. 원칙이 아니라 태스크별로 골랐다.',
+          ko: '긴 한국어 리포트는 Cortex LLM(claude-4-sonnet) — 17.3초 / 1657자 / 가비지 없음. 페르소나와 Function Calling은 GPT-4o — Cortex 페르소나는 평면적이었고 Trial 환경에서 Function Calling이 불안정. 원칙이 아니라 태스크별로 골랐다.',
           ja: '長い韓国語レポートはCortex LLM(claude-4-sonnet) — 17.3秒/1657文字/ゴミなし。ペルソナとFunction CallingはGPT-4o — Cortexペルソナは平板に感じ、トライアル環境でFunction Callingが不安定。原則ではなくタスク単位で選んだ。',
         },
       },
@@ -863,7 +863,7 @@ export const projectReports: Record<string, ProjectReport> = {
         title: { en: 'Token-Collapse Guard', ko: '토큰 붕괴 가드', ja: 'トークン崩壊ガード' },
         body: {
           en: 'Cortex LLM occasionally emits `<|reserved_special_token|>`, German nouns ("Dünnschicht"), or random surnames mid-stream. `hasGarbageTokens()` watches the stream live; first hit, we abort and fail over to GPT-4o without the user ever seeing junk in the report.',
-          ko: 'Cortex LLM이 가끔 스트리밍 도중 `<|reserved_special_token|>`, 독일어 명사("Dünnschicht"), 무작위 성씨를 뱉는다. `hasGarbageTokens()`가 스트림을 라이브로 감시. 첫 번째 적중에서 즉시 중단하고 GPT-4o로 페일오버. 사용자는 리포트에서 쓰레기를 보지 않는다.',
+          ko: 'Cortex LLM이 가끔 스트리밍 도중 `<|reserved_special_token|>`, 독일어 명사("Dünnschicht"), 무작위 성씨를 뱉는다. `hasGarbageTokens()`가 스트림을 실시간으로 감시한다. 첫 번째 적중에서 즉시 중단하고 GPT-4o로 페일오버한다. 사용자는 리포트에서 쓰레기를 보지 않는다.',
           ja: 'Cortex LLMがストリーミング中に時々`<|reserved_special_token|>`、ドイツ語名詞(「Dünnschicht」)、ランダムな姓を吐く。`hasGarbageTokens()`がストリームをライブ監視。初ヒットで即中断しGPT-4oにフェイルオーバー。ユーザーはレポートでゴミを見ない。',
         },
       },
@@ -871,7 +871,7 @@ export const projectReports: Record<string, ProjectReport> = {
         title: { en: '~90% Reuse from WIGENT', ko: 'WIGENT에서 ~90% 재활용', ja: 'WIGENTから~90%再利用' },
         body: {
           en: 'WIGENT (Build with TRAE 1st place) shipped a multi-agent orchestrator + SSE streaming + Slack-style chat in 3.5 hours. WIGTN FLAKE pivoted that codebase: the orchestrator, the SSE event protocol, the reducer, even the speaker-selection algorithm carried over. We spent the budget on the parts that were actually new — Cortex integration, Semantic YAMLs, fallback ladder.',
-          ko: 'WIGENT(Build with TRAE 1등)는 3.5시간 만에 멀티 에이전트 오케스트레이터 + SSE 스트리밍 + Slack 스타일 채팅을 출시했다. WIGTN FLAKE는 그 코드베이스에서 피봇했다. 오케스트레이터, SSE 이벤트 프로토콜, 리듀서, 심지어 스피커 선택 알고리즘까지 그대로 가져왔다. 예산은 진짜 새로운 부분 — Cortex 통합, Semantic YAML, 폴백 사다리 — 에 썼다.',
+          ko: 'WIGENT(Build with TRAE 1등)는 3.5시간 만에 멀티 에이전트 오케스트레이터 + SSE 스트리밍 + Slack 스타일 채팅을 출시했다. WIGTN FLAKE는 그 코드베이스에서 피봇했다. 오케스트레이터, SSE 이벤트 프로토콜, 리듀서, 심지어 스피커 선택 알고리즘까지 그대로 가져왔다. 예산은 진짜 새로운 부분, 즉 Cortex 통합·Semantic YAML·폴백 사다리에 썼다.',
           ja: 'WIGENT(Build with TRAE 1位)は3.5時間でマルチエージェントオーケストレーター + SSEストリーミング + Slack風チャットを出荷した。WIGTN FLAKEはそのコードベースからピボットした。オーケストレーター、SSEイベントプロトコル、リデューサー、スピーカー選択アルゴリズムまでそのまま継承。予算は本当に新しい部分 — Cortex統合、Semantic YAML、フォールバックラダー — に投じた。',
         },
       },
@@ -952,7 +952,7 @@ export const projectReports: Record<string, ProjectReport> = {
         ko: [
           'ANOMALY_DETECTION을 보조에서 데모 클라이맥스로 승격 — 심사위원 반응이 "흥미롭다"와 "기억에 남는다"의 차이를 만들었다.',
           '하이브리드 모델 전략은 벤치 기반이지 분위기 기반이 아니었다. Cortex vs Llama vs GPT-4o를 태스크별로 측정하고 숫자가 결정하게 했다.',
-          'Cortex Analyst 직접 호출을 Tier-2 폴백으로 둔 게 Trial 계정 천장을 데모에서 아무도 모르게 뚫었다.',
+          'Cortex Analyst 직접 호출을 Tier-2 폴백으로 둔 덕에 Trial 계정 한도를 데모에서 아무도 모르게 뚫었다.',
           'Wigent에서 ~90% 재활용한 덕에 팀이 진짜 새로운 Snowflake 부분에 예산 전부를 쓸 수 있었다.',
           '목적 우선 UX가 다른 팀들이 다 들고 온 일반적인 "AI 챗" 프레이밍을 피했다.',
         ],
@@ -972,7 +972,7 @@ export const projectReports: Record<string, ProjectReport> = {
           'The 4-dataset × 11-Cortex story did not survive without verbal explanation. Need a one-screen architecture diagram on the landing page so judges grasp the depth before the chat starts.',
         ],
         ko: [
-          '목적이 피봇될 때마다 4개 Semantic YAML 전부를 손으로 재튜닝해야 했다. YAML 스키마 린터가 있었다면 잘못된 컬럼 SQL의 절반은 일찍 잡혔을 것.',
+          '목적을 피봇할 때마다 4개 Semantic YAML 전부를 손으로 재튜닝해야 했다. YAML 스키마 린터가 있었다면 잘못된 컬럼 SQL의 절반은 일찍 잡혔을 것.',
           'Cortex 쿼리당 과금 때문에 Trial 한도 안에서 퍼블릭 라이브 배포가 불가능했다. 결과 캐시 레이어를 22일째가 아니라 1일째에 계획했어야 했다.',
           '테스트가 아예 없다 — 오케스트레이터, Cortex 브리지, 폴백 사다리, 가비지 토큰 디텍터 전부 다음 데모 전에 통합 테스트 필요.',
           '4 데이터셋 × 11 Cortex 스토리가 구두 설명 없이는 안 전달됐다. 채팅 시작 전에 심사위원이 깊이를 파악하도록 랜딩 페이지에 한 화면짜리 아키텍처 다이어그램이 필요하다.',
@@ -1078,7 +1078,7 @@ export const projectReports: Record<string, ProjectReport> = {
         title: { en: 'Layer 1 — Transport', ko: 'Layer 1 — 전송', ja: 'Layer 1 — トランスポート' },
         body: {
           en: 'Twilio Media Streams handle PSTN ↔ G.711 μ-law 8kHz; the browser talks PCM 16kHz over WebSocket. One bridge, zero carrier-specific code.',
-          ko: 'Twilio Media Streams가 PSTN ↔ G.711 μ-law 8kHz를 처리하고, 브라우저는 WebSocket으로 PCM 16kHz를 말한다. 브리지 하나, 통신사별 코드 0줄.',
+          ko: 'Twilio Media Streams가 PSTN ↔ G.711 μ-law 8kHz를 처리하고, 브라우저는 WebSocket으로 PCM 16kHz를 주고받는다. 브리지 하나, 통신사별 코드 0줄.',
           ja: 'Twilio Media StreamsがPSTN ↔ G.711 μ-law 8kHzを処理し、ブラウザはWebSocket経由でPCM 16kHzを扱う。ブリッジ1つ、キャリア固有コード0行。',
         },
       },
@@ -1243,7 +1243,7 @@ export const projectReports: Record<string, ProjectReport> = {
       ],
       ko: [
         '여행 전, AI가 목적지·여행 스타일·체류 기간을 기반으로 일일 예산을 만든다.',
-        '여행 중에는 어떤 언어의 영수증이든 찍기만 하면 — WIGEX가 몇 초 안에 읽고, 구매일 환율로 본국 통화로 변환해, 실시간으로 예산 대비 지출을 추적한다.',
+        '여행 중에는 어떤 언어의 영수증이든 찍기만 하면 — WIGEX가 몇 초 안에 읽고, 구매일 환율로 자국 통화로 변환해, 실시간으로 예산 대비 지출을 추적한다.',
       ],
       ja: [
         '旅行前、AIが目的地・旅行スタイル・滞在期間に基づいて日次予算を構築する。',
