@@ -5,8 +5,11 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { FiLayers, FiArrowRight, FiFileText } from 'react-icons/fi'
 import { useI18n, Locale } from '@/lib/i18n'
 import OemArchitectureOverlay from './career/OemArchitectureOverlay'
+import ArchitectureOverlay, { type ArchitectureKey as DiagramArchitectureKey } from './career/ArchitectureOverlay'
 import CareerReportOverlay from './career/CareerReportOverlay'
 import type { CareerReportKey } from '@/data/career-reports'
+
+type ArchKey = 'oem-integration-server' | DiagramArchitectureKey
 
 const companyGradientCss: Record<string, string> = {
   'from-blue-500 to-cyan-400': 'linear-gradient(135deg, #3b82f6, #22d3ee)',
@@ -62,7 +65,7 @@ const experiences = [
           ],
         } as LA,
         stack: ['Spring Boot', 'MariaDB', 'Redis', 'JWT', 'Webhook', 'DLQ'],
-        architectureKey: 'oem-integration-server' as const,
+        architectureKey: 'oem-integration-server' as ArchKey,
         reportKey: 'oem-integration-server' as CareerReportKey,
       },
       {
@@ -96,6 +99,7 @@ const experiences = [
           ],
         } as LA,
         stack: ['React Native', 'Android Native', 'Knox SDK', 'FCM', 'Java/Kotlin'],
+        architectureKey: 'mohani' as ArchKey,
         reportKey: 'mohani' as CareerReportKey,
       },
       {
@@ -129,6 +133,7 @@ const experiences = [
           ],
         } as LA,
         stack: ['React Native', 'Spring Boot', 'Redis', 'Supabase', 'HotUpdater'],
+        architectureKey: 'odiya' as ArchKey,
         reportKey: 'odiya' as CareerReportKey,
       },
       {
@@ -144,6 +149,7 @@ const experiences = [
           ja: ["外国人学生向け韓国語試験Webプラットフォームのフロント・バックエンド実装", "外部STT連携のためのWAV録音（16kHz）+ AWS S3アップロードパイプライン実装", "サーバーNginxリバースプロキシ設定とSSL配備環境構築", "PostgreSQLスキーマ設計 + Prisma ORMクエリ実装"],
         } as LA,
         stack: ['Next.js', 'Server Components', 'Prisma', 'PostgreSQL', 'Nginx', 'AWS S3'],
+        architectureKey: 'kocca' as ArchKey,
         reportKey: 'kocca' as CareerReportKey,
       },
     ],
@@ -251,7 +257,7 @@ export default function ProjectShowcase() {
 
   const [activeCardIndex, setActiveCardIndex] = useState(0)
   const [tabState, setTabState] = useState<{ [key: number]: number }>({ 1: 0, 2: 0, 3: 0 })
-  const [archOverlay, setArchOverlay] = useState<null | 'oem-integration-server'>(null)
+  const [archOverlay, setArchOverlay] = useState<ArchKey | null>(null)
   const [reportOverlay, setReportOverlay] = useState<CareerReportKey | null>(null)
   const [reportContext, setReportContext] = useState<{
     company: string
@@ -500,6 +506,15 @@ export default function ProjectShowcase() {
 
       <OemArchitectureOverlay
         isOpen={archOverlay === 'oem-integration-server'}
+        onClose={() => setArchOverlay(null)}
+      />
+
+      <ArchitectureOverlay
+        architectureKey={
+          archOverlay === 'oem-integration-server' || archOverlay === null
+            ? null
+            : archOverlay
+        }
         onClose={() => setArchOverlay(null)}
       />
 

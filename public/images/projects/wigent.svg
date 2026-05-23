@@ -1,0 +1,180 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 760" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif">
+  <rect width="1100" height="760" fill="#ffffff"/>
+
+  <text x="550" y="40" text-anchor="middle" font-size="20" font-weight="600" fill="#0a0a0a">Agent Arena — 30-Turn Debate &#8594; Dual-Path Landing</text>
+
+  <g transform="translate(245,68)">
+    <rect width="12" height="12" rx="3" fill="#06b6d4"/>
+    <text x="20" y="11" font-size="12" fill="#525252">Browser (React 19)</text>
+    <rect x="180" width="12" height="12" rx="3" fill="#7c3aed"/>
+    <text x="200" y="11" font-size="12" fill="#525252">Orchestrator (Next.js API)</text>
+    <rect x="400" width="12" height="12" rx="3" fill="#f59e0b"/>
+    <text x="420" y="11" font-size="12" fill="#525252">AI (OpenAI GPT-4o)</text>
+  </g>
+
+  <g transform="translate(60,108)">
+    <rect width="290" height="328" rx="14" fill="#fafafa" stroke="#d4d4d4" stroke-width="1.5"/>
+    <text x="20" y="30" font-size="11" font-weight="600" fill="#a3a3a3" letter-spacing="2">BROWSER</text>
+    <text x="20" y="58" font-size="18" font-weight="700" fill="#0a0a0a">React 19 + useReducer</text>
+    <text x="20" y="78" font-size="12" fill="#737373">Slack-style chat UI + iframe sandbox</text>
+
+    <g transform="translate(20,98)">
+      <rect width="250" height="36" rx="8" fill="#ffffff" stroke="#06b6d4" stroke-width="1.5"/>
+      <text x="14" y="23" font-size="13" font-weight="500" fill="#0a0a0a">TopicInput &#183; PresetButtons</text>
+
+      <rect y="46" width="250" height="36" rx="8" fill="#ffffff" stroke="#06b6d4" stroke-width="1.5"/>
+      <text x="14" y="71" font-size="13" font-weight="500" fill="#0a0a0a">useDebate (13-event SSE)</text>
+
+      <rect y="94" width="250" height="36" rx="8" fill="#ffffff" stroke="#06b6d4" stroke-width="1.5"/>
+      <text x="14" y="119" font-size="13" font-weight="500" fill="#0a0a0a">ChatLayout (Slack UI)</text>
+
+      <rect y="142" width="250" height="36" rx="8" fill="#ffffff" stroke="#06b6d4" stroke-width="1.5"/>
+      <text x="14" y="167" font-size="13" font-weight="500" fill="#0a0a0a">LandingPageView (iframe)</text>
+
+      <text x="0" y="207" font-size="11" font-style="italic" fill="#737373">+ HistoryList (localStorage) &#183; PageTransition</text>
+    </g>
+  </g>
+
+  <g transform="translate(355,250)">
+    <line x1="0" y1="0" x2="36" y2="0" stroke="#7c3aed" stroke-width="1.8"/>
+    <polygon points="36,0 28,-5 28,5" fill="#7c3aed"/>
+    <text x="-2" y="-10" font-size="10" font-weight="600" fill="#7c3aed">SSE stream</text>
+  </g>
+
+  <g transform="translate(400,108)">
+    <rect width="300" height="328" rx="14" fill="#fafafa" stroke="#d4d4d4" stroke-width="1.5"/>
+    <text x="20" y="30" font-size="11" font-weight="600" fill="#a3a3a3" letter-spacing="2">ORCHESTRATOR</text>
+    <text x="20" y="58" font-size="18" font-weight="700" fill="#0a0a0a">AsyncGenerator&lt;SSEEvent&gt;</text>
+    <text x="20" y="78" font-size="12" fill="#737373">orchestrator.ts &#183; POST /api/debate</text>
+
+    <g transform="translate(20,98)">
+      <rect width="260" height="28" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
+      <text x="10" y="19" font-size="11" fill="#0a0a0a">1. agents_created</text>
+      <text x="252" y="19" text-anchor="end" font-size="10" fill="#737373">JSON</text>
+
+      <rect y="36" width="260" height="56" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
+      <text x="10" y="55" font-size="11" font-weight="600" fill="#0a0a0a">2. 30-turn free debate</text>
+      <text x="10" y="73" font-size="10" fill="#737373">streamSpeak &#183; pickNextSpeaker</text>
+      <text x="10" y="86" font-size="10" fill="#737373">retire/spawn at turn 12, 22</text>
+      <text x="252" y="55" text-anchor="end" font-size="10" fill="#737373">stream</text>
+
+      <rect y="102" width="260" height="28" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
+      <text x="10" y="121" font-size="11" fill="#0a0a0a">3. summarize</text>
+      <text x="252" y="121" text-anchor="end" font-size="10" fill="#737373">JSON</text>
+
+      <rect y="140" width="260" height="28" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
+      <text x="10" y="159" font-size="11" fill="#0a0a0a">4. final_result</text>
+      <text x="252" y="159" text-anchor="end" font-size="10" fill="#737373">JSON</text>
+
+      <rect y="178" width="260" height="28" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
+      <text x="10" y="197" font-size="11" fill="#0a0a0a">5. landing_page HTML</text>
+      <text x="252" y="197" text-anchor="end" font-size="10" fill="#737373">stream</text>
+    </g>
+  </g>
+
+  <g transform="translate(705,250)">
+    <line x1="0" y1="0" x2="36" y2="0" stroke="#f59e0b" stroke-width="1.8"/>
+    <polygon points="36,0 28,-5 28,5" fill="#f59e0b"/>
+    <text x="-2" y="-10" font-size="10" font-weight="600" fill="#f59e0b">OpenAI API</text>
+  </g>
+
+  <g transform="translate(750,108)">
+    <rect width="290" height="328" rx="14" fill="#fafafa" stroke="#d4d4d4" stroke-width="1.5"/>
+    <text x="20" y="30" font-size="11" font-weight="600" fill="#a3a3a3" letter-spacing="2">AI</text>
+    <text x="20" y="58" font-size="18" font-weight="700" fill="#0a0a0a">OpenAI GPT-4o</text>
+    <text x="20" y="78" font-size="12" fill="#737373">MAX_RETRIES = 1 &#183; AbortController</text>
+
+    <g transform="translate(20,98)">
+      <rect width="250" height="68" rx="8" fill="#ffffff" stroke="#f59e0b" stroke-width="1.5"/>
+      <text x="14" y="22" font-size="13" font-weight="600" fill="#0a0a0a">callJSON (&#215;5)</text>
+      <text x="14" y="40" font-size="11" fill="#737373">JSON mode &#183; temperature 0.9</text>
+      <text x="14" y="56" font-size="11" fill="#737373">30s timeout</text>
+
+      <rect y="80" width="250" height="68" rx="8" fill="#ffffff" stroke="#f59e0b" stroke-width="1.5"/>
+      <text x="14" y="104" font-size="13" font-weight="600" fill="#0a0a0a">streamSpeak (&#215;2)</text>
+      <text x="14" y="122" font-size="11" fill="#737373">agent speech &#183; landing HTML</text>
+      <text x="14" y="138" font-size="11" fill="#737373">t=0.9 / 0.7 &#183; 30s / 180s timeout</text>
+    </g>
+
+    <text x="20" y="296" font-size="11" font-style="italic" fill="#737373">7 prompt functions in prompts.ts</text>
+  </g>
+
+  <g transform="translate(60,460)">
+    <rect width="980" height="148" rx="12" fill="#ffffff" stroke="#d4d4d4" stroke-width="1.5"/>
+    <text x="20" y="28" font-size="11" font-weight="600" fill="#a3a3a3" letter-spacing="2">30-TURN FREE DEBATE TIMELINE</text>
+
+    <line x1="40" y1="80" x2="940" y2="80" stroke="#a3a3a3" stroke-width="2"/>
+    <polygon points="940,80 932,75 932,85" fill="#a3a3a3"/>
+
+    <text x="40" y="100" font-size="10" fill="#737373">0</text>
+    <line x1="40" y1="74" x2="40" y2="86" stroke="#a3a3a3" stroke-width="1.5"/>
+
+    <text x="280" y="100" font-size="10" fill="#737373">12</text>
+    <line x1="280" y1="74" x2="280" y2="86" stroke="#a3a3a3" stroke-width="1.5"/>
+
+    <text x="600" y="100" font-size="10" fill="#737373">22</text>
+    <line x1="600" y1="74" x2="600" y2="86" stroke="#a3a3a3" stroke-width="1.5"/>
+
+    <text x="940" y="100" font-size="10" fill="#737373">29</text>
+    <line x1="940" y1="74" x2="940" y2="86" stroke="#a3a3a3" stroke-width="1.5"/>
+
+    <rect x="40" y="48" width="60" height="22" rx="4" fill="#ecfeff" stroke="#06b6d4" stroke-width="1"/>
+    <text x="70" y="63" text-anchor="middle" font-size="10" fill="#0e7490">opening</text>
+
+    <rect x="100" y="48" width="180" height="22" rx="4" fill="#f5f3ff" stroke="#a78bfa" stroke-width="1"/>
+    <text x="190" y="63" text-anchor="middle" font-size="10" fill="#6d28d9">mid-debate (turns 3&#8211;14)</text>
+
+    <rect x="280" y="48" width="320" height="22" rx="4" fill="#f5f3ff" stroke="#a78bfa" stroke-width="1"/>
+    <text x="440" y="63" text-anchor="middle" font-size="10" fill="#6d28d9">late-debate (turns 15&#8211;24)</text>
+
+    <rect x="600" y="48" width="340" height="22" rx="4" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/>
+    <text x="770" y="63" text-anchor="middle" font-size="10" fill="#92400e">closing (25&#8211;29, forced convergence)</text>
+
+    <circle cx="100" cy="80" r="6" fill="#06b6d4"/>
+    <text x="100" y="124" text-anchor="middle" font-size="10" font-weight="600" fill="#0e7490">designer joins</text>
+    <text x="100" y="136" text-anchor="middle" font-size="9" fill="#737373">turn 3</text>
+
+    <circle cx="280" cy="80" r="6" fill="#7c3aed"/>
+    <text x="280" y="124" text-anchor="middle" font-size="10" font-weight="600" fill="#6d28d9">retire &#43; spawn</text>
+    <text x="280" y="136" text-anchor="middle" font-size="9" fill="#737373">turn 12</text>
+
+    <circle cx="600" cy="80" r="6" fill="#7c3aed"/>
+    <text x="600" y="124" text-anchor="middle" font-size="10" font-weight="600" fill="#6d28d9">retire &#43; spawn</text>
+    <text x="600" y="136" text-anchor="middle" font-size="9" fill="#737373">turn 22</text>
+
+    <circle cx="940" cy="80" r="6" fill="#dc2626"/>
+    <text x="900" y="124" text-anchor="end" font-size="10" font-weight="600" fill="#dc2626">final_result</text>
+    <text x="900" y="136" text-anchor="end" font-size="9" fill="#737373">turn 29 &#8594;</text>
+  </g>
+
+  <g transform="translate(60,628)">
+    <text x="0" y="0" font-size="11" font-weight="600" fill="#a3a3a3" letter-spacing="2">DUAL-PATH LANDING GENERATION</text>
+
+    <rect y="14" width="220" height="80" rx="10" fill="#ffffff" stroke="#10b981" stroke-width="1.5"/>
+    <text x="14" y="35" font-size="11" font-weight="600" fill="#059669" letter-spacing="1">PATH 1 &#183; PRIMARY</text>
+    <text x="14" y="55" font-size="13" font-weight="600" fill="#0a0a0a">Template render (0s)</text>
+    <text x="14" y="72" font-size="11" fill="#525252">9 templates &#183; keyword match</text>
+    <text x="14" y="86" font-size="11" fill="#525252">renderLandingPage(idea)</text>
+
+    <g transform="translate(232,40)">
+      <line x1="0" y1="14" x2="40" y2="14" stroke="#a3a3a3" stroke-width="1.8"/>
+      <polygon points="40,14 32,9 32,19" fill="#a3a3a3"/>
+    </g>
+
+    <rect x="282" y="14" width="180" height="80" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="296" y="40" font-size="13" font-weight="700" fill="#0a0a0a">FINAL_RESULT</text>
+    <text x="296" y="58" font-size="11" fill="#525252">Idea fork</text>
+    <text x="296" y="76" font-size="11" font-style="italic" fill="#737373">first arrived wins</text>
+
+    <rect x="492" y="14" width="260" height="80" rx="10" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <text x="506" y="35" font-size="11" font-weight="600" fill="#6d28d9" letter-spacing="1">PATH 2 &#183; BACKGROUND</text>
+    <text x="506" y="55" font-size="13" font-weight="600" fill="#0a0a0a">GPT-4o HTML streaming</text>
+    <text x="506" y="72" font-size="11" fill="#525252">landing_page_chunk events</text>
+    <text x="506" y="86" font-size="11" fill="#525252">ignored if template already rendered</text>
+
+    <text x="772" y="58" font-size="11" fill="#525252">+ /api/export</text>
+    <text x="772" y="74" font-size="11" font-weight="600" fill="#0a0a0a">ZIP download (Archiver)</text>
+  </g>
+
+  <text x="550" y="745" text-anchor="middle" font-size="11" fill="#a3a3a3" font-style="italic">7+ agent design patterns &#183; PM + Designer fixed &#183; Human-in-the-Loop (reject &#8594; +8 turns) &#183; MIT &#183; TRAE 2026 Grand Prize</text>
+</svg>

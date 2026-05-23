@@ -21,6 +21,7 @@ import {
   FiFlag,
   FiPlayCircle,
   FiTrendingUp,
+  FiRefreshCw,
 } from 'react-icons/fi'
 import { useI18n, type Locale } from '@/lib/i18n'
 import {
@@ -31,7 +32,11 @@ import {
   type CareerReportKey,
   type CareerStoryBlockSlot,
   type CareerStoryBlockV1,
+  type SlotVisuals,
 } from '@/data/career-reports'
+import OdiyaArchitectureDiagram from './diagrams/OdiyaArchitectureDiagram'
+import MohaniArchitectureDiagram from './diagrams/MohaniArchitectureDiagram'
+import KoccaArchitectureDiagram from './diagrams/KoccaArchitectureDiagram'
 
 const ui: Record<string, Record<Locale, string>> = {
   eyebrow: { ko: '경력 리포트', en: 'Career Report', ja: 'キャリアレポート' },
@@ -399,6 +404,7 @@ function StoryBlockBody({
             key={slot}
             slot={slot}
             text={data[slot][locale]}
+            visuals={data.visuals?.[slot]}
             locale={locale}
             gradientCss={gradientCss}
             registerRef={(el) => {
@@ -414,12 +420,14 @@ function StoryBlockBody({
 function StorySection({
   slot,
   text,
+  visuals,
   locale,
   gradientCss,
   registerRef,
 }: {
   slot: CareerStoryBlockSlot
   text: string
+  visuals?: SlotVisuals
   locale: Locale
   gradientCss: string
   registerRef: (el: HTMLElement | null) => void
@@ -448,6 +456,125 @@ function StorySection({
       <p className="text-[15px] text-gray-300 leading-relaxed whitespace-pre-line">
         {text}
       </p>
+
+      {visuals?.bullets && visuals.bullets[locale]?.length > 0 && (
+        <ul className="mt-5 space-y-2.5">
+          {visuals.bullets[locale].map((item, i) => (
+            <li
+              key={i}
+              className="flex items-baseline gap-3 text-[14px] text-gray-200 leading-relaxed"
+            >
+              <span
+                aria-hidden
+                className="shrink-0 w-1.5 h-1.5 mt-1.5 rounded-full"
+                style={{ background: gradientCss }}
+              />
+              <span className="flex-1 min-w-0">{item}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {visuals?.metrics && visuals.metrics.length > 0 && (
+        <div className="mt-6 grid grid-cols-2 md:grid-cols-3 gap-3">
+          {visuals.metrics.map((m, i) => (
+            <div
+              key={i}
+              className="rounded-xl border border-white/10 bg-white/[0.03] p-4"
+            >
+              <div
+                className="text-xl md:text-2xl font-bold tracking-tight"
+                style={{
+                  backgroundImage: gradientCss,
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                }}
+              >
+                {m.value}
+              </div>
+              <div className="mt-1.5 text-[12px] md:text-[13px] text-gray-400 leading-snug">
+                {m.label[locale]}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {visuals?.table && (
+        <div className="mt-6 overflow-x-auto rounded-xl border border-white/10">
+          <table className="w-full text-[13px] md:text-[14px]">
+            <thead>
+              <tr className="bg-white/[0.04]">
+                {visuals.table.columns.map((col, i) => (
+                  <th
+                    key={i}
+                    className="text-left px-3 md:px-4 py-2.5 font-semibold text-white/85 border-b border-white/10"
+                  >
+                    {col[locale]}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {visuals.table.rows.map((row, i) => {
+                const isSelected = visuals.table?.selectedRow === i
+                return (
+                  <tr
+                    key={i}
+                    className="border-b border-white/5 last:border-b-0 relative"
+                    style={
+                      isSelected
+                        ? {
+                            background: `linear-gradient(90deg, ${gradientCss.replace('linear-gradient(135deg, ', 'rgba(').replace(')', ', 0.18)')} 0%, transparent 100%)`,
+                          }
+                        : undefined
+                    }
+                  >
+                    {row.map((cell, j) => (
+                      <td
+                        key={j}
+                        className={`px-3 md:px-4 py-3 leading-relaxed align-top ${
+                          isSelected ? 'text-white font-medium' : 'text-gray-300'
+                        }`}
+                      >
+                        {j === 0 && isSelected ? (
+                          <span className="inline-flex items-baseline gap-1.5">
+                            <span
+                              aria-hidden
+                              className="text-amber-300 leading-none"
+                              style={{ fontSize: '0.95em' }}
+                            >
+                              ★
+                            </span>
+                            <span>{cell[locale]}</span>
+                          </span>
+                        ) : (
+                          cell[locale]
+                        )}
+                      </td>
+                    ))}
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {visuals?.diagramKey && (
+        <div className="mt-6 rounded-xl border border-white/10 bg-black/40 p-2 sm:p-4 md:p-6 overflow-x-auto">
+          {visuals.diagramKey === 'odiya' && <OdiyaArchitectureDiagram />}
+          {visuals.diagramKey === 'mohani' && <MohaniArchitectureDiagram />}
+          {visuals.diagramKey === 'kocca' && <KoccaArchitectureDiagram />}
+          <div className="mt-3 text-[11px] text-gray-500 text-right">
+            {locale === 'ko' && '카드의 ‘서버 아키텍처 보기’ 버튼으로 더 크게 열 수 있음'}
+            {locale === 'en' && 'Open larger via the “View Server Architecture” button on the card'}
+            {locale === 'ja' && 'カードの「サーバーアーキテクチャを見る」ボタンで拡大表示可能'}
+          </div>
+        </div>
+      )}
+
     </section>
   )
 }

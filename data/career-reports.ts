@@ -35,7 +35,49 @@ export interface CareerStoryBlockV1 {
   decision: L
   execution: L
   result: L
+  /**
+   * What the writer would do differently next time. Kept separate from
+   * `result` so achievements and limits don't get mixed in one slot.
+   * Hidden from the visible slot order — kept in the type so historical
+   * entries don't get lost if the feedback flips again.
+   */
+  improvements?: L
   reflection: L
+  /**
+   * Visual asset blocks per slot. The overlay renders these alongside the
+   * prose so each section reads as a scannable page rather than a wall of
+   * text — feedback was that prose-only sections feel like asking a reviewer
+   * to read a book. Each slot can carry any combination of metric cards,
+   * bullet highlights, and trade-off tables.
+   */
+  visuals?: Partial<Record<CareerStoryBlockSlot, SlotVisuals>>
+}
+
+export interface SlotMetric {
+  /** Big number / phrase shown in the card (e.g. "95%", "MySQL CPU 100% → 안정"). */
+  value: string
+  /** One-line caption underneath. */
+  label: L
+}
+
+export interface SlotTable {
+  /** Column headers (e.g. ["후보", "장점", "단점"]). */
+  columns: L[]
+  /** Rows, each row matches `columns` length. */
+  rows: L[][]
+  /** Index of the row that was actually selected — rendered with gradient + ★ marker so the verdict is visually obvious. */
+  selectedRow?: number
+}
+
+export interface SlotVisuals {
+  /** "큰 숫자 + 한 줄 설명" 카드들. Result 같은 곳에서 강조용. */
+  metrics?: SlotMetric[]
+  /** Trade-off / 비교 / Ablation 같은 표. Alternatives 슬롯에서 강함. */
+  table?: SlotTable
+  /** 핵심 포인트 bullet — prose보다 빠른 스캔용. */
+  bullets?: LA
+  /** Inline architecture diagram slug. Decision 슬롯에서 인라인 표시. */
+  diagramKey?: 'odiya' | 'mohani' | 'kocca'
 }
 
 /**
@@ -305,92 +347,254 @@ export const careerStoryBlocksV1: Partial<
       ja: '外注コードのDB過負荷（MySQL CPU 100%）を、Redis Listバッファ + 60秒batch + RANGEパーティション日次再構成で再設計し、DB書き込み負荷を~95%削減、インフラ増設なしで運用を安定化しました。',
     },
     context: {
-      ko: '사운드마인드 합류 후 첫 프로젝트로 Odiya를 받았습니다. 외주사가 백엔드와 기초 앱을 만들어둔 상태에서 운영 안정화가 시급한 시점이었습니다. 부모-자녀 위치 공유 서비스로 노란마켓·공부폰 OEM에 사전 탑재되어, 출하 단말이 늘수록 트래픽이 통제 불가능한 외부 변수로 따라 올라가는 구조였습니다. 팀장으로 리딩하며 Odiya 백엔드와 부모용·자녀용 앱까지 위치 데이터 파이프라인 전체를 설계·구현했습니다.',
-      en: 'Odiya was the first project I took on after joining Soundmind. An outsourcing vendor had built the backend and the base apps, and operational stability was the urgent problem on the table. It is a parent-child location-sharing service pre-installed on Yellow Market and Studyphone OEM devices, so traffic grew along an external variable we couldn’t throttle. Leading the team, I designed and built the location data pipeline end-to-end — odiya-backend, parts of kidsphone-backend, and both the parent and child apps.',
-      ja: 'サウンドマインド入社後、最初のプロジェクトとしてOdiyaを担当した。外注会社がバックエンドと基本アプリを構築済みで、運用安定化が急務だった。親子の位置共有サービスとしてイエローマーケット・スタディフォンOEMに事前搭載され、出荷台数の増加に伴いトラフィックが外生変数として伸びる構造だった。チームリーダーとしてodiya-backend、kidsphone-backendの一部、親側・子側アプリまで、位置データパイプライン全体を直接設計・実装した。',
+      ko: '사운드마인드 합류 후 첫 프로젝트로 Odiya를 맡았습니다. 외주사가 만든 부모-자녀 위치 공유 서비스(노란마켓·공부폰 OEM 사전탑재)를 팀장으로서 리딩하며 위치 파이프라인 전체를 다시 설계했습니다.',
+      en: 'First project after joining Soundmind. Took over the inherited parent-child location service (pre-installed on Yellow Market / Studyphone OEM) and re-designed the location pipeline end-to-end as team lead.',
+      ja: 'サウンドマインド入社後の最初のプロジェクト。外注が作った親子位置共有サービス（イエローマーケット・公부폰OEM事前搭載）をチームリーダーとして引き継ぎ、位置パイプライン全体を設計し直した。',
     },
     problem: {
-      ko: '외주사 코드는 자녀 단말이 좌표를 보내는 족족 JPA save() 단건 INSERT를 호출하는 패턴이었습니다. 분당 burst로 인입되는 좌표와, 같은 흐름에서 함께 도는 안전구역 평가 SQL이 누적되어 MySQL CPU가 100%까지 치솟으며 서버가 주기적으로 터지는 상태였습니다. 단말 수 × 송출 빈도가 선형으로 늘어나는 구조라, 인프라 증설 외에는 해법이 없어 보이는 시점이었습니다.',
-      en: 'The vendor code called `save()` on every coordinate from every child device. Burst-inbound coordinates plus the same flow running safe-zone evaluation SQL drove MySQL CPU to 100%, taking the server down periodically. With load scaling linearly with devices × send rate, the only obvious path was to throw more infra at it.',
-      ja: '外注コードは、子供端末が座標を送るたびにJPA save() 単件INSERTを呼ぶ構造でした。分単位でburst投入される座標と、同じフローで回る安全ゾーン評価SQLが累積し、MySQL CPUが100%に達してサーバーが定期的に落ちる状態。台数×送出頻度が線形に増える構造で、インフラ増設以外の道が見えにくい時点でした。',
+      ko: '외주사 코드는 자녀 단말 좌표 송출마다 JPA save() 단건 INSERT를 호출했고, 같은 흐름에서 안전구역 평가 SQL까지 누적돼 MySQL CPU가 100%에 도달했습니다. 즉 "burst로 들어오는 write"와 "유저별 최신 1점이면 충분한 read"가 같은 path에서 직렬로 돌고 있었습니다. 단말 수 × 송출 빈도가 선형으로 늘어 인프라 증설 외에는 길이 보이지 않던 시점이었습니다.',
+      en: 'The vendor code called JPA `save()` per coordinate from every child device, and safe-zone evaluation SQL piled onto the same flow — MySQL CPU pegged at 100%. The structural issue was that "burst writes" and "reads that only need the latest coordinate per user" were running serially on the same path. With load scaling linearly with devices × send rate, scaling infra looked like the only path.',
+      ja: '外注コードは子供端末の座標送出ごとにJPA save() 単件INSERTを呼び、同じフローで安全ゾーン評価SQLまで累積してMySQL CPUが100%に到達。本質的にはburst writeと「ユーザーごとの最新1点で十分なread」が同じpathで直列に動いていた構造でした。台数×送出頻度が線形に増え、インフラ増設以外の道が見えなかった時点。',
     },
     hypothesis: {
-      ko: '가설은 단순했습니다. "좌표 인입은 burst로 들어오는 write 중심이지만, 안전구역 평가는 유저별 최신 좌표 1개로 충분합니다. 즉 모든 좌표를 즉시 DB에 쓸 필요가 없습니다." 운영 중인 Redis 인프라가 이미 있었으므로, 새 자원을 추가하지 않고 가벼운 버퍼로 활용할 수 있다고 보았습니다.',
-      en: 'The hypothesis was simple but on point: "Coordinate ingestion is burst-heavy writes, but safe-zone evaluation only needs the latest coordinate per user — so not every coordinate has to hit the database immediately." Redis was already in the stack, so we could reuse it as a lightweight buffer instead of adding new infrastructure.',
-      ja: '仮説は単純ですが正確でした。「座標の流入はburst・書き込み集中だが、安全ゾーン評価はユーザーごとの最新座標1点で十分。つまり全座標を即DBに書く必要はない」。Redisは既に運用中だったので、新規リソースを足さずに軽量バッファとして活用できると見ました。',
+      ko: '좌표 인입은 burst write지만 안전구역 평가는 유저별 최신 좌표 1개면 충분하다고 봤습니다. 모든 좌표를 즉시 DB에 쓸 필요가 없으니, 운영 중인 Redis를 새 자원 없이 버퍼로 재활용할 수 있다고 판단했습니다.',
+      en: 'Coordinate ingestion is burst-heavy writes, but safe-zone evaluation only needs the latest coordinate per user — not every coordinate has to hit the DB. Redis was already in the stack, reusable as a buffer.',
+      ja: '座標流入はburst write中心だが安全ゾーン評価はユーザーごとの最新1点で十分 — 全座標を即DBに書く必要はない。既存Redisを新規リソースなしでバッファとして再利用可能。',
     },
     alternatives: {
-      ko: 'Kafka·SQS 같은 본격 메시지 큐는 외주사 인계 직후라 운영 인력·인프라 추가 부담이 컸습니다. DB-only 최적화(배치 INSERT 튜닝·인덱스)만으로는 절대량의 한계를 넘기 어려웠고, RANGE 파티션은 보존·DROP 자동화 측면에서 채택했지만 단건 batch 튜닝만으로는 부족했습니다. 최종적으로 이미 있는 Redis 인프라를 재활용한 버퍼 + 배치 조합이 운영 비용 대비 가장 현실적이었습니다.',
-      en: 'Kafka or SQS would have added operational headcount and infra cost right after taking over an outsourced codebase. DB-only tuning (batch inserts, index changes) could not absorb the absolute volume; RANGE partitions were worth adopting for retention and automatic DROP, but batch tuning alone was not enough. Reusing the existing Redis infrastructure as a buffer + batch combination was the most realistic option for the operational cost we could afford.',
-      ja: 'Kafka・SQSのような本格的なメッセージキューは、外注コードを引き継いだ直後で運用人員・インフラ追加負担が大きすぎました。DB-only最適化（バッチINSERT・インデックス）だけでは絶対量の限界を超えられず、RANGEパーティションは保存・DROP自動化のために採用しましたが、単件バッチチューニングだけでは不十分。最終的に既存のRedisインフラを再利用したバッファ+バッチの組み合わせが、運用コスト対比で最も現実的でした。',
+      ko: 'Kafka/SQS는 영구 로그·재처리·다중 컨슈머가 매력적이지만 운영 인력과 인프라 추가 부담이 컸고, DB-only 최적화는 절대량 한계가 명확했습니다. 외주사 인계 직후라 "새 자원 추가 없음"이 결정 축이었고, 운영 중인 Redis를 재활용하는 버퍼+배치 구조가 도메인 접근 패턴과 운영 비용 양쪽에 가장 잘 맞았습니다.',
+      en: 'Kafka / SQS gave durable logs, replay and multi-consumer, but added operational headcount and infra we did not have; DB-only tuning had a hard ceiling on raw write volume. Right after the vendor handover, "no new resources" was the dominant axis — reusing the existing Redis as a buffer+batch layer fit both the access pattern and the operational cost the best.',
+      ja: 'Kafka/SQSは永続ログ・再処理・多コンシューマが魅力だが運用人員・インフラの追加負担が大きく、DB-only最適化は絶対量の壁が明確でした。外注引継ぎ直後で「新規リソース追加なし」が決定軸となり、運用中のRedisを再利用するbuffer+batch構造がアクセスパターンと運用コストの両面でfitが最大でした。',
     },
     decision: {
-      ko: 'Redis는 두 갈래로 활용했습니다. 첫째는 위치 데이터 버퍼입니다. Redis Hash에 유저별 최신 좌표 1개를 24시간 동안 보관해 안전구역 평가에 바로 꺼내 쓰고, 별도 Redis List에는 모든 좌표를 push해 DB 영구 저장의 원천으로 두었습니다. 60초 주기로 도는 동기화 스케줄러가 List를 비우며 한 번에 batch INSERT를 수행하고, batch 처리 중 유저별로 중복을 걸러 마지막 좌표만 안전구역 평가에 흘렸습니다. 둘째는 자녀 회원 정보 캐시입니다. 부모 앱은 자녀의 이름·연락처·상태 같은 정보를 10초 간격 polling으로 반복 조회하는 구조라, 매번 DB를 거치지 않고 Redis 캐시 hit으로 응답하도록 별도 layer를 두었습니다. write는 batch로 모아 부하를 낮추고, read는 캐시로 흡수해 DB가 안정적으로 운영될 수 있게 한 묶음으로 운영했습니다. DB 측에서는 일자 기준 RANGE 파티션으로 모델링하고, 파티션 관리 스케줄러가 매일 자정에 다음날 파티션을 생성하고 15일 전 파티션을 삭제하도록 자동화했습니다. Redis 단일 인스턴스 운영은 의도된 선택이었습니다. 당시 트래픽 수준에서 Sentinel/Cluster는 운영 인력 대비 과한 투자였고, List 길이와 60초 batch 소요 시간을 모니터링 임계치로 잡아 트래픽이 한 단계 더 올라가는 시점에 자연스럽게 옮길 수 있는 경로를 미리 열어두는 쪽으로 균형을 잡았습니다.',
-      en: 'I split the Redis model in two: `odiya_user:{userId}` (Hash, TTL 24h) holds only the latest coordinate per user for safe-zone evaluation, while `odiya_gathered_positions` (List) accepts every coordinate as the source of truth for DB persistence. `LocationSyncService` drains the List every 60 seconds with a batch INSERT, deduping `lastPositionPerUser` so only the most recent coordinate per user reaches safe-zone evaluation. On the DB side, the model is `RANGE(TO_DAYS(date))` partitioned with `PRIMARY KEY(id, date)`; `PartitionManagerService` runs at midnight every day, creating the next day partition and dropping the partition that turned 15 days old.',
-      ja: 'Redisのデータモデルを2つに分けました。odiya_user:{userId} Hash（TTL 24h）はユーザーごとの最新座標1点のみを保持して安全ゾーン評価に使い、odiya_gathered_positions Listは全座標をpushしてDB永続化の源にしました。LocationSyncServiceが60秒周期でListを空にしながらbatch INSERTを実行し、バッチ処理中にlastPositionPerUserでdedupしてユーザーごとの最新座標のみを安全ゾーン評価に流します。DB側はRANGE(TO_DAYS(date)) パーティション + PRIMARY KEY(id, date) でモデル化し、PartitionManagerServiceが毎日0時に翌日パーティション生成と15日前パーティションDROPを自動実行します。',
+      ko: 'Redis를 두 갈래로 활용했습니다. write는 List에 push 후 60초 batch로 DB에 적재하고, read는 Hash 캐시 hit으로 흡수합니다. DB는 일자 RANGE 파티션으로 모델링했고, 매일 자정 다음날 파티션 생성과 15일 전 파티션 삭제를 자동화했습니다. 단일 Redis는 의도된 절충이며, 트래픽 임계치가 넘어가면 Sentinel/Cluster로 옮길 경로는 모니터링으로 열어두었습니다.',
+      en: 'Redis split in two — writes push to a List, drained to the DB every 60 s; reads served from a Hash cache. DB is `RANGE(TO_DAYS(date))` partitioned with nightly create-next-day / drop-15-days-old. Single-Redis is an intentional trade-off; the Sentinel / Cluster path is left open behind list-depth and batch-duration thresholds.',
+      ja: 'Redisを2用途で — writeはListにpush後60秒batchでDB投入、readはHashキャッシュhitで吸収。DBは日次RANGEパーティション + 毎日0時に翌日パーティション生成・15日前削除を自動化。単一Redisは意図的trade-off（List長・batch所要時間の閾値監視でSentinel/Cluster移行経路は確保）。',
     },
     execution: {
-      ko: '처음부터 "버퍼 + 배치" 개념으로 도입했고, 다른 형태로 갔다가 옮긴 시행착오는 없었습니다. 운영 중에는 GPS 신호 노이즈를 거르는 보조 규칙(60초 이내 1,500m 이상 이동 시 안전구역 평가 스킵)을 위치 처리 파이프라인에 추가했는데, 이 임계값은 운영 데이터로 검증한 값이 아니라 직관으로 정한 규칙이라 자랑할 성과가 아니라 회고 영역으로 정직하게 다룹니다.',
-      en: 'I went straight to the "buffer + batch" design — no detour or pivot. During operation I added a GPS-noise heuristic in kidsphone-backend (skip safe-zone evaluation if a user moves more than 1,500m within 60 seconds), but those thresholds were intuited rather than calibrated against production data, which I now treat honestly as a reflection point rather than a result.',
-      ja: '最初から「バッファ + バッチ」のコンセプトで進め、別の形に行ってから移ったような試行錯誤はありませんでした。運用中にGPS雑音を弾くヒューリスティック（60秒以内に1,500m以上移動した場合は安全ゾーン評価をスキップ）をkidsphone-backendに追加しましたが、1500m・60秒の閾値は運用データで校正したものではなく直感で決めたヒューリスティックなので、誇る成果ではなく振り返り対象として正直に扱います。',
+      ko: '처음부터 "버퍼 + 배치" 개념으로 직진했고, 다른 형태로 갔다가 옮긴 시행착오는 없었습니다. 운영 중에는 자녀 단말의 GPS 신호가 튀는 케이스(짧은 시간 안에 비현실적인 거리만큼 좌표가 점프하는 현상)가 안전구역 평가를 왜곡시키는 문제가 보여, 60초 이내 1,500m 이상 이동한 경우 안전구역 평가를 건너뛰는 보조 규칙을 추가했습니다.',
+      en: 'Went straight to "buffer + batch" — no detour or pivot. During operation, GPS-noise cases on child devices (coordinates jumping an unrealistic distance in a short window) were distorting safe-zone evaluation, so I added a guard rule that skips safe-zone evaluation when a user moves more than 1,500 m within 60 seconds.',
+      ja: '最初から「バッファ + バッチ」で直進し、別形態から移ったような試行錯誤はありませんでした。運用中、子供端末のGPS信号が跳ねるケース（短時間に非現実的な距離で座標がジャンプする現象）が安全ゾーン評価を歪める問題が見え、60秒以内に1,500m以上移動した場合は安全ゾーン評価をスキップする補助ルールを追加しました。',
     },
     result: {
-      ko: 'MySQL CPU가 100%까지 치솟던 사태가 해소되어, 인프라 증설 없이 운영이 안정화되었습니다. DB 쓰기 부하는 분당 INSERT 횟수 기준 약 95% 감소했고, 60초 batch에 안전구역 평가까지 함께 묶여 안정적으로 운영됩니다. 이 안정화가 노란마켓·공부폰 OEM 사전탑재 확장의 전제가 되어, 회사의 B2B 매출 약 230% 성장에 기여했습니다. 다만 인계받은 외주사 코드에는 운영 메트릭이 거의 없는 상태였고, 결국 MySQL CPU가 100%까지 치솟는 사태를 본 뒤에야 Redis 도입을 결정하는 흐름이 됐습니다. 같은 상황을 다시 만나면 인계 첫 단계에서 분당 INSERT 추이·DB CPU·Redis List 길이·60초 batch 소요 시간을 Prometheus + Grafana로 먼저 박아 임계점에 도달하기 전에 신호를 받는 쪽으로 가져가고, 운영 중 추가한 GPS 신호 노이즈 보조 규칙의 임계값(60초·1,500m)도 거짓 양성 분포를 운영 데이터로 측정해 다시 잡을 계획입니다.',
-      en: 'MySQL CPU stopped pegging at 100% and operations stabilized without adding infrastructure. DB write load dropped roughly 95% measured by inserts per minute, with safe-zone evaluation running inside the same 60-second batch. That stability became the prerequisite for the Yellow Market and Studyphone OEM pre-install expansion, contributing to roughly 230% B2B revenue growth at the company.',
-      ja: 'MySQL CPUが100%まで上がる事態は解消され、インフラ増設なしで運用が安定化しました。DB書き込み負荷は分単位INSERT回数で約95%減少し、60秒バッチ内で安全ゾーン評価まで一緒に回ります。この安定化がイエローマーケット・スタディフォンOEM事前搭載拡張の前提となり、会社のB2B売上約230%成長に寄与しました。',
+      ko: 'MySQL CPU 100%까지 치솟던 사태가 해소되어, 인프라 증설 없이 운영이 안정화됐습니다. DB 쓰기 부하는 분당 INSERT 기준 약 95% 감소했고, 이 안정화가 노란마켓·공부폰 OEM 사전탑재 확장의 전제가 되어 회사 B2B 매출 약 230% 성장에 기여했습니다.',
+      en: 'MySQL CPU stopped pegging — operations stabilised with zero new infra. DB write load down ~95% measured by inserts per minute. That stability became the prerequisite for the Yellow Market / Studyphone OEM pre-install expansion, contributing to ~230% B2B revenue growth at the company.',
+      ja: 'MySQL CPU 100%事態を解消 — インフラ増設なしで運用安定化。DB書き込み負荷は分単位INSERT基準で~95%削減。この安定化がイエローマーケット・公부폰OEM事前搭載拡張の前提となり、会社B2B売上~230%成長に寄与。',
+    },
+    improvements: {
+      ko: '두 가지를 다시 한다면 다르게 잡았을 것입니다. 첫째, 인계받은 외주사 코드에 운영 메트릭이 거의 없는 상태였기 때문에 MySQL CPU가 100%까지 치솟는 것을 본 뒤에야 Redis 도입을 결정하는 사후 대응이 됐습니다. 인계 첫 단계에서 분당 INSERT 추이·DB CPU·Redis List 길이·60초 배치 소요 시간을 Prometheus + Grafana로 먼저 박아 임계점에 도달하기 전에 신호를 받는 쪽으로 가져갔어야 했습니다. 둘째, 운영 중 추가한 GPS 노이즈 보조 규칙의 60초·1,500m 임계값은 운영 데이터로 검증한 값이 아니라 직관으로 정한 휴리스틱이라, 거짓 양성 분포를 운영 데이터로 측정해 다시 잡는 것이 다음 단계입니다.',
+      en: 'Two things I would do differently. First, the inherited vendor code had almost no operational metrics, so the Redis migration was reactive — it only kicked off after MySQL CPU pegged at 100%. From day one of the handover, I should have wired Prometheus + Grafana around inserts per minute, DB CPU, Redis list depth, and 60-second batch duration so we get signal before the threshold breaks. Second, the GPS-noise guard rule (60 s / 1,500 m) was set by intuition, not calibrated against production data — the next step is to measure the false-positive distribution from real traffic and re-tune the thresholds.',
+      ja: 'やり直すなら2点は別の進め方をします。第一に、引継いだ外注コードに運用メトリクスがほぼ無く、MySQL CPU 100%到達を見てからRedis導入を決めた事後対応となりました。引継ぎ初日からPrometheus + Grafanaで分単位INSERT推移・DB CPU・Redis List長・60秒バッチ所要時間を可視化し、閾値到達前にシグナルを受ける側に持っていくべきでした。第二に、運用中に追加したGPSノイズ補助ルールの60秒・1,500m閾値は運用データ検証なしの直感ヒューリスティックで、偽陽性分布を実運用データで測定し再調整するのが次のステップです。',
     },
     reflection: {
-      ko: '다시 한다면 observability를 처음부터 박았을 것입니다. Redis 도입은 "MySQL CPU가 100%까지 치솟는 걸 보고" 시작한 사후 대응이었는데, 분당 INSERT 추이·Connection Pool 사용률·DB CPU%·Redis List 길이·60초 batch 소요 시간을 Prometheus + Grafana로 시각화했다면 임계점에 도달하기 전에 신호를 받을 수 있었을 것입니다. 단일 Redis 인스턴스가 SPOF로 남은 부분도 같은 맥락에서 — 메트릭이 있었다면 Sentinel/Cluster 도입 우선순위를 더 일찍 올렸을 것이라 봅니다. 운영 중 추가한 GPS 튐 필터(1,500m·60초)의 임계값도 데이터 분석 없이 직관으로 정한 휴리스틱이라, 휴리스틱을 데이터로 검증하는 단계를 건너뛴 점이 솔직히 후회됩니다.',
-      en: 'If I were to start over, I would wire observability in from day one. The Redis migration was reactive — kicked off after watching MySQL CPU peg at 100%. Charting inserts per minute, connection pool usage, DB CPU%, Redis list depth, and 60-second batch duration in Prometheus + Grafana would have given me a signal before the threshold was breached. The single-Redis SPOF is in the same category — with metrics in place I would have raised the priority on Sentinel or Cluster sooner. The GPS-noise heuristic (1,500m / 60s) is another honest regret: the thresholds were intuited, not validated against production data, and I skipped the step of grounding the heuristic in numbers.',
+      ko: '다시 한다면 관측 지표를 처음부터 박았을 것입니다. Redis 도입은 "MySQL CPU가 100%까지 치솟는 걸 보고" 시작한 사후 대응이었는데, 분당 INSERT 추이·Connection Pool 사용률·DB CPU%·Redis List 길이·60초 배치 소요 시간을 Prometheus + Grafana로 시각화했다면 임계점에 도달하기 전에 신호를 받을 수 있었을 것입니다. 단일 Redis 인스턴스가 SPOF로 남은 부분도 같은 맥락이라, 메트릭이 있었다면 Sentinel/Cluster 도입 우선순위를 더 일찍 올렸을 것이라 봅니다. 운영 중 추가한 GPS 튐 필터(1,500m·60초)의 임계값도 데이터 분석 없이 직관으로 정한 휴리스틱이라, 휴리스틱을 데이터로 검증하는 단계를 건너뛴 점이 솔직히 후회됩니다.',
+      en: 'If I were to start over, I would wire observability in from day one. The Redis migration was reactive, kicked off after watching MySQL CPU peg at 100%. Charting inserts per minute, connection pool usage, DB CPU%, Redis list depth, and 60-second batch duration in Prometheus + Grafana would have given me a signal before the threshold was breached. The single-Redis SPOF falls in the same category: with metrics in place I would have raised the priority on Sentinel or Cluster sooner. The GPS-noise heuristic (1,500m / 60s) is another honest regret. The thresholds were intuited, not validated against production data, and I skipped the step of grounding the heuristic in numbers.',
       ja: 'やり直すならobservabilityを初日から組み込みます。Redis導入は「MySQL CPUが100%に達するのを見て」始めた事後対応で、分単位INSERT推移・Connection Pool使用率・DB CPU%・Redis List長・60秒バッチ所要時間をPrometheus + Grafanaで可視化していれば、閾値到達前にシグナルを受けられたはずです。単一Redisが SPOFのまま残っている点も同じ流れで、メトリクスがあればSentinel/Cluster導入優先度を早く上げていたと考えます。運用中に追加したGPS雑音フィルタ（1500m・60秒）の閾値もデータ検証なしで直感で決めたヒューリスティックで、ヒューリスティックを数値で裏付ける段階を飛ばした点は率直に悔いが残ります。',
+    },
+    visuals: {
+      problem: {
+        metrics: [
+          { value: '100%', label: { ko: 'MySQL CPU 도달', en: 'MySQL CPU peg', ja: 'MySQL CPU 到達' } },
+          { value: '주기적', label: { ko: '서버 다운', en: 'Server outages', ja: '定期的サーバーダウン' } },
+          { value: '단건 INSERT', label: { ko: '좌표마다 1회', en: 'Per-coordinate INSERT', ja: '座標ごとに1回' } },
+        ],
+      },
+      alternatives: {
+        table: {
+          columns: [
+            { ko: '후보', en: 'Option', ja: '候補' },
+            { ko: '장점', en: 'Upside', ja: '利点' },
+            { ko: '단점', en: 'Downside', ja: '欠点' },
+          ],
+          rows: [
+            [
+              { ko: 'Kafka / SQS', en: 'Kafka / SQS', ja: 'Kafka / SQS' },
+              { ko: '영구 로그·재처리·다중 컨슈머', en: 'Durable log, replay, multi-consumer', ja: '永続ログ・再処理・多コンシューマ' },
+              { ko: '운영 인력·인프라 추가', en: 'Adds infra + headcount', ja: '運用人員・インフラ追加' },
+            ],
+            [
+              { ko: 'DB-only 최적화', en: 'DB-only tuning', ja: 'DBのみ最適化' },
+              { ko: '새 자원 0', en: 'No new resources', ja: '新規リソース0' },
+              { ko: '절대량 한계 (파티션만 부분 채택)', en: 'Cap on raw write volume (partial — partitions only)', ja: '絶対量の壁 (パーティションのみ部分採用)' },
+            ],
+            [
+              { ko: 'Redis 버퍼 + 60초 batch', en: 'Redis buffer + 60s batch', ja: 'Redisバッファ + 60秒batch' },
+              { ko: '기존 인프라 재활용 + 도메인 fit', en: 'Reuses existing infra, fits the access pattern', ja: '既存インフラ再利用・パターン合致' },
+              { ko: 'Sentinel 없으면 SPOF', en: 'SPOF without Sentinel', ja: 'Sentinel無しではSPOF' },
+            ],
+          ],
+          selectedRow: 2,
+        },
+      },
+      decision: {
+        diagramKey: 'odiya',
+      },
+      result: {
+        metrics: [
+          { value: '~95%', label: { ko: 'DB 쓰기 부하 감소 (분당 INSERT)', en: 'DB write load (inserts/min)', ja: 'DB書き込み負荷削減 (分単位INSERT)' } },
+          { value: '0대', label: { ko: '인프라 추가 증설', en: 'New infra added', ja: 'インフラ追加' } },
+          { value: '~230%', label: { ko: 'B2B 매출 성장 기여 (회사 발표 기준)', en: 'B2B revenue growth contributed', ja: 'B2B売上成長寄与' } },
+        ],
+      },
     },
   },
 
   'oem-integration-server': {
     oneLiner: {
-      ko: '서비스는 계속 추가되는데 매번 회원가입을 따로 받는 구조가 사용자 불편과 운영 부담으로 누적되고 있어, 통합 OEM 인증을 회사에 제안해 채택을 받고 팀장으로 리딩하며 HS256 JWT, Refresh Token Family 재사용 탐지, DLQ 테이블과 운영자 콘솔, 3단계 휴면·탈퇴 라이프사이클까지 처음부터 설계·구현했습니다.',
+      ko: '서비스는 계속 추가되는데 매번 회원가입을 따로 받는 구조가 사용자 불편과 운영 부담으로 누적되고 있어, 통합 OEM 인증을 회사에 제안해 채택을 받고 팀장으로서 리딩하며 HS256 JWT, Refresh Token Family 재사용 탐지, DLQ 테이블과 운영자 콘솔, 3단계 휴면·탈퇴 라이프사이클까지 처음부터 설계·구현했습니다.',
       en: 'New services kept being added and each one signed users up from scratch — that was hurting both UX and operations. I proposed a unified OEM auth platform, got it approved, and led the team that built it from zero: HS256 JWT, refresh-token family reuse detection, a webhook DLQ table with an operator console, and a three-stage dormancy and withdrawal lifecycle.',
       ja: 'サービスが追加されるたびに会員登録をやり直す構造がユーザー体験と運用負荷の双方を圧迫していたため、統合OEM認証を社内に提案して採用され、チームリーダーとしてHS256 JWT、Refresh Tokenファミリー再利用検知、Webhook DLQテーブルと運用者コンソール、3段階の休眠・退会ライフサイクルをゼロから設計・実装した。',
     },
     context: {
-      ko: '사운드마인드 합류 후 Odiya 안정화를 진행하면서, 앞으로 신규 서비스가 계속 붙는다면 매번 따로 회원가입을 받는 구조는 사용자 입장에서도 불편하고 관리 측면에서도 비용이 누적된다는 점이 명확히 보였습니다. 부모-자녀 안전 도메인이라 사용자 라이프사이클이 서비스별로 따로 저장되면 정합성 위험이 그대로 운영 사고로 이어집니다. 그래서 통합 OEM 인증을 회사에 제안했고, 채택된 뒤 팀장으로 리딩하며 백엔드(Spring Boot), 운영자 대시보드(Next.js), 가입·마이페이지 WebView까지 세 컴포넌트를 처음부터 설계·구현했습니다.',
-      en: 'While stabilising Odiya it was clear that, given new services would keep being added, the existing pattern of asking users to sign up separately per product was going to keep hurting UX and pile operational cost on top. In a child-safety domain, splitting the user lifecycle per service also turns consistency risk straight into outage risk. So I proposed a unified OEM auth platform; once it was approved I led the team and built three components from scratch — backend (Spring Boot), operator dashboard (Next.js), and the signup/mypage WebView.',
-      ja: 'サウンドマインドに入りOdiyaを安定化させながら、新規サービスが今後も継続的に追加されることを考えると、サービスごとに個別の会員登録を求める構造はユーザー体験と運用コストの双方を悪化させ続けると判断した。親子安全領域ではユーザーライフサイクルがサービスごとに分散すれば、整合性リスクがそのまま運用事故に直結する。そのため統合OEM認証を社内に提案し、採用後はチームリーダーとしてバックエンド（Spring Boot）、運用ダッシュボード（Next.js）、加入・マイページWebViewの3コンポーネントをゼロから設計・実装した。',
+      ko: 'Odiya 안정화를 마무리하면서, 신규 서비스가 계속 붙는데 매번 따로 회원가입을 받는 구조는 UX와 운영 비용 양쪽에서 부담이 누적된다는 게 명확했습니다. 통합 OEM 인증을 회사에 제안해 채택받고, 팀장으로서 리딩하며 백엔드(Spring Boot)·운영자 대시보드(Next.js)·가입·마이페이지 WebView 세 컴포넌트를 처음부터 설계·구현했습니다.',
+      en: 'After stabilising Odiya it was clear that, with new services queued, asking users to sign up separately per product was going to keep hurting UX and pile operational cost. I proposed a unified OEM auth platform, got it approved, and led the team — building three components from zero: backend (Spring Boot), operator dashboard (Next.js), and signup/mypage WebView.',
+      ja: 'Odiyaの安定化を終え、新規サービスが追加されるたびにサイロ型の会員登録を求める構造はUXと運用コストの双方で負担が累積する点が明確になった。統合OEM認証を会社に提案して採用され、チームリーダーとしてバックエンド（Spring Boot）・運用ダッシュボード（Next.js）・加入・マイページWebViewの3コンポーネントをゼロから設計・実装した。',
     },
     problem: {
-      ko: '부모-자녀 관계가 Mohani · Odiya를 비롯한 여러 서비스 백엔드에 각각 따로 저장되면, 한 곳에서만 데이터가 어긋나도 사용자가 보는 화면에서 그대로 사고로 드러납니다. 자녀 단말은 백그라운드 위치 송출처럼 오래 가는 인증이 필요한데, 일반적인 짧은 access + refresh 회전 모델로는 자녀폰의 슬립·네트워크 끊김 사이에 위치가 끊겨버립니다. 미성년자 보호 정책상 자녀 자가 탈퇴는 막아야 하니 부모/자녀 탈퇴 처리는 비대칭이어야 했고, Webhook이 실패해도 운영팀이 직접 추적·재시도할 수 있어야 했습니다.',
-      en: 'Storing parent-child relationships separately in four downstreams meant every consistency drift was one step from an outage. Child devices needed a long-lived auth lifetime for background location reporting — the usual short-access + refresh-rotation pattern doesn’t survive a child phone going to sleep or losing the network. Self-withdrawal had to be blocked for minors, so parent/child account-removal flows had to be asymmetric. And webhook failures had to be inspectable — fire-and-forget wasn’t an option.',
-      ja: '親子関係を下流4箇所に別々に保存すると、整合性のずれがそのまま運用事故に直結する。子供端末は背景位置送出のような長寿命認証が必要で、通常の短いaccess + refresh回転モデルでは子供端末のスリープ・通信断の間に位置が抜けてしまう。未成年保護のため子供の自己退会は塞ぐ必要があり、親と子で退会処理は非対称にする必要があった。Webhookが失敗しても運用チームが直接追跡・再試行できる仕組みも必須だった。',
+      ko: '핵심 위험은 데이터 정합성이었습니다. 부모-자녀 관계가 서비스마다 따로 저장되면 한 곳만 어긋나도 사용자 화면에서 그대로 사고로 드러납니다. 동시에 자녀 단말은 백그라운드 위치 전송 때문에 장수명 인증이 필요한데, 짧은 토큰 회전 모델로는 안드로이드 백그라운드 강제 종료와 네트워크 끊김 사이에 위치 전송이 빠져버립니다.',
+      en: 'The structural risk of the silo pattern was consistency — links stored per-downstream meant any drift would surface as a user-facing incident. Child devices needed long-lived auth for background location reporting; the standard short access + refresh rotation drops out between Android background-kills and network toggles.',
+      ja: 'サイロ構造の核心リスクは整合性 — 親子関係を下流ごとに分散保存すれば1箇所のずれが画面上の事故になる。子供端末は背景位置送出のため長寿命認証が必要だが、標準のaccess + refresh回転ではbackground kill・通信トグルの間に位置が抜ける。',
     },
     hypothesis: {
-      ko: '네 가지를 잡고 들어갔습니다. 첫째, 부모와 자녀에게 같은 토큰 모델을 강제하지 않습니다. 부모는 표준 JWT와 Refresh 토큰 회전으로 가고, 자녀는 길게 발급한 access 토큰을 DB에 AES-GCM 암호화로 묶어두고 재로그인 시 복호해 다시 쓰는 비대칭 구조로 풉니다. 둘째, Refresh Token 재사용 탐지는 사고가 터진 다음에 붙이는 것이 아니라 도메인 특성상 처음부터 설계에 넣어야 합니다. 셋째, Webhook 신뢰성은 메모리상의 3회 재시도만으로는 부족하고 DLQ 테이블과 운영자 콘솔이 함께 있어야 합니다. 넷째, 서비스 단위 탈퇴 신호와 계정 전체 탈퇴 신호는 같은 종류로 보면 안 됩니다. 전자는 한 서비스의 데이터를 정리하라는 신호고, 후자는 JWT 토큰까지 모든 서비스에서 차단해야 하는 신호라 둘을 분리합니다.',
-      en: 'Four design bets. (1) Don’t force the same token model on parents and children — parents use a standard JWT with refresh rotation, children get a long-lived access token stored AES-GCM-encrypted in the DB and re-used on re-login. (2) Refresh-token reuse detection ships from day one — in a child-safety domain you don’t retrofit that after an incident. (3) In-memory 3-retry isn’t enough for webhooks; a DLQ plus an operator console are mandatory. (4) "service withdrawal" (data cleanup) and "account withdrawal" (full cutoff, JWT blacklist) are different signals and have to stay distinct.',
-      ja: '4つの設計判断を最初に置いた。第一に、親と子に同じトークンモデルを強制しない — 親は標準JWTとRefresh回転で、子供は長期間のaccessをDB上にAES-GCMで暗号化保存し再ログイン時に復号して再利用する非対称構造にする。第二に、Refresh Token再利用検知は事故が起きてから付けるものではなく、ドメイン特性上、初日から設計に組み込む。第三に、Webhook信頼性はin-memory 3回リトライだけでは不足、DLQと運用者コンソールを併設する。第四に、「サービス退会（データ整理）」と「アカウント退会（JWTまで遮断）」はシグナル自体を分ける。',
+      ko: '네 가지 설계 결정을 처음부터 잡고 들어갔습니다. 부모/자녀 비대칭 토큰 모델, refresh 재사용 탐지를 처음부터, Webhook은 DLQ와 운영자 콘솔까지, 그리고 "서비스 탈퇴"와 "계정 탈퇴"는 다른 신호로 분리한다는 것입니다.',
+      en: 'Four design bets, all from day 1 — asymmetric token model (standard for parents, long-lived for children), refresh-reuse detection up front rather than after an incident, webhooks need DLQ + operator console (in-memory retries alone aren’t enough), and "service withdrawal" vs "account withdrawal" stay as distinct signals.',
+      ja: '4つの設計判断を初日から置いた — 非対称トークンモデル（親は標準、子供は長寿命）、refresh再利用検知を事故後ではなく最初から、Webhookはin-memoryリトライだけでは不十分なのでDLQ + 運用者コンソール、「サービス退会」と「アカウント退会」は別シグナルに分離。',
     },
     alternatives: {
-      ko: 'Auth0·Cognito·Firebase Auth 같은 매니지드 인증은 자녀 자가 탈퇴 금지, 재가입 승인 흐름, 자녀 토큰의 장수 라이프타임 같은 미성년자 도메인 정책을 외부 서비스로 푸는 비용이 직접 만드는 것보다 컸습니다. Spring Authorization Server(OAuth 2.0 표준)는 외부 파트너 연동이 아닌 자사 백엔드 통합이 1차 목표였던 시점에 표준 프로토콜의 제약이 더 부담이라 자체 모델링을 골랐습니다. Webhook도 Kafka·RabbitMQ는 운영 인력·인프라 추가 부담이 컸고, 메모리상의 재시도 + DLQ 테이블 + 운영자 콘솔이 사고에 운영팀이 직접 개입할 수 있다는 점에서 더 맞았습니다.',
-      en: 'Managed auth (Auth0, Cognito, Firebase Auth) didn’t fit — bending it around minor-self-withdrawal-forbidden, re-signup approval workflows, and long-lived child tokens would have cost more than building it. Spring Authorization Server (OAuth 2.0 standard) was off the table for the same reason: at the time the goal was unifying our own backends, not external partner integration, and the protocol’s constraints would have outweighed the portability it offered. On webhooks, Kafka and RabbitMQ would have added operational headcount we didn’t have; in-memory retries + a DLQ table + an operator console gave the ops team the same recovery surface at far lower running cost.',
-      ja: 'Auth0・Cognito・Firebase Authのようなマネージド認証は、未成年者の自己退会禁止、再加入承認フロー、子供トークンの長寿命ライフタイムといった未成年者ドメインの制約を外部サービスで解くコストが、内製コストを上回った。Spring Authorization Server（OAuth 2.0標準）は外部パートナー連携ではなく自社バックエンド統合が一次目標である時点で、標準プロトコルの制約のほうが負担だったため直接モデリングを選択。WebhookもKafka・RabbitMQは運用人員・インフラ追加負担が大きく、in-memoryリトライ + DLQ DB + 運用者コンソールが事故時に運用チームが直接介入できる点でより適していた。',
+      ko: '매니지드 인증(Auth0/Cognito/Firebase)·표준 OAuth(Spring Authorization Server)·Kafka/RabbitMQ 모두 검토했지만, 미성년자 도메인 제약과 자사 백엔드 통합이 1차 목표라는 점에서 자체 모델 + DLQ가 가장 잘 맞았습니다.',
+      en: 'Evaluated managed auth (Auth0 / Cognito / Firebase), standard OAuth (Spring Authorization Server), and Kafka / RabbitMQ for webhooks — but minor-domain constraints and the "internal backend unification as day-one goal" axis made a self-built model + DLQ the better fit.',
+      ja: 'マネージド認証（Auth0/Cognito/Firebase）・標準OAuth（Spring Authorization Server）・Kafka/RabbitMQを全て検討したが、未成年ドメイン制約と「自社バックエンド統合が一次目標」という軸で、自前モデル + DLQのfitが大きかった。',
     },
     decision: {
-      ko: 'HS256 대칭키와 family_id UUID로 토큰 모델을 단순화하고, 회수된 refresh 토큰이 다시 들어오면 같은 family를 즉시 전부 무효화하면서 감사 로그를 남기게 했습니다. HS256은 다운스트림이 모두 자사 백엔드라 secret 공유 운영 비용이 낮다는 점을 활용한 의도된 선택이었습니다. 자녀 access 토큰을 2년으로 길게 잡고 DB AES-GCM 암호화로 보관하는 비대칭 구조도 같은 맥락의 선택입니다. 자녀폰은 Android의 background process kill 정책과 네트워크 토글이 자녀 보호용 단말 특성상 일상적으로 일어나서 refresh 호출 시점 자체가 보장되지 않고, 위치 송출이 한 번이라도 끊기면 보호자 컴플레인으로 직결되는 도메인이라, 표준적인 짧은 access + refresh 회전 패턴 대신 오래 가는 access 토큰을 DB에서 안전하게 재사용하는 쪽을 골랐습니다. Webhook은 전용 비동기 스레드풀에서 1초·5초·15초 간격으로 3회 재시도하고, 그래도 실패하면 webhook_dlq 테이블에 적재한 뒤 운영자 콘솔에서 목록·상세·재시도·포기를 누를 수 있게 했고, 재시도 성공과 포기 모두 감사 로그로 남깁니다. 짧은 backoff는 일시적인 네트워크 hiccup만 자동으로 흡수하고, 그보다 긴 다운스트림 장애는 운영자 콘솔에서 사람이 직접 보고 판단하라는 쪽으로 의도적으로 잘랐습니다. 휴면과 탈퇴는 매일 정오에 도는 스케줄러가 활성 서비스가 0인 계정을 휴면 안내 상태로 바꾸고, 자녀는 30일 후 익명화한 다음 2년 뒤 phoneHash까지 완전 삭제, 부모는 30일 + 2년 후 완전 삭제로 비대칭 처리합니다.',
-      en: 'I kept the token model simple with HS256 and a `family_id` UUID; the moment a revoked refresh shows up again, the whole family is invalidated and an audit row is written. Webhooks run on a dedicated async pool with retries at 1s / 5s / 15s; anything still failing lands in `webhook_dlq` and the operator console exposes list / detail / retry / dismiss — both successful retries and dismissals leave an audit trail. Lifecycle: a noon scheduler flips ACTIVE accounts with zero active services to DORMANT_NOTIFIED, then children are anonymised 30 days later and fully deleted (including phoneHash) two years after that; parents are hard-deleted after 30 days + 2 years. Parent and child paths are deliberately asymmetric.',
-      ja: 'HS256対称鍵とfamily_id UUIDでトークンモデルを単純化し、回収済みrefreshが再度現れた瞬間、同じfamily全体を即座に無効化し監査行を書き込む。Webhookは専用の非同期スレッドプールで1s・5s・15s間隔の3回リトライを行い、それでも失敗するとwebhook_dlqテーブルに積み、運用者コンソールから一覧・詳細・再試行・破棄を操作できる — 再試行成功と破棄の双方にaudit logが残る。ライフサイクル：毎日正午に走るスケジューラがアクティブサービス0のアカウントをDORMANT_NOTIFIEDに遷移させ、子供は30日後に匿名化、その2年後にphoneHashまで完全削除。親は30日 + 2年後にhard delete。親と子の経路は意図的に非対称にしている。',
+      ko: '자녀 토큰을 길게 잡은 이유는, 자녀폰의 백그라운드 강제 종료와 네트워크 끊김이 일상이라 표준 회전 패턴으로는 위치 전송이 끊기고 그게 곧 보호자 컴플레인으로 이어지기 때문입니다. 그래서 부모 쪽은 표준 토큰 회전을 그대로 쓰고, 자녀 쪽은 길게 발급한 토큰을 DB에 안전하게 암호화해 보관하는 비대칭 구조로 풀었습니다. Webhook은 짧은 간격으로 3회 재시도하다 실패하면 별도 보관소로 보내 운영팀이 직접 처리하게 했고, 휴면 → 익명화 → 완전 삭제 3단계는 자동으로 돌게 했습니다.',
+      en: 'HS256 + family_id simplifies the token model, child access is asymmetric (2-year, AES-GCM in DB), webhooks ride a 3-retry pool + DLQ + operator console, and lifecycle is a three-stage dormant → anonymise → hard-delete automation. The long-lived child token is intentional — background kills and network toggles are routine on child devices, the standard rotation pattern drops the location stream, and a single missed location reading is a guardian complaint, so long-lived access reused safely from the DB beats the textbook short-access pattern here.',
+      ja: 'HS256 + family_idでトークンモデルを単純化、子供accessは2年 + DB AES-GCMで非対称保管、Webhookは3回リトライ + DLQ + 運用者コンソール、ライフサイクルは休眠 → 匿名化 → 完全削除の3段自動化。子供トークンを長くしたのは — 子供端末のbackground kill・通信トグルが日常で、標準回転パターンでは位置送出が途切れ、それが即保護者苦情のため、長寿命accessをDBから安全に再利用する側を選んだ。',
     },
     execution: {
-      ko: '운영하면서 부족한 부분을 발견할 때마다 DB 스키마 변경 스크립트(Flyway 마이그레이션)를 한 번씩 추가해 채워나갔습니다. 8번째 마이그레이션(V8)에서는 기획 요구로 같은 부모-자녀가 mohani와 odiya를 서비스별로 따로 가입할 수 있게 각 서비스를 구분하는 컬럼(`service_id`)을 도입해, 연동 요청과 부모-자녀 연결을 서비스 단위로 분리했습니다. 19번째 마이그레이션(V19)에서는 메모리 상의 3회 재시도가 모두 실패한 Webhook을 운영팀이 추적할 수단이 없다는 점이 드러나, 실패한 Webhook을 따로 보관하는 테이블(`webhook_dlq`)과 운영자 콘솔을 함께 투입했고, 같은 메시지가 두 번 처리되지 않도록 메시지마다 부여한 고유 키(`idempotency_key`)에 중복 방지 제약을 걸었습니다. 21번째(V21)는 웹에서 바로 가입한 사용자에게 휴면 안내가 중복 발송되는 경로를 막기 위해 안내 발송 여부를 기록하는 컬럼(`direct_notice_sent_at`)으로 한 번만 보내도록 보장했습니다. 22번째(V22)에서는 계정 전체 탈퇴 신호(`ACCOUNT_WITHDRAWN`)를 추가했는데, 기존 서비스 단위 탈퇴 신호(`SERVICE_WITHDRAWN`)는 "한 서비스에서만 데이터를 정리하라"는 의미인 반면 계정 자체가 사라질 때는 JWT 토큰까지 모든 서비스에서 차단해야 해서 별도 신호가 필요해진 시점이었습니다.',
-      en: 'Whenever operating the platform surfaced a gap, I wrote a Flyway migration to close it. V8 added a `service_id` column — a planning ask — so the same parent and child could opt into mohani and odiya independently, splitting `LinkRequest` from `ParentChildLink`. V19 landed once we saw webhooks that had failed all three in-memory retries and the ops team had no way to recover them: the `webhook_dlq` table (with a `idempotency_key` UNIQUE constraint) and its operator console shipped together. V21 added `direct_notice_sent_at` to stop dormancy notifications being double-sent to `sso-web-client` direct signups. V22 split `ACCOUNT_WITHDRAWN` out from `SERVICE_WITHDRAWN` once it was clear data cleanup wasn’t a strong enough signal — we needed a distinct event that meant "blacklist this JWT everywhere".',
-      ja: '運用しながらギャップが見えるたびにFlywayマイグレーションを書き足していった。V8は企画要求で、同じ親子がmohaniとodiyaにサービス別に個別加入できるようservice_idカラムを導入しLinkRequestとParentChildLinkを分離。V19はin-memory 3回リトライが全失敗したWebhookを運用チームが追跡できない点が表面化したため、idempotency_key UNIQUE制約を持つwebhook_dlqテーブルと運用者コンソールを一緒に投入。V21はsso-web-client直接加入者の休眠通知が二重送信される経路を塞ぐためdirect_notice_sent_at列でidempotencyを保証。V22はデータ整理だけでは弱い遮断シグナルが必要となったタイミングで、ACCOUNT_WITHDRAWNをSERVICE_WITHDRAWNと意味を分けて追加した。',
+      ko: '한 번에 완성된 설계가 아닙니다. 출시 후 운영하면서 네 가지 빈틈이 차례로 드러났고, 그때마다 DB 스키마와 동작을 한 단계씩 보강했습니다. 위치 공유와 단말 통제를 한 번에 묶던 가입을 서비스 단위로 분리했고, 메모리 3회 재시도가 다 실패한 Webhook은 DLQ 테이블과 운영자 콘솔을 붙여 추적·복구 가능하게 만들었습니다. 직접 가입 사용자에게 두 번 발송되던 휴면 안내 경로를 차단했고, "한 서비스 데이터만 정리"와 "계정 자체 소멸 → JWT 즉시 차단" 신호를 별도 이벤트로 갈랐습니다.',
+      en: 'The design did not land in one shot. Four gaps surfaced after launch, each closed by an iterative DB-schema and behaviour change. The previously all-or-nothing parent-child linkage was split so location-sharing and device-control can be opted into per service. Webhooks that failed all 3 in-memory retries became traceable and recoverable via a DLQ table and an operator console. The path that sent dormancy emails twice to direct-web signups was closed, and "clean up data in one service" was separated from "the account itself is gone, blacklist the JWT everywhere" as distinct events.',
+      ja: '一度に決まった設計ではありません。リリース後の運用で4つの不足が順に表面化し、その都度DBスキーマと挙動を一段ずつ補強しました。位置共有と端末制御を一括で紐づけていた連携をサービス単位に分離し、メモリ内3回リトライが全失敗したWebhookはDLQテーブルと運用者コンソールを併設して追跡・復旧可能にしました。Web直接加入者に二重発送されていた休眠通知の経路を遮断し、「あるサービスのデータだけ整理」と「アカウント自体が消えるので全JWTを即時遮断」というシグナルを別イベントとして切り分けました。',
     },
     result: {
-      ko: 'Mohani · Odiya 같은 연결 서비스들이 부모-자녀 관계의 출처로 OEM 인증 서버를 바라보게 됐고, 각자는 Redis 캐시만 유지하면서 가입·탈퇴·연동 같은 사용자 이벤트는 모두 Webhook으로 받아 동기화하는 구조가 정착했습니다. DLQ와 운영자 콘솔 덕에 Webhook 동작을 운영팀이 직접 추적할 수 있게 됐고, 재시도와 포기 모두 감사 로그로 남습니다. 휴면 → 익명화 → 완전 삭제 3단계 흐름은 개인정보보호법 보존 기간 정책을 사람이 일일이 챙기지 않아도 자동으로 따라갑니다. 다만 자녀 토큰을 DB에 보관하는 패턴은 AES-GCM 자체는 안전하지만 키 노출 위험이 결국 운영팀의 책임으로 남는 구조라, HSM·KMS 같은 키 격리와 HMAC secret rotation·phoneHash salt 같은 보안 디테일을 다음 단계에서 명시적으로 정책화할 영역으로 두었습니다.',
-      en: 'Downstream services now lean on the OEM auth server as the source of truth for parent-child relationships; each keeps only a cache and syncs lifecycle events through webhooks. The DLQ + operator console gave webhook delivery actual operational visibility — retries and dismissals are both audited. The three-stage dormant / anonymise / hard-delete lifecycle satisfies Korean privacy-law retention rules automatically instead of being a recurring manual chore.',
-      ja: 'ダウンストリームサービスはOEM認証サーバーを親子関係のSingle Source of Truthとして頼るようになり、各自はキャッシュのみを保持してライフサイクルイベントをWebhookで受け取り同期する構造が定着した。DLQと運用者コンソールによりWebhook運用可視性が確保され、再試行・破棄ともにauditに残る。3段階の休眠・匿名化・完全削除ライフサイクルは、個人情報保護法の保存期間ポリシーを人手で毎回管理しなくても自動で追従する。',
+      ko: '여러 서비스가 부모-자녀 관계를 각자 따로 저장하던 구조를, 모두 OEM 인증 서버 한 곳을 바라보는 구조로 옮겼습니다. Webhook 동작은 운영팀이 직접 추적·복구할 수 있고, 휴면 → 익명화 → 완전 삭제 3단계는 자동으로 돌아 개인정보보호법 보존 기간 정책을 사람이 일일이 챙기지 않아도 따라갑니다.',
+      en: 'Where each service used to keep its own copy of parent-child relationships, all of them now read from the OEM auth server and sync signup / withdrawal / linkage events through webhooks. The ops team can trace and recover webhook delivery directly via DLQ + operator console, and the three-stage dormant → anonymise → hard-delete pipeline runs at noon every day so Korean privacy-law retention rules are followed automatically instead of by hand.',
+      ja: '各サービスが自身のDBに親子関係を別々に保管していた構造から、すべてがOEM認証サーバー1箇所を参照し、加入・退会・連携イベントをWebhookで受けて同期する構造に移行しました。運用チームはDLQと運用者コンソールでWebhookの挙動を直接追跡・復旧でき、休眠 → 匿名化 → 完全削除の3段階は毎日正午に自動で回り、個人情報保護法の保存期間ポリシーを人手で管理しなくても自動追従します。',
+    },
+    improvements: {
+      ko: '한 가지 다시 검토하고 갈 부분이 있습니다. 자녀 access 토큰을 DB에 AES-GCM으로 암호화해 보관하는 패턴은 알고리즘 자체는 안전하지만, 결국 키 노출 위험이 운영팀의 관리 책임으로 남는 구조입니다. 같은 길을 다시 간다면 HSM·KMS 같은 하드웨어/관리형 키 격리를 함께 두는 방향을 명시적으로 정책화했을 것입니다.',
+      en: 'One area I would revisit. Storing child access tokens AES-GCM-encrypted in the DB is safe in itself, but key-exposure risk ultimately stays the ops team’s management burden. If I were to do it again, I would lock in HSM / KMS-style hardware or managed key isolation as an explicit policy alongside the encryption.',
+      ja: '再度検討すべき点が1つあります。子供accessトークンをDB上にAES-GCMで暗号化保管するパターンはアルゴリズム自体は安全ですが、結局鍵漏洩リスクが運用チームの管理責任として残ります。やり直すならHSM・KMSのようなハードウェア/マネージド鍵分離を明示的にポリシー化して併設するでしょう。',
     },
     reflection: {
-      ko: '지금 시점에 명백히 잘못된 결정으로 보이는 부분은 없습니다. 다만 다시 한다면 두 가지는 검토하고 갈 것 같습니다. 하나는 OAuth 2.0 표준(Spring Authorization Server) 위에 도메인 제약을 얹는 구조 — 직접 만든 것이 도메인 특수성을 모델링하기에는 좋았지만, 외부 파트너 연동이 본격화되면 표준 프로토콜이 없다는 점이 결국 마이그레이션 비용으로 돌아옵니다. 다른 하나는 자녀 access를 DB에 AES-GCM으로 보관하는 패턴 — GCM 자체는 안전하지만 결국 키 노출 위험이 운영 책임으로 남습니다. 같은 길을 다시 간다면 HSM·KMS 같은 키 격리도 같이 검토했을 것입니다.',
-      en: 'Looking back I don’t see anything clearly wrong, but two things I’d at least re-examine. One is whether to layer the domain constraints on top of Spring Authorization Server (OAuth 2.0) — building it bespoke was a good fit for the domain, but once external partners start integrating, missing the standard protocol becomes migration debt. The other is storing child access tokens AES-GCM-encrypted in the DB — GCM itself is safe, but key exposure ultimately stays an operational liability, so today I’d at least put HSM / KMS-style key isolation on the table next to it.',
-      ja: '現時点で明確に誤った決定だと思う部分はない。ただやり直すなら2点は検討すると思う。一つはOAuth 2.0標準（Spring Authorization Server）の上にドメイン制約を載せる構造 — 自前で作ったほうがドメイン特殊性のモデリングには向いていたが、外部パートナー連携が本格化すれば標準プロトコル不在がそのままマイグレーション負債になる。もう一つは子供アクセストークンをDB上にAES-GCMで保管するパターン — GCM自体は安全でも、結局鍵漏洩リスクが運用責任として残るため、今ならHSM・KMSによる鍵分離も併せて検討するだろう。',
+      ko: '지금 시점에 명백히 잘못된 결정으로 보이는 부분은 없습니다. 다만 다시 한다면 두 가지는 검토하고 갈 것 같습니다. 하나는 OAuth 2.0 표준(Spring Authorization Server) 위에 도메인 제약을 얹는 구조입니다. 직접 만든 것이 도메인 특수성을 모델링하기에는 좋았지만, 외부 파트너 연동이 본격화되면 표준 프로토콜이 없다는 점이 결국 마이그레이션 비용으로 돌아옵니다. 다른 하나는 자녀 access를 DB에 AES-GCM으로 보관하는 패턴입니다. GCM 자체는 안전하지만 결국 키 노출 위험이 운영 책임으로 남기 때문에, 같은 길을 다시 간다면 HSM·KMS 같은 키 격리도 같이 검토했을 것입니다.',
+      en: 'Looking back I don’t see anything clearly wrong, but two things I’d at least re-examine. One is whether to layer the domain constraints on top of Spring Authorization Server (OAuth 2.0). Building it bespoke was a good fit for the domain, but once external partners start integrating, missing the standard protocol becomes migration debt. The other is storing child access tokens AES-GCM-encrypted in the DB. GCM itself is safe, but key exposure ultimately stays an operational liability, so today I’d at least put HSM / KMS-style key isolation on the table next to it.',
+      ja: '現時点で明確に誤った決定だと思う部分はない。ただやり直すなら2点は検討すると思う。一つはOAuth 2.0標準（Spring Authorization Server）の上にドメイン制約を載せる構造で、自前で作ったほうがドメイン特殊性のモデリングには向いていたが、外部パートナー連携が本格化すれば標準プロトコル不在がそのままマイグレーション負債になる。もう一つは子供アクセストークンをDB上にAES-GCMで保管するパターンで、GCM自体は安全でも、結局鍵漏洩リスクが運用責任として残るため、今ならHSM・KMSによる鍵分離も併せて検討するだろう。',
+    },
+    visuals: {
+      problem: {
+        bullets: {
+          ko: [
+            '부모-자녀 관계를 서비스별로 따로 저장 → 한 곳만 어긋나도 사용자 화면에서 사고로 노출',
+            '자녀 단말은 백그라운드 위치 송출용 장수명 인증 필요 — 일반 access/refresh 회전 패턴으로는 위치가 끊김',
+            '미성년자 자가 탈퇴 금지 — 부모/자녀 탈퇴 처리가 비대칭이어야 함',
+            'Webhook 메모리 3회 재시도 실패 시 운영팀이 추적·복구할 수단이 필요',
+          ],
+          en: [
+            'Per-service storage of parent-child links → any drift turns into a user-facing outage',
+            'Child devices need long-lived auth for background location — standard short access + refresh rotation drops the stream',
+            'Minor self-withdrawal must be blocked — parent/child removal flows must stay asymmetric',
+            'In-memory 3-retry on webhooks is not enough — ops needs a recovery surface when delivery fails',
+          ],
+          ja: [
+            'サービスごとに親子関係を分散保存 → 1箇所のずれが画面上の事故になる',
+            '子供端末は背景位置送出のため長寿命認証が必要 — 通常のaccess + refresh回転では位置が途切れる',
+            '未成年の自己退会は禁止 — 親と子で退会経路を非対称にする必要',
+            'in-memory 3回リトライ失敗時、運用が追跡・復旧する手段が必要',
+          ],
+        },
+      },
+      alternatives: {
+        table: {
+          columns: [
+            { ko: '후보', en: 'Option', ja: '候補' },
+            { ko: '장점', en: 'Upside', ja: '利点' },
+            { ko: '단점', en: 'Downside', ja: '欠点' },
+          ],
+          rows: [
+            [
+              { ko: 'Auth0 / Cognito / Firebase Auth', en: 'Auth0 / Cognito / Firebase Auth', ja: 'Auth0 / Cognito / Firebase Auth' },
+              { ko: '관리형 — 인프라·운영 부담 0', en: 'Managed — zero infra/ops burden', ja: 'マネージド — インフラ/運用負担0' },
+              { ko: '미성년자 자가 탈퇴 금지·재가입 승인·장수명 자녀 토큰 같은 도메인 제약을 외부 서비스로 푸는 비용 > 내제 비용', en: 'Bending it around minor-self-withdrawal, re-signup approval, long-lived child tokens costs more than building it', ja: '未成年自己退会禁止・再加入承認・子供長寿命トークンを外部で解くコストが内製より高い' },
+            ],
+            [
+              { ko: 'Spring Authorization Server (OAuth 2.0)', en: 'Spring Authorization Server (OAuth 2.0)', ja: 'Spring Authorization Server (OAuth 2.0)' },
+              { ko: '표준 프로토콜 — 외부 파트너 연동에 유리', en: 'Standard protocol — friendly to future partner integrations', ja: '標準プロトコル — 将来のパートナー連携で有利' },
+              { ko: '1차 목표가 자사 백엔드 통합이라 표준 제약이 더 부담 (외부 파트너 연동 시 마이그레이션 비용은 회고로 인정)', en: 'Internal backend unification was the day-one goal; protocol constraints outweighed portability (migration debt acknowledged in reflection)', ja: '一次目標が自社バックエンド統合のため標準制約のほうが負担（外部パートナー連携時のマイグレーション負債は振り返りで認識）' },
+            ],
+            [
+              { ko: 'Kafka / RabbitMQ (Webhook용)', en: 'Kafka / RabbitMQ (webhooks)', ja: 'Kafka / RabbitMQ（Webhook用）' },
+              { ko: '내구성 있는 메시지 큐', en: 'Durable message queue', ja: '耐久性のあるメッセージキュー' },
+              { ko: '운영 인력·인프라 추가 부담 큼', en: 'Adds operational headcount + infra we did not have', ja: '運用人員・インフラ追加負担が大きい' },
+            ],
+            [
+              { ko: '자체 모델 + DLQ 테이블 + 운영자 콘솔', en: 'Self-built model + DLQ table + operator console', ja: '自前モデル + DLQテーブル + 運用者コンソール' },
+              { ko: '도메인 특수성에 정확히 맞춤 + 운영팀이 직접 개입 가능', en: 'Exact fit to the domain + ops team can intervene directly', ja: 'ドメイン特殊性に正確に合致 + 運用が直接介入可能' },
+              { ko: '외부 파트너 연동 시 표준 부재가 마이그레이션 비용으로 환원', en: 'Lack of a standard becomes migration debt when external partners come', ja: '外部連携時、標準不在がマイグレーション負債に' },
+            ],
+          ],
+          selectedRow: 3,
+        },
+      },
+      decision: {
+        bullets: {
+          ko: [
+            'HS256 + family_id UUID — 회수된 refresh 재사용 시 family 전체 즉시 무효화 + 감사 로그',
+            '자녀 access 2년 + DB AES-GCM 암호화 보관 — 백그라운드 위치 송출이 끊기지 않게 비대칭 처리',
+            'Webhook: 전용 비동기 풀에서 1s/5s/15s 3회 재시도 → 실패 시 DLQ 테이블 + 운영자 콘솔(목록·재시도·포기 + 감사 로그)',
+            '라이프사이클 3단계: 휴면 안내 → (자녀) 30일 후 익명화 + 2년 후 phoneHash 완전 삭제 / (부모) 30일 + 2년 후 hard delete',
+          ],
+          en: [
+            'HS256 + family_id UUID — revoked refresh reuse invalidates the whole family immediately + audit log',
+            'Child access tokens live 2 years, stored AES-GCM-encrypted in DB — asymmetric so background location reporting never breaks',
+            'Webhooks: dedicated async pool with 1s/5s/15s retries → DLQ table + operator console (list/retry/dismiss + audit)',
+            'Lifecycle: dormancy notice → child anonymised after 30d, hard-delete (incl. phoneHash) at 2y / parent hard-delete at 30d + 2y',
+          ],
+          ja: [
+            'HS256 + family_id UUID — 回収済みrefresh再利用時にfamily全体を即時無効化 + 監査ログ',
+            '子供access 2年 + DB AES-GCM暗号化保管 — 背景位置送出が途切れない非対称構造',
+            'Webhook: 専用非同期プールで1s/5s/15s 3回リトライ → 失敗時DLQテーブル + 運用者コンソール（一覧・再試行・破棄 + 監査）',
+            'ライフサイクル3段: 休眠通知 → 子は30日後匿名化 + 2年後phoneHashまで完全削除 / 親は30日 + 2年でhard delete',
+          ],
+        },
+      },
+      execution: {
+        bullets: {
+          ko: [
+            '서비스 단위 가입 분리 — 같은 부모-자녀가 위치 공유와 단말 통제를 따로 신청할 수 있도록, 한 번에 묶이던 연동 구조를 서비스 단위로 갈랐습니다.',
+            'Webhook 추적성 보강 — 일시 장애로 메모리 3회 재시도가 모두 실패한 메시지가 사라지던 문제를 잡기 위해, 실패 메시지를 따로 보관하는 테이블과 운영자가 직접 재시도·포기를 누를 수 있는 콘솔, 같은 메시지가 두 번 처리되지 않게 막는 중복 방지 제약을 함께 투입했습니다.',
+            '휴면 안내 중복 발송 차단 — 웹에서 직접 가입한 사용자에게 안내 메일이 두 번 발송되던 경로를 차단했습니다.',
+            '계정 탈퇴 신호 분리 — "한 서비스에서만 데이터를 정리하라"는 신호와 "계정 자체가 사라지니 모든 서비스에서 JWT 토큰까지 즉시 차단하라"는 신호를 별도 이벤트로 갈랐습니다.',
+          ],
+          en: [
+            'Per-service linkage — split the previously all-or-nothing parent-child linkage so the same pair can opt into location-sharing and device-control independently.',
+            'Webhook traceability — transient outages were silently dropping messages that failed all 3 in-memory retries. Shipped a separate failure-message table, an operator console with manual retry / dismiss, and a dedup constraint so the same message is never processed twice.',
+            'Dormancy notice dedup — closed the path that was sending dormancy emails twice to direct web signups.',
+            'Account-withdrawal signal split — separated "clean up data in one service" from "the account itself is gone, blacklist its JWT everywhere" as distinct events.',
+          ],
+          ja: [
+            'サービス単位の連携分離 — 同じ親子が位置共有と端末制御を別々に申請できるよう、一括で紐づいていた連携構造をサービス単位で切り分けました。',
+            'Webhook追跡性の補強 — 一時障害でメモリ内3回リトライが全失敗したメッセージが消えていた問題を解くため、失敗メッセージを保管する別テーブル + 運用者が手動で再試行・破棄を押せるコンソール + 同一メッセージが二度処理されない重複防止制約を投入しました。',
+            '休眠通知二重送信の遮断 — Web直接加入者へ通知メールが二度発送されていた経路を遮断しました。',
+            'アカウント退会シグナルの分離 — 「あるサービスでだけデータを整理せよ」というシグナルと「アカウント自体が消えるので全サービスでJWTまで即時遮断せよ」というシグナルを別イベントとして切り分けました。',
+          ],
+        },
+      },
+      result: {
+        metrics: [
+          { value: 'p95 115ms', label: { ko: '정상 로그인 응답 시간 (초당 84건 처리). 보안 기능(brute-force 차단·Refresh Token 재사용 탐지·디바이스 일괄 차단)을 모두 적용한 상태에서 측정. k6 로컬 부하 테스트 (Docker compose · 동시 사용자 20명 · 50초)', en: 'Login p95 latency 115 ms at 84 req/s — measured with brute-force rate-limit, refresh-token rotation, and bulk device revocation all active. k6 local load test (Docker compose · 20 VU · 50 s)', ja: '通常ログイン応答時間 p95 115ms（毎秒84件処理）— ブルートフォース遮断・Refresh Token再利用検知・デバイス一括遮断をすべて有効化した状態で測定。k6ローカル負荷テスト（Docker compose · 同時利用20名 · 50秒）' } },
+          { value: 'Redis 2~3% / DB 20~25%', label: { ko: '동시 사용자 20명 부하 중 컨테이너 CPU 분담 — 캐시(Redis)가 DB 부하를 실제로 흡수함을 확인 (auth-server 800~900% CPU로 풀가동, 메모리 누수 없음). k6 로컬 부하 테스트', en: 'CPU split under load (20 VU) — cache layer (Redis) absorbs DB load as designed (auth-server saturated at 800~900%, no memory leak). k6 local load test', ja: '同時20名負荷中のコンテナCPU分担 — キャッシュ（Redis）がDB負荷を実際に吸収（auth-serverは800~900%で飽和、メモリリークなし）。k6ローカル負荷テスト' } },
+        ],
+      },
     },
   },
 
@@ -401,92 +605,276 @@ export const careerStoryBlocksV1: Partial<
       ja: '子供端末制御で「ブロックが効かない」バグを追跡する中で、Knox統合タイミングに生じたCPU過負荷を発見、重いNative処理をバックグラウンドスレッドに分離してANRを解消し、Knox MDM + AccessibilityServiceの多層防御で子供端末制御を安定化させました。',
     },
     context: {
-      ko: '부모(MohaniParent)가 자녀(BlockApp) 단말의 앱 차단, 시간 제한, 수면 시간, 콘텐츠 차단을 원격 제어하는 제품입니다. 사업부에서는 "자녀 단말 통제 기능을 무조건 만들어야 한다"는 요구가 먼저 들어왔고, 일반 앱 권한으로는 기술적으로 가능한지 확인되지 않은 상태였습니다. 본인이 Android AccessibilityService와 Samsung Knox MDM 조합으로 시스템 레벨 차단이 실제로 가능하다는 기술 검증 보고서를 사업부에 제출해, 사업 추진을 미루지 않고 곧바로 출시 일정을 잡을 수 있는 근거를 만들었습니다. 이후 팀장으로 리딩하며 BlockApp(RN + Native), MohaniParent(RN), Mohani Server(Spring Boot) 세 컴포넌트를 설계·구현했습니다. 단순한 React Native 앱이 아니라 Knox MDM 라이선스 단말 전용 엔터프라이즈 통제 앱이라, 자체 NativeModule을 여러 개 작성하고 차단 로직 전반을 짰습니다.',
-      en: 'Mohani is the product where a parent app (MohaniParent) drives the child device app (BlockApp) — app blocking, time limits, sleep schedules, content filtering, all over the air. It is not a generic React Native app: it only runs on Samsung Knox MDM-licensed hardware. `AppBlockService.java` is a single 2,674-LOC AccessibilityService class, `FCMService.ts` is another 1,161 LOC, and seven native modules are mine. I owned all three components — BlockApp (RN + Native), MohaniParent (RN), and Mohani Server (Spring Boot) — solo.',
-      ja: '親（MohaniParent）が子供（BlockApp）端末のアプリブロック・時間制限・睡眠時間・コンテンツブロックを遠隔制御する製品で、単なるReact Nativeアプリではなくサムスン Knox MDMライセンス端末専用のエンタープライズ制御アプリです。AppBlockService.javaは単一クラス2,674 LOC、FCMService.tsは1,161 LOC規模、自社NativeModule 7個を直接作成しました。BlockApp（RN + Native）、MohaniParent（RN）、Mohani Server（Spring Boot）3コンポーネントすべて単独責任です。',
+      ko: '부모(MohaniParent)가 자녀(BlockApp) 단말의 앱 차단·시간 제한·콘텐츠 차단을 원격 제어하는 제품입니다. 사업부 요구는 들어왔지만 일반 앱 권한으로 가능한지 검증되지 않은 상태였기에, AccessibilityService와 Samsung Knox MDM으로 시스템 레벨 차단이 가능하다는 기술 검증 보고서를 직접 작성해 출시 일정 근거를 만들었습니다. 이후 팀장으로서 BlockApp(RN+Native), MohaniParent(RN), Mohani Server(Spring Boot) 세 컴포넌트를 단독 책임으로 설계·구현했습니다.',
+      en: 'A product where the parent app (MohaniParent) drives the child device (BlockApp) — app blocking, time limits, content filtering over the air. The business side asked for the feature without prior OS-level verification, so I wrote the feasibility report myself (AccessibilityService + Samsung Knox MDM = system-level blocking works) to give the team a launch-date basis, then led and owned all three components solo: BlockApp (RN + Native), MohaniParent (RN), Mohani Server (Spring Boot).',
+      ja: '親（MohaniParent）が子供（BlockApp）端末のアプリブロック・時間制限・コンテンツブロックを遠隔制御する製品。事業側の要求は先行したが一般アプリ権限で技術的に可能か未検証状態のため、AccessibilityService + Samsung Knox MDMでシステムレベル遮断が可能という技術検証レポートを自ら作成しリリース日程の根拠を作成、以降チームリーダーとしてBlockApp（RN+Native）・MohaniParent（RN）・Mohani Server（Spring Boot）3コンポーネントを単独責任で設計・実装。',
     },
     problem: {
-      ko: '차단의 어려움은 두 갈래로 들어왔습니다. 하나는 ANR이었습니다. "차단이 안 된다"는 사용자 컴플레인을 받고 Logcat을 따라가다 CPU 과부하 흔적을 발견했는데, 백그라운드 서비스가 죽은 게 아니라 main thread가 잡혀 차단 동작 자체가 못 돌고 있었습니다. 결정적인 단서는 시간 흐름이었습니다. 원래는 없던 증상이 Knox SDK를 통합한 이후부터 생겼다는 점입니다. 다른 하나는 우회 경로였습니다. 유튜브 PIP, 음악 재생 앱, 녹음 앱처럼 화면 없이 백그라운드에서 도는 앱은 `onAccessibilityEvent(TYPE_WINDOW_STATE_CHANGED)` 트리거가 발화하지 않아 차단 자체가 작동하지 않았습니다. 보호자가 자녀의 유튜브 사용 시간을 걸어둬도 PIP 창으로 재생을 계속 듣는 식의 우회가 가능한 상태였습니다.',
-      en: 'The signal was not an ANR monitoring alert — it was users reporting "the block does not fire". I first suspected the background service had been killed, walked Logcat, and instead found CPU-overload trails. The service had not died: the main thread was getting pinned, so the blocking logic itself was not running. The decisive clue was timing — this symptom only appeared after the Knox SDK was integrated.',
-      ja: '出発点はANR監視アラームではなく「ブロックが効かない」というユーザーからの報告でした。最初は背景サービスが落ちたと疑いLogcatを追ったところCPU過負荷の痕跡を発見、背景が落ちたのではなくmainスレッドが詰まりブロック動作自体が回っていなかったという事実に至りました。決定的な手掛かりはタイミング — 元々無かった症状がKnox SDK統合後に出始めた点でした。',
+      ko: '문제는 두 갈래로 들어왔습니다. 첫째는 ANR이었습니다. "차단이 안 된다"는 컴플레인을 추적하다 main thread가 잡혀 차단 로직 자체가 돌지 못하고 있음을 발견했고, 결정적 단서는 시간이었습니다. 원래 없던 증상이 Knox SDK 통합 이후부터 발생했기 때문입니다. 둘째는 우회 경로였습니다. PIP·음악·녹음처럼 화면 없이 도는 백그라운드 앱은 `TYPE_WINDOW_STATE_CHANGED`가 발화하지 않아 차단 자체가 작동하지 않았습니다.',
+      en: 'Two parallel problems — (1) ANR: chasing "block does not fire" complaints, I found the main thread pinned so the blocking logic itself was not running; decisive clue was timing (only appeared after the Knox SDK integration). (2) Bypass: headless apps (PIP / music / recorder) never fired `TYPE_WINDOW_STATE_CHANGED`, so the block did not run at all.',
+      ja: '問題は2方向 — ① ANR：「ブロックが効かない」苦情を追うとmainスレッドが詰まり遮断ロジック自体が回っていなかった。決定的手掛かりはタイミング（Knox SDK統合後にのみ発生）。② 回避：PIP・音楽・録音のような画面のない背景アプリは`TYPE_WINDOW_STATE_CHANGED`が発火せず遮断自体が動作しない。',
     },
     hypothesis: {
-      ko: '"변경 이력에서 가장 가까운 원인부터 의심한다"는 원칙으로 Knox SDK 통합 시점을 강한 후보로 잡았고, Knox 관련 코드가 main thread를 잡고 있을 가능성을 가설로 세웠습니다. Bridge·Broadcast·Knox 셋이 얽힌 상태에서도 시간 축으로 좁힐 수 있는 단서가 있었기 때문에 가설 자체는 단순했습니다.',
-      en: 'The principle I leaned on was "blame whatever changed most recently first" — the Knox SDK integration was the obvious candidate. My hypothesis was that the Knox calls were pinning the main thread. RN bridge, Android Broadcast, and Knox IPC were all entangled, but the timing clue let me narrow the search before unpicking the entanglement.',
-      ja: '「変更履歴で最も近い原因から疑う」原則でKnox SDK統合時点を強い候補とし、Knox関連コードがmainスレッドを詰まらせている可能性を仮説としました。Bridge・Broadcast・Knoxの3つが絡む状態でも時間軸で絞れる手掛かりがあったため、仮説自体は単純でした。',
+      ko: '"변경 이력에서 가장 가까운 원인부터 의심한다"는 원칙으로 Knox SDK 통합 시점을 강한 후보로 잡았고, Knox 관련 코드가 main thread를 잡고 있을 가능성을 가설로 설정했습니다.',
+      en: 'Principle: blame whatever changed most recently first. Hypothesis — Knox SDK integration was the obvious candidate, and Knox calls were likely pinning the main thread.',
+      ja: '原則 — 「変更履歴で最も近い原因から疑う」。Knox SDK統合時点を強い候補とし、Knoxコードがmainスレッドを詰まらせている可能性を仮説とした。',
     },
     alternatives: {
-      ko: 'systrace·Perfetto·Firebase Crashlytics ANR thread dump 같은 본격 진단 도구는 정확도는 높지만 셋업 시간·학습 곡선 부담이 컸습니다. Knox 통합 이후라는 시점 단서가 명확했기 때문에, Android Studio Logcat과 AI 코드 분석 보조를 조합한 빠른 path가 합리적이라고 판단했습니다.',
-      en: 'systrace, Perfetto, Firebase Crashlytics ANR thread dumps would have been more precise but came with real setup and learning costs. Because the timing clue narrowed the search so cleanly, the cheap-and-fast path — Android Studio Logcat plus an AI co-pilot to read the Knox call graph — was the proportional choice.',
-      ja: 'systrace・Perfetto・Firebase Crashlytics ANR thread dumpといった本格的な診断ツールは精度は高いものの、セットアップ時間・学習コストの負担が大きかったです。Knox統合以降という時間的手掛かりが明確だったため、Android Studio LogcatとAIコード分析補助を組み合わせた高速pathが妥当と判断しました。',
+      ko: 'systrace, Perfetto, Crashlytics ANR thread dump는 정확도는 높지만 셋업과 학습 곡선 부담이 컸습니다. 시점 단서가 명확했기 때문에 Android Studio Logcat과 AI 코드 분석 보조를 조합한 빠른 길을 골랐습니다.',
+      en: 'systrace / Perfetto / Crashlytics ANR thread dumps were precise but heavy on setup / learning curve. With the timing clue clear, I picked the lightweight path — Android Studio Logcat + AI as a reading partner.',
+      ja: 'systrace・Perfetto・Crashlytics ANR thread dumpは精度は高いがセットアップ・学習コスト負担が大きかった。タイミング手掛かりが明確だったため、Android Studio Logcat + AIコード分析補助のpathを選択。',
     },
     decision: {
-      ko: 'Logcat에서 CPU 과부하 흐름을 따라가면서 Knox 호출이 들어있는 코드를 AI에게 유심히 분석시켰고, main thread를 잡는 호출 흐름을 빠르게 좁혔습니다. 해결은 무거운 Native 작업을 백그라운드 스레드로 분리하는 것이었고, Knox 앱 강제 종료 호출을 단일 스레드 executor에서 비동기로 동작하도록 옮겨 Knox SDK가 main에서 동기로 도는 경로를 끊었습니다.',
-      en: 'Logcat traced the CPU spike, and I had an AI go through the Knox-adjacent code carefully — together that narrowed the offending call path quickly. The fix was to move the heavy native work onto a background thread: `KnoxDomainModule.stopApps` now runs asynchronously on a single-threaded executor, severing the chain where the Knox SDK was being invoked synchronously on the main thread.',
-      ja: 'LogcatでCPU過負荷の流れを追いつつ、Knox呼び出しが含まれるコードをAIに丁寧に分析させ、mainスレッドを詰まらせる呼び出し経路を素早く絞り込みました。解決は重いNative処理をバックグラウンドスレッドに分離することで、KnoxDomainModuleのstopAppsは単一スレッドexecutor上で非同期動作させ、Knox SDKがmain上で同期実行されていた経路を断ち切りました。',
+      ko: '무거운 Native 작업을 백그라운드 스레드로 분리했습니다. Knox 호출을 단일 스레드 executor에서 비동기로 돌게 옮겨, main thread를 잡고 있던 경로를 끊었습니다. 차단 자체도 단일 트리거로는 우회되는 도메인이라 5중 다층 방어를 함께 짰습니다.',
+      en: 'Moved the heavy native work onto a background thread — Knox calls now run async on a single-threaded executor, severing the main-thread-pin path. Blocking itself was a defence-in-depth problem (single trigger is bypassable), so I composed five layers.',
+      ja: '重いNative処理をバックグラウンドスレッドに分離 — Knox呼び出しを単一スレッドexecutor上で非同期に動かし、mainスレッドpin経路を断ち切った。遮断自体も単一トリガーでは回避される領域のため、5層多層防御に構成。',
     },
     execution: {
-      ko: 'ANR 진단은 Logcat 흐름과 AI 코드 분석 보조를 함께 써서 Knox 호출 그래프에서 main thread를 잡는 지점을 빠르게 좁혔고, 무거운 Native 작업을 단일 스레드 executor로 옮겨 직렬화하면서 큐 크기에 상한을 두고 그 한도를 넘으면 호출 스레드에서 직접 실행하도록 강제했습니다. 백그라운드 차단 문제는 Android Developers 문서와 stack overflow를 뒤지면서 Android의 사용 이벤트 추적 API에서 포그라운드 서비스 시작·종료 카운트를 따라가면 화면이 없는 앱도 실행 여부를 감지할 수 있다는 점을 찾아냈고, 그 카운트를 차단 판단에 추가해 PIP·음악·녹음 앱처럼 우회되던 케이스를 모두 잡았습니다. 둘을 같이 보면 단일 트리거로는 우회되는 도메인이라는 결론이 명확해져, 앱 전환 감지 · 시간 초과 검사(1분 주기) · 화면 없이 도는 백그라운드 앱 감지 · 정책 변경 즉시 반영 · 원격 차단 명령이 각각 다른 우회 경로를 막도록 다층 방어를 구성했습니다.',
-      en: 'Diagnosis was the execution. Using an AI as a reading partner on the Knox call graph let me close the loop in a single cycle, without a meaningful trial-and-error pivot. Looking wider, blocking itself was a defence-in-depth problem: a single trigger can be bypassed, so I composed five layers — app transition (AccessibilityEvent), time-overrun (1-minute tick), headless background detection (FGS counter), instant policy propagation (SharedPreferences listener), and remote command (FCM `BLOCK_APP`) — each closing off a different evasion path.',
-      ja: '診断の流れがそのまま実行でした。AIをコード分析の相棒として使いKnox呼び出しグラフを素早く読み、大きな試行錯誤なしに一度のサイクルで解決しました。より広く見ると、ブロック自体も単一トリガーでは回避される領域なので、アプリ遷移（AccessibilityEvent）・時間超過（1分周期）・ヘッドレス背景（FGSカウント）・ポリシー変更即時反映（SharedPreferences listener）・遠隔コマンド（FCM `BLOCK_APP`）がそれぞれ異なる回避経路を塞ぐ多層防御を組みました。',
+      ko: '먼저 Knox 호출을 단일 스레드 executor로 옮겨 main thread를 잡고 있던 경로를 끊었고, 그 과정에서 호출이 폭주하면 큐가 무한히 쌓이는 새로운 문제가 보여 bounded queue + 한도 초과 시 호출 스레드 직접 실행으로 backlog 자체를 막았습니다. 우회 차단은 처음에는 `TYPE_WINDOW_STATE_CHANGED` 트리거만으로 처리했지만 PIP·음악·녹음 같이 화면 없는 앱은 그 이벤트가 발화하지 않아, FGS(포그라운드 서비스) 시작·종료 카운트를 차단 판단에 더했습니다. 시간 안전망은 1분 메인 폴링과 5분 backup 이중화, 부모 정책 변경은 FCM 즉시 발사 + 30분 fallback 동기화로 단일 실패 지점이 없도록 묶었습니다.',
+      en: 'First moved Knox calls onto a single-threaded executor to sever the main-thread-pin path; that surfaced a new failure mode where bursts piled an unbounded queue, so I added a bounded queue with caller-thread execution on overflow to kill the backlog at the source. The bypass started with `TYPE_WINDOW_STATE_CHANGED` alone, but headless apps (PIP, music, recorder) never fire it, so I added FGS start/stop counts to the blocking decision. The time safety net is doubled (1-min main poll plus 5-min backup), and parent-policy propagation goes through FCM immediately with a 30-min fallback sync, leaving no single failure point.',
+      ja: 'まずKnox呼び出しを単一スレッドexecutorに移してmainスレッドpin経路を断ち切り、その過程でバースト時にキューが無限に積まれる新たな問題が見えたためbounded queue + 超過時呼び出しスレッド直接実行でbacklog自体を遮断しました。回避は当初`TYPE_WINDOW_STATE_CHANGED`トリガのみで処理していましたが、PIP・音楽・録音のように画面のないアプリではこのイベントが発火せず、FGS（フォアグラウンドサービス）開始・終了カウントを遮断判定に追加しました。時間安全網は1分メインポーリング + 5分backupの2重化、親ポリシー変更はFCM即時 + 30分fallback同期で単一障害点が残らないよう束ねました。',
     },
     result: {
-      ko: '반복 발생하던 ANR이 제거되어 차단 기능이 안정 동작하게 됐고, 다층 방어가 정상 운영되면서 단일 트리거로는 잡히지 않던 백그라운드 음악·녹음앱처럼 화면 없는 앱도 FGS 카운트로 함께 차단됩니다. 사용자 입장에서는 "차단이 안 된다"는 컴플레인이 사라졌고, 운영 측에서는 Knox 통합 같은 큰 변경 후에도 회귀가 잡힌 구조가 만들어졌습니다. 다만 AccessibilityService 클래스가 차단 트리거·우회 감지·PIN gateway·Knox 호출을 한 곳에 끌어안고 있어, 새 기능을 넣을 때 사이드 이펙트 위험이 컸습니다. 한 단계 더 가져갈 때는 도메인 단위로 분리하고 단위 테스트 가능한 구조로 옮기는 것이 우선순위입니다. PIN 검증 native HTTP 호출에도 certificate pinning을 추가해 MITM 공격 표면을 한 번 더 줄여둘 계획이고, 차단 동작 자체는 Google Play Console ANR 비율과 Firebase Crashlytics를 운영 대시보드에 처음부터 박아 사용자 컴플레인 이전에 신호를 받을 수 있게 가져가는 것이 다음 단계입니다.',
-      en: 'The recurring ANR went away and blocking became reliable. The defence-in-depth layers run as intended, so even headless apps like background music players that no single trigger could catch are blocked through the FGS counter. From the user side, the "blocking does not fire" complaints stopped; on the operations side, we now have a structure that catches regressions even after large changes like a Knox SDK upgrade.',
-      ja: '繰り返し発生していたANRが消え、ブロック機能が安定動作するようになり、多層防御が通常稼働することで単一トリガーでは捕まらなかった背景音楽・録音アプリのような画面のないアプリもFGSカウントで一緒にブロックされます。ユーザー側では「ブロックが効かない」苦情が消え、運用側ではKnox統合のような大きな変更後でも回帰が捕まる構造ができました。',
+      ko: '반복 발생하던 ANR이 제거되고 5중 다층 방어가 정상 운영되면서, 단일 트리거로는 잡히지 않던 화면 없는 앱(PIP·음악·녹음)도 함께 차단되게 됐습니다. 사용자 측에서는 "차단이 안 된다"는 컴플레인이 사라졌고, 운영 측에서는 Knox SDK 통합 같은 큰 변경 후에도 회귀가 잡히는 구조가 만들어졌습니다.',
+      en: 'Recurring ANR was eliminated and the 5-layer defence running as intended — headless apps that no single trigger could catch (PIP, music, recorder) are now blocked too. On the user side the "blocking does not fire" complaints stopped; on the operations side there is now a structure that catches regressions even after large changes like a Knox SDK upgrade.',
+      ja: '反復していたANRが除去され、5層多層防御が通常稼働することで、単一トリガでは捕まらなかった画面のないアプリ（PIP・音楽・録音）も合わせて遮断されるようになりました。ユーザー側では「ブロックが効かない」という苦情が消え、運用側ではKnox SDK統合のような大きな変更後でも回帰が捕まる構造ができました。',
+    },
+    improvements: {
+      ko: '두 가지를 다시 한다면 다르게 잡았을 것입니다. 첫째, AccessibilityService 클래스가 차단 트리거·우회 감지·PIN 검증·Knox 호출을 한 곳에 모두 끌어안은 채 점점 무거워졌고, 새 기능을 넣을 때마다 사이드 이펙트 위험이 컸습니다. 도메인 단위로 잘라 단위 테스트가 가능한 구조로 가져가는 것이 다음 단계입니다. 둘째, ANR 진단이 사용자 컴플레인을 받은 다음에야 시작됐다는 점이 정직한 회고입니다. Google Play Console의 ANR 비율과 Firebase Crashlytics의 ANR 스레드 덤프를 운영 대시보드에 처음부터 박았더라면 사용자가 알려주기 전에 신호를 받을 수 있었습니다.',
+      en: 'Two things I would do differently. First, the AccessibilityService class ended up owning block triggers, evasion detection, PIN verification, and Knox calls in a single place, getting heavier every release and raising side-effect risk on each new feature. The next step is to split it along domain lines into something that can be unit-tested. Second, the ANR diagnosis only started after users reported it — that is the honest reflection. Putting Google Play Console ANR rate and Firebase Crashlytics ANR thread dumps on the operations dashboard from day one would have surfaced the signal before the user did.',
+      ja: 'やり直すなら2点は別の進め方をします。第一に、AccessibilityServiceクラスが遮断トリガ・回避検知・PIN検証・Knox呼び出しを1箇所に抱えたまま重くなり、新機能投入のたびに副作用リスクが大きくなりました。次段階はドメイン単位に分割して単体テスト可能な構造へ持っていくことです。第二に、ANR診断がユーザー苦情を受けてから始まった点が正直な振り返りです。Google Play ConsoleのANR比率とFirebase CrashlyticsのANRスレッドダンプを運用ダッシュボードに初日から組み込んでいれば、ユーザーが知らせる前にシグナルを受けられたはずです。',
     },
     reflection: {
       ko: '가장 정직한 회고는 사용자가 알려준 다음에야 진단이 시작됐다는 점입니다. Google Play Console ANR 비율이나 Firebase Crashlytics ANR thread dump를 처음부터 운영 대시보드에 박았다면 사용자가 컴플레인을 보내기 전에 신호를 받을 수 있었습니다. 또 AccessibilityService 클래스가 차단 트리거·우회 감지·PIN gateway·Knox 호출을 한 곳에 다 끌어안은 채 무거워진 상태였고, 새 기능이 들어갈 때마다 사이드 이펙트 위험이 컸습니다. 다시 한다면 도메인 단위로 분리하고 테스트 가능한 구조로 갔을 것입니다.',
-      en: 'The honest reflection is that the diagnosis only started after the user told me. Google Play Console ANR rate or Firebase Crashlytics ANR thread dumps should have been on the operations dashboard from day one. Separately, `AppBlockService.java` weighing in at a single 2,674-LOC class is a code-shape regret — block triggers, evasion detection, PIN gateway, and Knox calls all live together, so every new feature carries side-effect risk. Splitting it along domain lines, with tests, is the do-over.',
-      ja: '最も正直な振り返りは、ユーザーが知らせてくれた後で診断が始まった点です。Google Play Console ANR比率やFirebase Crashlytics ANR thread dumpを初日から運用ダッシュボードに組み込んでいれば、ユーザーが苦情を送る前にシグナルを得られたはずです。またAppBlockService.javaが単一クラス2,674 LOCな点も振り返ればドメイン単位の分離・テスト可能構造にすべきだったと考えます — ブロックトリガー・回避検出・PIN gateway・Knox呼び出しが一箇所に集まり、新機能投入のたびに副作用リスクが大きかったです。',
+      en: 'The honest reflection is that diagnosis only started after a user reported the issue. Google Play Console ANR rate and Firebase Crashlytics ANR thread dumps should have been on the operations dashboard from day one. Separately, the AccessibilityService class ended up owning block triggers, evasion detection, PIN verification, and Knox calls all in one place, getting heavier every release and raising side-effect risk on every new feature. Splitting it along domain lines into something unit-testable is the do-over.',
+      ja: '最も正直な振り返りは、ユーザーが知らせてくれた後で診断が始まった点です。Google Play Console ANR比率やFirebase Crashlytics ANR thread dumpを初日から運用ダッシュボードに組み込んでいれば、ユーザーが苦情を送る前にシグナルを得られたはずです。また、AccessibilityServiceクラスがブロックトリガ・回避検知・PIN検証・Knox呼び出しを一箇所に抱えたまま重くなり、新機能投入のたびに副作用リスクが大きくなりました。ドメイン単位に分割して単体テスト可能な構造へ持っていくのが次のやり直しです。',
+    },
+    visuals: {
+      problem: {
+        bullets: {
+          ko: [
+            '컴플레인 패턴: "차단이 안 된다" — 백그라운드 서비스 사망이 아니라 main thread pin',
+            '결정적 단서: Knox SDK 통합 이후부터 증상 발생 (변경 이력 기반 시점 단서)',
+            '우회 경로: 유튜브 PIP·음악 재생·녹음 앱처럼 화면 없는 백그라운드 앱은 `TYPE_WINDOW_STATE_CHANGED` 트리거가 발화하지 않음',
+          ],
+          en: [
+            'Complaint pattern: "blocking does not fire" — background service was alive, the main thread was pinned',
+            'Decisive clue: symptom only began after Knox SDK integration (change-history timing signal)',
+            'Bypass path: headless background apps (YouTube PIP, music players, recorders) never fire `TYPE_WINDOW_STATE_CHANGED`',
+          ],
+          ja: [
+            '苦情パターン：「ブロックが効かない」 — 背景サービスは生きており、mainスレッドが詰まっていた',
+            '決定的手掛かり：Knox SDK統合後に症状が出始めた（変更履歴ベースのタイミング手掛かり）',
+            '回避経路：YouTube PIP・音楽再生・録音アプリのような画面のない背景アプリは`TYPE_WINDOW_STATE_CHANGED`が発火しない',
+          ],
+        },
+      },
+      alternatives: {
+        table: {
+          columns: [
+            { ko: '진단 도구', en: 'Diagnostic tool', ja: '診断ツール' },
+            { ko: '정확도', en: 'Precision', ja: '精度' },
+            { ko: '비용', en: 'Cost', ja: 'コスト' },
+          ],
+          rows: [
+            [
+              { ko: 'systrace / Perfetto', en: 'systrace / Perfetto', ja: 'systrace / Perfetto' },
+              { ko: '높음 — main thread block 시점 정확히 포착', en: 'High — pinpoints main-thread blocks', ja: '高 — mainスレッドブロック地点を正確に捕捉' },
+              { ko: '셋업 시간·학습 곡선 부담 (시점 단서가 명확해 불필요)', en: 'Setup + learning curve heavy (timing clue made it unnecessary)', ja: 'セットアップ時間・学習曲線負担（タイミング手掛かりで不要）' },
+            ],
+            [
+              { ko: 'Firebase Crashlytics ANR thread dump', en: 'Firebase Crashlytics ANR thread dump', ja: 'Firebase Crashlytics ANR thread dump' },
+              { ko: '높음 — 사용자 단말의 실제 ANR stack 확보', en: 'High — captures real on-device ANR stacks', ja: '高 — 実機ANRスタックを取得' },
+              { ko: '사전 셋업 필요 — 사고 시점에는 미구비 (회고 항목)', en: 'Needs prior setup — not in place when the bug hit (reflection item)', ja: '事前セットアップ必要 — 事故時には未整備（振り返り項目）' },
+            ],
+            [
+              { ko: 'Android Studio Logcat + AI 코드 분석 보조', en: 'Android Studio Logcat + AI code reading', ja: 'Android Studio Logcat + AIコード分析' },
+              { ko: '시점 단서가 명확할 때 충분', en: 'Sufficient when the timing clue is clear', ja: 'タイミング手掛かりが明確な場合に十分' },
+              { ko: '낮음 — 기존 도구로 즉시 시작 가능', en: 'Low — can start with existing tools', ja: '低 — 既存ツールで即時開始可能' },
+            ],
+          ],
+          selectedRow: 2,
+        },
+      },
+      decision: {
+        diagramKey: 'mohani',
+      },
+      execution: {
+        bullets: {
+          ko: [
+            '① 앱 전환 감지 — `onAccessibilityEvent(TYPE_WINDOW_STATE_CHANGED)` (포그라운드 앱 전환)',
+            '② 시간 초과 검사 — 1분 주기 tick (사용 시간 누적 만료 감지)',
+            '③ 백그라운드 앱 감지 — FGS(포그라운드 서비스) 시작·종료 카운트 추적 (PIP·음악·녹음 등 화면 없는 앱 우회 차단)',
+            '④ 정책 변경 즉시 반영 — SharedPreferences listener (부모 정책 변경이 자녀 단말에 즉시 적용)',
+            '⑤ 원격 차단 명령 — FCM `BLOCK_APP` (부모가 즉시 발사하는 원격 차단)',
+            '★ Knox 호출은 단일 스레드 executor + bounded queue로 직렬화 — 큐 초과 시 호출 스레드 직접 처리(backlog 방지) + main thread pin 차단',
+          ],
+          en: [
+            '① App transition — `onAccessibilityEvent(TYPE_WINDOW_STATE_CHANGED)`',
+            '② Time-overrun check — 1-minute tick (cumulative usage expiry)',
+            '③ Headless background detection — track FGS start/stop counts (closes PIP / music / recorder bypass)',
+            '④ Instant policy propagation — SharedPreferences listener (parent policy hits the child device immediately)',
+            '⑤ Remote block command — FCM `BLOCK_APP` (parent-fired immediate block)',
+            '★ Knox calls serialised on a single-threaded executor with a bounded queue — overflow runs on the calling thread (no backlog) + no more main-thread pin',
+          ],
+          ja: [
+            '① アプリ遷移 — `onAccessibilityEvent(TYPE_WINDOW_STATE_CHANGED)`',
+            '② 時間超過チェック — 1分周期tick（使用時間累積期限）',
+            '③ 背景アプリ検知 — FGS開始・終了カウント追跡（PIP・音楽・録音などheadlessアプリ回避を遮断）',
+            '④ ポリシー変更即時反映 — SharedPreferences listener（親ポリシー変更が子供端末に即時適用）',
+            '⑤ 遠隔遮断コマンド — FCM `BLOCK_APP`（親が即時発射）',
+            '★ Knox呼び出しは単一スレッドexecutor + bounded queueで直列化 — キュー超過時は呼び出しスレッド直接実行（backlog防止）+ mainスレッドpin遮断',
+          ],
+        },
+      },
+      result: {
+        metrics: [
+          { value: '5중 다층 방어', label: { ko: '하나가 우회당해도 나머지가 잡는 구조 — 앱 전환 감지·1분 폴링·화면 없는 앱 감지·정책 변경 즉시 반영·원격 차단 명령', en: 'Five independent triggers — when one is bypassed the others still catch it (app transition · 1-min poll · headless-app detection · instant policy propagation · remote block command)', ja: '5層の多層防御 — 1つが回避されても他が捕える構造（アプリ遷移・1分ポーリング・ヘッドレスアプリ検知・ポリシー即時反映・遠隔遮断コマンド）' } },
+          { value: '최대 1분', label: { ko: '차단 누락 지연 — 메인 폴링이 1분 주기로 돌고, 실패해도 5분 backup이 한 번 더 잡음. 부모 정책 변경은 FCM 즉시 + 30분 fallback', en: 'Worst-case blocking-miss window — 1-min main poll with a 5-min backup if it fails; parent policy changes go out via FCM with a 30-min fallback sync', ja: '遮断漏れの最大遅延 — メインポーリングが1分周期で回り、失敗時も5分backupがもう1回捕える。親ポリシー変更はFCM即時 + 30分fallback' } },
+          { value: 'PIP·음악·녹음', label: { ko: '화면 없는 앱도 차단 — 포그라운드 서비스 시작·종료 카운트 추적으로 단일 트리거가 못 잡던 우회 경로 봉쇄', en: 'Headless apps blocked too — tracking foreground-service start/stop counts closes the bypass single-trigger schemes miss', ja: '画面のないアプリも遮断 — フォアグラウンドサービスの開始・終了カウント追跡で単一トリガでは捕えられない回避経路を封鎖' } },
+        ],
+      },
     },
   },
 
   kocca: {
     oneLiner: {
-      ko: '외국인 학생의 한국어 발음을 정확하게 평가하려면 STT가 받는 음성 포맷을 클라이언트에서 만들어 변환 손실을 없애야 했고, 발음과 말하기의 응시 흐름을 단계 단위로 분리해 안정적으로 운영해야 했습니다. Soundmind 시기 KOCCA 정부 R&D 과제로 진행된 K-Speaking 평가 플랫폼을 팀장으로 리딩하며 자체 WAV 인코더부터 외부 한국형 STT 3-phase 통신, 응시 state machine, 미들웨어 RBAC, 컨테이너 보안 강화까지 풀스택으로 책임지고 산출물로 납품했습니다.',
+      ko: '외국인 학생의 한국어 발음을 정확하게 평가하려면 STT가 받는 음성 포맷을 클라이언트에서 만들어 변환 손실을 없애야 했고, 발음과 말하기의 응시 흐름을 단계 단위로 분리해 안정적으로 운영해야 했습니다. Soundmind 시기 KOCCA 정부 R&D 과제로 진행된 K-Speaking 평가 플랫폼을 팀장으로서 리딩하며 자체 WAV 인코더부터 외부 한국형 STT 3-phase 통신, 응시 state machine, 미들웨어 RBAC, 컨테이너 보안 강화까지 풀스택으로 책임지고 산출물로 납품했습니다.',
       en: 'During my Soundmind tenure I shipped a full-stack speaking-assessment platform for foreign Korean learners under a Korean government R&D programme — a hand-written 16 kHz / 1ch / 16-bit WAV encoder, a 3-phase integration with the Korean-tuned Selvy STT (`kocca_stt`), a 5-stage pronunciation / 7-stage speaking exam state machine, middleware RBAC, and a hardened Docker image, all delivered as a single-owner R&D deliverable.',
       ja: 'Soundmind在籍中、外国人学習者向け韓国語発音・スピーキング評価R&Dをフルスタック単独で出荷 — 自作の16kHz/1ch/16bit WAVエンコーダ + 韓国語型STT（Selvy `kocca_stt`）3フェーズ通信 + 発音5段階・スピーキング7段階の受験state machine + ミドルウェアRBAC + Dockerコンテナのセキュリティ強化を単独責任で政府R&D成果物として納品しました。',
     },
     context: {
-      ko: 'KOCCA(한국콘텐츠진흥원) 정부 R&D 과제로 진행된 외국인 학생 대상 K-Speaking 평가 플랫폼입니다. 사용자 역할은 STUDENT / TEACHER(MAIN) / TEACHER(SUB) / TEACHER ADMIN 4종, 학교별 멀티테넌트, 시험 회차 8단계 상태 머신을 갖는 구조였습니다. 팀장으로 리딩하며 App Router + Server Action + Route Handler + DB 스키마 + Docker 배포를 책임졌습니다. 다만 3인 합의 채점 알고리즘과 채점자 자동 배정의 동시성 제어는 다른 팀원 담당이라 본인 기여로는 표기하지 않습니다.',
-      en: 'A KOCCA-funded K-Speaking assessment platform for foreign Korean learners — four user roles (STUDENT, TEACHER MAIN, TEACHER SUB, TEACHER ADMIN), school-level multitenancy via `school_id`, and an eight-stage exam-status state machine. I owned the full stack solo (App Router + Server Action + Route Handler + DB schema + Docker deployment). One important honesty note: the three-grader consensus scoring algorithm and the race-condition-safe grader auto-assignment were owned by another engineer, so I do not claim credit for those.',
-      ja: 'KOCCA（韓国コンテンツ振興院）の政府R&D課題として進められた外国人学習者向けK-Speaking評価プラットフォームで、ユーザーロールはSTUDENT / TEACHER(MAIN) / TEACHER(SUB) / TEACHER ADMINの4種、学校別マルチテナント（`school_id`）、試験回次8段階の状態機械を持っていました。本人はフルスタック単独でApp Router + Server Action + Route Handler + DBスキーマ + Dockerデプロイを担当しましたが、3名合議採点アルゴリズム・採点者自動割当のrace condition防御は他メンバー担当で、自分の貢献としては表記しません。',
+      ko: 'KOCCA(한국콘텐츠진흥원) 정부 R&D 과제로 진행한 외국인 학생 대상 K-Speaking 평가 플랫폼입니다. 4역할(STUDENT, TEACHER MAIN, TEACHER SUB, TEACHER ADMIN), 학교별 멀티테넌트, 8단계 시험 회차 state machine 구조 안에서, 팀장으로서 App Router, Server Action, Route Handler, DB 스키마, Docker 배포까지 단독 책임으로 진행했습니다. 다만 3인 합의 채점 알고리즘과 채점자 자동 배정 race 방어는 다른 팀원 담당이라 본인 기여로 표기하지 않습니다.',
+      en: 'A KOCCA-funded K-Speaking assessment platform for foreign Korean learners — four user roles (STUDENT, TEACHER MAIN, TEACHER SUB, TEACHER ADMIN), school-level multitenancy, eight-stage exam-status state machine. As team lead I owned the full stack solo: App Router, Server Action, Route Handler, DB schema, Docker deployment. Honest scope note: the three-grader consensus scoring algorithm and the race-condition-safe grader auto-assignment were owned by another engineer, not me.',
+      ja: 'KOCCA（韓国コンテンツ振興院）政府R&D課題として進められた外国人学習者向けK-Speaking評価プラットフォーム。4ロール（STUDENT / TEACHER MAIN / TEACHER SUB / TEACHER ADMIN）・学校別マルチテナント・8段階の試験回次state machine構造の中で、チームリーダーとしてApp Router・Server Action・Route Handler・DBスキーマ・Dockerデプロイを単独責任。ただし3名合議採点アルゴリズムと採点者自動割当のrace防御は他メンバー担当のため、自分の貢献としては表記しません。',
     },
     problem: {
-      ko: '핵심 문제는 네 가지였습니다. 첫째, Selvy `kocca_stt`가 16kHz/1ch/16bit PCM RIFF 포맷만 받기 때문에 MediaRecorder API의 webm/opus를 그대로 보내면 서버 ffmpeg 변환이 필요해 응답 지연·트랜스코딩 손실·iOS Safari 호환성 문제가 누적됩니다. 둘째, 발음 5문제(총 75초)와 말하기 7단계 응시 흐름을 단계별 beep·녹음·자동 전환까지 안정적으로 운영해야 합니다. 셋째, STUDENT / TEACHER(MAIN·SUB) / ADMIN 4단계 권한을 인증·인가 흐름에 매끄럽게 녹여야 합니다. 넷째, 정부 R&D 사양상 외부 인터넷에 노출되는 운영 환경이라 컨테이너 공격 표면을 줄여야 했고, 학교별 멀티테넌트 환경에서 한 학교의 사고가 다른 학교로 번지지 않도록 격리 정책까지 함께 잡아야 했습니다.',
-      en: 'Four problems mattered. (1) The Selvy STT (`kocca_stt`) only accepts 16 kHz / 1ch / 16-bit PCM RIFF — pushing MediaRecorder’s default webm/opus through it would have meant a server-side ffmpeg step, eating response time, accumulating transcoding loss, and triggering iOS Safari compatibility issues. (2) The pronunciation flow (5 questions, 75 seconds total) and the seven-stage speaking flow had to run reliably. (3) A four-tier RBAC (STUDENT / TEACHER MAIN+SUB / ADMIN) had to drop into the auth flow naturally. (4) The production container had to be hardened.',
-      ja: '中核となる問題は4つでした。第一に、Selvy `kocca_stt`が16kHz/1ch/16bit PCM RIFFフォーマットのみ受け付けるためMediaRecorder APIのwebm/opusをそのまま送るとサーバーffmpeg変換が必要となり、応答遅延・トランスコード損失・iOS Safari互換性問題が累積します。第二に、発音5問（合計75秒）/ スピーキング7段階の受験フローを安定運用する必要があります。第三に、4段階RBAC（STUDENT / TEACHER MAIN・SUB / ADMIN）を認証・認可フローに滑らかに組み込む必要がありました。第四に、本番環境のコンテナセキュリティ強化です。',
+      ko: '핵심은 STT 포맷 제약이었습니다. Selvy `kocca_stt`가 16kHz/1ch/16bit PCM RIFF만 받기 때문에 MediaRecorder의 webm/opus를 그대로 보내면 서버 ffmpeg 변환이 필요해 응답 지연, 트랜스코딩 손실, iOS Safari 호환성 문제가 누적됩니다. 동시에 응시 흐름(발음 5단계와 말하기 7단계)의 안정적인 운영, 4역할 RBAC, 학교별 멀티테넌트 격리까지 한 설계 안에서 잡아야 했습니다.',
+      en: 'Core problem was the STT format constraint — Selvy `kocca_stt` only accepts 16 kHz / 1ch / 16-bit PCM RIFF, so sending MediaRecorder webm/opus through it would force a server-side ffmpeg step (latency, transcoding loss, iOS Safari issues). On top of that — a reliable exam flow (5-stage pronunciation + 7-stage speaking), 4-tier RBAC, and school-level multitenant isolation all had to land in one design.',
+      ja: '中核はSTTフォーマット制約 — Selvy `kocca_stt`が16kHz/1ch/16bit PCM RIFFのみ受領するため、MediaRecorder webm/opusをそのまま送るとサーバーffmpeg変換が必要となり応答遅延・トランスコード損失・iOS Safari問題が累積。同時に受験フロー（発音5段階 + スピーキング7段階）の安定運用、4ロールRBAC、学校別マルチテナント隔離を一つの設計で押さえる必要があった。',
     },
     hypothesis: {
-      ko: '자체 WAV 인코더로 클라이언트에서 STT가 받는 정확한 형식을 생성하면 서버 변환을 제거할 수 있고, 브라우저가 자동으로 거는 음성 가공(에코 제거·노이즈 억제·자동 게인 조정)을 모두 꺼 두면 학습자의 원음을 STT로 그대로 보낼 수 있어 정확도가 올라갑니다. STT 호출은 결과를 받기까지 시간이 걸리는 작업이라 단발 요청이 아닌 폴링 패턴이 적합하고, 인증 같은 부수효과는 Server Action으로, 단순 데이터 조회는 Route Handler로 의도적으로 분리해 클라이언트 번들을 가볍게 유지할 수 있습니다.',
-      en: 'If a hand-written WAV encoder produces exactly the format the STT expects on the client, the server-side conversion step disappears. Disabling `echoCancellation`, `noiseSuppression`, and `autoGainControl` via `getUserMedia` keeps the audio closer to what the STT was trained on — accuracy goes up. STT calls are long-running, so a 3-phase polling pattern fits better than a single round-trip request. And keeping side-effecting work (auth) in Server Actions while simple fetches stay in Route Handlers keeps the client bundle lean by design.',
-      ja: '自作WAVエンコーダでクライアント側にSTTが受け取る正確な形式を作ればサーバー変換を取り除け、getUserMediaオプションで`echoCancellation/noiseSuppression/autoGainControl`をすべて切ればSTT精度が上がります。STT呼び出しはlong-runningなので単発リクエストではなく3フェーズポーリングパターンが適しており、認証のような副作用処理はServer Actionに、単純fetchはRoute Handlerに意図的に分けてクライアントバンドルを軽く保てます。',
+      ko: '클라이언트에서 STT가 받는 정확한 포맷을 직접 만들면 서버 변환을 통째로 제거할 수 있고 트랜스코딩 손실도 없습니다. STT는 결과를 받기까지 시간이 걸리는 작업이라 단발 요청보다 폴링 패턴이 적합하다고 봤습니다.',
+      en: 'If the client generates exactly the format the STT expects, the entire server-conversion step disappears + zero transcoding loss. STT is long-running, so polling fits better than a single round-trip.',
+      ja: 'クライアント側でSTTが受け取る正確なフォーマットを直接生成すれば、サーバー変換段階を丸ごと消去 + トランスコード損失0。STTはlong-running作業のため単発リクエストよりポーリングパターンが適合。',
     },
     alternatives: {
-      ko: 'MediaRecorder API는 브라우저별 webm/opus 기본이라 서버 변환 비용을 피할 수 없어 후보에서 탈락했고, Google Cloud Speech-to-Text·AWS Transcribe는 한국인 발음 학습 데이터 측면에서 외국인 한국어 학습자 도메인에 학습이 약했습니다. 무엇보다 KOCCA R&D 사양상 한국형 STT(Selvy) 사용이 요구 항목이라 외부 STT는 후보 자체가 아니었습니다.',
-      en: 'MediaRecorder gives you webm/opus by default per browser, which would force the server-conversion penalty back into the path — out. Google Cloud Speech-to-Text and AWS Transcribe were not trained on enough Korean-learner pronunciation data for this exact domain. More importantly, the KOCCA R&D specification mandated a Korean-tuned STT (Selvy), so any non-Korean STT was off the table by contract.',
-      ja: 'MediaRecorder APIはブラウザごとにwebm/opusが既定でサーバー変換コストを回避できず候補から外れ、Google Cloud Speech-to-Text・AWS Transcribeは韓国人発音学習データの観点で外国人学習者領域への学習が弱いものでした。何よりKOCCA R&D仕様上、韓国語型STT（Selvy）使用が要求項目だったため、外部STTは候補自体になりませんでした。',
+      ko: 'MediaRecorder는 서버 변환 비용을 피할 수 없고, Google/AWS STT는 외국인 한국어 학습자 도메인에 학습 데이터가 약했습니다. 무엇보다 KOCCA R&D 사양상 한국형 Selvy가 요구 항목이라 외부 STT는 계약상 후보 자체가 아니었습니다.',
+      en: 'MediaRecorder can’t avoid the server-conversion penalty; Google / AWS STT are weak on this domain and the KOCCA R&D spec mandated Korean-tuned Selvy anyway, so non-Korean STTs were off the table by contract.',
+      ja: 'MediaRecorderはサーバー変換コストを回避できず、Google/AWS STTはドメイン学習が弱い + KOCCA R&D仕様で韓国語型Selvyが要件のため外部STTは契約上不可。',
     },
     decision: {
-      ko: '자체 WAV 인코더는 세 가지 결정으로 묶었습니다. 녹음 sample rate를 16kHz로 잡은 건 Selvy STT가 16kHz만 받기 때문이라, 클라이언트에서 같은 sample rate로 캡처해 서버 리샘플링과 트래픽 폭증을 동시에 피하기 위해서였습니다. ScriptProcessor와 4096 크기 버퍼는 당시 AudioWorklet의 브라우저 호환성이 아직 충분하지 않은 환경에서 지연과 CPU 부하의 균형점이었고, 모노 1채널이 STT 입력 사양과 정확히 맞아 트래픽과 메모리가 절반이라는 점도 같이 잡은 선택입니다. 44바이트 WAV 헤더를 손수 적은 건, 외부 라이브러리 의존을 추가하지 않고도 STT가 받는 정확한 형식을 클라이언트에서 만들어 서버 변환 단계 자체를 없애는 가장 가벼운 방법이었기 때문입니다. STT 호출은 "준비 → 음성 전송 → 진행 상태 폴링(2초 간격, 최대 약 2분) → 마무리"의 4단계 폴링 패턴으로 묶었습니다. 사이트 자체 인증은 JWT HS512 + 90일 + DB 토큰 비교로 단일 세션을 강제했고, Docker 빌드는 3-stage로 나눠 runner 이미지에서 npm/npx 바이너리를 제거해 컨테이너 공격 표면을 줄였습니다.',
-      en: 'I built a 151-LOC WAV encoder (`audioRecorder.ts`): `AudioContext` at 16000 Hz, `ScriptProcessor(4096, 1, 1)`, and the 44-byte RIFF / WAVE / fmt / data header written by hand. The STT call uses a 3-phase pattern — `POST /prepare → ticketId → POST /sendaudio (base64) → progressCode poll (P01/P02/P03, every 2 s, up to 60 attempts) → POST /finish` — with authentication carried in the request body (`sttServer.authCode = "kocca_stt"`, `STT_MODEL_ID = "2"`), not headers. Auth on our side is JWT HS512 with a 90-day lifetime and a single-session enforcement by comparing the cookie token to the `access_token` row in the DB. Docker is a three-stage `node:22-alpine` build with the `npm` and `npx` binaries stripped from the runner image to shrink the attack surface.',
-      ja: '自作WAVエンコーダ151 LOC（`audioRecorder.ts`）でAudioContext sampleRate 16000 + ScriptProcessor(4096, 1, 1) + 44バイトRIFF/WAVE/fmt/dataヘッダの直接記述を採用しました。STT呼び出しは `POST /prepare → ticketId → POST /sendaudio base64 → progressCodeポーリングP01/P02/P03 2秒間隔最大60回 → POST /finish` の3フェーズパターンで、認証はヘッダではなくbody `sttServer.authCode`フィールド（`STT_AUTH_CODE=\'kocca_stt\'`、`STT_MODEL_ID=\'2\'`）。認証はJWT HS512 + 90日 + DB `access_token`比較で単一セッションを強制し、Dockerは`node:22-alpine` 3-stageビルドでrunnerのnpm/npxバイナリを除去しコンテナ攻撃面を縮小しました。',
+      ko: '자체 WAV 인코더(16kHz 캡처, ScriptProcessor, 44바이트 헤더 직접 작성)와 Selvy STT 4단계 폴링으로 풀스택을 구성했습니다.',
+      en: 'Hand-written WAV encoder (16 kHz capture + ScriptProcessor + 44-byte header written by hand) + Selvy STT 4-phase poll as the full-stack composition.',
+      ja: '自作WAVエンコーダ（16kHzキャプチャ + ScriptProcessor + 44バイトヘッダ直接記述）+ Selvy STT 4段ポーリングでフルスタック構成。',
     },
     execution: {
-      ko: '실행은 WAV 인코더(부동소수점 음성 데이터를 16비트 정수로 변환 + WAV 헤더 손수 작성)와 STT 폴링 통신을 한 번에 안정화하는 데 집중했습니다. 응시 흐름은 발음 5단계와 말하기 7단계 state machine으로 분리해 단계별 안내음·녹음·자동 전환을 정확하게 운영했고, 녹음 데이터는 React 상태가 아닌 ref로 관리해 화면 리렌더 사이에도 누적된 음성이 유실되지 않도록 했습니다. 권한 검사는 정적 자산과 공개 경로를 제외한 모든 요청에서 미들웨어가 한 번 거르고, API 라우트는 미들웨어를 우회한 뒤 각자 토큰을 다시 검증하도록 의도적으로 분리했습니다. 학교별 멀티테넌트 격리는 모든 응시·채점 쿼리에 학교 ID 필터를 강제하고 미들웨어가 토큰의 소속 학교와 요청 경로의 학교 ID 일치 여부를 함께 검증하도록 묶어, 한 학교의 데이터가 다른 학교로 새지 않도록 인증·인가 흐름 안에 격리 정책을 녹였습니다.',
-      en: 'Execution-wise, the WAV encoder (Float32 → Int16 conversion plus the RIFF / fmt / data header) and the 3-phase STT call were stabilised together as one pass. The exam flow was split into two state machines — pronunciation (`waiting → instruction → recording_ready → recording → complete`, five stages) and speaking (seven stages) — so the per-stage beep / recording / automatic transitions could be driven cleanly. Recorded blobs are accumulated in a `useRef`, not `useState`, to guarantee no data loss across re-renders. RBAC lives in middleware matched by `\'/((?!next-api/|_next/static|_next/image|favicon.ico|audio|imgs).*)\'`; API routes deliberately bypass the middleware and each calls `getCurrentUser()` so the boundaries are explicit.',
-      ja: '実行はWAVエンコーダ（Float32 → Int16変換 + RIFF/fmt/dataヘッダ直接記述）とSTT 3フェーズ通信を一気通貫で安定化させることに集中しました。受験フローは発音5段階（`waiting → instruction → recording_ready → recording → complete`）とスピーキング7段階のstate machineに分離し、段階ごとのbeep・録音・自動遷移を正確に運用、録音Blobの累積はデータ消失防止のため`useState`ではなく`useRef`で管理しました。RBACはマッチャ`\'/((?!next-api/|_next/static|_next/image|favicon.ico|audio|imgs).*)\'`でミドルウェアが処理し、APIルートはミドルウェアを迂回してそれぞれが`getCurrentUser()`で自前認証する設計に意図的に分離しました。',
+      ko: '처음에는 녹음 데이터를 `useState`로 관리했는데 단계 전환 사이에 일어나는 리렌더가 음성 일부를 날리는 케이스가 보였습니다. 원인은 React 상태 업데이트의 비동기 특성이라 `useRef`로 옮겨 음성 누적을 리렌더 사이클 밖으로 빼냈고, 동시에 발음 5단계와 말하기 7단계는 흐름이 달라 한 state machine으로 묶으면 분기 조건이 복잡해져 따로 잘랐습니다. 학교별 격리는 쿼리 한 곳만 빠뜨려도 다른 학교 데이터가 새는 위험이 있어, 모든 응시·채점 쿼리에 school_id 필터 강제 + 미들웨어가 토큰 소속 학교와 요청 경로 school_id 일치를 검증하는 이중 계층으로 묶었습니다.',
+      en: 'First pass kept recorded blobs in `useState`, but stage transitions caused re-renders that dropped chunks of audio (React state updates are async, so the latest blob array could overwrite an in-flight append). Moved the accumulator into `useRef` to pull it outside the render cycle. Pronunciation (5 stages) and speaking (7 stages) also diverged enough in flow that one combined state machine bloated the branching, so I split them. School isolation is two-layered because a single missed query filter would leak across tenants: every exam and grading query carries a school_id filter, and middleware verifies the token’s school matches the route’s school_id.',
+      ja: '最初は録音Blobを`useState`で管理しましたが、段階遷移ごとの再レンダ中に音声の一部が消えるケースが出ました（Reactの状態更新は非同期で、最新の配列が進行中のappendを上書きしてしまう）。蓄積を`useRef`に移して描画サイクルの外に出しました。発音5段階とスピーキング7段階はフローが異なり一つのstate machineにまとめると分岐が膨れるため分離。学校別隔離はクエリ1箇所のフィルタ漏れで他校データが漏れる危険があるため、全受験・採点クエリにschool_idフィルタを強制 + ミドルウェアがトークン所属校とルートのschool_id一致を検証する2層構造で固めました。',
     },
     result: {
-      ko: '정부 R&D 산출물 납품을 완료했고, 자체 WAV 인코더와 STT 3-phase 폴링이 안정 동작하면서 외부 STT 호환과 음성 정확도를 동시에 확보했습니다. 학교별 멀티테넌트로 한 DB에서 다수 학교가 동시에 응시·채점 회차를 운영할 수 있게 됐고, Docker 보안 강화로 runner 이미지의 공격 표면이 줄어든 상태로 배포됐습니다. 다만 자체 WAV 인코더의 ScriptProcessor는 W3C 권장에서 빠진 API라 앞으로는 AudioWorklet으로 옮기는 마이그레이션이 필요하고, Selvy STT 단일 벤더 의존도 응답 실패 시 큐에 적재해 복구 후 재처리하는 대체 경로 layer를 한 겹 더 두는 것이 다음 단계입니다. JWT 90일과 DB access_token 단일 세션 강제는 학사 일정과 단일 로그인 정책을 동시에 잡으려는 의도된 길이지만, 다음 단계에서는 refresh + short access로 옮기면서 매 요청 DB 조회 비용을 Redis 캐시 layer로 흡수하는 것이 자연스러운 진화 방향입니다.',
-      en: 'The platform shipped as the R&D deliverable. The hand-written WAV encoder and the 3-phase STT polling held up in production, giving us STT compatibility and recording fidelity at the same time. School-level multitenancy meant several schools could run exam and grading cycles concurrently against one database, and the hardened Docker image kept the attack surface of the runner small in production.',
-      ja: '政府R&D成果物の納品を完了し、自作WAVエンコーダとSTT 3フェーズポーリングが安定動作することで外部STT互換と音声精度を同時に確保しました。学校別マルチテナントで一つのDB上で複数校が同時に受験・採点回次を運用でき、Dockerセキュリティ強化によりrunnerイメージの攻撃面を縮小した状態でデプロイされました。',
+      ko: '정부 R&D 산출물 납품을 완료했습니다. 자체 WAV 인코더와 STT 4단계 폴링이 안정 동작하면서 외부 STT 호환과 음성 정확도를 동시에 확보했고, 학교별 멀티테넌트로 한 DB에서 다수 학교가 동시에 응시·채점 회차를 운영할 수 있게 됐습니다. Docker 보안 강화로 외부에 노출되는 runner 이미지의 공격 표면이 줄어든 상태로 배포됐습니다.',
+      en: 'Shipped as the R&D deliverable. The hand-written WAV encoder and 4-phase STT polling held up in production, securing both external STT compatibility and recording fidelity; school-level multitenancy let many schools run exam / grading cycles concurrently against a single DB, and the hardened Docker image shipped with a reduced runner attack surface.',
+      ja: '政府R&D成果物の納品を完了しました。自作WAVエンコーダとSTT 4段ポーリングが安定動作することで外部STT互換と音声精度を同時に確保し、学校別マルチテナントで一つのDB上で複数校が同時に受験・採点回次を運用できるようになりました。Dockerセキュリティ強化により外部に公開されるrunnerイメージの攻撃面を縮小した状態でデプロイされました。',
+    },
+    improvements: {
+      ko: '두 가지를 다시 한다면 다르게 잡았을 것입니다. 첫째, 자체 WAV 인코더에 사용한 ScriptProcessor는 W3C에서 더 이상 권장하지 않는 API로, 권장은 AudioWorklet입니다. 현재는 정상 동작하지만 브라우저가 ScriptProcessor 지원을 빼는 시점이 오면 마이그레이션이 필요하므로, 같은 길을 다시 간다면 AudioWorklet 기반으로 시작했을 것입니다. 둘째, Selvy STT 단일 벤더에 의존하는 구조라 서비스가 다운되면 응시 자체가 멈춥니다. R&D 사양상 Selvy 사용이 요구사항이었더라도, 응답을 받지 못한 응시 데이터를 큐에 적재해 STT 복구 후 재처리하는 복구 경로는 만들어 두었어야 한다고 생각합니다.',
+      en: 'Two things I would do differently. First, the hand-written WAV encoder relies on ScriptProcessor, which W3C now marks as discouraged — the recommended modern equivalent is AudioWorklet. It works today, but the day a browser drops ScriptProcessor support this code needs a migration; if I started over, it would be AudioWorklet from day one. Second, the single-vendor dependency on Selvy STT means the exam itself stops when Selvy goes down. Even though the R&D specification required Selvy, I should have built a recovery path that queues unanswered submissions and replays them once the service recovers.',
+      ja: 'やり直すなら2点は別の進め方をします。第一に、自作WAVエンコーダで使用したScriptProcessorはW3Cが現在は推奨しないAPIで、推奨はAudioWorkletです。現在は正常動作しますがブラウザがScriptProcessorサポートを切るタイミングが来れば移行が必要なので、やり直すならAudioWorkletベースで始めていたと思います。第二に、Selvy STT単一ベンダ依存のためサービスダウン時に受験自体が止まります。R&D仕様上Selvy使用が要件であったとしても、応答を受けられなかった受験データをキューに積みSTT復旧後に再処理する復旧経路は作っておくべきだったと考えます。',
     },
     reflection: {
-      ko: '자체 WAV 인코더의 ScriptProcessor는 W3C에서 deprecated 상태이고 권장은 AudioWorklet입니다. 현재 동작하지만 브라우저가 ScriptProcessor 지원을 빼는 시점이 오면 마이그레이션이 필요하므로 다시 한다면 AudioWorklet 기반으로 시작했을 것입니다. 또 Selvy STT 단일 벤더에 의존하는 구조라 서비스 다운 시 응시 자체가 멈춥니다 — R&D 사양상 Selvy 사용이 요구사항이었더라도, 응답을 받지 못한 응시 데이터를 큐에 적재해 STT 복구 후 재처리하는 대체 경로 layer는 만들어 두었어야 한다고 생각합니다.',
-      en: 'The WAV encoder uses `ScriptProcessor`, which W3C now marks as deprecated; AudioWorklet is the recommended modern equivalent. It works today, but the day a browser removes `ScriptProcessor` support, this code needs migration — if I started over, it would be AudioWorklet from the start. The other regret is the single-vendor STT dependency: when Selvy goes down, the exam itself stops. Even though the R&D specification required Selvy specifically, I should have built a fallback layer that queues the submissions Selvy did not answer and replays them once the service recovers.',
-      ja: '自作WAVエンコーダのScriptProcessorはW3Cでdeprecated状態であり、推奨はAudioWorkletです。現在動作しますがブラウザがScriptProcessorサポートを切るタイミングが来れば移行が必要なので、やり直すならAudioWorkletベースで始めていたと思います。またSelvy STT単一ベンダーに依存する構造なのでサービスダウン時に受験そのものが止まります — R&D仕様上Selvy使用が要件であったとしても、応答を受け取れなかった受験データをキューに積みSTT復旧後に再処理するfallback層は作っておくべきだったと考えます。',
+      ko: '자체 WAV 인코더의 ScriptProcessor는 W3C에서 deprecated 상태이고 권장은 AudioWorklet입니다. 현재 동작하지만 브라우저가 ScriptProcessor 지원을 빼는 시점이 오면 마이그레이션이 필요하므로 다시 한다면 AudioWorklet 기반으로 시작했을 것입니다. 또 Selvy STT 단일 벤더에 의존하는 구조라 서비스 다운 시 응시 자체가 멈춥니다. R&D 사양상 Selvy 사용이 요구사항이었더라도, 응답을 받지 못한 응시 데이터를 큐에 적재해 STT 복구 후 재처리하는 대체 경로는 만들어 두었어야 한다고 생각합니다.',
+      en: 'The WAV encoder uses `ScriptProcessor`, which W3C now marks as deprecated; AudioWorklet is the recommended modern equivalent. It works today, but the day a browser removes `ScriptProcessor` support, this code needs migration. If I started over, it would be AudioWorklet from the start. The other regret is the single-vendor STT dependency: when Selvy goes down, the exam itself stops. Even though the R&D specification required Selvy specifically, I should have built a fallback path that queues the submissions Selvy did not answer and replays them once the service recovers.',
+      ja: '自作WAVエンコーダのScriptProcessorはW3Cでdeprecated状態であり、推奨はAudioWorkletです。現在動作しますがブラウザがScriptProcessorサポートを切るタイミングが来れば移行が必要なので、やり直すならAudioWorkletベースで始めていたと思います。またSelvy STT単一ベンダーに依存する構造なのでサービスダウン時に受験そのものが止まります。R&D仕様上Selvy使用が要件であったとしても、応答を受け取れなかった受験データをキューに積みSTT復旧後に再処理する代替経路は作っておくべきだったと考えます。',
+    },
+    visuals: {
+      problem: {
+        bullets: {
+          ko: [
+            'STT 포맷 제약 — Selvy `kocca_stt`는 16kHz / 1ch / 16bit PCM RIFF만 수용 (MediaRecorder webm/opus 그대로 보내면 서버 ffmpeg 변환 + 트랜스코딩 손실 + iOS Safari 호환성 문제)',
+            '응시 흐름 — 발음 5단계 (총 75초) + 말하기 7단계 state machine을 단계별 beep·녹음·자동 전환까지 운영',
+            '4역할 RBAC — STUDENT / TEACHER MAIN / TEACHER SUB / TEACHER ADMIN을 인증·인가 흐름에 자연스럽게 녹임',
+            '학교별 멀티테넌트 — 한 학교 사고가 다른 학교로 번지지 않도록 격리 + 컨테이너 공격 표면 축소',
+          ],
+          en: [
+            'STT format constraint — Selvy `kocca_stt` only accepts 16 kHz / 1ch / 16-bit PCM RIFF (sending MediaRecorder webm/opus would mean server ffmpeg + transcoding loss + iOS Safari compatibility issues)',
+            'Exam flows — pronunciation (5 stages, 75 s) + speaking (7 stages), each with stage-by-stage beep / recording / auto-transition',
+            '4-role RBAC — STUDENT / TEACHER MAIN / TEACHER SUB / TEACHER ADMIN dropped cleanly into the auth flow',
+            'School-level multitenancy — one school’s incident must not propagate to others + container attack surface reduced',
+          ],
+          ja: [
+            'STTフォーマット制約 — Selvy `kocca_stt`は16kHz/1ch/16bit PCM RIFFのみ受領（MediaRecorder webm/opusをそのまま送ると サーバーffmpeg変換 + トランスコード損失 + iOS Safari互換性問題が累積）',
+            '受験フロー — 発音5段階（合計75秒）+ スピーキング7段階のstate machineを段階ごとのbeep・録音・自動遷移まで運用',
+            '4ロールRBAC — STUDENT / TEACHER MAIN / TEACHER SUB / TEACHER ADMINを認証・認可フローに自然に組み込む',
+            '学校別マルチテナント — 一校の事故が他校に波及しない隔離 + コンテナ攻撃面の縮小',
+          ],
+        },
+      },
+      alternatives: {
+        table: {
+          columns: [
+            { ko: '후보', en: 'Option', ja: '候補' },
+            { ko: '장점', en: 'Upside', ja: '利点' },
+            { ko: '단점', en: 'Downside', ja: '欠点' },
+          ],
+          rows: [
+            [
+              { ko: 'MediaRecorder API (webm/opus)', en: 'MediaRecorder API (webm/opus)', ja: 'MediaRecorder API (webm/opus)' },
+              { ko: '브라우저 기본 — 구현 비용 0', en: 'Browser default — zero implementation cost', ja: 'ブラウザ既定 — 実装コスト0' },
+              { ko: '서버 ffmpeg 변환 필수 — 응답 지연·트랜스코딩 손실·iOS Safari 호환성 문제', en: 'Server ffmpeg conversion required — latency, transcoding loss, iOS Safari issues', ja: 'サーバーffmpeg変換必須 — 遅延・損失・iOS Safari問題' },
+            ],
+            [
+              { ko: 'Google Cloud STT / AWS Transcribe', en: 'Google Cloud STT / AWS Transcribe', ja: 'Google Cloud STT / AWS Transcribe' },
+              { ko: '관리형 — 인프라 부담 0', en: 'Managed — zero infra burden', ja: 'マネージド — インフラ負担0' },
+              { ko: '외국인 한국어 학습자 도메인 학습 데이터 약함 + KOCCA R&D 사양상 한국형 STT 요구 (계약상 불가)', en: 'Weak on foreign-Korean-learner domain + KOCCA spec mandated a Korean-tuned STT (off the table by contract)', ja: '外国人韓国語学習者ドメインの学習データが弱い + KOCCA仕様で韓国語型STTが要件（契約上不可）' },
+            ],
+            [
+              { ko: '자체 WAV 인코더 + Selvy STT 4단계 폴링', en: 'Hand-written WAV encoder + Selvy STT 4-phase poll', ja: '自作WAVエンコーダ + Selvy STT 4段ポーリング' },
+              { ko: '서버 변환 단계 제거 + STT 포맷 정확히 일치 + 외부 라이브러리 의존 0', en: 'Eliminates server-side conversion + exact STT format match + zero third-party deps', ja: 'サーバー変換段階を消去 + STT形式に正確一致 + 外部依存0' },
+              { ko: 'ScriptProcessor는 W3C deprecated — 장기적으로 AudioWorklet 마이그레이션 필요', en: 'ScriptProcessor is W3C-deprecated — long-term AudioWorklet migration needed', ja: 'ScriptProcessorはW3C deprecated — 長期的にAudioWorklet移行が必要' },
+            ],
+          ],
+          selectedRow: 2,
+        },
+      },
+      decision: {
+        diagramKey: 'kocca',
+      },
+      execution: {
+        bullets: {
+          ko: [
+            '① sample rate 16kHz로 직접 캡처 — Selvy가 16kHz만 받으므로 클라이언트에서 같은 sample rate로 캡처해 서버 리샘플링 + 트래픽 폭증 동시 회피',
+            '② ScriptProcessor(4096) — AudioWorklet 호환이 부족했던 시기의 지연·CPU 부하 균형점 + 모노 1채널로 STT 입력 사양 정확 일치 + 트래픽/메모리 절반',
+            '③ 44바이트 WAV 헤더 직접 작성 — 외부 라이브러리 의존 0으로 STT가 받는 정확한 포맷을 클라이언트에서 생성',
+            '★ 응시 흐름 안정성 — 발음 5단계 + 말하기 7단계 state machine 분리, 녹음 데이터는 `useState`가 아닌 `useRef`로 누적해 리렌더 사이 음성 유실 방지',
+            '★ Server Action(인증, 부수효과) vs Route Handler(데이터, 단순 조회) 의도적 분리 — 클라이언트 번들 가벼움',
+            '★ 학교별 격리 — 모든 응시·채점 쿼리에 학교 ID 필터 강제 + 미들웨어가 토큰의 소속 학교와 요청 경로 학교 ID 일치 여부 검증',
+          ],
+          en: [
+            '① Capture at 16 kHz directly — Selvy only accepts 16 kHz, so matching the client capture rate avoids both server resampling and bandwidth bloat',
+            '② ScriptProcessor(4096) — the latency/CPU balance point when AudioWorklet support was thin + mono 1-channel matches the STT input spec exactly + halves bandwidth and memory',
+            '③ 44-byte WAV header written by hand — zero third-party dependency while producing the exact format Selvy expects on the client',
+            '★ Exam-flow stability — pronunciation (5) + speaking (7) split into state machines, recordings accumulated in `useRef` (not `useState`) so re-renders never drop audio',
+            '★ Server Action (auth, side-effect) vs Route Handler (data, simple fetch) split keeps the client bundle lean by design',
+            '★ School-level isolation — every exam/grading query carries a school_id filter and middleware verifies the token’s school matches the route’s school_id',
+          ],
+          ja: [
+            '① sample rate 16kHzで直接キャプチャ — Selvyが16kHzのみ受領するため、クライアントで同じsample rateで取得しサーバーリサンプリングとトラフィック膨張を同時回避',
+            '② ScriptProcessor(4096) — AudioWorklet互換が薄かった時期の遅延・CPU負荷の均衡点 + モノ1チャネルでSTT入力仕様に正確一致 + トラフィック/メモリ半減',
+            '③ 44バイトWAVヘッダを直接記述 — 外部ライブラリ依存0でSTTが受け取る正確な形式をクライアントで生成',
+            '★ 受験フロー安定性 — 発音5段階 + スピーキング7段階のstate machineに分離、録音Blobは`useState`ではなく`useRef`で累積し再レンダ中の音声消失を防止',
+            '★ Server Action（認証、副作用）vs Route Handler（データ、単純fetch）の意図的分離でクライアントバンドルを軽く',
+            '★ 学校別隔離 — すべての受験・採点クエリにschool_idフィルタを強制 + ミドルウェアがトークンの所属校とルートのschool_id一致を検証',
+          ],
+        },
+      },
+      result: {
+        metrics: [
+          { value: '-50%', label: { ko: 'STT 서버 호출 — 폴링 주기 1s → 2s (60초 음성·30초 처리 가정 시 30회 → 15회). 사용자 인지 지연 +1초는 음성 채점 UX에서 감수할 만한 절충', en: 'STT server calls — polling 1s → 2s (60-sec audio, ~30-sec processing assumption: 30 → 15 calls). +1 s perceived delay is negligible in scoring UX', ja: 'STTサーバー呼び出し — ポーリング1s → 2s（60秒音声・30秒処理仮定で30回 → 15回）。+1秒の体感遅延は採点UXで許容可能なtrade-off' } },
+          { value: '4역할', label: { ko: 'RBAC (STUDENT / TEACHER MAIN·SUB / ADMIN) — 미들웨어 + API 라우트 이중 검증', en: 'RBAC (STUDENT / TEACHER MAIN+SUB / ADMIN) — middleware + API-route double verification', ja: 'RBAC（STUDENT / TEACHER MAIN・SUB / ADMIN）— ミドルウェア + APIルートの2層検証' } },
+        ],
+      },
     },
   },
 
@@ -497,39 +885,44 @@ export const careerStoryBlocksV1: Partial<
       ja: '教育会社のR&D新事業をモバイルアプリチャネルに拡張する意思決定を1年目社員が主導 — Webで解けなかった音声コンテンツのセキュリティ・モバイルブラウザ互換性の限界をReact Native移行で迂回し、RN経験がない状態でも既存のReactコードをモジュール化・コンポーネント化することで学習曲線を下げてから移行を完了、App Store / Play Storeリリースでアプリチャネル新事業の道を開きました。',
     },
     context: {
-      ko: 'Purple Academy(교육 회사)에서 프론트엔드 개발자로 1년 재직했고, 팀은 2명, 본인은 직급상 사원이지만 프로젝트 리딩 위치에서 의사결정 권한을 가졌습니다. 기존 제품은 React 기반 웹 서비스로, 어린이·청소년 대상 영어 교육 콘텐츠(알파벳 트레이싱·인터랙티브 학습 활동 등)를 5,000+ 개 운영하고 있던 상태였습니다.',
-      en: 'I spent a year as a frontend engineer at Purple Academy (an education company), on a two-person team where — despite being formally a junior — I led the project and held decision rights. The existing product was a React web service delivering English-learning content for children and teens, with over five thousand interactive learning activities (alphabet tracing, mini-games, etc.) in production.',
-      ja: 'Purple Academy（教育会社）でフロントエンドエンジニアとして1年在籍し、チームは2名、本人は職位上は社員ですがプロジェクトリーディング位置で意思決定権を持ちました。既存プロダクトはReactベースのWebサービスで、子供・青少年向け英語教育コンテンツ（アルファベットトレース・インタラクティブ学習アクティビティなど）を5,000以上運用していた状態でした。',
+      ko: 'Purple Academy(교육 회사)에서 프론트엔드 1년 재직, 2명 팀에서 1년차 사원이지만 프로젝트 리딩 위치로 결정권 보유. 기존 제품은 React 기반 웹 서비스로 어린이·청소년 대상 영어 교육 콘텐츠(알파벳 트레이싱·인터랙티브 학습 활동 등) 5,000+ 개 운영 중.',
+      en: 'One year as a frontend engineer at Purple Academy (an education company), two-person team — formally junior but in a lead position with decision rights. The existing product was a React web service delivering 5,000+ interactive English-learning activities for children and teens.',
+      ja: 'Purple Academy（教育会社）でフロントエンドとして1年在籍、2名チームで1年目社員ながらプロジェクトリーディング位置で決定権を保有。既存プロダクトはReactベースのWebサービスで、子供・青少年向け英語教育コンテンツ（アルファベットトレース・インタラクティブ学習アクティビティなど）5,000以上を運用中。',
     },
     problem: {
-      ko: '문제는 두 갈래로 동시에 들어왔습니다. 첫째, 웹 환경에서 음성 재생의 보안이 너무 어려웠습니다. 학습 콘텐츠인 음성 자산이 노출되면 사업 가치가 무너지는데, 브라우저에서 이를 견고하게 막을 방법이 없었습니다. 둘째, 모바일 브라우저 호환성 문제였습니다. 사용자 핸드폰 기기마다 브라우저 종류와 버전이 달라 대응해야 할 조합이 폭증했고, 일부 환경에서는 정상 동작 자체가 불가능했습니다. 결론은 명확했습니다. 앱 출시 없이는 사업이 진전될 수 없다는 것입니다.',
-      en: 'The pressure came from two directions at once. First, audio-content security on the web — the audio assets are the product, and once they leak the business value collapses, but the browser gives you almost nothing to defend that surface. Second, mobile browser compatibility — the per-browser, per-version matrix on user devices kept growing, and on some configurations the experience was outright broken. The conclusion was unambiguous: without a native app, this business could not move forward.',
-      ja: '問題は2方向から同時に来ました。第一にWeb環境での音声再生セキュリティが極めて困難 — 学習コンテンツである音声資産が漏洩すれば事業価値が崩れますが、ブラウザでこれを堅牢に防ぐ方法がありませんでした。第二にモバイルブラウザ互換性 — ユーザーのスマホ機種ごとにブラウザ種別・バージョンが異なりマトリックス対応コストが膨張、一部環境では正常動作自体が不可能でした。結論は明確でした：アプリリリースなしには事業が前進できない。',
+      ko: '두 갈래의 압박이 동시에 들어왔습니다. 첫째는 웹 환경에서의 음성 재생 보안이었습니다. 학습 콘텐츠인 음성 자산이 노출되면 사업 가치가 무너지는데, 브라우저에서 이를 견고하게 막을 방법이 없었습니다. 둘째는 모바일 브라우저 호환성이었습니다. 사용자 핸드폰마다 브라우저 종류와 버전이 달라 대응 매트릭스가 폭증했고, 일부 환경에서는 정상 동작 자체가 불가능했습니다. 결론은 명확했습니다. 앱 출시 없이는 사업이 진전될 수 없었습니다.',
+      en: 'Two parallel pressures. (1) Audio-content security on the web — the audio assets *are* the product, and once they leak the business value collapses, but the browser gives you almost nothing to defend that surface. (2) Mobile browser compatibility — the per-browser, per-version matrix on user devices kept growing, and some configurations were outright broken. The conclusion was unambiguous: without a native app, this business could not move forward.',
+      ja: '2方向同時の圧力。① Web環境での音声再生セキュリティ — 学習コンテンツである音声資産が漏洩すれば事業価値が崩れるが、ブラウザで堅牢に防ぐ方法がない。② モバイルブラウザ互換性 — ユーザーのスマホごとにブラウザ種別・バージョンが異なり対応マトリックスが膨張、一部環境では正常動作自体が不可能。結論は明確 — アプリリリースなしには事業が前進できない。',
     },
     hypothesis: {
-      ko: '본인의 가설은 단순했습니다. "React Native 경험은 없지만, 기존 React 코드를 컴포넌트·모듈 단위로 강하게 분리해두면 RN으로 옮기는 학습 곡선은 낮습니다." 마이그레이션 자체보다 그 직전의 준비 작업(코드베이스 정리)이 성공의 관건이라고 봤습니다.',
-      en: 'My hypothesis was simple: "I haven’t shipped React Native yet, but if I get the existing React codebase into properly modular components first, the migration learning curve drops sharply." The success lever wasn’t the migration itself — it was the preparation step right before it.',
-      ja: '本人の仮説は単純でした：「React Native経験はないが、既存のReactコードをコンポーネント・モジュール単位で強く分離しておけばRNへの移行学習曲線は低い」。移行そのものより、その直前の準備作業（コードベース整理）が成功の鍵だと見ました。',
+      ko: '가설은 단순. "React Native 경험은 없지만, 기존 React 코드를 컴포넌트·모듈 단위로 강하게 분리해두면 RN으로 옮기는 학습 곡선은 낮음." 마이그레이션 자체보다 직전의 준비 작업(코드베이스 정리)이 성공의 관건이라고 봤습니다.',
+      en: 'Simple hypothesis: "I haven’t shipped React Native yet, but if I get the existing React codebase into properly modular components first, the migration learning curve drops sharply." The success lever wasn’t the migration itself — it was the preparation step right before it.',
+      ja: '仮説は単純 — 「React Native経験はないが、既存のReactコードをコンポーネント・モジュール単位で強く分離しておけばRN移行の学習曲線は低い」。移行そのものより、その直前の準備作業（コードベース整理）が成功の鍵だと見た。',
     },
     alternatives: {
-      ko: '정직하게 말하면 Flutter·Capacitor·PWA·모바일 웹 강화 같은 다른 옵션을 명시적으로 비교하지 않았습니다. 기존 React 자산을 가장 직접적으로 재사용할 수 있는 RN이 자명한 선택이라고 봤고, 1년차 사원 + 2명 팀의 자원 한계에서 비교 검토 비용 자체가 부담이었습니다. 이 부분은 회고에서 자기 검증 영역으로 다룹니다.',
-      en: 'Honestly, I did not explicitly evaluate Flutter, Capacitor, PWA, or just hardening the mobile web. React Native was the most direct reuse path for our existing React assets, and given the resourcing — one junior engineer, two-person team — the cost of running a real comparison itself felt prohibitive. I treat that gap as self-critique territory in the reflection.',
-      ja: '正直に言えばFlutter・Capacitor・PWA・モバイルWeb強化のような他の選択肢を明示的に比較しませんでした。既存のReact資産を最も直接的に再利用できるRNが自明な選択肢だと見ており、1年目社員+2名チームのリソース制約下では比較検討コスト自体が負担でした。この点は振り返りで自己検証領域として扱います。',
+      ko: '정직하게 말하면 Flutter, Capacitor, PWA, 모바일 웹 강화 같은 다른 옵션을 명시적으로 비교하지 않았습니다. 기존 React 자산을 가장 직접적으로 재사용할 수 있는 RN이 자명한 선택이라고 봤고, 1년차 사원에 2명 팀의 자원 한계에서 비교 검토 비용 자체가 부담이었습니다. 이 부분은 회고 영역으로 남깁니다.',
+      en: 'Honestly — I did not explicitly evaluate Flutter / Capacitor / PWA / mobile-web hardening. RN was the most direct reuse path for our existing React assets and felt self-evident; given the resourcing (one junior, two-person team) the cost of running a real comparison itself felt prohibitive. Acknowledged as a reflection-area gap.',
+      ja: '正直に言えばFlutter・Capacitor・PWA・モバイルWeb強化のような他の選択肢を明示的に比較しなかった。既存のReact資産を最も直接的に再利用できるRNが自明な選択肢と見ており、1年目社員 + 2名チームのリソース制約下では比較検討コスト自体が負担。この点は振り返り領域。',
     },
     decision: {
-      ko: '본인이 결정했습니다. 1년차 사원이지만 프로젝트 리딩 위치였기에 결정권을 가졌고, 결정 근거는 세 가지였습니다: ① 음성 보안 (웹에서 풀기 어려운 문제) ② 브라우저 대응 비용 (모바일 브라우저 매트릭스의 한계) ③ 학습 곡선 (모듈화 선행으로 낮출 수 있다는 사전 평가). 실행 전제는 마이그레이션 직전에 React 코드베이스의 모듈화·컴포넌트화를 충분히 정비하는 것이었습니다.',
-      en: 'I made the call. I was junior on paper but lead in practice, and the decision rested on three reasons: (1) audio-content security is unsolvable on the web, (2) the mobile-browser compatibility matrix had become too expensive, and (3) the RN learning curve could be flattened by preparing the React codebase first. The execution pre-condition was non-negotiable: invest enough in modularising and componentising the React codebase before starting the migration itself.',
-      ja: '本人が決定しました。1年目社員ですがプロジェクトリーディング位置だったため決定権を持ち、決定根拠は3つでした：① 音声セキュリティ（Webで解きにくい問題）② ブラウザ対応コスト（モバイルブラウザマトリックスの限界）③ 学習曲線（モジュール化先行で下げられるという事前評価）。実行前提は移行直前にReactコードベースのモジュール化・コンポーネント化を十分整備することでした。',
+      ko: '본인이 결정했습니다. 1년차 사원이지만 프로젝트 리딩 위치였기에 결정권을 가졌고, 결정 근거는 세 가지였습니다. 첫째 음성 보안(웹에서 풀기 어려운 문제), 둘째 브라우저 대응 비용(모바일 브라우저 매트릭스의 한계), 셋째 학습 곡선(모듈화 선행으로 낮출 수 있다는 사전 평가)입니다. 실행 전제는 마이그레이션 직전에 React 코드베이스의 모듈화·컴포넌트화를 충분히 정비하는 것이었습니다.',
+      en: 'I made the call. Junior on paper but lead in practice, decision resting on three reasons — (1) audio-content security is unsolvable on the web, (2) the mobile-browser matrix had become too expensive, (3) the RN learning curve could be flattened by preparing the React codebase first. Execution pre-condition was non-negotiable: invest enough in modularising and componentising the React codebase before starting the migration itself.',
+      ja: '本人が決定。1年目社員ですがプロジェクトリーディング位置で決定権を持ち、根拠は3つ — ① 音声セキュリティ（Webで解きにくい問題）② ブラウザ対応コスト（モバイルブラウザマトリックスの限界）③ 学習曲線（モジュール化先行で下げられるという事前評価）。実行前提は移行直前にReactコードベースのモジュール化・コンポーネント化を十分整備すること。',
     },
     execution: {
-      ko: '먼저 기존 React 코드의 모듈화·컴포넌트화에 시간을 들였습니다. UI/로직 분리, Custom Hook으로 비즈니스 로직 추출, 의존성 정리를 거친 뒤 RN으로 점진 마이그레이션을 진행했습니다. RN 자체는 처음 다루는 환경이라 학습하면서 옮기는 흐름이었지만, 사전에 정비된 코드 구조 덕에 컴포넌트 단위로 옮기는 작업이 비교적 명확하게 끊겼습니다. 최종적으로 양 스토어(App Store · Google Play) 출시까지 도달했습니다.',
-      en: 'The first phase was preparation: separating UI from logic, lifting business logic into custom hooks, and tidying dependencies inside the React codebase. Only after that did the RN migration start, progressively, component by component. RN was a new environment for me, so I was learning as I ported, but the prior cleanup meant each unit of migration had a clean boundary. The migration ended with shipping to both the App Store and Google Play.',
-      ja: 'まず既存のReactコード のモジュール化・コンポーネント化に時間を投資しました。UI/ロジック分離、Custom Hookによるビジネスロジック抽出、依存性整理を経てからRNへの段階的移行を進めました。RN自体は初めて扱う環境だったので学習しながら移行する流れでしたが、事前に整備したコード構造のおかげでコンポーネント単位での移行作業が比較的明確に切り分けられました。最終的に両ストア（App Store・Google Play）リリースまで到達しました。',
+      ko: '먼저 기존 React 코드의 모듈화·컴포넌트화에 시간을 들였습니다. UI/로직 분리, Custom Hook으로 비즈니스 로직 추출, 의존성 정리를 거친 뒤 RN으로 점진 마이그레이션을 진행했습니다. RN 자체는 처음 다루는 환경이라 학습하면서 옮기는 흐름이었지만, 사전에 정비된 코드 구조 덕에 컴포넌트 단위로 작업이 명확하게 끊겼습니다. 최종적으로 양 스토어(App Store, Google Play) 출시까지 도달했습니다.',
+      en: 'Preparation phase — separated UI from logic, lifted business logic into custom hooks, tidied dependencies inside the React codebase. Then the RN migration started, progressively, component by component. RN was new to me, so I was learning as I ported, but the prior cleanup meant each unit of migration had a clean boundary. Ended with shipping to both App Store and Google Play.',
+      ja: '準備段階 — UI/ロジック分離、Custom Hookによるビジネスロジック抽出、依存性整理。その後RNへの段階的移行を進めた。RN自体は初めて扱う環境だったので学習しながら移行する流れだったが、事前に整備したコード構造のおかげでコンポーネント単位の作業が明確に切り分けられた。最終的に両ストア（App Store・Google Play）リリースまで到達。',
     },
     result: {
-      ko: 'App Store / Google Play 양 스토어 출시에 도달했고, 그 결과로 앱 버전 기반의 신사업이 가능해졌습니다. 모바일 채널 자체가 닫혀 있던 상태에서 진행이 가능한 상태로 바뀌었다는 점이 이 프로젝트의 핵심 임팩트입니다. 다만 RN 외 옵션(Capacitor·Flutter·PWA)을 명시적으로 비교하지 않은 결정은 지금 봐도 보강할 자리로 인정합니다. 같은 선택을 다시 내린다면 비교 표 한 장이라도 만들어 결정 근거를 남기는 쪽이 자기 검증 측면에서 더 견고했을 것입니다. 음성 보안도 RN native module 단위로 더 세분화해 앞으로는 단일 책임 경계로 분리해 두는 것이 다음 개선 방향입니다.',
-      en: 'We shipped to both the App Store and Google Play, and that opened a new app-channel business line for the company. The point of impact wasn’t a metric — it was that the mobile channel had been effectively closed before, and was open after.',
-      ja: 'App Store / Google Play両ストアリリースに到達し、その結果としてアプリ版を基盤とする新事業が可能になりました。モバイルチャネル自体が閉じていた状態から進行可能な状態に変わった点がこのプロジェクトの中心的なインパクトです。',
+      ko: 'App Store와 Google Play 양 스토어 출시에 도달했고, 그 결과로 앱 버전 기반의 신사업이 가능해졌습니다. 모바일 채널 자체가 닫혀 있던 상태에서 진행 가능한 상태로 바뀌었다는 점이 이 프로젝트의 핵심 임팩트입니다.',
+      en: 'Shipped to both the App Store and Google Play, opening an app-channel business line for the company. The point of impact is that the mobile channel had been effectively closed before, and was open after.',
+      ja: 'App Store / Google Play両ストアへのリリースに到達し、その結果としてアプリ版を基盤とする新事業が可能になりました。モバイルチャネル自体が閉じていた状態から進行可能な状態に変わった点が本プロジェクトの核心インパクトです。',
+    },
+    improvements: {
+      ko: '두 가지를 다시 한다면 다르게 잡았을 것입니다. 첫째, React Native 외 옵션(Capacitor, Flutter, PWA)을 명시적으로 비교하지 않았습니다. 당시에는 React 자산 재사용이라는 단일 기준으로 자명한 선택이었지만, 시니어 관점에서 보면 결정 자체를 검증하는 절차가 빠진 셈입니다. 같은 선택을 다시 내려도 비교 표 한 장이라도 만들어 결정 근거를 남기는 쪽이 더 견고했을 것입니다. 둘째, 모듈화·컴포넌트화 정비를 사전에 진행한 것은 옳은 판단이었지만 마이그레이션 중에도 일부 영역은 결국 RN 전용으로 분기되었기 때문에, 어디까지가 공유 가능하고 어디부터는 분기인지를 더 일찍 결정 매트릭스로 정리했어야 했다고 봅니다.',
+      en: 'Two things I would do differently. First, I did not formally compare React Native against Flutter, Capacitor, or PWA. At the time, "reuse our React assets directly" felt self-evident, but stepping back as a senior would, the missing step was the verification of the decision itself — even a one-page comparison would have made the choice more defensible. Second, prepping the codebase with modularisation and componentisation before the migration was the right call, but some areas still diverged into RN-only branches mid-flight; I should have written down a sharper decision matrix earlier on where the shared code ends and where the platform-specific code begins.',
+      ja: 'やり直すなら2点は別の進め方をします。第一に、React Native以外の選択肢（Flutter・Capacitor・PWA）を明示的に比較しませんでした。当時はReact資産再利用という単一基準で自明な選択でしたが、シニア視点で見ると決定そのものを検証する手順が抜けていました。同じ選択を再び下すとしても、比較表1枚でも残しておく方がより堅固でした。第二に、モジュール化・コンポーネント化を事前に進めたのは正しい判断でしたが、移行中も一部領域はRN専用に分岐したため、共有可能な範囲と分岐すべき範囲をもっと早く決定マトリックスとして整理しておくべきだったと考えます。',
     },
     reflection: {
       ko: '가장 정직한 회고는 RN 외 다른 옵션(Flutter·Capacitor·PWA)을 명시적으로 비교하지 않았다는 점입니다. 그 시점에는 React 자산 재사용이라는 단일 기준으로 자명한 선택이었지만, 시니어 관점에서 보면 결정 자체를 검증하는 절차가 빠진 셈입니다. 또 모듈화·컴포넌트화 정비를 사전에 진행한 것은 옳은 판단이었지만 — 마이그레이션 중에도 일부 영역은 RN-only로 결국 분기되었다는 점에서, 어디까지가 공유 가능하고 어디부터는 분기였는지를 더 일찍 결정 매트릭스로 정리했어야 했다고 봅니다.',
@@ -545,39 +938,44 @@ export const careerStoryBlocksV1: Partial<
       ja: 'IEZLAB（SI会社）在籍中、朝鮮王朝実録の漢字古文献デジタル化政府R&D課題で、発注元が画像と漢字領域の座標値を提供すると、その座標に合わせてCanvas APIで画像を1文字ずつ切り出すシステムを実装し、Spring Boot + JPAバックエンドAPIまでフルスタック責任で政府R&D成果物として納品しました。',
     },
     context: {
-      ko: 'IEZLAB은 SI(System Integration) 회사였고, 본인은 한자 고문헌 디지털화 정부 R&D 과제에 참여했습니다. 시기적으로는 GPT 같은 LLM이 없던 시절이라 Vision API·SAM·LLM 기반 OCR 같은 현대 도구가 부재했고, 사진을 한 글자씩 정확히 자르는 작업을 손으로 구현해야 했습니다.',
-      en: 'IEZLAB was a system-integration shop, and I was assigned to a government R&D project on digitising classical Hanja manuscripts. This was before the LLM era — no Vision APIs, no SAM, no LLM-driven OCR — so cutting an image into individual Hanja characters had to be built by hand rather than orchestrated from off-the-shelf models.',
-      ja: 'IEZLABはSI（System Integration）会社で、本人は漢字古文献デジタル化の政府R&D課題に参加しました。時期的にはGPTのようなLLMが無かった時代でVision API・SAM・LLMベースOCRのような現代的なツールが不在で、写真を1文字ずつ正確に切り出す作業を直接手で実装する必要がありました。',
+      ko: 'IEZLAB(SI 회사)에서 조선왕조실록 한자 고문헌 디지털화 정부 R&D 과제에 참여. GPT 같은 LLM이 없던 시절이라 Vision API · SAM · LLM 기반 OCR 같은 현대 도구가 부재해, 사진을 한 글자씩 정확히 자르는 작업을 손으로 구현해야 했습니다.',
+      en: 'At IEZLAB (a system-integration shop) I worked on a government R&D project to digitise classical Hanja manuscripts (Annals of the Joseon Dynasty etc.). This was pre-LLM era — no Vision APIs, no SAM, no LLM-driven OCR — so cutting an image into individual Hanja characters had to be built by hand rather than orchestrated from off-the-shelf models.',
+      ja: 'IEZLAB（SI会社）で朝鮮王朝実録の漢字古文献デジタル化政府R&D課題に参加。GPTのようなLLMが無かった時代でVision API・SAM・LLMベースOCRなどの現代的ツールが不在のため、写真を1文字ずつ正確に切り出す作業を手で実装する必要があった。',
     },
     problem: {
-      ko: '책임 범위를 정확히 분리하자면, 한자별 영역 좌표 자체는 발주처가 산출해 제공했고, 본인은 그 좌표에 맞춰 사진을 한 글자씩 정확히 자르는 시스템과 후속 OCR·번역 파이프라인으로 연결되는 백엔드 API를 구현하는 것이 일이었습니다. 즉 알고리즘 결정자가 아니라 발주처 사양을 시스템으로 통합하는 구현 책임이었습니다.',
-      en: 'To be precise about ownership: the client produced the per-character coordinates themselves. My job was the system that consumed those coordinates and sliced the image into individual characters precisely, plus the backend API that fed the downstream OCR / translation pipeline. I was the integration owner, not the algorithm designer — and being honest about that distinction matters.',
-      ja: '責任範囲を正確に分けると、漢字ごとの領域座標自体は発注元が算出して提供し、本人はその座標に合わせて写真を1文字ずつ正確に切り出すシステムと、後続のOCR・翻訳パイプラインに繋がるバックエンドAPIを実装することが業務でした。つまりアルゴリズム決定者ではなく、発注元仕様をシステムとして統合する実装責任でした。',
+      ko: '책임 범위를 정확히 분리하면, 한자별 영역 좌표 자체는 발주처가 산출해 제공했고, 본인은 그 좌표에 맞춰 사진을 한 글자씩 정확히 자르는 시스템과 후속 OCR·번역 파이프라인으로 연결되는 백엔드 API 구현을 담당했습니다. 알고리즘 결정자가 아니라 발주처 사양을 시스템으로 통합하는 구현 책임이었습니다.',
+      en: 'Precise scope — the client produced the per-character coordinates themselves. My job was the system that consumed those coordinates and sliced the image into individual characters precisely, plus the backend API that fed the downstream OCR / translation pipeline. Integration owner, not algorithm designer.',
+      ja: '責任範囲を正確に — 漢字ごとの領域座標自体は発注元が算出して提供し、本人はその座標に合わせて写真を1文字ずつ正確に切り出すシステム + 後続のOCR・翻訳パイプラインに繋がるバックエンドAPI実装が担当。アルゴリズム決定者ではなく、発注元仕様をシステムとして統合する実装責任。',
     },
     hypothesis: {
-      ko: 'Canvas API의 `getImageData` / `putImageData`로 픽셀 좌표 기반 이미지 분할을 직접 다루면 외부 라이브러리 의존 없이 발주처가 던지는 좌표 사양을 그대로 받아 시각화·분할이 가능합니다. 발주처가 좌표를 확인·수정하면서 즉시 분할 결과를 검수해야 하는 워크플로우라, 클라이언트 측 즉시 렌더링이 핵심이라고 봤습니다.',
-      en: 'The hypothesis was that Canvas’s `getImageData` / `putImageData` would let me do pixel-coordinate-based slicing directly, with no third-party dependency, and consume the client’s coordinate spec as-is. The workflow needed the client to be able to inspect and tweak coordinates with the slicing result rendering immediately — client-side rendering was the load-bearing requirement.',
-      ja: 'Canvas APIの`getImageData` / `putImageData`でピクセル座標ベースの画像分割を直接扱えば、外部ライブラリ依存なしに発注元の座標仕様をそのまま受け取って可視化・分割が可能です。発注元が座標を確認・修正しながら分割結果を即座に検収するワークフローだったため、クライアント側の即時レンダリングが鍵だと見ました。',
+      ko: 'Canvas API의 `getImageData` / `putImageData`로 픽셀 좌표 기반 이미지 분할을 직접 다루면, 외부 라이브러리 의존 없이 발주처 좌표 사양을 그대로 받아 시각화·분할이 가능합니다. 발주처가 좌표를 확인·수정하며 즉시 분할 결과를 검수해야 하는 워크플로우라, 클라이언트 측 즉시 렌더링이 핵심이라고 봤습니다.',
+      en: 'Hypothesis: Canvas’s `getImageData` / `putImageData` would let me do pixel-coordinate-based slicing directly, zero third-party dependency, consuming the client’s coordinate spec as-is. The workflow needed the client to inspect and tweak coordinates with the slicing result rendering immediately — client-side rendering was the load-bearing requirement.',
+      ja: '仮説 — Canvas APIの`getImageData` / `putImageData`でピクセル座標ベースの画像分割を直接扱えば、外部ライブラリ依存なしに発注元の座標仕様をそのまま受け取って可視化・分割が可能。発注元が座標を確認・修正しながら分割結果を即座に検収するワークフローのため、クライアント側の即時レンダリングが鍵。',
     },
     alternatives: {
-      ko: 'OpenCV.js는 비전 라이브러리지만 본인 책임이 알고리즘이 아닌 좌표 기반 분할이라 과한 도구였고, 서버사이드 이미지 처리(Sharp/ImageMagick)는 발주처 검수 루프에서 서버 왕복 부담이 컸습니다. 백엔드는 SI 회사 표준 스택을 따라 Spring Boot + JPA로 갔습니다.',
-      en: 'OpenCV.js is a vision library, but my responsibility was coordinate-driven slicing, not algorithm design — so OpenCV would have been overkill. Server-side image processing (Sharp / ImageMagick) would have added a network round-trip into the client’s review loop every time they tweaked a coordinate. The backend followed the SI shop’s house stack: Spring Boot + JPA.',
-      ja: 'OpenCV.jsはビジョンライブラリですが、本人の責任がアルゴリズムではなく座標ベース分割なのでoverkillでした。サーバーサイド画像処理（Sharp / ImageMagick）は発注元検収ループでround-trip負担が大きく、バックエンドはSI会社標準スタックに沿ってSpring Boot + JPAで進めました。',
+      ko: 'OpenCV.js는 비전 라이브러리지만 본인 책임이 알고리즘이 아니라 좌표 기반 분할이라 과한 도구였습니다. 서버사이드 이미지 처리(Sharp / ImageMagick)는 발주처 검수 루프에서 서버 왕복 부담이 컸고, 백엔드는 SI 회사 표준 스택을 따라 Spring Boot + JPA로 갔습니다.',
+      en: 'OpenCV.js — a vision library, but my responsibility was coordinate-driven slicing not algorithm design, so OpenCV would have been overkill. Server-side image processing (Sharp / ImageMagick) would have added a network round-trip into the client’s review loop every time they tweaked a coordinate. Backend followed the SI shop’s house stack — Spring Boot + JPA.',
+      ja: 'OpenCV.jsはビジョンライブラリだが、本人の責任がアルゴリズムではなく座標ベース分割のためoverkill。サーバーサイド画像処理（Sharp / ImageMagick）は発注元の検収ループにround-trip負担が大きい。バックエンドはSI会社標準スタックに沿ってSpring Boot + JPA。',
     },
     decision: {
-      ko: '클라이언트는 Canvas API로 구현하고 백엔드는 Spring Boot + JPA로 갔습니다. 좌표 기반 분할의 결과를 발주처가 즉시 확인할 수 있도록 클라이언트 측 즉시 렌더링을 우선하고, 후속 OCR·번역 단계로 결과를 전달하는 통합 API를 백엔드에서 제공하는 구조입니다.',
-      en: 'Client-side Canvas API for the slicing, Spring Boot + JPA for the backend. Prioritise client-side rendering so the operator can inspect slice results instantly, and expose a clean backend API that forwards the result into the downstream OCR / translation stages — that was the structure.',
-      ja: 'クライアントはCanvas API直接実装、バックエンドはSpring Boot + JPA。座標ベース分割の結果を発注元が即座に確認できるようクライアント側の即時レンダリングを優先し、後続のOCR・翻訳段階へ結果を渡す統合APIをバックエンド側で提供する構造です。',
+      ko: '클라이언트는 Canvas API, 백엔드는 Spring Boot + JPA. 좌표 기반 분할 결과를 발주처가 즉시 확인할 수 있도록 클라이언트 측 즉시 렌더링을 우선하고, 후속 OCR·번역 단계로 결과를 전달하는 통합 API를 백엔드에서 제공하는 구조.',
+      en: 'Client-side Canvas API for slicing, Spring Boot + JPA for the backend. Prioritise client-side rendering so the operator can inspect slice results instantly, and expose a clean backend API that forwards the result into the downstream OCR / translation stages.',
+      ja: 'クライアントはCanvas API、バックエンドはSpring Boot + JPA。座標ベース分割結果を発注元が即座に確認できるようクライアント側の即時レンダリングを優先し、後続のOCR・翻訳段階へ結果を渡す統合APIをバックエンド側で提供する構造。',
     },
     execution: {
-      ko: '시간이 꽤 지난 프로젝트라 세부 구현(좌표 경계의 픽셀 처리, 발주처 좌표계가 우리 화면과 어긋나지 않게 맞추는 작업 등)을 자세히 회고하기는 어렵습니다. 다만 GPT 같은 보조 도구가 없던 시기에 Canvas API의 픽셀 단위 처리와 발주처에 결과를 보내고 다시 검수받는 작업 흐름을 체득한 것이 이후 모든 프로젝트의 기반이 됐다고 생각합니다.',
-      en: 'Enough time has passed that I can’t honestly recall the fine-grained details — pixel edge handling at coordinate boundaries, coordinate-system alignment with the client, that level. What I can say is that working in that pre-LLM environment forced me to learn Canvas pixel-level work and to run a tight inspection round-trip with the client, and that has carried forward into every project since. This is a slot I keep short on purpose.',
-      ja: '時間がかなり経過したプロジェクトなので、細かい実装事項（座標境界のピクセル処理・発注元との座標系整合性など）を詳細に振り返るのは難しいです。ただGPT・LLMのような補助ツールがない環境でCanvas APIのピクセル単位処理・発注元仕様とのround-trip検収ワークフローを直接体得した経験は、以降のすべてのプロジェクトの基盤になったと考えます。正直に短めに扱うスロットです。',
+      ko: '시간이 꽤 지난 프로젝트라 세부 구현(좌표 경계 픽셀 처리, 발주처 좌표계와 화면 좌표 정합 등)을 자세히 회고하기는 어려움. 다만 LLM이 없던 시기에 Canvas API의 픽셀 단위 처리와 발주처 결과 round-trip 검수 워크플로우를 직접 체득한 것이 이후 모든 프로젝트의 기반이 됐다고 생각합니다.',
+      en: 'Enough time has passed that I can’t honestly recall the fine-grained details (pixel edge handling at coordinate boundaries, coordinate-system alignment with the client). What I can say is that the pre-LLM environment forced me to learn Canvas pixel-level work and to run a tight inspection round-trip with the client, and that carried forward into every project since.',
+      ja: '時間がかなり経過したプロジェクトのため、細かい実装事項（座標境界のピクセル処理・発注元との座標系整合性など）を詳細に振り返るのは難しい。ただLLMが無かった時代にCanvas APIのピクセル単位処理・発注元結果のround-trip検収ワークフローを直接体得したことは、以降の全プロジェクトの基盤になったと考える。',
     },
     result: {
-      ko: '정부 R&D 과제 산출물 납품을 완료했습니다. 후속 OCR·번역 단계와의 통합도 의도대로 연결되어 한자 고문헌 디지털화 자동화 파이프라인의 일부가 됐습니다. 같은 과제를 지금 다시 한다면 SAM·YOLO·LLM 기반 OCR 같은 도구로 좌표 추출과 이미지 분할이 상당 부분 자동화 가능한 환경이라, 다음에는 발주처 좌표에 의존하지 않고 자체 분할 모델을 함께 두는 방향이 자연스럽습니다. 당시 환경에서 직접 익힌 Canvas API 픽셀 단위 처리와 발주처와 결과를 주고받으며 검수하는 작업 흐름은, 이후 모든 프로젝트에서 외부 사양을 시스템으로 통합하는 책임의 기반이 됐습니다.',
+      ko: '정부 R&D 과제 산출물 납품을 완료했습니다. 후속 OCR·번역 단계와의 통합이 의도대로 연결되어 한자 고문헌 디지털화 자동화 파이프라인의 일부가 됐습니다.',
       en: 'The deliverable was accepted as a national R&D output. The slicing system fed into the downstream OCR / translation stages as intended, becoming part of the automated Hanja-manuscript digitisation pipeline.',
-      ja: '政府R&D課題の成果物納品を完了しました。後続のOCR・翻訳段階との統合も意図通り接続され、漢字古文献デジタル化自動化パイプラインの一部となりました。',
+      ja: '政府R&D課題の成果物納品を完了しました。後続のOCR・翻訳段階との統合が意図通り接続され、漢字古文献デジタル化自動化パイプラインの一部となりました。',
+    },
+    improvements: {
+      ko: '같은 과제를 지금 다시 한다면 SAM, YOLO, LLM 기반 OCR로 좌표 추출과 이미지 분할이 상당 부분 자동화 가능합니다. 발주처가 제공하는 좌표에만 의존하지 않고 자체 분할 모델을 함께 두는 방향이 자연스럽고, 발주처 좌표는 검증·보정 신호로 활용해 양쪽 결과가 어긋날 때만 사람이 개입하는 파이프라인이 다음 단계입니다.',
+      en: 'If I picked this up today, SAM, YOLO, or LLM-backed OCR would automate much of the coordinate extraction and slicing. The natural next step would be to add a self-contained segmentation model alongside the client-supplied coordinates, using the client coordinates as a verification / correction signal — humans only step in when the two pipelines disagree.',
+      ja: '同じ課題を今やり直すならSAM・YOLO・LLMベースOCRで座標抽出と画像分割が相当部分自動化可能です。発注元が提供する座標だけに依存せず自前のセグメンテーションモデルを併設し、発注元座標は検証・補正シグナルとして活用、両者の結果が食い違ったときだけ人が介入するパイプラインが次のステップです。',
     },
     reflection: {
       ko: '지금 시점에서 같은 과제를 다시 한다면 SAM·YOLO·LLM 기반 OCR 같은 도구로 좌표 추출·이미지 분할이 상당 부분 자동화 가능합니다. 다만 그 시기에 LLM·AI 보조 도구가 없는 환경에서 Canvas API의 픽셀 단위 처리·좌표 시스템 정합성·발주처 사양과의 round-trip 검수 워크플로우를 체득한 것이, 이후 모든 프로젝트에서 "외부 사양을 시스템으로 통합하는 책임"의 기반이 됐습니다.',

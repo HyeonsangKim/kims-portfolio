@@ -86,6 +86,19 @@ function MediaEmbed({ project }: { project: Project }) {
         </div>
       )
 
+    case 'image':
+      return (
+        <div className="rounded-xl overflow-hidden border border-white/10 bg-black/40 aspect-video flex items-center justify-center">
+          <img
+            src={m.src}
+            alt={m.alt}
+            className="w-full h-full object-contain p-3 md:p-5"
+            loading="lazy"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )
+
     default:
       return null
   }

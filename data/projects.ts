@@ -43,6 +43,7 @@ export interface Project {
   media:
     | { type: 'youtube'; videoId: string }
     | { type: 'video'; src: string }
+    | { type: 'image'; src: string; alt: string }
     | { type: 'none' }
   /**
    * Architecture diagrams, screenshots, and result charts shown only inside
@@ -68,6 +69,13 @@ export const projects: Project[] = [
     links: [{ label: 'GitHub', url: 'https://github.com/wigtn/wigtn-plugins-with-claude-code', icon: 'github' }],
     gradient: 'from-rose-500 to-pink-500',
     media: { type: 'none' },
+    gallery: [
+      {
+        src: '/images/projects/wigtncoding.svg',
+        alt: 'WigPlugin — Claude Code plugin collection overview',
+        caption: 'WigPlugin — 12 specialized agents orchestrated by 3 top-level commands.',
+      },
+    ],
   },
   {
     id: 'wigent',
@@ -91,6 +99,11 @@ export const projects: Project[] = [
     gradient: 'from-fuchsia-500 to-purple-600',
     media: { type: 'none' },
     gallery: [
+      {
+        src: '/images/projects/wigent.svg',
+        alt: 'WIGENT — multi-agent AI debate architecture',
+        caption: 'WIGENT — PM agent dynamically spawns / retires domain experts, one orchestrator streams the full debate.',
+      },
       {
         src: '/images/projects/trae_hackthon_seoul.png',
         alt: 'WIGENT — Build with TRAE Seoul Grand Prize',
@@ -119,6 +132,13 @@ export const projects: Project[] = [
     ],
     gradient: 'from-sky-500 to-blue-600',
     media: { type: 'youtube', videoId: '1YzSp3SdzTk' },
+    gallery: [
+      {
+        src: '/images/projects/wigtnflake.png',
+        alt: 'WIGTN FLAKE — purpose-driven neighborhood intelligence',
+        caption: 'WIGTN FLAKE — GPT-4o orchestrator + 5 Cortex expert personas + 4 datasets. Debate triggers ML, not the other way around.',
+      },
+    ],
   },
   {
     id: 'wigvo',
@@ -164,48 +184,51 @@ export const projects: Project[] = [
       },
     ],
   },
-  {
-    id: 'timelens',
-    num: '05',
-    title: 'TimeLens',
-    tagline: 'AI Cultural Heritage Guide',
-    description: {
-      ko: 'TimeLens는 AI 기반 문화유산 가이드 앱입니다. 카메라로 문화재를 비추면 실시간으로 AI 큐레이터가 역사적 맥락을 설명하고, AR 복원 시각화를 제공합니다. 기획 및 프론트엔드 리드를 담당했습니다.',
-      en: 'AI-powered cultural heritage companion. Point your camera at artifacts for real-time AI curator explanations with historical context and AR restoration visualizations. Led product planning and frontend.',
-      ja: 'AI文化遺産ガイドアプリ。カメラで文化財を映すとAIキュレーターがリアルタイムで歴史的背景を解説し、AR復元を可視化。企画及びフロントエンドリードを担当。',
-    },
-    badges: [
-      { label: 'Live', variant: 'live' },
-    ],
-    tech: ['Next.js', 'React', 'TypeScript', 'YOLOv8', 'FastAPI', 'Google Cloud Run'],
-    links: [
-      { label: 'Live', url: 'https://timelens-852253134165.asia-northeast3.run.app/', icon: 'external' },
-      { label: 'GitHub', url: 'https://github.com/wigtn/wigtn-timelens', icon: 'github' },
-    ],
-    gradient: 'from-amber-500 to-orange-500',
-    media: { type: 'youtube', videoId: 'ITaMtVO5jFg' },
-    gallery: [
-      {
-        src: '/images/projects/timelens_logo.png',
-        alt: 'TimeLens — AI cultural heritage guide',
-        caption: 'AI museum curator — point your camera at an artifact and get real-time historical context with AR restoration.',
-      },
-    ],
-  },
-  {
-    id: 'wigex',
-    num: '06',
-    title: 'WIGEX',
-    tagline: 'Travel Expense Tracker + OCR',
-    description: {
-      ko: 'WIGEX는 여행 경비 관리 앱입니다. OCR로 영수증을 자동 인식하고, 환율 변환과 경비 분류를 자동으로 처리합니다.',
-      en: 'Travel expense tracker with receipt OCR, automatic currency conversion, and expense categorization.',
-      ja: '旅行経費管理アプリ。OCRでレシートを自動認識し、為替変換と経費分類を自動処理。',
-    },
-    badges: [{ label: 'Preparing', variant: 'preparing' }],
-    tech: ['React Native', 'OCR', 'FastAPI', 'Supabase'],
-    links: [{ label: 'GitHub', url: 'https://github.com/wigtn', icon: 'github' }],
-    gradient: 'from-sky-500 to-cyan-500',
-    media: { type: 'video', src: '/videos/wigex_video.mp4' },
-  },
+  /* Temporarily hidden per feedback (2026-05-24) — kept here so they can be
+     restored quickly. Reason: portfolio reads cleaner with 4 hero projects;
+     these two add noise for the recruiter scan. */
+  // {
+  //   id: 'timelens',
+  //   num: '05',
+  //   title: 'TimeLens',
+  //   tagline: 'AI Cultural Heritage Guide',
+  //   description: {
+  //     ko: 'TimeLens는 AI 기반 문화유산 가이드 앱입니다. 카메라로 문화재를 비추면 실시간으로 AI 큐레이터가 역사적 맥락을 설명하고, AR 복원 시각화를 제공합니다. 기획 및 프론트엔드 리드를 담당했습니다.',
+  //     en: 'AI-powered cultural heritage companion. Point your camera at artifacts for real-time AI curator explanations with historical context and AR restoration visualizations. Led product planning and frontend.',
+  //     ja: 'AI文化遺産ガイドアプリ。カメラで文化財を映すとAIキュレーターがリアルタイムで歴史的背景を解説し、AR復元を可視化。企画及びフロントエンドリードを担当。',
+  //   },
+  //   badges: [
+  //     { label: 'Live', variant: 'live' },
+  //   ],
+  //   tech: ['Next.js', 'React', 'TypeScript', 'YOLOv8', 'FastAPI', 'Google Cloud Run'],
+  //   links: [
+  //     { label: 'Live', url: 'https://timelens-852253134165.asia-northeast3.run.app/', icon: 'external' },
+  //     { label: 'GitHub', url: 'https://github.com/wigtn/wigtn-timelens', icon: 'github' },
+  //   ],
+  //   gradient: 'from-amber-500 to-orange-500',
+  //   media: { type: 'youtube', videoId: 'ITaMtVO5jFg' },
+  //   gallery: [
+  //     {
+  //       src: '/images/projects/timelens_logo.png',
+  //       alt: 'TimeLens — AI cultural heritage guide',
+  //       caption: 'AI museum curator — point your camera at an artifact and get real-time historical context with AR restoration.',
+  //     },
+  //   ],
+  // },
+  // {
+  //   id: 'wigex',
+  //   num: '06',
+  //   title: 'WIGEX',
+  //   tagline: 'Travel Expense Tracker + OCR',
+  //   description: {
+  //     ko: 'WIGEX는 여행 경비 관리 앱입니다. OCR로 영수증을 자동 인식하고, 환율 변환과 경비 분류를 자동으로 처리합니다.',
+  //     en: 'Travel expense tracker with receipt OCR, automatic currency conversion, and expense categorization.',
+  //     ja: '旅行経費管理アプリ。OCRでレシートを自動認識し、為替変換と経費分類を自動処理。',
+  //   },
+  //   badges: [{ label: 'Preparing', variant: 'preparing' }],
+  //   tech: ['React Native', 'OCR', 'FastAPI', 'Supabase'],
+  //   links: [{ label: 'GitHub', url: 'https://github.com/wigtn', icon: 'github' }],
+  //   gradient: 'from-sky-500 to-cyan-500',
+  //   media: { type: 'video', src: '/videos/wigex_video.mp4' },
+  // },
 ]

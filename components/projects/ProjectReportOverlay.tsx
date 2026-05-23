@@ -373,6 +373,21 @@ export default function ProjectReportOverlay({
                           {pickL(block.title, locale)}
                         </h4>
                       </div>
+                      {block.image && (
+                        <figure className="ml-7 mb-3 rounded-lg overflow-hidden border border-white/10 bg-black/40">
+                          <img
+                            src={block.image.src}
+                            alt={block.image.alt}
+                            loading="lazy"
+                            className="w-full h-auto object-contain p-2 sm:p-4"
+                          />
+                          {block.image.caption && (
+                            <figcaption className="px-3 py-2 text-[11px] text-gray-500 border-t border-white/5">
+                              {pickL(block.image.caption, locale)}
+                            </figcaption>
+                          )}
+                        </figure>
+                      )}
                       <p className="text-sm text-gray-400 leading-relaxed pl-7">
                         {pickL(block.body, locale)}
                       </p>

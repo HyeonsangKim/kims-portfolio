@@ -33,6 +33,12 @@ export interface ReportTechGroup {
 export interface ReportSection {
   title: L<string>
   body: L<string>
+  /**
+   * Optional figure shown above the body in `ProjectReportOverlay`.
+   * Used for inline architecture diagrams or hero shots so the section reads
+   * as "image first, prose second" — recruiters scan the picture before text.
+   */
+  image?: { src: string; alt: string; caption?: L<string> }
 }
 
 export interface ReportTimelineItem {

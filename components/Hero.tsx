@@ -1,6 +1,6 @@
 'use client'
-import { useRef, useEffect, useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useRef, useEffect } from 'react'
+import { motion } from 'framer-motion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -9,26 +9,12 @@ gsap.registerPlugin(ScrollTrigger)
 export default function Hero() {
   const containerRef = useRef<HTMLElement>(null)
   const nameRef = useRef<HTMLHeadingElement>(null)
-  
-  const [titleIndex, setTitleIndex] = useState(0)
-  const titles = [
-    { text: "AI Product Engineer", gradient: "from-purple-400 via-pink-500 to-rose-500" },
-    { text: "Frontend Developer", gradient: "from-cyan-400 via-blue-500 to-indigo-600" },
-    { text: "App Developer", gradient: "from-emerald-400 via-teal-500 to-cyan-600" }
-  ]
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTitleIndex((prev) => (prev + 1) % titles.length)
-    }, 3000)
-    return () => clearInterval(interval)
-  }, [])
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       const chars = nameRef.current?.querySelectorAll('.char')
       if (chars) {
-        gsap.fromTo(chars, 
+        gsap.fromTo(chars,
           { opacity: 0, y: 100, rotateX: -90 },
           { opacity: 1, y: 0, rotateX: 0, duration: 0.8, stagger: 0.05, ease: "back.out(1.7)" }
         )
@@ -56,49 +42,33 @@ export default function Hero() {
         <h1 ref={nameRef} className="text-4xl sm:text-7xl font-bold perspective-text text-center pb-4 sm:pb-6 leading-tight">
           {name.split('').map((char, i) => (
             <span key={i} className="char inline-block bg-gradient-to-r from-white via-purple-100 to-gray-400 bg-clip-text text-transparent">
-              {char === ' ' ? '\u00A0' : char}
+              {char === ' ' ? ' ' : char}
             </span>
           ))}
         </h1>
       </div>
 
       <div className="w-full flex items-center justify-center relative min-h-[40px] sm:min-h-[60px] overflow-visible">
-        <AnimatePresence mode="wait">
-          <motion.p
-            key={titleIndex}
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -20, opacity: 0 }}
-            transition={{ duration: 0.5, ease: "circOut" }}
-            // ✅ 여기도 pb-2 추가하여 텍스트 잘림 방지
-            className={`text-xl sm:text-4xl font-light tracking-wide bg-gradient-to-r ${titles[titleIndex].gradient} bg-clip-text text-transparent text-center px-4 pb-2`}
-          >
-            {titles[titleIndex].text}
-          </motion.p>
-        </AnimatePresence>
+        <motion.p
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5, ease: "circOut", delay: 0.6 }}
+          className="text-xl sm:text-4xl font-light tracking-wide bg-gradient-to-r from-purple-400 via-pink-500 to-rose-500 bg-clip-text text-transparent text-center px-4 pb-2"
+        >
+          AI Product Engineer
+        </motion.p>
       </div>
 
-      {/* Credential strip — 0-second visibility for external validation signals */}
-      <motion.button
-        type="button"
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.4, duration: 0.8 }}
-        onClick={() => {
-          const el = document.getElementById('awards')
-          if (el) el.scrollIntoView({ behavior: 'smooth' })
-        }}
-        className="mt-6 sm:mt-8 group flex flex-wrap items-center justify-center gap-2 sm:gap-3 px-4 py-2 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md hover:bg-white/[0.08] hover:border-white/20 transition-all"
-        aria-label="Jump to Awards section"
+      <motion.p
+        initial={{ y: 10, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, ease: 'circOut', delay: 1.1 }}
+        className="mt-3 sm:mt-4 text-[11px] sm:text-sm tracking-[0.18em] sm:tracking-[0.22em] uppercase text-gray-400 text-center px-4"
       >
-        <span className="text-[10px] sm:text-xs font-bold tracking-widest text-amber-300/90">
-          TRAE GRAND PRIZE
-        </span>
-        <span className="w-px h-3 bg-white/10 hidden sm:block" />
-        <span className="text-[10px] sm:text-xs font-bold tracking-widest text-sky-300/90 hidden sm:inline">
-          SNOWFLAKE TOP 3
-        </span>
-      </motion.button>
+        <span className="text-white/85">Soundmind</span>
+        <span className="mx-2 text-white/25">/</span>
+        <span className="text-white/55">WIGTN Crew</span>
+      </motion.p>
 
       <motion.div
         initial={{ opacity: 0 }}
