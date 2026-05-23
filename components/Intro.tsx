@@ -7,7 +7,7 @@ import { useI18n } from '@/lib/i18n'
 gsap.registerPlugin(ScrollTrigger)
 
 export default function Intro() {
-  const { t, locale } = useI18n()
+  const { t } = useI18n()
   const containerRef = useRef<HTMLElement>(null)
   const textRef = useRef<HTMLDivElement>(null)
   const lineRef = useRef<HTMLDivElement>(null)
@@ -71,15 +71,11 @@ export default function Intro() {
           <span className="text-gray-600">{t('intro.heading2') as string}</span>
         </h3>
 
-        <p className="text-lg md:text-2xl text-gray-400 max-w-3xl mx-auto leading-relaxed font-light">
-          {locale === 'en' ? (
-            <>{t('intro.desc1') as string}<br /><strong className="text-white font-medium">{t('intro.stack') as string}</strong></>
-          ) : (
-            <><strong className="text-white font-medium">{t('intro.stack') as string}</strong>{t('intro.desc1') as string}</>
-          )}
-          <br />
-          {t('intro.desc3') as string}
-        </p>
+        <div className="space-y-5 max-w-3xl mx-auto text-left text-base md:text-lg text-gray-300 leading-relaxed font-light">
+          <p>{t('intro.paragraph1') as string}</p>
+          <p>{t('intro.paragraph2') as string}</p>
+          <p>{t('intro.paragraph3') as string}</p>
+        </div>
       </div>
     </section>
   )

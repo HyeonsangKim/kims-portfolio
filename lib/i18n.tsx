@@ -23,20 +23,20 @@ const translations = {
       en: 'Based in Seoul.',
       ja: 'Based in Seoul.',
     },
-    stack: {
-      ko: 'React Native · Next.js · Spring Boot',
-      en: 'React Native · Next.js · Spring Boot',
-      ja: 'React Native · Next.js · Spring Boot',
+    paragraph1: {
+      ko: '현재 사운드마인드 MX팀 리드로 모바일 앱, 인증 서버, 웹 플랫폼 개발을 총괄하고 있습니다. React Native, Next.js, Spring Boot 기반으로 특화폰 서비스를 설계·운영하며, 장애 대응·아키텍처 개선·인증 및 보안 설계까지 end-to-end로 경험해왔습니다.',
+      en: 'Currently leading the MX team at Soundmind, owning the mobile app, auth server, and web platform end-to-end. I design and operate specialized-device services on React Native, Next.js, and Spring Boot, covering incident response, architecture evolution, and authentication and security design.',
+      ja: '現在、サウンドマインドのMXチームリードとして、モバイルアプリ・認証サーバー・Webプラットフォームの開発を統括しています。React Native、Next.js、Spring Bootをベースに特化スマホサービスを設計・運用し、障害対応・アーキテクチャ改善・認証およびセキュリティ設計までend-to-endで経験してきました。',
     },
-    desc1: {
-      ko: '로 3년간 프로덕션 웹·모바일 제품을 설계하고 출시해왔습니다.',
-      en: '3+ years shipping production web & mobile products with',
-      ja: 'で3年間プロダクションWeb・モバイル製品を設計・リリースしてきました。',
+    paragraph2: {
+      ko: '또한 5인 개발 크루 WIGTN에서 AI-native 개발 워크플로우를 연구하고 있습니다. Claude Code 기반 Harness Engineering 워크플로우를 설계하고 오픈소스로 공유했으며, 이를 기반으로 실시간 AI 음성 번역 시스템(WIGVO), 멀티에이전트 토론 플랫폼 등 다양한 프로젝트를 개발했습니다.',
+      en: 'I also research AI-native development workflows with WIGTN, a 5-engineer crew. We designed and open-sourced a Claude Code based Harness Engineering workflow, and on top of it shipped projects including a real-time AI voice translation system (WIGVO) and a multi-agent debate platform.',
+      ja: 'また、5人の開発クルーWIGTNでAIネイティブな開発ワークフローを研究しています。Claude CodeベースのHarness Engineeringワークフローを設計してオープンソースで公開し、それを基盤にリアルタイムAI音声翻訳システム（WIGVO）、マルチエージェント討論プラットフォームなど多様なプロジェクトを開発してきました。',
     },
-    desc3: {
-      ko: 'AI 네이티브 개발 도구와 워크플로우 자동화에 강한 관심을 갖고 있습니다.',
-      en: 'Passionate about AI-native developer tooling and workflow automation.',
-      ja: 'AIネイティブ開発ツールとワークフロー自動化に強い関心があります。',
+    paragraph3: {
+      ko: '이 과정에서 ByteDance, Build with TRAE 2026 해커톤 우승, Snowflake AI & Data Hackathon Korea 준우승 등의 성과를 경험했으며, AI를 단순 생산성 도구가 아니라 개발 프로세스 자체를 재구성하는 방향으로 활용하는 엔지니어가 되고자 합니다.',
+      en: 'Along the way, our work won the ByteDance Build with TRAE 2026 hackathon and took second place at the Snowflake AI & Data Hackathon Korea. My goal is to be an engineer who uses AI not as a productivity add-on but as a way to redesign the development process itself.',
+      ja: 'この過程でByteDance Build with TRAE 2026ハッカソン優勝、Snowflake AI & Data Hackathon Korea準優勝などの成果を経験し、AIを単なる生産性ツールではなく、開発プロセス自体を再構成する方向で活用するエンジニアになりたいと考えています。',
     },
   },
 

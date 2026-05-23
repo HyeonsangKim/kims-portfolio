@@ -229,36 +229,56 @@ function StoryBlockBody({
   }, [])
 
   // Track which section is currently in view to highlight the matching chip.
+  //
+  // We deliberately do not pick "the section with the largest intersectionRatio"
+  // — that strategy flips active state as adjacent sections trade visibility
+  // near the boundary, which read as a flickering / jumping chip on screen.
+  // Instead: IntersectionObserver acts purely as a wake-up trigger, and we
+  // pick "the last section whose top has crossed a trigger line just below the
+  // sticky chip strip." That guarantees exactly one active slot per scroll
+  // position and updates monotonically as the user scrolls down.
   useEffect(() => {
     const root = scrollContainerRef.current
-    // With `root: null` the observer falls back to the viewport, which (because
-    // the modal is fixed inset-0) reports every section as intersecting at all
-    // times — that was the source of the chip flicker.
     if (!root) return
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (jumpLockRef.current) return
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)
-        const top = visible[0]
-        if (!top) return
-        const id = (top.target as HTMLElement).dataset.slot as CareerStoryBlockSlot | undefined
-        if (id) setActiveSlot(id)
-      },
-      {
-        root,
-        // Activate a chip when its section enters the upper third of the modal
-        // viewport; the wide gap keeps two adjacent slots from flipping the
-        // active state back and forth as the user scrolls past the boundary.
-        rootMargin: '-30% 0px -55% 0px',
-        threshold: [0, 0.5, 1],
-      },
-    )
+
+    const pickActive = () => {
+      if (jumpLockRef.current) return
+      const containerTop = root.getBoundingClientRect().top
+      // Trigger line sits just below the sticky chip strip (~56px) with a
+      // bit of breathing room so the active state flips when a section's
+      // heading visually reaches the chip strip.
+      const triggerLine = containerTop + 100
+
+      let candidate: CareerStoryBlockSlot | null = null
+      let smallestDistance = Infinity
+      for (const slot of slots) {
+        const el = sectionRefs.current[slot]
+        if (!el) continue
+        const top = el.getBoundingClientRect().top
+        if (top <= triggerLine) {
+          const distance = triggerLine - top
+          if (distance < smallestDistance) {
+            smallestDistance = distance
+            candidate = slot
+          }
+        }
+      }
+      // Before any section has crossed the trigger line, keep the first chip
+      // active so the modal never opens with an empty selection.
+      const next = candidate ?? slots[0]
+      setActiveSlot((prev) => (prev === next ? prev : next))
+    }
+
+    const observer = new IntersectionObserver(pickActive, {
+      root,
+      rootMargin: '0px',
+      threshold: [0, 0.25, 0.5, 0.75, 1],
+    })
     slots.forEach((slot) => {
       const el = sectionRefs.current[slot]
       if (el) observer.observe(el)
     })
+    pickActive()
     return () => observer.disconnect()
   }, [slots])
 
@@ -268,11 +288,20 @@ function StoryBlockBody({
   // also adjust ancestor scroll containers — which would jolt the modal
   // vertically every time the active slot changed (the exact "막 튐" feeling
   // reported during scrolling).
+  //
+  // Only auto-scroll the strip when the active chip is actually clipped — on
+  // desktop the strip fits all chips, so this becomes a no-op and the chips
+  // stop sliding back and forth as the active state updates during scroll.
   const chipStripRef = useRef<HTMLDivElement>(null)
   useLayoutEffect(() => {
     const chip = chipRefs.current[activeSlot]
     const strip = chipStripRef.current
     if (!chip || !strip) return
+    const stripRect = strip.getBoundingClientRect()
+    const chipRect = chip.getBoundingClientRect()
+    const fullyVisible =
+      chipRect.left >= stripRect.left && chipRect.right <= stripRect.right
+    if (fullyVisible) return
     const target = chip.offsetLeft - strip.clientWidth / 2 + chip.offsetWidth / 2
     strip.scrollTo({ left: target, behavior: 'smooth' })
   }, [activeSlot])
