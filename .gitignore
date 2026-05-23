@@ -39,3 +39,13 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# claude code workspace
+.claude/
+
+# private working notes (이력서·경력기술서·코드 검증 자료, 포트폴리오 재설계 작업 노트)
+01_참고.md
+02_참고.md
+03_참고.md
+CAREER_INTERVIEWS.md
+PLAN_career_redesign.md

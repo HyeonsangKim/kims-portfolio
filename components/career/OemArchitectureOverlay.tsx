@@ -173,14 +173,12 @@ function OemArchitectureDiagram() {
       <TierLabel y={730} text="DATA" />
 
       {/* ───── CLIENT TIER ───── */}
-      {/* Mohani group */}
-      <GroupLabel x={70} y={42} w={420} title="MOHANI" />
       <Node
         x={70}
         y={56}
         w={200}
         h={92}
-        title="BlockApp"
+        title="Mohani (Kids)"
         subtitle="Child · React Native"
         tag="Knox SDK · 7 NativeModules"
       />
@@ -189,19 +187,16 @@ function OemArchitectureDiagram() {
         y={56}
         w={200}
         h={92}
-        title="MohaniParent"
+        title="Mohani (Parent)"
         subtitle="Parent · React Native"
         tag="hot-updater · FCM"
       />
-
-      {/* Odiya group */}
-      <GroupLabel x={580} y={42} w={420} title="ODIYA" />
       <Node
         x={580}
         y={56}
         w={200}
         h={92}
-        title="full-kids"
+        title="Odiya (Kids)"
         subtitle="Child · React Native"
         tag="Location · FCM"
       />
@@ -210,36 +205,39 @@ function OemArchitectureDiagram() {
         y={56}
         w={200}
         h={92}
-        title="odiya-parents"
+        title="Odiya (Parent)"
         subtitle="Parent · React Native"
         tag="Naver Map"
       />
 
-      {/* Clients → Auth */}
-      <Arrow x1={170} y1={148} x2={420} y2={216} />
-      <Arrow x1={390} y1={148} x2={460} y2={216} />
-      <Arrow x1={680} y1={148} x2={620} y2={216} />
-      <Arrow x1={900} y1={148} x2={660} y2={216} />
+      {/* Clients → Auth (terminate at auth-server top edge y=196) */}
+      <Arrow x1={170} y1={148} x2={380} y2={196} />
+      <Arrow x1={390} y1={148} x2={480} y2={196} />
+      <Arrow x1={680} y1={148} x2={600} y2={196} />
+      <Arrow x1={900} y1={148} x2={700} y2={196} />
 
       {/* ───── AUTH SERVER TIER ───── */}
       <AuthServerNode />
 
-      {/* Auth → Services (left: Webhook to Mohani, right: Internal API + Webhook to Odiya) */}
-      {/* Webhook channels */}
-      <CurveArrow d="M 360 410 Q 280 450 220 510" color="#22d3ee" markerId="arrow-cyan" />
-      <text x={235} y={465} fontSize="11" fill="#7dd3fc" fontWeight="700" fontFamily="ui-monospace,monospace">Webhook</text>
-      <text x={195} y={480} fontSize="9" fill="rgba(125,211,252,0.7)" fontFamily="ui-monospace,monospace">3-retry → DLQ</text>
+      {/* Auth ↔ Services — separated lanes:
+          outer lane = Webhook (auth → service, cyan)
+          inner lane = Internal API (service → auth, white) */}
 
-      <CurveArrow d="M 720 410 Q 800 450 860 510" color="#22d3ee" markerId="arrow-cyan" />
-      <text x={798} y={465} fontSize="11" fill="#7dd3fc" fontWeight="700" fontFamily="ui-monospace,monospace">Webhook</text>
-      <text x={780} y={480} fontSize="9" fill="rgba(125,211,252,0.7)" fontFamily="ui-monospace,monospace">X-Idempotency-Key</text>
+      {/* Left lane — to Mohani */}
+      <CurveArrow d="M 340 410 Q 230 460 200 510" color="#22d3ee" markerId="arrow-cyan" />
+      <text x={150} y={448} fontSize="11" fill="#7dd3fc" fontWeight="700" fontFamily="ui-monospace,monospace">Webhook</text>
+      <text x={150} y={462} fontSize="9" fill="rgba(125,211,252,0.7)" fontFamily="ui-monospace,monospace">3-retry → DLQ</text>
 
-      {/* Internal API (mid arrows in opposite direction) */}
-      <CurveArrow d="M 260 510 Q 360 470 410 410" color="rgba(255,255,255,0.45)" markerId="arrow" reverse />
-      <text x={285} y={500} fontSize="10" fill="rgba(255,255,255,0.6)" fontFamily="ui-monospace,monospace">Internal API</text>
+      <CurveArrow d="M 290 510 Q 390 470 440 410" color="rgba(255,255,255,0.45)" markerId="arrow" reverse />
+      <text x={380} y={494} fontSize="10" fill="rgba(255,255,255,0.6)" fontFamily="ui-monospace,monospace">Internal API</text>
 
-      <CurveArrow d="M 820 510 Q 720 470 670 410" color="rgba(255,255,255,0.45)" markerId="arrow" reverse />
-      <text x={755} y={500} fontSize="10" fill="rgba(255,255,255,0.6)" fontFamily="ui-monospace,monospace">X-API-Key · IP wl</text>
+      {/* Right lane — to Odiya */}
+      <CurveArrow d="M 740 410 Q 850 460 880 510" color="#22d3ee" markerId="arrow-cyan" />
+      <text x={830} y={448} fontSize="11" fill="#7dd3fc" fontWeight="700" fontFamily="ui-monospace,monospace">Webhook</text>
+      <text x={810} y={462} fontSize="9" fill="rgba(125,211,252,0.7)" fontFamily="ui-monospace,monospace">X-Idempotency-Key</text>
+
+      <CurveArrow d="M 790 510 Q 690 470 640 410" color="rgba(255,255,255,0.45)" markerId="arrow" reverse />
+      <text x={580} y={494} fontSize="10" fill="rgba(255,255,255,0.6)" fontFamily="ui-monospace,monospace">X-API-Key · IP wl</text>
 
       {/* ───── SERVICE BACKBONE TIER ───── */}
       <Node
@@ -288,8 +286,8 @@ function OemArchitectureDiagram() {
       <DataNode x={740} y={730} w={140} title="Odiya Redis" subtitle="position buffer (24h)" />
       <DataNode x={900} y={730} w={140} title="Firebase × 3" subtitle="odiya · mohani · r2s" />
 
-      {/* Legend */}
-      <Legend x={870} y={236} />
+      {/* Legend — positioned below the AUTH SERVER tier label to avoid overlap */}
+      <Legend x={870} y={290} />
     </svg>
   )
 }
@@ -300,14 +298,6 @@ function TierLabel({ y, text }: { y: number; text: string }) {
   return (
     <text x={1050} y={y} textAnchor="end" fontSize="10" fontWeight="700" letterSpacing="0.22em" fill="rgba(255,255,255,0.4)" fontFamily="ui-monospace,monospace">
       {text}
-    </text>
-  )
-}
-
-function GroupLabel({ x, y, w, title }: { x: number; y: number; w: number; title: string }) {
-  return (
-    <text x={x + w / 2} y={y} textAnchor="middle" fontSize="9" fontWeight="700" letterSpacing="0.2em" fill="rgba(255,255,255,0.35)" fontFamily="ui-monospace,monospace">
-      {title}
     </text>
   )
 }

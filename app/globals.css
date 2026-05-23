@@ -120,3 +120,15 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  /* Hide scrollbar but keep scroll capability — used by horizontal chip strips
+     (e.g. CareerReportOverlay sticky TOC on mobile). */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}

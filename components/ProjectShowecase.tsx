@@ -450,7 +450,14 @@ export default function ProjectShowcase() {
                                   })
                                   setReportOverlay(currentProject.reportKey ?? null)
                                 }}
-                                className="group/btn inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-semibold text-slate-300 hover:text-white transition-colors px-3 py-1.5 rounded-full border border-white/10 hover:border-white/30 bg-white/[0.03] hover:bg-white/[0.06]"
+                                /* Primary CTA — gradient bg + lift on hover so it
+                                   visually pulls the reader into the detail report. */
+                                style={{
+                                  background:
+                                    companyGradientCss[exp.color] ??
+                                    companyGradientCss['from-blue-500 to-cyan-400'],
+                                }}
+                                className="group/btn relative inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-bold text-white px-3.5 py-1.5 rounded-full ring-1 ring-white/25 shadow-md shadow-black/30 hover:shadow-lg hover:shadow-black/40 hover:-translate-y-0.5 hover:ring-white/40 transition-all duration-200"
                               >
                                 <FiFileText className="w-3 h-3" />
                                 {reportButtonLabel[locale]}
