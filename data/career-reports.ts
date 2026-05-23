@@ -347,7 +347,7 @@ export const careerStoryBlocksV1: Partial<
       ja: '外注コードのDB過負荷（MySQL CPU 100%）を、Redis Listバッファ + 60秒batch + RANGEパーティション日次再構成で再設計し、DB書き込み負荷を~95%削減、インフラ増設なしで運用を安定化しました。',
     },
     context: {
-      ko: '사운드마인드 합류 후 첫 프로젝트로 Odiya를 맡았습니다. 외주사가 만든 부모-자녀 위치 공유 서비스(노란마켓·공부폰 OEM 사전탑재)를 팀장으로서 리딩하며 위치 파이프라인 전체를 다시 설계했습니다.',
+      ko: '사운드마인드 합류 후 첫 프로젝트로 오디야를 맡았습니다. 외주사가 만든 부모-자녀 위치 공유 서비스(노란마켓·공부폰 OEM 사전탑재)를 팀장으로서 리딩하며 위치 파이프라인 전체를 다시 설계했습니다.',
       en: 'First project after joining Soundmind. Took over the inherited parent-child location service (pre-installed on Yellow Market / Studyphone OEM) and re-designed the location pipeline end-to-end as team lead.',
       ja: 'サウンドマインド入社後の最初のプロジェクト。外注が作った親子位置共有サービス（イエローマーケット・公부폰OEM事前搭載）をチームリーダーとして引き継ぎ、位置パイプライン全体を設計し直した。',
     },
@@ -357,7 +357,7 @@ export const careerStoryBlocksV1: Partial<
       ja: '外注コードは子供端末の座標送出ごとにJPA save() 単件INSERTを呼び、同じフローで安全ゾーン評価SQLまで累積してMySQL CPUが100%に到達。本質的にはburst writeと「ユーザーごとの最新1点で十分なread」が同じpathで直列に動いていた構造でした。台数×送出頻度が線形に増え、インフラ増設以外の道が見えなかった時点。',
     },
     hypothesis: {
-      ko: '좌표 인입은 burst write지만 안전구역 평가는 유저별 최신 좌표 1개면 충분하다고 봤습니다. 모든 좌표를 즉시 DB에 쓸 필요가 없으니, 운영 중인 Redis를 새 자원 없이 버퍼로 재활용할 수 있다고 판단했습니다.',
+      ko: '들어오는 좌표는 짧은 시간에 몰아치는 쓰기 부하지만, 안전구역 판정은 사용자마다 가장 최근 좌표 한 건만 보면 됩니다. 들어오는 좌표를 그때그때 DB에 박을 필요가 없으니, 이미 운영 중인 Redis를 추가 자원 없이 버퍼로 재활용할 수 있다고 판단했습니다.',
       en: 'Coordinate ingestion is burst-heavy writes, but safe-zone evaluation only needs the latest coordinate per user — not every coordinate has to hit the DB. Redis was already in the stack, reusable as a buffer.',
       ja: '座標流入はburst write中心だが安全ゾーン評価はユーザーごとの最新1点で十分 — 全座標を即DBに書く必要はない。既存Redisを新規リソースなしでバッファとして再利用可能。',
     },
@@ -446,7 +446,7 @@ export const careerStoryBlocksV1: Partial<
       ja: 'サービスが追加されるたびに会員登録をやり直す構造がユーザー体験と運用負荷の双方を圧迫していたため、統合OEM認証を社内に提案して採用され、チームリーダーとしてHS256 JWT、Refresh Tokenファミリー再利用検知、Webhook DLQテーブルと運用者コンソール、3段階の休眠・退会ライフサイクルをゼロから設計・実装した。',
     },
     context: {
-      ko: 'Odiya 안정화를 마무리하면서, 신규 서비스가 계속 붙는데 매번 따로 회원가입을 받는 구조는 UX와 운영 비용 양쪽에서 부담이 누적된다는 게 명확했습니다. 통합 OEM 인증을 회사에 제안해 채택받고, 팀장으로서 리딩하며 백엔드(Spring Boot)·운영자 대시보드(Next.js)·가입·마이페이지 WebView 세 컴포넌트를 처음부터 설계·구현했습니다.',
+      ko: '오디야 안정화를 마무리하면서, 신규 서비스가 계속 붙는데 매번 따로 회원가입을 받는 구조는 UX와 운영 비용 양쪽에서 부담이 누적된다는 게 명확했습니다. 통합 OEM 인증을 회사에 제안해 채택받고, 팀장으로서 리딩하며 백엔드(Spring Boot)·운영자 대시보드(Next.js)·가입·마이페이지 WebView 세 컴포넌트를 처음부터 설계·구현했습니다.',
       en: 'After stabilising Odiya it was clear that, with new services queued, asking users to sign up separately per product was going to keep hurting UX and pile operational cost. I proposed a unified OEM auth platform, got it approved, and led the team — building three components from zero: backend (Spring Boot), operator dashboard (Next.js), and signup/mypage WebView.',
       ja: 'Odiyaの安定化を終え、新規サービスが追加されるたびにサイロ型の会員登録を求める構造はUXと運用コストの双方で負担が累積する点が明確になった。統合OEM認証を会社に提案して採用され、チームリーダーとしてバックエンド（Spring Boot）・運用ダッシュボード（Next.js）・加入・マイページWebViewの3コンポーネントをゼロから設計・実装した。',
     },
@@ -589,12 +589,6 @@ export const careerStoryBlocksV1: Partial<
           ],
         },
       },
-      result: {
-        metrics: [
-          { value: 'p95 115ms', label: { ko: '정상 로그인 응답 시간 (초당 84건 처리). 보안 기능(brute-force 차단·Refresh Token 재사용 탐지·디바이스 일괄 차단)을 모두 적용한 상태에서 측정. k6 로컬 부하 테스트 (Docker compose · 동시 사용자 20명 · 50초)', en: 'Login p95 latency 115 ms at 84 req/s — measured with brute-force rate-limit, refresh-token rotation, and bulk device revocation all active. k6 local load test (Docker compose · 20 VU · 50 s)', ja: '通常ログイン応答時間 p95 115ms（毎秒84件処理）— ブルートフォース遮断・Refresh Token再利用検知・デバイス一括遮断をすべて有効化した状態で測定。k6ローカル負荷テスト（Docker compose · 同時利用20名 · 50秒）' } },
-          { value: 'Redis 2~3% / DB 20~25%', label: { ko: '동시 사용자 20명 부하 중 컨테이너 CPU 분담 — 캐시(Redis)가 DB 부하를 실제로 흡수함을 확인 (auth-server 800~900% CPU로 풀가동, 메모리 누수 없음). k6 로컬 부하 테스트', en: 'CPU split under load (20 VU) — cache layer (Redis) absorbs DB load as designed (auth-server saturated at 800~900%, no memory leak). k6 local load test', ja: '同時20名負荷中のコンテナCPU分担 — キャッシュ（Redis）がDB負荷を実際に吸収（auth-serverは800~900%で飽和、メモリリークなし）。k6ローカル負荷テスト' } },
-        ],
-      },
     },
   },
 
@@ -605,9 +599,9 @@ export const careerStoryBlocksV1: Partial<
       ja: '子供端末制御で「ブロックが効かない」バグを追跡する中で、Knox統合タイミングに生じたCPU過負荷を発見、重いNative処理をバックグラウンドスレッドに分離してANRを解消し、Knox MDM + AccessibilityServiceの多層防御で子供端末制御を安定化させました。',
     },
     context: {
-      ko: '부모(MohaniParent)가 자녀(BlockApp) 단말의 앱 차단·시간 제한·콘텐츠 차단을 원격 제어하는 제품입니다. 사업부 요구는 들어왔지만 일반 앱 권한으로 가능한지 검증되지 않은 상태였기에, AccessibilityService와 Samsung Knox MDM으로 시스템 레벨 차단이 가능하다는 기술 검증 보고서를 직접 작성해 출시 일정 근거를 만들었습니다. 이후 팀장으로서 BlockApp(RN+Native), MohaniParent(RN), Mohani Server(Spring Boot) 세 컴포넌트를 단독 책임으로 설계·구현했습니다.',
-      en: 'A product where the parent app (MohaniParent) drives the child device (BlockApp) — app blocking, time limits, content filtering over the air. The business side asked for the feature without prior OS-level verification, so I wrote the feasibility report myself (AccessibilityService + Samsung Knox MDM = system-level blocking works) to give the team a launch-date basis, then led and owned all three components solo: BlockApp (RN + Native), MohaniParent (RN), Mohani Server (Spring Boot).',
-      ja: '親（MohaniParent）が子供（BlockApp）端末のアプリブロック・時間制限・コンテンツブロックを遠隔制御する製品。事業側の要求は先行したが一般アプリ権限で技術的に可能か未検証状態のため、AccessibilityService + Samsung Knox MDMでシステムレベル遮断が可能という技術検証レポートを自ら作成しリリース日程の根拠を作成、以降チームリーダーとしてBlockApp（RN+Native）・MohaniParent（RN）・Mohani Server（Spring Boot）3コンポーネントを単独責任で設計・実装。',
+      ko: '부모(모하니 부모앱)가 자녀(모하니 자녀앱) 단말의 앱 차단·시간 제한·콘텐츠 차단을 원격 제어하는 제품입니다. 사업부 요구는 들어왔지만 일반 앱 권한으로 가능한지 검증되지 않은 상태였기에, AccessibilityService와 Samsung Knox MDM으로 시스템 레벨 차단이 가능하다는 기술 검증 보고서를 직접 작성해 출시 일정 근거를 만들었습니다. 이후 팀장으로서 모하니 자녀앱(RN+Native), 모하니 부모앱(RN), 모하니 서버(Spring Boot) 세 컴포넌트를 단독 책임으로 설계·구현했습니다.',
+      en: 'A product where the parent app (Mohani parent app) drives the child device (Mohani child app) — app blocking, time limits, content filtering over the air. The business side asked for the feature without prior OS-level verification, so I wrote the feasibility report myself (AccessibilityService + Samsung Knox MDM = system-level blocking works) to give the team a launch-date basis, then led and owned all three components solo: Mohani child app (RN + Native), Mohani parent app (RN), Mohani Server (Spring Boot).',
+      ja: '親（Mohani親アプリ）が子供（Mohani子供アプリ）端末のアプリブロック・時間制限・コンテンツブロックを遠隔制御する製品。事業側の要求は先行したが一般アプリ権限で技術的に可能か未検証状態のため、AccessibilityService + Samsung Knox MDMでシステムレベル遮断が可能という技術検証レポートを自ら作成しリリース日程の根拠を作成、以降チームリーダーとしてMohani子供アプリ（RN+Native）・Mohani親アプリ（RN）・Mohani Server（Spring Boot）3コンポーネントを単独責任で設計・実装。',
     },
     problem: {
       ko: '문제는 두 갈래로 들어왔습니다. 첫째는 ANR이었습니다. "차단이 안 된다"는 컴플레인을 추적하다 main thread가 잡혀 차단 로직 자체가 돌지 못하고 있음을 발견했고, 결정적 단서는 시간이었습니다. 원래 없던 증상이 Knox SDK 통합 이후부터 발생했기 때문입니다. 둘째는 우회 경로였습니다. PIP·음악·녹음처럼 화면 없이 도는 백그라운드 앱은 `TYPE_WINDOW_STATE_CHANGED`가 발화하지 않아 차단 자체가 작동하지 않았습니다.',
@@ -739,14 +733,14 @@ export const careerStoryBlocksV1: Partial<
 
   kocca: {
     oneLiner: {
-      ko: '외국인 학생의 한국어 발음을 정확하게 평가하려면 STT가 받는 음성 포맷을 클라이언트에서 만들어 변환 손실을 없애야 했고, 발음과 말하기의 응시 흐름을 단계 단위로 분리해 안정적으로 운영해야 했습니다. Soundmind 시기 KOCCA 정부 R&D 과제로 진행된 K-Speaking 평가 플랫폼을 팀장으로서 리딩하며 자체 WAV 인코더부터 외부 한국형 STT 3-phase 통신, 응시 state machine, 미들웨어 RBAC, 컨테이너 보안 강화까지 풀스택으로 책임지고 산출물로 납품했습니다.',
-      en: 'During my Soundmind tenure I shipped a full-stack speaking-assessment platform for foreign Korean learners under a Korean government R&D programme — a hand-written 16 kHz / 1ch / 16-bit WAV encoder, a 3-phase integration with the Korean-tuned Selvy STT (`kocca_stt`), a 5-stage pronunciation / 7-stage speaking exam state machine, middleware RBAC, and a hardened Docker image, all delivered as a single-owner R&D deliverable.',
-      ja: 'Soundmind在籍中、外国人学習者向け韓国語発音・スピーキング評価R&Dをフルスタック単独で出荷 — 自作の16kHz/1ch/16bit WAVエンコーダ + 韓国語型STT（Selvy `kocca_stt`）3フェーズ通信 + 発音5段階・スピーキング7段階の受験state machine + ミドルウェアRBAC + Dockerコンテナのセキュリティ強化を単独責任で政府R&D成果物として納品しました。',
+      ko: '외국인 학생의 한국어 발음을 정확하게 평가하려면 STT가 받는 음성 포맷을 클라이언트에서 만들어 변환 손실을 없애야 했고, 발음과 말하기의 응시 흐름을 단계 단위로 분리해 안정적으로 운영해야 했습니다. Soundmind 시기 KOCCA 정부 R&D 과제로 진행된 외국인 학생 대상 한국어 평가 플랫폼을 팀장으로서 리딩하며 자체 WAV 인코더부터 외부 한국형 STT 3-phase 통신, 응시 state machine, 미들웨어 RBAC, 컨테이너 보안 강화까지 풀스택으로 책임지고 산출물로 납품했습니다.',
+      en: 'During my Soundmind tenure I shipped a full-stack Korean-speaking assessment platform for foreign learners under a Korean government R&D programme. A hand-written 16 kHz / 1ch / 16-bit WAV encoder, a 3-phase integration with the Korean-tuned Selvy STT (`kocca_stt`), a 5-stage pronunciation / 7-stage speaking exam state machine, middleware RBAC, and a hardened Docker image, all delivered as a single-owner R&D deliverable.',
+      ja: 'Soundmind在籍中、外国人学習者向け韓国語発音・スピーキング評価のR&Dをフルスタック単独で出荷しました。自作の16kHz/1ch/16bit WAVエンコーダ、韓国語型STT（Selvy `kocca_stt`）との3フェーズ通信、発音5段階・スピーキング7段階の受験state machine、ミドルウェアRBAC、Dockerコンテナのセキュリティ強化を単独責任で政府R&D成果物として納品しました。',
     },
     context: {
-      ko: 'KOCCA(한국콘텐츠진흥원) 정부 R&D 과제로 진행한 외국인 학생 대상 K-Speaking 평가 플랫폼입니다. 4역할(STUDENT, TEACHER MAIN, TEACHER SUB, TEACHER ADMIN), 학교별 멀티테넌트, 8단계 시험 회차 state machine 구조 안에서, 팀장으로서 App Router, Server Action, Route Handler, DB 스키마, Docker 배포까지 단독 책임으로 진행했습니다. 다만 3인 합의 채점 알고리즘과 채점자 자동 배정 race 방어는 다른 팀원 담당이라 본인 기여로 표기하지 않습니다.',
-      en: 'A KOCCA-funded K-Speaking assessment platform for foreign Korean learners — four user roles (STUDENT, TEACHER MAIN, TEACHER SUB, TEACHER ADMIN), school-level multitenancy, eight-stage exam-status state machine. As team lead I owned the full stack solo: App Router, Server Action, Route Handler, DB schema, Docker deployment. Honest scope note: the three-grader consensus scoring algorithm and the race-condition-safe grader auto-assignment were owned by another engineer, not me.',
-      ja: 'KOCCA（韓国コンテンツ振興院）政府R&D課題として進められた外国人学習者向けK-Speaking評価プラットフォーム。4ロール（STUDENT / TEACHER MAIN / TEACHER SUB / TEACHER ADMIN）・学校別マルチテナント・8段階の試験回次state machine構造の中で、チームリーダーとしてApp Router・Server Action・Route Handler・DBスキーマ・Dockerデプロイを単独責任。ただし3名合議採点アルゴリズムと採点者自動割当のrace防御は他メンバー担当のため、自分の貢献としては表記しません。',
+      ko: 'KOCCA(한국콘텐츠진흥원) 정부 R&D 과제로 진행한 외국인 학생 대상 한국어 평가 플랫폼입니다. 4역할(STUDENT, TEACHER MAIN, TEACHER SUB, TEACHER ADMIN), 학교별 멀티테넌트, 8단계 시험 회차 state machine 구조 안에서, 팀장으로서 App Router, Server Action, Route Handler, DB 스키마, Docker 배포까지 단독 책임으로 진행했습니다. 다만 3인 합의 채점 알고리즘과 채점자 자동 배정 race 방어는 다른 팀원 담당이라 본인 기여로 표기하지 않습니다.',
+      en: 'A KOCCA-funded Korean-speaking assessment platform for foreign learners with four user roles (STUDENT, TEACHER MAIN, TEACHER SUB, TEACHER ADMIN), school-level multitenancy, and an eight-stage exam-status state machine. As team lead I owned the full stack solo: App Router, Server Action, Route Handler, DB schema, Docker deployment. Honest scope note: the three-grader consensus scoring algorithm and the race-condition-safe grader auto-assignment were owned by another engineer, not me.',
+      ja: 'KOCCA（韓国コンテンツ振興院）政府R&D課題として進められた外国人学習者向け韓国語評価プラットフォーム。4ロール（STUDENT / TEACHER MAIN / TEACHER SUB / TEACHER ADMIN）・学校別マルチテナント・8段階の試験回次state machine構造の中で、チームリーダーとしてApp Router・Server Action・Route Handler・DBスキーマ・Dockerデプロイを単独責任。ただし3名合議採点アルゴリズムと採点者自動割当のrace防御は他メンバー担当のため、自分の貢献としては表記しません。',
     },
     problem: {
       ko: '핵심은 STT 포맷 제약이었습니다. Selvy `kocca_stt`가 16kHz/1ch/16bit PCM RIFF만 받기 때문에 MediaRecorder의 webm/opus를 그대로 보내면 서버 ffmpeg 변환이 필요해 응답 지연, 트랜스코딩 손실, iOS Safari 호환성 문제가 누적됩니다. 동시에 응시 흐름(발음 5단계와 말하기 7단계)의 안정적인 운영, 4역할 RBAC, 학교별 멀티테넌트 격리까지 한 설계 안에서 잡아야 했습니다.',

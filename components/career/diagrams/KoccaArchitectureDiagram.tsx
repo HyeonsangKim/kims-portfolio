@@ -1,5 +1,5 @@
 /**
- * KOCCA K-Speaking — at-a-glance architecture for the career modal.
+ * KOCCA 한국어 평가 플랫폼 — at-a-glance architecture for the career modal.
  *
  * Two parallel reading axes:
  *   1) Auth + RBAC — middleware filters every non-API request, API routes

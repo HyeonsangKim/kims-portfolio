@@ -161,11 +161,6 @@ export default function CareerReportOverlay({
                   {projectName}
                 </h2>
 
-                {storyBlock && (
-                  <p className="mt-5 text-[14px] md:text-[15px] text-gray-200/90 leading-relaxed max-w-3xl">
-                    {storyBlock.oneLiner[locale]}
-                  </p>
-                )}
               </div>
             </header>
 

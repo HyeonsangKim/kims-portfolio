@@ -24,9 +24,9 @@ const meta: Record<ArchitectureKey, ArchitectureMeta> = {
   odiya: {
     diagram: OdiyaArchitectureDiagram,
     eyebrow: {
-      ko: 'Architecture · Odiya Location Pipeline',
+      ko: 'Architecture · 오디야 위치 파이프라인',
       en: 'Architecture · Odiya Location Pipeline',
-      ja: 'Architecture · Odiya Location Pipeline',
+      ja: 'Architecture · Odiya 位置パイプライン',
     },
     title: {
       ko: 'Redis 두 갈래 활용 + 60초 batch + 일자 파티션',
@@ -48,9 +48,9 @@ const meta: Record<ArchitectureKey, ArchitectureMeta> = {
   mohani: {
     diagram: MohaniArchitectureDiagram,
     eyebrow: {
-      ko: 'Architecture · Mohani Parental Control',
+      ko: 'Architecture · 모하니 자녀 단말 제어',
       en: 'Architecture · Mohani Parental Control',
-      ja: 'Architecture · Mohani Parental Control',
+      ja: 'Architecture · Mohani 親子端末制御',
     },
     title: {
       ko: 'Knox MDM + AccessibilityService 다층 차단 + Native PIN gateway',
@@ -58,9 +58,9 @@ const meta: Record<ArchitectureKey, ArchitectureMeta> = {
       ja: 'Knox MDM + AccessibilityService多層遮断 + Native PIN gateway',
     },
     subtitle: {
-      ko: '부모 정책을 FCM으로 자녀 단말에 전파하고, 자녀 BlockApp 안에서 5중 차단 트리거가 각자 다른 우회 경로를 막음. PIN 검증은 RN을 거치지 않고 Native에서 서버 직접 호출.',
-      en: 'Parent policy propagates to the child device over FCM. Inside BlockApp, five trigger layers each close off a different bypass path. PIN verification skips the RN bridge and calls the server natively.',
-      ja: '親の方針をFCMで子供端末に伝播し、子供BlockApp内で5層の遮断トリガがそれぞれ異なる回避経路を塞ぐ。PIN検証はRNを経由せずNativeからサーバーを直接呼び出す。',
+      ko: '부모 정책을 FCM으로 자녀 단말에 전파하고, 자녀 단말의 모하니 자녀앱 안에서 5중 차단 트리거가 각자 다른 우회 경로를 막음. PIN 검증은 RN을 거치지 않고 Native에서 서버 직접 호출.',
+      en: 'Parent policy propagates to the child device over FCM. Inside the Mohani child app, five trigger layers each close off a different bypass path. PIN verification skips the RN bridge and calls the server natively.',
+      ja: '親の方針をFCMで子供端末に伝播し、子供端末のMohani子供アプリ内で5層の遮断トリガがそれぞれ異なる回避経路を塞ぐ。PIN検証はRNを経由せずNativeからサーバーを直接呼び出す。',
     },
     caption: {
       ko: '★ 화면 없이 도는 백그라운드 앱(유튜브 PIP·음악·녹음)도 FGS 카운트 trigger로 차단. ★ Knox SDK 통합 후 발생한 ANR은 단일 스레드 executor + bounded queue로 해소 — 직렬화 + backlog 방지.',
@@ -72,9 +72,9 @@ const meta: Record<ArchitectureKey, ArchitectureMeta> = {
   kocca: {
     diagram: KoccaArchitectureDiagram,
     eyebrow: {
-      ko: 'Architecture · KOCCA K-Speaking Platform',
-      en: 'Architecture · KOCCA K-Speaking Platform',
-      ja: 'Architecture · KOCCA K-Speaking Platform',
+      ko: 'Architecture · KOCCA 한국어 평가 플랫폼',
+      en: 'Architecture · KOCCA Assessment Platform',
+      ja: 'Architecture · KOCCA 韓国語評価プラットフォーム',
     },
     title: {
       ko: '4역할 RBAC + 자체 WAV 인코더 + STT 4단계 폴링 + 학교별 멀티테넌트',

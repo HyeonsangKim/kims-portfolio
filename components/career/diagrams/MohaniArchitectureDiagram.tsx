@@ -1,19 +1,19 @@
 /**
- * Mohani parental control — at-a-glance architecture for the career modal.
+ * 모하니 자녀 단말 제어 — at-a-glance architecture for the career modal.
  *
  * Reading flow:
- *   Parent app ─ FCM ─→ Mohani Server ─ FCM ─→ Child device (BlockApp)
+ *   모하니 부모앱 ─ FCM ─→ 모하니 서버 ─ FCM ─→ 자녀 단말 (모하니 자녀앱)
  *
- *   Inside BlockApp, 5 trigger layers each close off a different bypass
- *   path (single triggers leave gaps like background music apps with no
- *   visible window). A native PIN gate calls the server directly so a
- *   downed RN JS thread can't be used to bypass the lock.
+ *   자녀앱 안에서 5중 트리거 레이어가 서로 다른 우회 경로를 각자 막는다
+ *   (단일 트리거만으로는 화면 없는 백그라운드 음악 앱 같은 사각지대가 남는다).
+ *   네이티브 PIN 게이트는 RN JS 스레드를 거치지 않고 서버를 직접 호출해
+ *   JS가 죽은 상황에서도 잠금을 우회할 수 없게 한다.
  */
 export default function MohaniArchitectureDiagram() {
   return (
     <svg
       role="img"
-      aria-label="Mohani — Knox MDM + AccessibilityService 다층 차단 + Native PIN gateway 흐름도"
+      aria-label="모하니 — Knox MDM + AccessibilityService 다층 차단 + Native PIN gateway 흐름도"
       viewBox="0 0 1080 600"
       className="w-full h-auto min-w-[640px]"
       preserveAspectRatio="xMidYMid meet"
@@ -54,7 +54,7 @@ export default function MohaniArchitectureDiagram() {
         y={80}
         w={220}
         h={96}
-        title="MohaniParent"
+        title="모하니 부모앱"
         subtitle="React Native"
         tag="정책 설정 · 자녀 상태 조회"
       />
@@ -69,7 +69,7 @@ export default function MohaniArchitectureDiagram() {
         y={80}
         w={220}
         h={96}
-        title="Mohani Server"
+        title="모하니 서버"
         subtitle="Spring Boot"
         tag="정책 저장 · 자녀 단말로 FCM"
       />
@@ -94,11 +94,11 @@ export default function MohaniArchitectureDiagram() {
         (RN JS 미경유 — 우회 차단)
       </text>
 
-      {/* ─── CHILD DEVICE: BlockApp (RN + Native) ─── */}
+      {/* ─── CHILD DEVICE: 모하니 자녀앱 (RN + Native) ─── */}
       <g>
         <rect x={760} y={80} width={300} height={420} rx={14} fill="rgba(245,158,11,0.04)" stroke="url(#mohani-accent)" strokeWidth={1.5} />
         <text x={910} y={108} textAnchor="middle" fontSize="14" fontWeight="700" fill="#fafafa" fontFamily="ui-sans-serif,system-ui">
-          BlockApp
+          모하니 자녀앱
         </text>
         <text x={910} y={126} textAnchor="middle" fontSize="10.5" fill="rgba(255,255,255,0.55)" fontFamily="ui-sans-serif,system-ui">
           RN + Native · Knox MDM 라이선스 단말
