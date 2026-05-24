@@ -451,7 +451,7 @@ export const careerStoryBlocksV1: Partial<
       ja: 'Odiyaの安定化を終え、新規サービスが追加されるたびにサイロ型の会員登録を求める構造はUXと運用コストの双方で負担が累積する点が明確になった。統合OEM認証を会社に提案して採用され、チームリーダーとしてバックエンド（Spring Boot）・運用ダッシュボード（Next.js）・加入・マイページWebViewの3コンポーネントをゼロから設計・実装した。',
     },
     problem: {
-      ko: '핵심 위험은 데이터 정합성이었습니다. 부모-자녀 관계가 서비스마다 따로 저장되면 한 곳만 어긋나도 사용자 화면에서 그대로 사고로 드러납니다. 동시에 자녀 단말은 백그라운드 위치 전송 때문에 장수명 인증이 필요한데, 짧은 토큰 회전 모델로는 안드로이드 백그라운드 강제 종료와 네트워크 끊김 사이에 위치 전송이 빠져버립니다.',
+      ko: '핵심 위험은 데이터 정합성이었습니다. 부모-자녀 관계가 서비스마다 따로 저장되면 한 곳만 어긋나도 사용자 화면에서 데이터 불일치가 노출됩니다. 동시에 자녀 단말은 백그라운드 위치 전송 때문에 장수명 인증이 필요한데, 짧은 토큰 회전 모델로는 안드로이드 백그라운드 강제 종료와 네트워크 끊김 사이에 위치 전송이 빠져버립니다.',
       en: 'The structural risk of the silo pattern was consistency — links stored per-downstream meant any drift would surface as a user-facing incident. Child devices needed long-lived auth for background location reporting; the standard short access + refresh rotation drops out between Android background-kills and network toggles.',
       ja: 'サイロ構造の核心リスクは整合性 — 親子関係を下流ごとに分散保存すれば1箇所のずれが画面上の事故になる。子供端末は背景位置送出のため長寿命認証が必要だが、標準のaccess + refresh回転ではbackground kill・通信トグルの間に位置が抜ける。',
     },
@@ -589,34 +589,6 @@ export const careerStoryBlocksV1: Partial<
           ],
         },
       },
-      result: {
-        metrics: [
-          {
-            value: '1 인증 진입점',
-            label: {
-              ko: '오디야·모하니 등 여러 화이트라벨 서비스가 한 인증 백엔드 위에서 동작. 신규 서비스도 회원 데이터 중복 없이 즉시 연동됩니다.',
-              en: 'Odiya, Mohani and other white-label services all run on a single auth backend. New services plug in without duplicating user data.',
-              ja: 'オディヤ・モハニなど複数のホワイトラベルサービスが単一の認証バックエンド上で稼働。新規サービスも会員データを重複させず即時連携できます。',
-            },
-          },
-          {
-            value: '3단계 자동 정리',
-            label: {
-              ko: '휴면 → 익명화 → 완전 삭제 3단계가 매일 12:00 자동 실행. 개인정보보호법 보존 기간을 사람 손 없이 따라갑니다.',
-              en: 'Three-stage lifecycle (dormant → anonymise → hard-delete) runs daily at 12:00, so privacy-law retention rules are followed without manual ops.',
-              ja: '休眠 → 匿名化 → 完全削除の3段階を毎日12:00に自動実行。個人情報保護法の保存期間を人手なしで追従します。',
-            },
-          },
-          {
-            value: 'family 일괄 무력화',
-            label: {
-              ko: 'Refresh 토큰 재사용이 감지되면 family_id로 묶인 N개의 토큰을 단일 query로 즉시 모두 무력화. 토큰 도난·복제 대응이 사람 개입 없이 자동으로 끝납니다.',
-              en: 'Token family revoke — when refresh-token reuse is detected, all N tokens linked by family_id are revoked in a single query, so theft and replay are handled automatically without operator intervention.',
-              ja: 'family一括無効化 — Refreshトークンの再利用が検知されたらfamily_idで紐づく全Nトークンを単一クエリで即時無効化。盗難・複製対応が運用者の介入なしで自動完結します。',
-            },
-          },
-        ],
-      },
     },
   },
 
@@ -627,12 +599,12 @@ export const careerStoryBlocksV1: Partial<
       ja: '子供端末制御で「ブロックが効かない」バグを追跡する中で、Knox統合タイミングに生じたCPU過負荷を発見、重いNative処理をバックグラウンドスレッドに分離してANRを解消し、Knox MDM + AccessibilityServiceの多層防御で子供端末制御を安定化させました。',
     },
     context: {
-      ko: '부모(모하니 부모앱)가 자녀(모하니 자녀앱) 단말의 앱 차단·시간 제한·콘텐츠 차단을 원격 제어하는 제품입니다. 사업부 요구는 들어왔지만 일반 앱 권한으로 가능한지 검증되지 않은 상태였기에, AccessibilityService와 Samsung Knox MDM으로 시스템 레벨 차단이 가능하다는 기술 검증 보고서를 직접 작성해 출시 일정 근거를 만들었습니다. 이후 팀장으로서 모하니 자녀앱(RN+Native), 모하니 부모앱(RN), 모하니 서버(Spring Boot) 세 컴포넌트를 단독 책임으로 설계·구현했습니다.',
+      ko: '부모(모하니 부모앱)가 자녀(모하니 자녀앱) 단말의 앱 차단·시간 제한·콘텐츠 차단을 원격 제어하는 제품입니다. 사업부 요구는 들어왔지만 일반 앱 권한으로 가능한지 검증되지 않은 상태였기에, AccessibilityService와 Samsung Knox MDM으로 시스템 레벨 차단이 가능하다는 기술 검증 보고서를 직접 작성해 출시 일정 근거를 만들었습니다. 이후 팀장으로서 모하니 자녀앱(RN+Native)·모하니 부모앱(RN)·모하니 서버(Spring Boot) 세 컴포넌트의 아키텍처를 주도해 설계·구현했습니다.',
       en: 'A product where the parent app (Mohani parent app) drives the child device (Mohani child app) — app blocking, time limits, content filtering over the air. The business side asked for the feature without prior OS-level verification, so I wrote the feasibility report myself (AccessibilityService + Samsung Knox MDM = system-level blocking works) to give the team a launch-date basis, then led and owned all three components solo: Mohani child app (RN + Native), Mohani parent app (RN), Mohani Server (Spring Boot).',
       ja: '親（Mohani親アプリ）が子供（Mohani子供アプリ）端末のアプリブロック・時間制限・コンテンツブロックを遠隔制御する製品。事業側の要求は先行したが一般アプリ権限で技術的に可能か未検証状態のため、AccessibilityService + Samsung Knox MDMでシステムレベル遮断が可能という技術検証レポートを自ら作成しリリース日程の根拠を作成、以降チームリーダーとしてMohani子供アプリ（RN+Native）・Mohani親アプリ（RN）・Mohani Server（Spring Boot）3コンポーネントを単独責任で設計・実装。',
     },
     problem: {
-      ko: '문제는 두 갈래로 들어왔습니다. 첫째는 ANR이었습니다. "차단이 안 된다"는 컴플레인을 추적하다 main thread가 잡혀 차단 로직 자체가 돌지 못하고 있음을 발견했고, 결정적 단서는 시간이었습니다. 원래 없던 증상이 Knox SDK 통합 이후부터 발생했기 때문입니다. 둘째는 우회 경로였습니다. PIP·음악·녹음처럼 화면 없이 도는 백그라운드 앱은 `TYPE_WINDOW_STATE_CHANGED`가 발화하지 않아 차단 자체가 작동하지 않았습니다.',
+      ko: '문제는 두 갈래로 들어왔습니다. 첫째는 ANR이었습니다. "차단이 안 된다"는 컴플레인을 추적하다 main thread가 잡혀 차단 로직 자체가 돌지 못하고 있음을 확인했고, 원인 추적 기준점은 시점 정보였습니다. 원래 없던 증상이 Knox SDK 통합 이후부터 발생했기 때문입니다. 둘째는 우회 경로였습니다. PIP·음악·녹음처럼 화면 없이 도는 백그라운드 앱은 `TYPE_WINDOW_STATE_CHANGED`가 발화하지 않아 차단 자체가 작동하지 않았습니다.',
       en: 'Two parallel problems — (1) ANR: chasing "block does not fire" complaints, I found the main thread pinned so the blocking logic itself was not running; decisive clue was timing (only appeared after the Knox SDK integration). (2) Bypass: headless apps (PIP / music / recorder) never fired `TYPE_WINDOW_STATE_CHANGED`, so the block did not run at all.',
       ja: '問題は2方向 — ① ANR：「ブロックが効かない」苦情を追うとmainスレッドが詰まり遮断ロジック自体が回っていなかった。決定的手掛かりはタイミング（Knox SDK統合後にのみ発生）。② 回避：PIP・音楽・録音のような画面のない背景アプリは`TYPE_WINDOW_STATE_CHANGED`が発火せず遮断自体が動作しない。',
     },
@@ -652,7 +624,7 @@ export const careerStoryBlocksV1: Partial<
       ja: '重いNative処理をバックグラウンドスレッドに分離 — Knox呼び出しを単一スレッドexecutor上で非同期に動かし、mainスレッドpin経路を断ち切った。遮断自体も単一トリガーでは回避される領域のため、5層多層防御に構成。',
     },
     execution: {
-      ko: '먼저 Knox 호출을 단일 스레드 실행자로 옮겨 메인 스레드를 잡고 있던 경로를 끊었고, 그 과정에서 호출이 폭주하면 큐가 무한히 쌓이는 새로운 문제가 보여 큐 길이 상한과 한도 초과 시 호출 스레드에서 직접 실행하는 방식으로 적체 자체를 막았습니다. 우회 차단은 처음에는 `TYPE_WINDOW_STATE_CHANGED` 트리거만으로 처리했지만 PIP·음악·녹음 같이 화면 없는 앱은 그 이벤트가 발화하지 않아, FGS(포그라운드 서비스) 시작·종료 카운트를 차단 판단에 더했습니다. 시간 안전망은 1분 메인 폴링과 5분 보조 폴링 이중화, 부모 정책 변경은 FCM 즉시 발사와 30분 보조 동기화로 단일 실패 지점이 없도록 묶었습니다.',
+      ko: '먼저 Knox 호출을 단일 스레드 실행자로 옮겨 메인 스레드를 잡고 있던 경로를 끊었고, 그 과정에서 호출이 폭주하면 큐가 무한히 쌓이는 후속 문제가 확인돼 큐 길이 상한과 한도 초과 시 호출 스레드에서 직접 실행하는 방식으로 적체 자체를 막았습니다. 우회 차단은 처음에는 `TYPE_WINDOW_STATE_CHANGED` 트리거만으로 처리했지만 PIP·음악·녹음 같이 화면 없는 앱은 그 이벤트가 발화하지 않아, FGS(포그라운드 서비스) 시작·종료 카운트를 차단 판단에 더했습니다. 시간 안전망은 1분 메인 폴링과 5분 보조 폴링 이중화, 부모 정책 변경은 FCM 즉시 발사와 30분 보조 동기화로 단일 실패 지점이 없도록 묶었습니다.',
       en: 'First moved Knox calls onto a single-threaded executor to sever the main-thread-pin path; that surfaced a new failure mode where bursts piled an unbounded queue, so I added a bounded queue with caller-thread execution on overflow to kill the backlog at the source. The bypass started with `TYPE_WINDOW_STATE_CHANGED` alone, but headless apps (PIP, music, recorder) never fire it, so I added FGS start/stop counts to the blocking decision. The time safety net is doubled (1-min main poll plus 5-min backup), and parent-policy propagation goes through FCM immediately with a 30-min fallback sync, leaving no single failure point.',
       ja: 'まずKnox呼び出しを単一スレッドexecutorに移してmainスレッドpin経路を断ち切り、その過程でバースト時にキューが無限に積まれる新たな問題が見えたためbounded queue + 超過時呼び出しスレッド直接実行でbacklog自体を遮断しました。回避は当初`TYPE_WINDOW_STATE_CHANGED`トリガのみで処理していましたが、PIP・音楽・録音のように画面のないアプリではこのイベントが発火せず、FGS（フォアグラウンドサービス）開始・終了カウントを遮断判定に追加しました。時間安全網は1分メインポーリング + 5分backupの2重化、親ポリシー変更はFCM即時 + 30分fallback同期で単一障害点が残らないよう束ねました。',
     },
@@ -766,7 +738,7 @@ export const careerStoryBlocksV1: Partial<
       ja: 'Soundmind在籍中、外国人学習者向け韓国語発音・スピーキング評価のR&Dをフルスタック単独で出荷しました。自作の16kHz/1ch/16bit WAVエンコーダ、韓国語型STT（Selvy `kocca_stt`）との3フェーズ通信、発音5段階・スピーキング7段階の受験state machine、ミドルウェアRBAC、Dockerコンテナのセキュリティ強化を単独責任で政府R&D成果物として納品しました。',
     },
     context: {
-      ko: 'KOCCA(한국콘텐츠진흥원) 정부 R&D 과제로 진행한 외국인 학생 대상 한국어 평가 플랫폼입니다. 4역할(STUDENT, TEACHER MAIN, TEACHER SUB, TEACHER ADMIN), 학교별 멀티테넌트, 8단계 시험 회차 state machine 구조 안에서, 팀장으로서 App Router, Server Action, Route Handler, DB 스키마, Docker 배포까지 단독 책임으로 진행했습니다. 다만 3인 합의 채점 알고리즘과 채점자 자동 배정 race 방어는 다른 팀원 담당이라 본인 기여로 표기하지 않습니다.',
+      ko: 'KOCCA(한국콘텐츠진흥원) 정부 R&D 과제로 진행한 외국인 학생 대상 한국어 평가 플랫폼입니다. 4역할(STUDENT, TEACHER MAIN, TEACHER SUB, TEACHER ADMIN), 학교별 멀티테넌트, 8단계 시험 회차 state machine 구조 안에서, 팀장으로서 App Router·Server Action·Route Handler·DB 스키마·Docker 배포까지 리딩하며 핵심 설계를 담당했습니다. 다만 3인 합의 채점 알고리즘과 채점자 자동 배정 race 방어는 다른 팀원 담당이라 본인 기여로 표기하지 않습니다.',
       en: 'A KOCCA-funded Korean-speaking assessment platform for foreign learners with four user roles (STUDENT, TEACHER MAIN, TEACHER SUB, TEACHER ADMIN), school-level multitenancy, and an eight-stage exam-status state machine. As team lead I owned the full stack solo: App Router, Server Action, Route Handler, DB schema, Docker deployment. Honest scope note: the three-grader consensus scoring algorithm and the race-condition-safe grader auto-assignment were owned by another engineer, not me.',
       ja: 'KOCCA（韓国コンテンツ振興院）政府R&D課題として進められた外国人学習者向け韓国語評価プラットフォーム。4ロール（STUDENT / TEACHER MAIN / TEACHER SUB / TEACHER ADMIN）・学校別マルチテナント・8段階の試験回次state machine構造の中で、チームリーダーとしてApp Router・Server Action・Route Handler・DBスキーマ・Dockerデプロイを単独責任。ただし3名合議採点アルゴリズムと採点者自動割当のrace防御は他メンバー担当のため、自分の貢献としては表記しません。',
     },
