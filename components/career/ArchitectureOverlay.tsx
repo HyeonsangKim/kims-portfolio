@@ -50,7 +50,7 @@ const meta: Record<ArchitectureKey, ArchitectureMeta> = {
     eyebrow: {
       ko: 'Architecture · 모하니 자녀 단말 제어',
       en: 'Architecture · Mohani Parental Control',
-      ja: 'Architecture · Mohani 親子端末制御',
+      ja: 'Architecture · Mohani 子供端末制御',
     },
     title: {
       ko: 'Knox MDM + AccessibilityService 다층 차단 + Native PIN gateway',

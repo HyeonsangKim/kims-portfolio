@@ -139,16 +139,16 @@ const experiences = [
       {
         name: { ko: 'KOCCA 한국어 평가 시스템', en: 'KOCCA Korean Assessment', ja: 'KOCCA韓国語評価システム' } as L,
         desc: {
-          ko: '정부지원사업 R&D. 외국인 학생 대상 한국어 시험 웹 플랫폼. Next.js Server Components 기반 프론트·백엔드 통합 구현.',
-          en: 'Government R&D project. Korean assessment web platform for foreign students. Integrated frontend/backend on Next.js Server Components.',
-          ja: '政府支援事業R&D。外国人学生向け韓国語試験Webプラットフォーム。Next.js Server Componentsベースでフロント・バックエンド統合実装。',
+          ko: '정부지원사업 R&D. 외국인 학생 대상 한국어 시험 웹 플랫폼. Next.js App Router 기반으로 Server Actions(인증·부수효과) + Route Handler(데이터)를 의도적으로 분리해 풀스택 구현.',
+          en: 'Government R&D project. Korean assessment web platform for foreign students. Built on Next.js App Router with an intentional split between Server Actions (auth, side-effects) and Route Handler (data).',
+          ja: '政府支援事業R&D。外国人学生向け韓国語試験Webプラットフォーム。Next.js App RouterベースでServer Actions（認証・副作用）とRoute Handler（データ）を意図的に分離してフルスタック実装。',
         } as L,
         highlights: {
           ko: ["외국인 학생 대상 한국어 시험 웹 플랫폼 프론트·백엔드 구현", "외부 STT 연동을 위한 WAV 녹음 (16kHz) + AWS S3 업로드 파이프라인 구현", "서버 Nginx 리버스 프록시 설정 및 SSL 배포 환경 세팅", "PostgreSQL 스키마 설계 + Prisma ORM 쿼리 구현"],
           en: ["Built full-stack Korean assessment platform for foreign students", "WAV recording (16kHz) + AWS S3 upload pipeline for external STT integration", "Nginx reverse proxy + SSL deployment environment setup", "PostgreSQL schema design + Prisma ORM queries"],
           ja: ["外国人学生向け韓国語試験Webプラットフォームのフロント・バックエンド実装", "外部STT連携のためのWAV録音（16kHz）+ AWS S3アップロードパイプライン実装", "サーバーNginxリバースプロキシ設定とSSL配備環境構築", "PostgreSQLスキーマ設計 + Prisma ORMクエリ実装"],
         } as LA,
-        stack: ['Next.js', 'Server Components', 'Prisma', 'PostgreSQL', 'Nginx', 'AWS S3'],
+        stack: ['Next.js', 'App Router', 'Server Actions', 'Route Handler', 'Prisma', 'PostgreSQL', 'Nginx', 'AWS S3'],
         architectureKey: 'kocca' as ArchKey,
         reportKey: 'kocca' as CareerReportKey,
       },

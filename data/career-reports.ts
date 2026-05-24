@@ -121,13 +121,13 @@ export const careerReports: Record<CareerReportKey, CareerReport> = {
       ja: 'イエローマーケットなどB2BパートナーのGalaxy Studyphoneなど子供向け特化デバイスに事前搭載される子供安心サービスの統合認証・権限インフラ。パートナー別ホワイトラベルサービスが共有する単一認証基盤上で、子供位置確認（オディヤ）と子供デバイス遠隔制御（モハニ）を同時に収容し、パートナー単位の権限分離と運用追跡性を保証する必要のある環境でした。',
     },
     role: {
-      ko: '인증 서버와 비즈니스 서버를 분리해 인증 장애가 전체 서비스로 전파되지 않는 구조를 설계했고, Token Rotation·RBAC·Audit Log를 결합한 엔터프라이즈 보안 체계를 단독으로 구축했습니다. Webhook 기반 이벤트 전파와 Retry + DLQ 구조로 서비스 간 인증 상태를 실시간 동기화하고, 메시지 유실 상황에서도 운영팀이 직접 재처리할 수 있는 도구까지 함께 제공했습니다.',
-      en: 'Separated auth and business servers so authentication outages no longer propagate to product services, and single-handedly built an enterprise security stack combining Token Rotation, RBAC, and Audit Log. Webhook event propagation plus a Retry + DLQ pipeline keep cross-service auth state in sync in real time, with an admin console that lets operators reprocess messages directly when delivery fails.',
-      ja: '認証サーバーとビジネスサーバーを分離し、認証障害が全サービスに波及しない構造を設計しました。Token Rotation・RBAC・Audit Logを組み合わせたエンタープライズセキュリティ体系を単独で構築。Webhookベースのイベント伝播とRetry + DLQ構造でサービス間認証状態をリアルタイム同期し、メッセージ消失時にも運用チームが直接再処理できるツールまで提供しました。',
+      ko: '인증 서버와 비즈니스 서버를 분리해 인증 장애가 전체 서비스로 전파되지 않는 구조를 설계했고, Token Rotation·RBAC·Audit Log를 결합한 엔터프라이즈 보안 체계를 주도해 구축했습니다. Webhook 기반 이벤트 전파와 Retry + DLQ 구조로 서비스 간 인증 상태를 실시간 동기화하고, 메시지 유실 상황에서도 운영팀이 직접 재처리할 수 있는 도구까지 함께 제공했습니다.',
+      en: 'Separated auth and business servers so authentication outages no longer propagate to product services, and led the build of an enterprise security stack combining Token Rotation, RBAC, and Audit Log. Webhook event propagation plus a Retry + DLQ pipeline keep cross-service auth state in sync in real time, with an admin console that lets operators reprocess messages directly when delivery fails.',
+      ja: '認証サーバーとビジネスサーバーを分離し、認証障害が全サービスに波及しない構造を設計しました。Token Rotation・RBAC・Audit Logを組み合わせたエンタープライズセキュリティ体系を主導して構築。Webhookベースのイベント伝播とRetry + DLQ構造でサービス間認証状態をリアルタイム同期し、メッセージ消失時にも運用チームが直接再処理できるツールまで提供しました。',
     },
     highlights: {
       ko: [
-        '여러 파트너 서비스가 공유하는 B2B 인증 인프라 단독 설계',
+        '여러 파트너 서비스가 공유하는 B2B 인증 인프라 주도 설계',
         '인증/비즈니스 서버 분리 — 인증 장애가 비즈니스 서비스로 전파되지 않는 구조 설계, 단일 인증 인프라 위에서 여러 파트너 서비스 수용',
         'Token Rotation + Token Family Tracking 기반 인증 — Refresh Token 재사용 공격 탐지 + 의심 세션 즉시 무효화',
         'Redis 기반 Rate Limiting 정책 적용 — 반복 요청·비정상 트래픽으로 인한 인증 서버 과부하 방지',
@@ -138,7 +138,7 @@ export const careerReports: Record<CareerReportKey, CareerReport> = {
         'Audit Log 기반 운영 이벤트 추적 — 장애 발생 시 원인을 사후 추적할 수 있는 기반 확보',
       ],
       en: [
-        'Sole architect of the B2B auth backbone shared by multiple partner services',
+        'Led the design of the B2B auth backbone shared by multiple partner services',
         'Separated auth and business servers — auth outages no longer propagate to product services; multiple partner services run on a single auth platform',
         'Token Rotation + Token Family Tracking — detects Refresh Token reuse and instantly invalidates the suspicious session family',
         'Redis-based rate limiting — protects the auth server from repeat requests and abnormal traffic',
@@ -149,7 +149,7 @@ export const careerReports: Record<CareerReportKey, CareerReport> = {
         'Audit-log-based operational event tracking — post-incident root cause analysis grounded in evidence',
       ],
       ja: [
-        '複数パートナーサービスが共有するB2B認証インフラを単独設計',
+        '複数パートナーサービスが共有するB2B認証インフラを主導設計',
         '認証/ビジネスサーバー分離 — 認証障害がビジネスサービスに伝播しない構造、単一認証基盤上で複数パートナーサービスを収容',
         'Token Rotation + Token Family Tracking — Refresh Token再利用攻撃を検知し疑いセッション全体を即時無効化',
         'RedisベースRate Limiting — 反復リクエスト・異常トラフィックによる認証サーバー過負荷を防止',
@@ -599,9 +599,9 @@ export const careerStoryBlocksV1: Partial<
       ja: '子供端末制御で「ブロックが効かない」バグを追跡する中で、Knox統合タイミングに生じたCPU過負荷を発見、重いNative処理をバックグラウンドスレッドに分離してANRを解消し、Knox MDM + AccessibilityServiceの多層防御で子供端末制御を安定化させました。',
     },
     context: {
-      ko: '부모(모하니 부모앱)가 자녀(모하니 자녀앱) 단말의 앱 차단·시간 제한·콘텐츠 차단을 원격 제어하는 제품입니다. 사업부 요구는 들어왔지만 일반 앱 권한으로 가능한지 검증되지 않은 상태였기에, AccessibilityService와 Samsung Knox MDM으로 시스템 레벨 차단이 가능하다는 기술 검증 보고서를 직접 작성해 출시 일정 근거를 만들었습니다. 이후 팀장으로서 모하니 자녀앱(RN+Native)·모하니 부모앱(RN)·모하니 서버(Spring Boot) 세 컴포넌트의 아키텍처를 주도해 설계·구현했습니다.',
-      en: 'A product where the parent app (Mohani parent app) drives the child device (Mohani child app) — app blocking, time limits, content filtering over the air. The business side asked for the feature without prior OS-level verification, so I wrote the feasibility report myself (AccessibilityService + Samsung Knox MDM = system-level blocking works) to give the team a launch-date basis, then led and owned all three components solo: Mohani child app (RN + Native), Mohani parent app (RN), Mohani Server (Spring Boot).',
-      ja: '親（Mohani親アプリ）が子供（Mohani子供アプリ）端末のアプリブロック・時間制限・コンテンツブロックを遠隔制御する製品。事業側の要求は先行したが一般アプリ権限で技術的に可能か未検証状態のため、AccessibilityService + Samsung Knox MDMでシステムレベル遮断が可能という技術検証レポートを自ら作成しリリース日程の根拠を作成、以降チームリーダーとしてMohani子供アプリ（RN+Native）・Mohani親アプリ（RN）・Mohani Server（Spring Boot）3コンポーネントを単独責任で設計・実装。',
+      ko: '부모(모하니 부모앱)가 자녀(모하니 자녀앱) 단말의 앱 차단·시간 제한·콘텐츠 차단을 원격 제어하는 제품입니다. 사업부 요구는 들어왔지만 일반 앱 권한으로 가능한지 검증되지 않은 상태였기에, AccessibilityService와 Samsung Knox MDM으로 시스템 레벨 차단이 가능하다는 기술 검증 보고서를 직접 작성해 출시 일정 근거를 만들었습니다. 이후 팀장으로서 모하니 자녀앱(RN+Native)·모하니 부모앱(RN)·모하니 서버(Spring Boot) 세 컴포넌트의 아키텍처를 주도해 설계·구현했습니다. 자녀 단말의 네트워크 단 도메인 차단은 Samsung Knox Firewall을 별도 레이어로 함께 적용해 앱 단위 차단(AccessibilityService)과 OS 단위 제어(Knox MDM) 위에 보조 안전망을 두었습니다.',
+      en: 'A product where the parent app (Mohani parent app) drives the child device (Mohani child app) — app blocking, time limits, content filtering over the air. The business side asked for the feature without prior OS-level verification, so I wrote the feasibility report myself (AccessibilityService + Samsung Knox MDM = system-level blocking works) to give the team a launch-date basis, then led the build of all three components: Mohani child app (RN + Native), Mohani parent app (RN), Mohani Server (Spring Boot). Network-level domain blocking on the child device was layered on top with Samsung Knox Firewall, sitting alongside app-level (AccessibilityService) and OS-level (Knox MDM) controls as an additional safety net.',
+      ja: '親（Mohani親アプリ）が子供（Mohani子供アプリ）端末のアプリブロック・時間制限・コンテンツブロックを遠隔制御する製品。事業側の要求は先行したが一般アプリ権限で技術的に可能か未検証状態のため、AccessibilityService + Samsung Knox MDMでシステムレベル遮断が可能という技術検証レポートを自ら作成しリリース日程の根拠を作成、以降チームリーダーとしてMohani子供アプリ（RN+Native）・Mohani親アプリ（RN）・Mohani Server（Spring Boot）3コンポーネントのアーキテクチャを主導して設計・実装しました。子供端末のネットワーク層ドメイン遮断はSamsung Knox Firewallを別レイヤーで併用し、アプリ単位遮断（AccessibilityService）とOS単位制御（Knox MDM）の上に補助セーフティネットを設けました。',
     },
     problem: {
       ko: '문제는 두 갈래로 들어왔습니다. 첫째는 ANR이었습니다. "차단이 안 된다"는 컴플레인을 추적하다 main thread가 잡혀 차단 로직 자체가 돌지 못하고 있음을 확인했고, 원인 추적 기준점은 시점 정보였습니다. 원래 없던 증상이 Knox SDK 통합 이후부터 발생했기 때문입니다. 둘째는 우회 경로였습니다. PIP·음악·녹음처럼 화면 없이 도는 백그라운드 앱은 `TYPE_WINDOW_STATE_CHANGED`가 발화하지 않아 차단 자체가 작동하지 않았습니다.',
@@ -735,7 +735,7 @@ export const careerStoryBlocksV1: Partial<
     oneLiner: {
       ko: '외국인 학생의 한국어 발음을 정확하게 평가하려면 STT가 받는 음성 포맷을 클라이언트에서 만들어 변환 손실을 없애야 했고, 발음과 말하기의 응시 흐름을 단계 단위로 분리해 안정적으로 운영해야 했습니다. Soundmind 시기 KOCCA 정부 R&D 과제로 진행된 외국인 학생 대상 한국어 평가 플랫폼을 팀장으로서 리딩하며 자체 WAV 인코더부터 외부 한국형 STT 3-phase 통신, 응시 state machine, 미들웨어 RBAC, 컨테이너 보안 강화까지 풀스택으로 책임지고 산출물로 납품했습니다.',
       en: 'During my Soundmind tenure I shipped a full-stack Korean-speaking assessment platform for foreign learners under a Korean government R&D programme. A hand-written 16 kHz / 1ch / 16-bit WAV encoder, a 3-phase integration with the Korean-tuned Selvy STT (`kocca_stt`), a 5-stage pronunciation / 7-stage speaking exam state machine, middleware RBAC, and a hardened Docker image, all delivered as a single-owner R&D deliverable.',
-      ja: 'Soundmind在籍中、外国人学習者向け韓国語発音・スピーキング評価のR&Dをフルスタック単独で出荷しました。自作の16kHz/1ch/16bit WAVエンコーダ、韓国語型STT（Selvy `kocca_stt`）との3フェーズ通信、発音5段階・スピーキング7段階の受験state machine、ミドルウェアRBAC、Dockerコンテナのセキュリティ強化を単独責任で政府R&D成果物として納品しました。',
+      ja: 'Soundmind在籍中、外国人学習者向け韓国語発音・スピーキング評価のR&Dをフルスタックでリーディングして出荷しました。自作の16kHz/1ch/16bit WAVエンコーダ、韓国語型STT（Selvy `kocca_stt`）との3フェーズ通信、発音5段階・スピーキング7段階の受験state machine、ミドルウェアRBAC、Dockerコンテナのセキュリティ強化を主導して政府R&D成果物として納品しました。',
     },
     context: {
       ko: 'KOCCA(한국콘텐츠진흥원) 정부 R&D 과제로 진행한 외국인 학생 대상 한국어 평가 플랫폼입니다. 4역할(STUDENT, TEACHER MAIN, TEACHER SUB, TEACHER ADMIN), 학교별 멀티테넌트, 8단계 시험 회차 state machine 구조 안에서, 팀장으로서 App Router·Server Action·Route Handler·DB 스키마·Docker 배포까지 리딩하며 핵심 설계를 담당했습니다.',
@@ -763,9 +763,9 @@ export const careerStoryBlocksV1: Partial<
       ja: '自作WAVエンコーダ（16kHzキャプチャ + ScriptProcessor + 44バイトヘッダ直接記述）+ Selvy STT 4段ポーリングでフルスタック構成。',
     },
     execution: {
-      ko: '처음에는 녹음 데이터를 `useState`로 관리했는데 단계 전환 사이에 일어나는 리렌더가 음성 일부를 날리는 케이스가 보였습니다. 원인은 React 상태 업데이트의 비동기 특성이라 `useRef`로 옮겨 음성 누적을 리렌더 사이클 밖으로 빼냈고, 동시에 발음 5단계와 말하기 7단계는 흐름이 달라 한 state machine으로 묶으면 분기 조건이 복잡해져 따로 잘랐습니다. 학교별 격리는 쿼리 한 곳만 빠뜨려도 다른 학교 데이터가 새는 위험이 있어, 모든 응시·채점 쿼리에 school_id 필터 강제 + 미들웨어가 토큰 소속 학교와 요청 경로 school_id 일치를 검증하는 이중 계층으로 묶었습니다.',
-      en: 'First pass kept recorded blobs in `useState`, but stage transitions caused re-renders that dropped chunks of audio (React state updates are async, so the latest blob array could overwrite an in-flight append). Moved the accumulator into `useRef` to pull it outside the render cycle. Pronunciation (5 stages) and speaking (7 stages) also diverged enough in flow that one combined state machine bloated the branching, so I split them. School isolation is two-layered because a single missed query filter would leak across tenants: every exam and grading query carries a school_id filter, and middleware verifies the token’s school matches the route’s school_id.',
-      ja: '最初は録音Blobを`useState`で管理しましたが、段階遷移ごとの再レンダ中に音声の一部が消えるケースが出ました（Reactの状態更新は非同期で、最新の配列が進行中のappendを上書きしてしまう）。蓄積を`useRef`に移して描画サイクルの外に出しました。発音5段階とスピーキング7段階はフローが異なり一つのstate machineにまとめると分岐が膨れるため分離。学校別隔離はクエリ1箇所のフィルタ漏れで他校データが漏れる危険があるため、全受験・採点クエリにschool_idフィルタを強制 + ミドルウェアがトークン所属校とルートのschool_id一致を検証する2層構造で固めました。',
+      ko: '처음에는 녹음 데이터를 `useState`로 관리했는데 단계 전환 사이에 일어나는 리렌더가 음성 일부를 날리는 케이스가 보였습니다. 원인은 React 상태 업데이트의 비동기 특성이라 `useRef`로 옮겨 음성 누적을 리렌더 사이클 밖으로 빼냈고, 동시에 발음 5단계와 말하기 7단계는 흐름이 달라 한 state machine으로 묶으면 분기 조건이 복잡해져 따로 잘랐습니다. 학교별 격리는 쿼리 한 곳만 빠뜨려도 다른 학교 데이터가 새는 위험이 있어, 모든 응시·채점 쿼리에 school_id 필터 강제 + 미들웨어가 토큰 소속 학교와 요청 경로 school_id 일치를 검증하는 이중 계층으로 묶었습니다. 녹음 음성은 AWS S3에 적재해 채점·재청취 경로를 유지합니다.',
+      en: 'First pass kept recorded blobs in `useState`, but stage transitions caused re-renders that dropped chunks of audio (React state updates are async, so the latest blob array could overwrite an in-flight append). Moved the accumulator into `useRef` to pull it outside the render cycle. Pronunciation (5 stages) and speaking (7 stages) also diverged enough in flow that one combined state machine bloated the branching, so I split them. School isolation is two-layered because a single missed query filter would leak across tenants: every exam and grading query carries a school_id filter, and middleware verifies the token’s school matches the route’s school_id. Recorded audio is persisted to AWS S3 to keep the grading and replay paths intact.',
+      ja: '最初は録音Blobを`useState`で管理しましたが、段階遷移ごとの再レンダ中に音声の一部が消えるケースが出ました（Reactの状態更新は非同期で、最新の配列が進行中のappendを上書きしてしまう）。蓄積を`useRef`に移して描画サイクルの外に出しました。発音5段階とスピーキング7段階はフローが異なり一つのstate machineにまとめると分岐が膨れるため分離。学校別隔離はクエリ1箇所のフィルタ漏れで他校データが漏れる危険があるため、全受験・採点クエリにschool_idフィルタを強制 + ミドルウェアがトークン所属校とルートのschool_id一致を検証する2層構造で固めました。録音音声はAWS S3に保存して採点・再聴経路を維持します。',
     },
     result: {
       ko: '정부 R&D 산출물 납품을 완료했습니다. 자체 WAV 인코더와 STT 4단계 폴링이 안정 동작하면서 외부 STT 호환과 음성 정확도를 동시에 확보했고, 학교별 멀티테넌트로 한 DB에서 다수 학교가 동시에 응시·채점 회차를 운영할 수 있게 됐습니다. Docker 보안 강화로 외부에 노출되는 runner 이미지의 공격 표면이 줄어든 상태로 배포됐습니다.',
