@@ -471,8 +471,8 @@ export const careerStoryBlocksV1: Partial<
         diagramKey: 'odiya',
       },
       result: {
+        // 95% 감소 수치는 아래 chart로 시각화 — 카드와 중복 X
         metrics: [
-          { value: '~95%', label: { ko: 'DB 쓰기 부하 감소 (분당 INSERT)', en: 'DB write load (inserts/min)', ja: 'DB書き込み負荷削減 (分単位INSERT)' } },
           { value: '0대', label: { ko: '인프라 추가 증설', en: 'New infra added', ja: 'インフラ追加' } },
           { value: '~230%', label: { ko: 'B2B 매출 성장 기여 (회사 발표 기준)', en: 'B2B revenue growth contributed', ja: 'B2B売上成長寄与' } },
         ],
@@ -1175,19 +1175,19 @@ export const careerStoryBlocksV1: Partial<
       ja: 'エージェントごとに個別呼び出しする既存方式、単一メガエージェントに統合する方式も検討しましたが、前者はコンテキスト引き渡しコストが累積し、後者は一つのエージェントがすべての役割を抱えて責任境界が崩れました。',
     },
     decision: {
-      ko: '단일 플러그인으로 12개 에이전트 + 3개 커맨드 + 3개 스킬 + 20개 디자인 스타일 + 4개 안전 훅을 묶었습니다. 에이전트는 세 갈래로 분류 — (1) **Coordinators 4종**(team-build, parallel-review, parallel-digging, architecture-decision), (2) **Developers 4종**(frontend, backend, mobile, ai-agent), (3) **Quality 4종**(code-reviewer, prd-reviewer, code-formatter, design-discovery). 커맨드는 `/prd` → `/implement` → `/auto-commit` 한 파이프라인이고, `/implement`는 Backend·Frontend·AI Server·Ops 팀에 자동 병렬 분배되며 `/auto-commit`은 3개 리뷰 에이전트가 병렬 평가 후 점수 ≥80이면 커밋, Security Critical은 점수 무관 강제 차단됩니다.',
-      en: 'Settled on one plugin that bundles 12 agents + 3 commands + 3 skills + 20 design styles + 4 safety hooks. The 12 agents fall into three lanes: (1) Coordinators ×4 (team-build, parallel-review, parallel-digging, architecture-decision), (2) Developers ×4 (frontend, backend, mobile, ai-agent), (3) Quality ×4 (code-reviewer, prd-reviewer, code-formatter, design-discovery). Commands form a single pipeline: /prd → /implement → /auto-commit. /implement auto-dispatches into Backend / Frontend / AI Server / Ops teams in parallel, and /auto-commit runs three reviewers in parallel — commit only at score ≥ 80, Security Critical force-fails regardless of score.',
-      ja: '単一プラグインで12エージェント + 3コマンド + 3スキル + 20デザインスタイル + 4安全フックを束ねました。エージェントは3系統に分類 — (1) Coordinators 4種（team-build・parallel-review・parallel-digging・architecture-decision）、(2) Developers 4種（frontend・backend・mobile・ai-agent）、(3) Quality 4種（code-reviewer・prd-reviewer・code-formatter・design-discovery）。コマンドは /prd → /implement → /auto-commit の1パイプラインで、/implement はBackend・Frontend・AI Server・Opsチームに自動並列分配、/auto-commit は3レビュアー並列評価でスコア80以上のみコミット、Security Criticalはスコア無関係に強制遮断します。',
+      ko: '단일 플러그인으로 12 에이전트 + 3 커맨드 + 3 스킬 + 20 디자인 스타일 + 4 안전 훅을 묶었습니다. 핵심은 `/prd → /implement → /auto-commit` 한 줄 파이프라인이고, `/implement`는 4개 팀에 자동 병렬 분배·`/auto-commit`은 3개 리뷰 에이전트 점수 합산 후 80점 이상이면 자동 머지·Security Critical은 점수 무관 강제 차단입니다.',
+      en: 'One plugin bundles 12 agents + 3 commands + 3 skills + 20 design styles + 4 safety hooks. The spine is a single `/prd → /implement → /auto-commit` pipeline: `/implement` auto-dispatches to four teams in parallel, and `/auto-commit` aggregates three reviewer scores — commit at ≥80, Security Critical force-fails regardless.',
+      ja: '単一プラグインで12エージェント + 3コマンド + 3スキル + 20デザインスタイル + 4安全フックを束ねました。核心は `/prd → /implement → /auto-commit` の1パイプライン: `/implement` は4チームに自動並列分配、`/auto-commit` は3レビュアースコアを集計してスコア80以上で自動マージ、Security Criticalはスコア無関係に強制遮断します。',
     },
     execution: {
-      ko: '/prd는 PRD.md + 단계별 task plan을 생성하면서 동시에 parallel-digging-coordinator가 4 카테고리(Completeness·Feasibility·Security·Consistency)로 PRD 자체의 품질 게이트를 통과시킵니다. /implement는 설계 단계에서 prd-reviewer·architecture-decision·design-discovery를 병렬 실행한 뒤, 빌드 단계에서 team-build-coordinator가 Backend·Frontend·AI Server·Ops 팀을 동시 가동합니다. /auto-commit은 parallel-review-coordinator가 3개 리뷰 에이전트의 점수를 합산하고, 4개 안전 훅(Dangerous Command Blocker·Pipeline Completion 알림·Frontend Formatting·Backend Pattern Compliance)이 위험한 명령과 빠진 검증을 백그라운드에서 차단합니다. 디자인 스타일은 design-system-reference 스킬 안에 20종(Editorial·Brutalist·Glassmorphism·Swiss Minimal·Bento Grid·Aurora Gradient Mesh·Terminal Hacker 등)이 각각 anti-pattern 체크리스트와 함께 정리돼 있어, design-discovery가 컨텍스트에 맞는 스타일을 자동 추천합니다.',
-      en: '/prd produces PRD.md + a phased task plan while parallel-digging-coordinator runs four categories (Completeness, Feasibility, Security, Consistency) as a PRD-level quality gate. /implement runs prd-reviewer, architecture-decision, and design-discovery in parallel during design, then team-build-coordinator fires the Backend / Frontend / AI Server / Ops teams concurrently in the build phase. /auto-commit aggregates scores from three review agents via parallel-review-coordinator, while four safety hooks run in the background — Dangerous Command Blocker, Pipeline Completion notifier, Frontend Formatting reminder, and Backend Pattern Compliance check. The design-system-reference skill ships 20 styles (Editorial, Brutalist, Glassmorphism, Swiss Minimal, Bento Grid, Aurora / Gradient Mesh, Terminal / Hacker, …) each with an explicit anti-pattern checklist, and design-discovery auto-recommends the right one for the project context.',
-      ja: '/prdはPRD.md + 段階別タスクプランを生成しつつ、parallel-digging-coordinatorが4カテゴリ（Completeness・Feasibility・Security・Consistency）でPRD自体の品質ゲートを通します。/implementは設計段階でprd-reviewer・architecture-decision・design-discoveryを並列実行し、ビルド段階でteam-build-coordinatorがBackend・Frontend・AI Server・Opsチームを同時稼働。/auto-commitはparallel-review-coordinatorが3レビュアーのスコアを集計し、4つの安全フック（Dangerous Command Blocker・Pipeline Completion通知・Frontend Formatting・Backend Pattern Compliance）が危険コマンドや漏れた検証をバックグラウンドで遮断します。デザインスタイルはdesign-system-referenceスキル内に20種（Editorial・Brutalist・Glassmorphism・Swiss Minimal・Bento Grid・Aurora/Gradient Mesh・Terminal/Hackerなど）がanti-patternチェックリスト付きで整理され、design-discoveryがコンテキストに合うスタイルを自動推薦します。',
+      ko: '한 흐름으로 보면 단순합니다. `/prd`는 PRD + 단계별 task plan을 만들면서 4 카테고리 품질 게이트(Completeness·Feasibility·Security·Consistency)를 통과시키고, `/implement`는 설계 3 에이전트 병렬 실행 후 빌드 단계에서 4팀(Backend·Frontend·AI Server·Ops)을 동시 가동, `/auto-commit`은 3 리뷰 점수 합산 + 4 안전 훅이 백그라운드에서 위험 명령·빠진 검증을 차단합니다.',
+      en: 'Linearly the flow is simple. `/prd` produces a PRD + phased task plan while running a four-category quality gate (Completeness, Feasibility, Security, Consistency); `/implement` runs three design agents in parallel, then fires four teams (Backend, Frontend, AI Server, Ops) concurrently in the build phase; `/auto-commit` aggregates three review scores while four safety hooks block risky commands and missing checks in the background.',
+      ja: '一連の流れは単純です。`/prd` はPRD + 段階別タスクプランを作りつつ4カテゴリ品質ゲート（Completeness・Feasibility・Security・Consistency）を通し、`/implement` は設計3エージェントの並列実行後にビルド段階で4チーム（Backend・Frontend・AI Server・Ops）を同時稼働、`/auto-commit` は3レビュースコアを集計しつつ4安全フックが危険コマンドや漏れた検証をバックグラウンドで遮断します。',
     },
     result: {
-      ko: 'WIGTN-Coding은 Claude Code 플러그인으로 오픈소스 공개됐고, 풀 파이프라인이 약 6분(순차 진행 시 약 20분 대비 ~3배 압축)으로 줄어든 상태로 다른 개발자들도 동일 워크플로우 위에서 작업할 수 있게 다듬어졌습니다. 본인이 설계한 이 워크플로우 위에서 WIGENT(TRAE 대상)·WIGTN FLAKE(Snowflake Tech Track 2위)·WIGVO 같은 후속 프로젝트가 모두 만들어졌고, GitHub에서 별도의 외부 공개 marketplace 등록(`/plugin marketplace add wigtn/wigtn-plugins-with-claude-code`)으로 누구나 설치해 쓸 수 있는 상태입니다.',
-      en: 'Released WIGTN-Coding as an open-source Claude Code plugin. Full pipeline compresses from ~20 minutes sequential to ~6 minutes (~3× speedup), and the plugin is packaged so other engineers run the same workflow end-to-end. Every downstream project — WIGENT (TRAE Grand Prize), WIGTN FLAKE (Snowflake Tech Track 2nd), WIGVO — was built on top of this workflow, and the plugin is publicly installable via the marketplace command (`/plugin marketplace add wigtn/wigtn-plugins-with-claude-code`).',
-      ja: 'WIGTN-CodingをClaude Codeプラグインとしてオープンソース公開しました。フルパイプラインは順次進行の約20分から約6分（約3倍の圧縮）に短縮され、他の開発者も同じワークフロー上でエンドツーエンドで作業できる形に整備されています。本人が設計したこのワークフロー上でWIGENT（TRAE大賞）・WIGTN FLAKE（Snowflake Tech Track 2位）・WIGVOなど後続プロジェクトがすべて構築されており、GitHub上のmarketplaceコマンド（`/plugin marketplace add wigtn/wigtn-plugins-with-claude-code`）で誰でもインストールして使える状態です。',
+      ko: 'WIGTN-Coding을 Claude Code 플러그인으로 오픈소스 공개해 다른 개발자도 동일 워크플로우 위에서 작업할 수 있게 다듬었습니다. 풀 파이프라인 약 6분(순차 진행 ~20분 대비 약 3배 압축), 본인이 설계한 이 워크플로우 위에서 WIGENT(TRAE 대상)·WIGTN FLAKE(Snowflake Tech Track 2위)·WIGVO 등 후속 프로젝트가 만들어졌고, GitHub 별 약 44개 받은 상태입니다.',
+      en: 'Released WIGTN-Coding as an open-source Claude Code plugin so other engineers run the same workflow end-to-end. Full pipeline compresses from ~20 minutes (sequential) to ~6 minutes (~3× speedup); every downstream project — WIGENT (TRAE Grand Prize), WIGTN FLAKE (Snowflake Tech Track 2nd), WIGVO — was built on top, and the repo currently sits at ~44 GitHub stars.',
+      ja: 'WIGTN-CodingをClaude Codeプラグインとしてオープンソース公開し、他の開発者も同じワークフロー上でエンドツーエンドに作業できる形に整備しました。フルパイプライン約6分（順次進行の約20分比べて約3倍の圧縮）、本人が設計したこのワークフロー上でWIGENT（TRAE大賞）・WIGTN FLAKE（Snowflake Tech Track 2位）・WIGVOなど後続プロジェクトが構築され、現在GitHubで約44スターを獲得した状態です。',
     },
     reflection: {
       ko: 'AI 어시스턴트의 본질은 "더 좋은 답"이 아니라 "사람이 매번 사이를 잇지 않아도 시스템이 끝까지 도는 구조"라는 점을 가장 깊이 배운 프로젝트입니다. 그래서 점수 기반 자동 머지·Security Zero-Tolerance·역할 분리 같은 운영 구조 결정이 모델 선택보다 훨씬 큰 영향을 미쳤습니다.',
@@ -1200,6 +1200,58 @@ export const careerStoryBlocksV1: Partial<
           src: '/images/projects/wigtncoding.svg',
           alt: { ko: 'WIGTN Coding 플러그인 아키텍처', en: 'WIGTN Coding plugin architecture', ja: 'WIGTN Codingプラグインアーキテクチャ' },
         },
+        // 12 에이전트의 3 분류 — 본문에서 빼고 표로 시각화해 한눈에 잡힘
+        table: {
+          columns: [
+            { ko: '카테고리', en: 'Category', ja: 'カテゴリ' },
+            { ko: '에이전트 4종', en: '4 agents', ja: 'エージェント4種' },
+            { ko: '역할', en: 'Role', ja: '役割' },
+          ],
+          rows: [
+            [
+              { ko: 'Coordinators', en: 'Coordinators', ja: 'Coordinators' },
+              { ko: 'team-build · parallel-review · parallel-digging · architecture-decision', en: 'team-build · parallel-review · parallel-digging · architecture-decision', ja: 'team-build · parallel-review · parallel-digging · architecture-decision' },
+              { ko: '병렬 분배·점수 합산·아키텍처 결정', en: 'Parallel dispatch · score merge · architecture decisions', ja: '並列分配・スコア集計・アーキテクチャ決定' },
+            ],
+            [
+              { ko: 'Developers', en: 'Developers', ja: 'Developers' },
+              { ko: 'frontend · backend · mobile · ai-agent', en: 'frontend · backend · mobile · ai-agent', ja: 'frontend · backend · mobile · ai-agent' },
+              { ko: 'React 19 · Next.js 16 · RN · WhisperX/OpenAI/Anthropic', en: 'React 19 · Next.js 16 · React Native · WhisperX/OpenAI/Anthropic', ja: 'React 19 · Next.js 16 · React Native · WhisperX/OpenAI/Anthropic' },
+            ],
+            [
+              { ko: 'Quality', en: 'Quality', ja: 'Quality' },
+              { ko: 'code-reviewer · prd-reviewer · code-formatter · design-discovery', en: 'code-reviewer · prd-reviewer · code-formatter · design-discovery', ja: 'code-reviewer · prd-reviewer · code-formatter · design-discovery' },
+              { ko: '100점 스코어·PRD 갭 분석·자동 포맷·디자인 스타일 추천', en: '100-pt scoring · PRD gap analysis · auto-format · style picker', ja: '100点スコア・PRDギャップ分析・自動フォーマット・スタイル推薦' },
+            ],
+          ],
+        },
+      },
+      // 4 안전 훅 + 20 디자인 스타일 — 본문에서 빼고 bullets로
+      execution: {
+        bullets: {
+          ko: [
+            '4 안전 훅 (백그라운드 자동 실행) — Dangerous Command Blocker · Pipeline Completion 알림 · Frontend Formatting 리마인더 · Backend Pattern Compliance 체크',
+            '3 스킬 — code-review-levels(Level 3 deep review·Level 4 architecture review) · design-system-reference(20 스타일 가이드) · team-memory-protocol(병렬 빌드 공유 컨텍스트)',
+            '20 디자인 스타일 — Editorial · Brutalist · Glassmorphism · Swiss Minimal · Neomorphism · Bento Grid · Dark Mode First · Retro Pixel · Maximalist · 3D Immersive · Liquid Glass · Claymorphism · Neobrutalism · Aurora/Gradient Mesh · Terminal/Hacker · Kinetic Typography 등 (각각 anti-pattern 체크리스트 동반)',
+          ],
+          en: [
+            '4 safety hooks (run in background) — Dangerous Command Blocker · Pipeline Completion reminder · Frontend Formatting reminder · Backend Pattern Compliance check',
+            '3 skills — code-review-levels (Level 3 deep · Level 4 architecture review) · design-system-reference (20 style guides) · team-memory-protocol (shared context across parallel builds)',
+            '20 design styles — Editorial · Brutalist · Glassmorphism · Swiss Minimal · Neomorphism · Bento Grid · Dark Mode First · Retro Pixel · Maximalist · 3D Immersive · Liquid Glass · Claymorphism · Neobrutalism · Aurora/Gradient Mesh · Terminal/Hacker · Kinetic Typography, … (each with an anti-pattern checklist)',
+          ],
+          ja: [
+            '4安全フック（バックグラウンド自動実行） — Dangerous Command Blocker · Pipeline Completion通知 · Frontend Formattingリマインダー · Backend Pattern Complianceチェック',
+            '3スキル — code-review-levels（Level 3 deep review · Level 4 architecture review）· design-system-reference（20スタイルガイド）· team-memory-protocol（並列ビルド共有コンテキスト）',
+            '20デザインスタイル — Editorial · Brutalist · Glassmorphism · Swiss Minimal · Neomorphism · Bento Grid · Dark Mode First · Retro Pixel · Maximalist · 3D Immersive · Liquid Glass · Claymorphism · Neobrutalism · Aurora/Gradient Mesh · Terminal/Hacker · Kinetic Typographyなど（各自anti-patternチェックリスト付き）',
+          ],
+        },
+      },
+      result: {
+        metrics: [
+          { value: '~6분', label: { ko: '풀 파이프라인 시간 (순차 ~20분 대비 약 3배 압축)', en: 'Full pipeline runtime (~3× faster than sequential ~20 min)', ja: 'フルパイプライン時間（順次約20分比べ約3倍圧縮）' } },
+          { value: '⭐ 44', label: { ko: 'GitHub stars (오픈소스 공개 후 수신, 외부 개발자 사용 신호)', en: 'GitHub stars after open-sourcing — signal of external adoption', ja: 'GitHubスター（オープンソース公開後、外部開発者の採用シグナル）' } },
+          { value: '3 프로젝트', label: { ko: '본인이 이 워크플로우로 만든 후속 프로젝트 (WIGENT·WIGTN FLAKE·WIGVO)', en: 'Downstream projects shipped on this workflow (WIGENT · WIGTN FLAKE · WIGVO)', ja: 'このワークフロー上で構築した後続プロジェクト（WIGENT・WIGTN FLAKE・WIGVO）' } },
+        ],
       },
     },
   },

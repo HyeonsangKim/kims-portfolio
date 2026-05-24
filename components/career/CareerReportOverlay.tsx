@@ -675,24 +675,27 @@ function SlotChartCard({
   locale: Locale
   gradientCss: string
 }) {
-  // Recharts는 client-side에서만 동작하므로 dynamic import + ssr:false로
-  // 묶어 빌드/SSR 부담을 피하고, 그라데이션 색상은 모달의 카테고리 그라데이션
-  // 양 끝에서 추출해 카드 톤과 시각적으로 일치시킨다.
-  const data = chart.data.map((d) => ({
+  // 카드 카테고리 그라데이션의 양 끝 색을 그대로 차트에 가져오면 모달 톤과
+  // 시각적으로 자연스럽게 이어진다. before/after는 같은 색계열에서 톤만
+  // 다르게 (before는 옅게, after는 진하게) 보여 비교가 즉시 잡힌다.
+  const [color1, color2] = extractGradientColors(gradientCss)
+  const beforeColor = color1
+  const afterColor = color2 ?? color1
+  const maxValue = Math.max(...chart.data.map((d) => d.value))
+  const data = chart.data.map((d, i) => ({
     label: d.label[locale],
     value: d.value,
+    color: i === 0 ? beforeColor : afterColor,
+    isAfter: i === chart.data.length - 1,
   }))
 
-  // gradientCss 예: "linear-gradient(135deg, #3b82f6, #22d3ee)" — 첫 색상을 막대 색으로 사용
-  const gradientColors = chart.data.map(() => extractFirstColor(gradientCss))
-
   return (
-    <div className="mt-6 rounded-xl border border-white/10 bg-black/40 p-4 md:p-6">
-      <div style={{ width: '100%', height: 220 }}>
-        <ChartContent data={data} colors={gradientColors} />
+    <div className="mt-6 rounded-xl border border-white/10 bg-black/40 p-5 md:p-7">
+      <div style={{ width: '100%', height: 200 }}>
+        <ChartContent data={data} maxValue={maxValue} />
       </div>
       {chart.unitLabel && (
-        <div className="mt-2 text-[11px] text-gray-500 text-right">
+        <div className="mt-3 text-[10px] tracking-[0.18em] uppercase text-gray-500 text-right">
           {chart.unitLabel[locale]}
         </div>
       )}
@@ -705,53 +708,83 @@ function SlotChartCard({
   )
 }
 
-function extractFirstColor(gradientCss: string): string {
+function extractGradientColors(gradientCss: string): [string, string?] {
   const match = gradientCss.match(/#[0-9a-fA-F]{3,8}/g)
-  return match?.[0] ?? '#a855f7'
+  if (!match || match.length === 0) return ['#a855f7']
+  return [match[0], match[1]]
 }
 
 function ChartContent({
   data,
-  colors,
+  maxValue,
 }: {
-  data: { label: string; value: number }[]
-  colors: string[]
+  data: { label: string; value: number; color: string; isAfter: boolean }[]
+  maxValue: number
 }) {
+  // Y축 최대를 데이터 max의 1.1배로 잡아 막대 위 라벨이 잘리지 않도록 한다.
+  // 각 막대에 SVG linearGradient를 적용해 단색 직사각형 대신 색이
+  // 자연스럽게 떨어지는 모습을 만들고, 위쪽 모서리만 둥글게 처리한다.
   return (
     <ResponsiveContainer width="100%" height="100%">
       <BarChart
         data={data}
-        margin={{ top: 12, right: 16, left: 8, bottom: 8 }}
+        margin={{ top: 24, right: 24, left: 16, bottom: 12 }}
+        barCategoryGap="35%"
       >
-        <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.08)" />
+        <defs>
+          {data.map((d, i) => (
+            <linearGradient
+              key={i}
+              id={`bar-gradient-${i}`}
+              x1="0"
+              y1="0"
+              x2="0"
+              y2="1"
+            >
+              <stop offset="0%" stopColor={d.color} stopOpacity={d.isAfter ? 1 : 0.5} />
+              <stop offset="100%" stopColor={d.color} stopOpacity={d.isAfter ? 0.7 : 0.25} />
+            </linearGradient>
+          ))}
+        </defs>
+        <CartesianGrid strokeDasharray="2 6" stroke="rgba(255,255,255,0.06)" vertical={false} />
         <XAxis
           dataKey="label"
-          tick={{ fill: 'rgba(255,255,255,0.7)', fontSize: 12 }}
-          axisLine={{ stroke: 'rgba(255,255,255,0.15)' }}
+          tick={{ fill: 'rgba(255,255,255,0.75)', fontSize: 12, fontWeight: 500 }}
+          axisLine={false}
           tickLine={false}
+          dy={6}
         />
         <YAxis
-          tick={{ fill: 'rgba(255,255,255,0.5)', fontSize: 11 }}
-          axisLine={{ stroke: 'rgba(255,255,255,0.15)' }}
+          domain={[0, Math.ceil(maxValue * 1.1)]}
+          tick={{ fill: 'rgba(255,255,255,0.35)', fontSize: 10 }}
+          axisLine={false}
           tickLine={false}
+          width={32}
         />
         <Tooltip
-          cursor={{ fill: 'rgba(255,255,255,0.05)' }}
+          cursor={{ fill: 'rgba(255,255,255,0.03)' }}
           contentStyle={{
             background: 'rgba(10, 10, 15, 0.95)',
             border: '1px solid rgba(255,255,255,0.15)',
             borderRadius: '8px',
             color: '#fff',
             fontSize: '12px',
+            padding: '8px 12px',
           }}
         />
-        <Bar dataKey="value" radius={[6, 6, 0, 0]}>
+        <Bar
+          dataKey="value"
+          radius={[10, 10, 0, 0]}
+          maxBarSize={120}
+          label={{
+            position: 'top',
+            fill: 'rgba(255,255,255,0.85)',
+            fontSize: 13,
+            fontWeight: 600,
+          }}
+        >
           {data.map((_, i) => (
-            <Cell
-              key={i}
-              fill={colors[i] ?? colors[0]}
-              fillOpacity={i === 0 ? 0.4 : 1}
-            />
+            <Cell key={i} fill={`url(#bar-gradient-${i})`} />
           ))}
         </Bar>
       </BarChart>
