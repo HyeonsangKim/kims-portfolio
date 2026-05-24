@@ -1053,7 +1053,7 @@ export const careerStoryBlocksV1: Partial<
       ja: 'アイデアブレインストーミングは3つの形で壊れています — 一人だと視野が狭くなり、チームでやると時間がかかり、通常のAIチャットは単一意見しか返しません。「エージェント」を見せるには、この3つを同時に解くデモが必要でした。',
     },
     hypothesis: {
-      ko: '여러 명의 에이전트가 채팅 UI 안에서 자유 토론으로 충돌하고 수렴하면, 그 결과를 그대로 사업 아이디어 결정 보고서 + 랜딩 페이지로 만들어낼 수 있을 거라고 봤습니다. 핵심은 "토론이 안전하게 수렴하도록 누가 조율할 것인가" — 즉 오케스트레이터(PM 에이전트)의 역할이었습니다.',
+      ko: '여러 명의 에이전트가 채팅 UI 안에서 자유 토론으로 충돌하고 수렴하면, 그 결과를 그대로 사업 아이디어 결정 보고서와 랜딩 페이지로 만들어낼 수 있을 거라고 봤습니다. 핵심은 "토론이 안전하게 수렴하도록 누가 조율할 것인가"이고, 그 답이 오케스트레이터(PM 에이전트)의 역할이었습니다.',
       en: 'If several agents collide and converge inside a free-form chat UI, the same debate output should be enough to drop directly into a structured business idea + landing page. The hard question wasn\'t "can agents talk to each other" — it was "who safely drives them to convergence." That role lands on the orchestrator (PM agent).',
       ja: '複数のエージェントがチャットUI内で自由議論によって衝突・収束すれば、その結果をそのままビジネスアイデア決定レポート + ランディングページに落とし込めると考えました。核心は「議論が安全に収束するように誰が調整するか」 — つまりオーケストレーター（PMエージェント）の役割でした。',
     },
@@ -1258,9 +1258,9 @@ export const careerStoryBlocksV1: Partial<
 
   wigvo: {
     oneLiner: {
-      ko: '일반 전화선(PSTN) 위에서 동작하는 실시간 음성 통역 시스템. 듀얼 세션 + 에코 게이팅 아키텍처로 평균 557ms 지연, 148건 실통화 0건 에코 루프를 달성했고 ACL 2026 System Demonstrations에 1저자로 채택됐습니다.',
-      en: 'A real-time voice translation system that runs over the regular PSTN. A dual-session + echo-gating architecture hits ~557ms average latency and 0 echo loops across 148 live calls; accepted to ACL 2026 System Demonstrations (first author).',
-      ja: '一般電話線（PSTN）上で動作するリアルタイム音声通訳システム。デュアルセッション + エコーゲーティングアーキテクチャで平均557msの遅延・148件の実通話で0件のエコーループを達成し、ACL 2026 System Demonstrationsに第一著者で採択されました。',
+      ko: '일반 전화선(PSTN) 위에서 동작하는 실시간 음성 통역 시스템. 듀얼 세션 + 에코 게이팅 아키텍처로 평균 557ms 지연, 148건 실통화 0건 에코 루프를 달성했고 ACL 2026 System Demonstrations에 채택됐습니다.',
+      en: 'A real-time voice translation system that runs over the regular PSTN. A dual-session + echo-gating architecture hits ~557ms average latency and 0 echo loops across 148 live calls; accepted to ACL 2026 System Demonstrations.',
+      ja: '一般電話線（PSTN）上で動作するリアルタイム音声通訳システム。デュアルセッション + エコーゲーティングアーキテクチャで平均557msの遅延・148件の実通話で0件のエコーループを達成し、ACL 2026 System Demonstrationsに採択されました。',
     },
     context: {
       ko: '수신자가 앱을 깔지 않아도 일반 전화로 받기만 하면 양방향 통역이 동작해야 했습니다. 그러려면 통화 매개체는 PSTN(SIP)으로 가야 하고, 발신자·수신자 양쪽 오디오를 실시간으로 STT → 번역 → TTS로 동시에 처리하면서도 한쪽 출력이 다른 쪽 입력으로 다시 들어가는 에코 루프를 막아야 했습니다.',
@@ -1283,9 +1283,9 @@ export const careerStoryBlocksV1: Partial<
       ja: '単一セッション + ハードウェアAEC、単一セッション + 後処理ノイズキャンセルも検討しましたが、PSTN環境の変動性（キャリア・端末・コーデック）下では一貫した結果を出せませんでした。またSaaS通訳ソリューションは双方の通話者にクライアントインストールを要求し、製品仮説（アプリなし・普通の電話）に合いませんでした。',
     },
     decision: {
-      ko: 'Dual-Session Echo Gating 아키텍처를 채택했습니다. 브라우저 클라이언트가 WebSocket으로 릴레이 서버에 붙으면, 서버가 방향별 독립 Realtime LLM 세션 2개와 Twilio 게이트웨이를 함께 잡습니다. AudioRouter가 Strategy 패턴으로 3개 파이프라인(V2V·T2V·FullAgent) 중 하나에 이벤트를 위임하고, 세션 A(브라우저→전화)와 세션 B(전화→브라우저)는 각각 system prompt와 6-turn sliding context를 독립적으로 유지합니다. 핵심 결정 하나 더 — STT와 번역을 분리해 Realtime API의 내장 Whisper-1은 STT만 맡고, 번역은 GPT-4o-mini Chat API(temperature=0)가 따로 처리합니다. `context_prune_keep=0`으로 Realtime 자체 번역을 완전히 막아 환각 추가 문장을 차단했습니다.',
-      en: 'Settled on a Dual-Session Echo Gating architecture. When the browser client connects to the relay server over WebSocket, the server holds two independent Realtime LLM sessions (one per direction) plus the Twilio gateway. An AudioRouter delegates events to one of three pipelines (V2V / T2V / FullAgent) via the Strategy pattern; Session A (browser→phone) and Session B (phone→browser) each keep their own system prompt and a 6-turn sliding context. One more important call — STT and translation are split: the Realtime API\'s built-in Whisper-1 only handles STT, while translation runs separately on GPT-4o-mini Chat API (temperature=0). `context_prune_keep=0` fully blocks the Realtime API\'s own translation to stop hallucinated additions.',
-      ja: 'Dual-Session Echo Gatingアーキテクチャを採用しました。ブラウザクライアントがWebSocketでリレーサーバーに接続すると、サーバーが方向ごとに独立したRealtime LLMセッション2つとTwilioゲートウェイを併せて保持します。AudioRouterがStrategyパターンで3つのパイプライン（V2V・T2V・FullAgent）のいずれかにイベントを委譲し、Session A（ブラウザ→電話）とSession B（電話→ブラウザ）はそれぞれ独立したsystem promptと6ターンのスライディングコンテキストを維持します。もう一つの核心決定 — STTと翻訳を分離し、Realtime API内蔵のWhisper-1はSTTのみ担当、翻訳はGPT-4o-mini Chat API（temperature=0）が別途処理します。`context_prune_keep=0`でRealtime API自身の翻訳を完全に塞ぎ、幻覚で追加される文を遮断しました。',
+      ko: 'Dual-Session Echo Gating 아키텍처를 채택했습니다. 한 줄로 요약하면 — 방향별 Realtime 세션 2개를 분리해서 돌리고, 두 세션 사이에 소프트웨어 에코 게이트를 두며, STT와 번역을 분리해 환각으로 인한 문장 추가를 차단했습니다. 상세 구성은 아래 카드 참조.',
+      en: 'Settled on a Dual-Session Echo Gating architecture. The shape in one line — two per-direction Realtime sessions kept separate, a software echo gate sitting between them, and STT split from translation so hallucinated additions can\'t leak in. Detailed configuration in the cards below.',
+      ja: 'Dual-Session Echo Gatingアーキテクチャを採用しました。一行で要約すると — 方向ごとのRealtimeセッション2つを分離して回し、両セッションの間にソフトウェアエコーゲートを設置、STTと翻訳を分離して幻覚による文の追加を遮断しました。詳細構成は下のカードを参照。',
     },
     execution: {
       ko: '7단계 진화로 본 단계마다 깨지는 지점을 차례로 잡았습니다. 단일 세션은 에코를 못 잡았고, 단순 듀얼은 두 세션이 서로의 TTS를 듣고 무한 발화 루프에 빠졌습니다. 그 위에 (1) Echo Gate — TTS 출력 시점 자기 음성을 차단, (2) Energy Gate — RMS 임계치로 PSTN 노이즈 필터링, (3) Silero VAD — 클라이언트 측 발화 종료 감지로 OpenAI Server VAD 한계 우회, (4) 세션 상태 공유 컨트롤러, (5) 발화권 우선순위 룰, (6) STT-Translation 분리(Whisper-1 vs GPT-4o-mini), (7) 6-turn sliding context로 메모리 부담 통제까지 단계적으로 쌓아 운영 환경에서 VAD 지연을 480ms까지 끌어내렸습니다.',
@@ -1293,9 +1293,9 @@ export const careerStoryBlocksV1: Partial<
       ja: '7段階の進化で、本番運用に到達するまで毎段階の破綻点を順に潰しました。単一セッションではエコーを捕えられず、単純なデュアルセッションは無限発話ループに陥りました。その上に (1) Echo Gate — TTS出力時点に自音声を遮断、(2) Energy Gate — RMS閾値でPSTNノイズをフィルタ、(3) Silero VAD — クライアント側で発話終端を検出しOpenAI Server VADの限界を回避、(4) セッション状態共有コントローラー、(5) 発話権優先順位ルール、(6) STT-翻訳分離（Whisper-1 vs GPT-4o-mini）、(7) 6ターンスライディングコンテキストでメモリ負担を制御、と段階的に積み上げ、本番でVAD遅延を480msまで詰めました。',
     },
     result: {
-      ko: '실측 기준 평균 종단 간 지연 약 557ms, 148건의 실통화에서 0건의 에코 루프를 기록했습니다. 시스템 논문이 ACL 2026 System Demonstrations에 1저자로 채택됐고, 수신자는 앱 설치 없이 일반 전화로 받기만 하면 양방향 통역이 동작하는 운영 단계에 도달했습니다. 대상 사용자는 국내 거주 외국인(2024년 기준 220만 명) · 재외 국민(280만 명) · 청각·언어 장애인(등록 39만 명) · 통화 회피 세대(MZ 약 40%)까지 포함합니다.',
-      en: 'Measured ~557ms average end-to-end latency and 0 echo loops across 148 live production calls. The system paper went to ACL 2026 System Demonstrations as first author, and the product reached the stage where the called party just picks up a regular phone — no install — and two-way translation runs. Target users span foreign residents in Korea (2.2M in 2024), overseas Koreans (2.8M), the hearing/speech-impaired (390K registered), and call-phobic Gen MZ (~40%).',
-      ja: '実測平均エンド・ツー・エンド遅延約557ms、148件の実通話でエコーループ0件を記録しました。システム論文がACL 2026 System Demonstrationsに第一著者で採択され、受信者がアプリなしで普通の電話で出るだけで双方向通訳が動作する運用段階に到達しました。対象ユーザーは在韓外国人（2024年220万人）・在外韓国人（280万人）・聴覚/言語障害者（登録39万人）・通話回避世代（MZ約40%）まで含みます。',
+      ko: '실측 기준 평균 종단 간 지연 약 557ms, 148건의 실통화에서 0건의 에코 루프를 기록했습니다. 시스템 논문이 ACL 2026 System Demonstrations Track에 채택됐고, 수신자는 앱 설치 없이 일반 전화로 받기만 하면 양방향 통역이 동작하는 운영 단계에 도달했습니다. 대상 사용자는 국내 거주 외국인(2024년 기준 220만 명) · 재외 국민(280만 명) · 청각·언어 장애인(등록 39만 명) · 통화 회피 세대(MZ 약 40%)까지 포함합니다.',
+      en: 'Measured ~557ms average end-to-end latency and 0 echo loops across 148 live production calls. The system paper was accepted to the ACL 2026 System Demonstrations Track, and the product reached the stage where the called party just picks up a regular phone — no install — and two-way translation runs. Target users span foreign residents in Korea (2.2M in 2024), overseas Koreans (2.8M), the hearing/speech-impaired (390K registered), and call-phobic Gen MZ (~40%).',
+      ja: '実測平均エンド・ツー・エンド遅延約557ms、148件の実通話でエコーループ0件を記録しました。システム論文がACL 2026 System Demonstrations Trackに採択され、受信者がアプリなしで普通の電話で出るだけで双方向通訳が動作する運用段階に到達しました。対象ユーザーは在韓外国人（2024年220万人）・在外韓国人（280万人）・聴覚/言語障害者（登録39万人）・通話回避世代（MZ約40%）まで含みます。',
     },
     reflection: {
       ko: '에코 게이팅을 하드웨어 AEC가 아닌 소프트웨어 파이프라인으로 풀기로 한 결정이 핵심이었습니다. PSTN 환경 변동성을 정면으로 받는 대신 게이팅·VAD·상태 공유 3축으로 분해해 각각을 측정·튜닝 가능한 단위로 만들었기 때문에, 7단계 진화 안에서 정확히 어디가 깨지는지를 매번 짚을 수 있었습니다.',
@@ -1307,14 +1307,32 @@ export const careerStoryBlocksV1: Partial<
         image: {
           src: '/images/projects/wigvo_architecture.png',
           alt: { ko: 'WIGVO Dual-Session Echo Gating 아키텍처', en: 'WIGVO Dual-Session Echo Gating architecture', ja: 'WIGVO Dual-Session Echo Gatingアーキテクチャ' },
-          caption: { ko: '브라우저 클라이언트 ↔ 릴레이 서버(WebSocket) ↔ Twilio(PSTN). 방향별 Realtime 세션 2개를 AudioRouter가 V2V/T2V/FullAgent 3 파이프라인 중 하나에 위임, 각 세션은 6-turn sliding context를 독립 유지.', en: 'Browser ↔ relay server (WebSocket) ↔ Twilio (PSTN). The AudioRouter delegates two per-direction Realtime sessions across V2V / T2V / FullAgent pipelines (Strategy pattern); each session keeps its own 6-turn sliding context.', ja: 'ブラウザクライアント ↔ リレーサーバー（WebSocket）↔ Twilio（PSTN）。AudioRouterが方向ごとのRealtimeセッション2つをV2V/T2V/FullAgent 3パイプラインのいずれかに委譲（Strategyパターン）、各セッションは6ターンスライディングコンテキストを独立保持。' },
+          caption: { ko: '브라우저 클라이언트 ↔ 릴레이 서버(WebSocket) ↔ Twilio(PSTN). 방향별 Realtime 세션 2개를 AudioRouter가 3 파이프라인에 위임, 각 세션은 6턴 슬라이딩 컨텍스트를 독립 유지.', en: 'Browser ↔ relay server (WebSocket) ↔ Twilio (PSTN). The AudioRouter delegates two per-direction Realtime sessions across three pipelines; each session keeps its own 6-turn sliding context.', ja: 'ブラウザクライアント ↔ リレーサーバー（WebSocket）↔ Twilio（PSTN）。AudioRouterが方向ごとのRealtimeセッション2つを3パイプラインに委譲、各セッションは6ターンスライディングコンテキストを独立保持。' },
+        },
+        // decision 본문의 디테일을 카드 bullets로 분리해 본문은 짧게, 시각은 한눈에
+        bullets: {
+          ko: [
+            '🔀 듀얼 세션 — Session A(브라우저→전화) · Session B(전화→브라우저)가 각자 system prompt와 6턴 슬라이딩 컨텍스트를 독립 유지',
+            '🎯 AudioRouter — Strategy 패턴으로 V2V / T2V / FullAgent 3 파이프라인에 이벤트 위임',
+            '🛡️ STT-Translation 분리 — Realtime API의 Whisper-1은 STT만 담당, 번역은 GPT-4o-mini(temperature=0)가 별도 처리 + context_prune_keep=0으로 환각 문장 추가 차단',
+          ],
+          en: [
+            '🔀 Dual sessions — Session A (browser→phone) and Session B (phone→browser) each keep their own system prompt and 6-turn sliding context',
+            '🎯 AudioRouter — Strategy-pattern delegation across three pipelines (V2V / T2V / FullAgent)',
+            '🛡️ STT-Translation split — the Realtime API\'s Whisper-1 only handles STT; translation runs separately on GPT-4o-mini (temperature=0) with context_prune_keep=0 to block hallucinated additions',
+          ],
+          ja: [
+            '🔀 デュアルセッション — Session A（ブラウザ→電話）とSession B（電話→ブラウザ）が独自のsystem promptと6ターンスライディングコンテキストを独立保持',
+            '🎯 AudioRouter — StrategyパターンでV2V / T2V / FullAgent 3パイプラインにイベント委譲',
+            '🛡️ STT-翻訳分離 — Realtime APIのWhisper-1はSTTのみ、翻訳はGPT-4o-mini（temperature=0）で別途処理 + context_prune_keep=0で幻覚による文の追加を遮断',
+          ],
         },
       },
       result: {
         metrics: [
           { value: '~557ms', label: { ko: '평균 종단 간 지연 (실측, 148건 통화 기준)', en: 'Average end-to-end latency (measured across 148 calls)', ja: '平均エンド・ツー・エンド遅延（148通話の実測）' } },
           { value: '0 / 148', label: { ko: '에코 루프 발생 / 실통화 (소프트웨어 게이팅 적용 후)', en: 'Echo loops / live calls after software gating', ja: 'エコーループ発生 / 実通話（ソフトウェアゲーティング適用後）' } },
-          { value: 'ACL 2026', label: { ko: 'System Demonstrations 1저자 채택', en: 'System Demonstrations accepted (first author)', ja: 'System Demonstrations第一著者で採択' } },
+          { value: 'ACL 2026', label: { ko: 'System Demonstrations Track 채택', en: 'System Demonstrations Track accepted', ja: 'System Demonstrations Track採択' } },
         ],
       },
     },
