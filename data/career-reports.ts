@@ -476,9 +476,9 @@ export const careerStoryBlocksV1: Partial<
       ja: '一度に決まった設計ではありません。リリース後の運用で4つの不足が順に表面化し、その都度DBスキーマと挙動を一段ずつ補強しました。位置共有と端末制御を一括で紐づけていた連携をサービス単位に分離し、メモリ内3回リトライが全失敗したWebhookはDLQテーブルと運用者コンソールを併設して追跡・復旧可能にしました。Web直接加入者に二重発送されていた休眠通知の経路を遮断し、「あるサービスのデータだけ整理」と「アカウント自体が消えるので全JWTを即時遮断」というシグナルを別イベントとして切り分けました。',
     },
     result: {
-      ko: '여러 서비스가 부모-자녀 관계를 각자 따로 저장하던 구조를, 모두 OEM 인증 서버 한 곳을 바라보는 구조로 옮겼습니다. Webhook 동작은 운영팀이 직접 추적·복구할 수 있고, 휴면 → 익명화 → 완전 삭제 3단계는 자동으로 돌아 개인정보보호법 보존 기간 정책을 사람이 일일이 챙기지 않아도 따라갑니다.',
-      en: 'Where each service used to keep its own copy of parent-child relationships, all of them now read from the OEM auth server and sync signup / withdrawal / linkage events through webhooks. The ops team can trace and recover webhook delivery directly via DLQ + operator console, and the three-stage dormant → anonymise → hard-delete pipeline runs at noon every day so Korean privacy-law retention rules are followed automatically instead of by hand.',
-      ja: '各サービスが自身のDBに親子関係を別々に保管していた構造から、すべてがOEM認証サーバー1箇所を参照し、加入・退会・連携イベントをWebhookで受けて同期する構造に移行しました。運用チームはDLQと運用者コンソールでWebhookの挙動を直接追跡・復旧でき、休眠 → 匿名化 → 完全削除の3段階は毎日正午に自動で回り、個人情報保護法の保存期間ポリシーを人手で管理しなくても自動追従します。',
+      ko: '여러 서비스가 부모-자녀 관계를 각자 따로 저장하던 구조를, 모두 OEM 인증 서버 한 곳을 바라보는 구조로 옮겼습니다. 이 통합 인증 아키텍처가 안정적으로 자리잡으면서 후속 사업 의사결정의 기반이 됐고, 그 위에서 모하니가 정식 사업화로 이어졌으며 오디야는 새 버전이 차세대 공부폰에 사전탑재되는 형태로 확장돼 회사 B2B 사업 규모를 한 단계 키울 수 있었습니다.',
+      en: 'Where each service used to keep its own copy of parent-child relationships, all of them now read from the OEM auth server and sync signup / withdrawal / linkage events through webhooks. The unified auth architecture held up in production and became the foundation for the next round of business decisions: Mohani was greenlit for full productization, and a new version of Odiya shipped as a pre-installed app on the next-generation Studyphone — scaling the company’s B2B business another step up.',
+      ja: '各サービスが自身のDBに親子関係を別々に保管していた構造から、すべてがOEM認証サーバー1箇所を参照し、加入・退会・連携イベントをWebhookで受けて同期する構造に移行しました。この統合認証アーキテクチャが安定して稼働したことが後続の事業判断の土台となり、モハニは正式な事業化が決定し、オディヤは新バージョンが次世代スタディフォンへ事前搭載される形で展開され、会社のB2B事業規模をさらに一段拡大できました。',
     },
     improvements: {
       ko: '한 가지 다시 검토하고 갈 부분이 있습니다. 자녀 access 토큰을 DB에 AES-GCM으로 암호화해 보관하는 패턴은 알고리즘 자체는 안전하지만, 결국 키 노출 위험이 운영팀의 관리 책임으로 남는 구조입니다. 같은 길을 다시 간다면 HSM·KMS 같은 하드웨어/관리형 키 격리를 함께 두는 방향을 명시적으로 정책화했을 것입니다.',
