@@ -106,10 +106,16 @@ export interface SlotVisuals {
     | 'kocca'
     | 'purple'
     | 'aigoseo'
-    | 'wigvo'
-    | 'wigent'
-    | 'wigtnflake'
-    | 'wigplugin'
+  /**
+   * Static architecture image. WIGTN 사이드 프로젝트는 별도 SVG 다이어그램을
+   * 다시 그리지 않고 wigtn.com / GitHub README에서 가져온 원본 이미지를
+   * 그대로 인라인 표시한다 (정확도 + 통일감).
+   */
+  image?: {
+    src: string
+    alt: L
+    caption?: L
+  }
 }
 
 /**
@@ -1077,7 +1083,12 @@ export const careerStoryBlocksV1: Partial<
       ja: 'AIエージェントがコードを直接マージできるようにすると信頼コストが跳ね上がります。そのため権限をdry-run → comment-only → fullに分割し段階的に昇格する構造自体が最大の設計判断でした。同時にSelfMergeViolationのように「ボットが自分自身を通す経路」を塞ぐ仕組みが自律システムの安全性において本質的だと再確認しました。',
     },
     visuals: {
-      decision: { diagramKey: 'wigent' },
+      decision: {
+        image: {
+          src: '/images/projects/wigent.svg',
+          alt: { ko: 'WIGENT 아키텍처 — 3 lane 자율 사이클', en: 'WIGENT architecture — 3-lane autonomy', ja: 'WIGENTアーキテクチャ — 3レーン自律サイクル' },
+        },
+      },
     },
   },
 
@@ -1088,7 +1099,7 @@ export const careerStoryBlocksV1: Partial<
       ja: '「何をしたいか」目的を選ぶと、5名のSnowflake Cortex専門家エージェントが議論で答える地域インテリジェンス基盤。Snowflake AI & Data Hackathon Korea 2026 Tech Track準優勝。',
     },
     context: {
-      ko: '카페 창업·렌탈 가전 마케팅·광고판 입지·부동산 투자·상권 이상 시그널 — 수억 원이 걸린 동네 단위 의사결정을 풀려면 부동산 시세·유동인구·카드 매출·통신 계약 같은 이종 데이터를 동시에 해석해야 했습니다. 사람이 직접 SQL을 다 짜기엔 도메인 한정이라 멀티 에이전트 토론으로 풀기로 했습니다.',
+      ko: '카페 창업, 렌탈 가전 마케팅, 광고판 입지, 부동산 투자, 상권 이상 시그널처럼 수억 원이 걸린 동네 단위 의사결정을 풀려면 부동산 시세·유동인구·카드 매출·통신 계약 같은 이종 데이터를 동시에 해석해야 했습니다. 사람이 직접 SQL을 다 짜기엔 도메인 한정이라 멀티 에이전트 토론으로 풀기로 했습니다.',
       en: 'Decisions that hinge on a single neighborhood — opening a cafe, allocating rental-appliance ad budget, picking billboard spots, real-estate investing, anomaly response — require cross-reading several heterogeneous datasets at once (real-estate prices, foot traffic, card sales, telecom contracts). Hand-writing SQL across them is too domain-locked, so we leaned on a multi-agent debate.',
       ja: 'カフェ創業・レンタル家電マーケ・看板入地・不動産投資・商圏異常検知 — 数億円規模の地域単位意思決定を解くには、不動産価格・人流・カード売上・通信契約のような異種データを同時に解釈する必要がありました。人手でSQLをすべて書くのはドメイン限定的なので、マルチエージェント議論で解くことにしました。',
     },
@@ -1128,7 +1139,12 @@ export const careerStoryBlocksV1: Partial<
       ja: 'エージェントは放っておくと議論が発散します。PM進行役が発言権を強制的に回収する仕組みと、ANOMALY_DETECTIONのようなツールが議論に割り込む権限を分離したことが収束の鍵でした。結局「人が毎回判断しなくてもシステムが収束するよう設計する」ことがマルチエージェント製品の本質だと再確認しました。',
     },
     visuals: {
-      decision: { diagramKey: 'wigtnflake' },
+      decision: {
+        image: {
+          src: '/images/projects/wigtnflake.png',
+          alt: { ko: 'WIGTN FLAKE 아키텍처', en: 'WIGTN FLAKE architecture', ja: 'WIGTN FLAKEアーキテクチャ' },
+        },
+      },
     },
   },
 
@@ -1179,58 +1195,69 @@ export const careerStoryBlocksV1: Partial<
       ja: 'AIアシスタントの本質は「より良い回答」ではなく「人が毎回間を繋がなくてもシステムが最後まで回る構造」だということを最も深く学んだプロジェクトです。そのためスコアベース自動マージ・Security Zero-Tolerance・役割分離のような運用構造の決定がモデル選択よりはるかに大きな影響を与えました。',
     },
     visuals: {
-      decision: { diagramKey: 'wigplugin' },
+      decision: {
+        image: {
+          src: '/images/projects/wigtncoding.svg',
+          alt: { ko: 'WIGTN Coding 플러그인 아키텍처', en: 'WIGTN Coding plugin architecture', ja: 'WIGTN Codingプラグインアーキテクチャ' },
+        },
+      },
     },
   },
 
   wigvo: {
     oneLiner: {
-      ko: '전화를 걸어야만 해결되는 일을 AI가 대신 걸어주는 voice-only 어시스턴트. GPT-4o-mini가 시나리오 기반으로 정보를 수집하고 ElevenLabs + Twilio로 실제 전화를 발신합니다.',
-      en: 'A voice-only assistant that places real phone calls on your behalf for things that only get resolved over the phone. GPT-4o-mini collects the right details by scenario, ElevenLabs + Twilio actually dial out.',
-      ja: '電話をかけなければ解決しない用件をAIが代わりに発信するvoice-onlyアシスタント。GPT-4o-miniがシナリオベースで情報を収集し、ElevenLabs + Twilioが実際に電話を発信します。',
+      ko: '일반 전화선(PSTN) 위에서 동작하는 실시간 음성 통역 시스템. 듀얼 세션 + 에코 게이팅 아키텍처로 평균 557ms 지연, 148건 실통화 0건 에코 루프를 달성했고 ACL 2026 System Demonstrations에 1저자로 채택됐습니다.',
+      en: 'A real-time voice translation system that runs over the regular PSTN. A dual-session + echo-gating architecture hits ~557ms average latency and 0 echo loops across 148 live calls; accepted to ACL 2026 System Demonstrations (first author).',
+      ja: '一般電話線（PSTN）上で動作するリアルタイム音声通訳システム。デュアルセッション + エコーゲーティングアーキテクチャで平均557msの遅延・148件の実通話で0件のエコーループを達成し、ACL 2026 System Demonstrationsに第一著者で採択されました。',
     },
     context: {
-      ko: '캐치테이블·네이버 예약이 닿지 않는 전통 오프라인 서비스(부동산 중개·수리점·노포)는 여전히 전화가 유일한 관문입니다. 디지털 파편화, 거절 두려움 같은 심리적 비용, 앱과 현장 정보 비대칭이라는 3 장벽을 풀기 위한 제품입니다.',
-      en: 'The legacy offline services that Catch Table or Naver Reservations don\'t cover — real-estate brokers, repair shops, mom-and-pop restaurants — still treat a phone call as the only door in. WIGVO targets the three barriers that creates: digital fragmentation, the psychological cost of cold-calling, and the information asymmetry between the app and the actual storefront.',
-      ja: 'CatchTable・NAVER予約が届かない伝統的オフラインサービス（不動産仲介・修理店・老舗）は依然として電話が唯一の窓口です。デジタル分断・拒絶への心理的コスト・アプリと現場の情報非対称という3つの障壁を解くための製品です。',
+      ko: '수신자가 앱을 깔지 않아도 일반 전화로 받기만 하면 양방향 통역이 동작해야 했습니다. 그러려면 통화 매개체는 PSTN(SIP)으로 가야 하고, 발신자·수신자 양쪽 오디오를 실시간으로 STT → 번역 → TTS로 동시에 처리하면서도 한쪽 출력이 다른 쪽 입력으로 다시 들어가는 에코 루프를 막아야 했습니다.',
+      en: 'The product had to work without asking the called party to install anything — pick up a normal phone, and two-way translation should just run. That meant PSTN/SIP as the transport, with both sides simultaneously running STT → translation → TTS in real time, while preventing the output of one side from leaking back as input on the other (echo loops).',
+      ja: '受信者がアプリを入れなくても普通の電話で出るだけで双方向通訳が動く必要がありました。そのため通話媒体はPSTN（SIP）で、発信者・受信者の双方の音声をリアルタイムでSTT → 翻訳 → TTSと同時処理しつつ、一方の出力がもう一方の入力に戻るエコーループを防ぐ必要がありました。',
     },
     problem: {
-      ko: '전화 한 통이 막혀 있는 일들이 의외로 많습니다. 부동산 매물 광고가 살아있는지 확인, 미용실/병원 예약, 가전 AS 접수 — 전부 전화가 가장 빠른데 사용자는 거절·복잡한 용건 전달·시간대 등을 이유로 못 겁니다.',
-      en: 'There\'s a surprisingly long list of jobs gated by a single phone call: confirming whether an advertised listing is still live, booking a hair salon or clinic, opening an appliance service ticket — the phone is the fastest path, but users avoid it because of rejection, the effort of explaining a complex request, or wrong-hour anxiety.',
-      ja: '電話1本が塞がれている用件が意外と多いです。不動産掲載が生きているか確認、美容院・病院予約、家電AS受付 — どれも電話が最速ですが、ユーザーは拒絶・複雑な用件説明・時間帯不安などの理由でかけられません。',
+      ko: '핵심 문제는 두 가지였습니다. 첫째, 한 세션으로 양방향을 다루면 발신·수신 오디오가 섞여 에코가 발생합니다. 둘째, 통역은 종단 간 지연이 1초를 넘어가면 사용자가 자연스럽게 말을 이어가지 못합니다. 두 제약을 동시에 만족하는 구조가 필요했습니다.',
+      en: 'Two problems sat at the core. First, running both directions inside one session causes the inbound and outbound audio to mix, which produces echo. Second, translation falls apart conversationally when end-to-end latency crosses about a second. The architecture had to satisfy both at the same time.',
+      ja: '中核の問題は2つ。第一に、1セッションで双方向を扱うと発信・受信音声が混ざりエコーが発生します。第二に、通訳はエンド・ツー・エンド遅延が1秒を超えると会話が自然に続きません。両制約を同時に満たす構造が必要でした。',
     },
     hypothesis: {
-      ko: '사용자가 "무엇을 해달라"를 텍스트로 말하면, 시나리오 기반 정보 수집(GPT-4o-mini) → 네이버 지도에서 장소·전화번호 자동 검색 → 실제 음성 전화 발신(ElevenLabs Conversational AI + Twilio)까지 전체 흐름을 사람 손 없이 자율로 돌릴 수 있을 거라고 봤습니다.',
-      en: 'If a user just types "I need X done," the entire chain — scenario-based detail collection (GPT-4o-mini) → Naver Maps lookup for venue + phone number → an actual voice call placed via ElevenLabs Conversational AI + Twilio — can run end-to-end without a human in the middle.',
-      ja: 'ユーザーが「何をしてほしい」をテキストで話すと、シナリオベースの情報収集（GPT-4o-mini）→ NAVERマップで場所・電話番号自動検索 → 実音声通話発信（ElevenLabs Conversational AI + Twilio）まで全フローを人手なしで自律で回せると考えました。',
+      ko: '"방향별로 독립된 OpenAI Realtime 세션을 두 개 병렬로 돌리고, 두 세션 사이는 소프트웨어 전용 에코 게이팅 파이프라인으로 분리하면" 에코 루프와 저지연을 동시에 잡을 수 있다고 봤습니다.',
+      en: 'Hypothesis: run two independent OpenAI Realtime sessions in parallel — one per direction — and isolate them with a software-only echo-gating pipeline. That should let us hold both no-echo and sub-second latency at once.',
+      ja: '「方向ごとに独立したOpenAI Realtimeセッションを並列で2つ回し、両セッションをソフトウェア専用のエコーゲーティングパイプラインで分離すれば」エコーループと低遅延を同時に成立できると考えました。',
     },
     alternatives: {
-      ko: '단순 TTS 발신·녹음 메시지 자동화·콜센터 RPA를 검토했지만, 자연어 대화와 동적 정보 수집이 동시에 필요한 시나리오(예: "다음 주 월요일 가능 시간 알려주세요")는 Conversational AI 없이는 풀리지 않았습니다.',
-      en: 'Looked at plain TTS dialing, prerecorded message automation, and call-center RPA — but scenarios that need both natural-language conversation and dynamic info gathering ("tell me what slots are open next Monday") collapsed without a true Conversational AI backbone.',
-      ja: '単純TTS発信・録音メッセージ自動化・コールセンターRPAを検討しましたが、自然言語対話と動的情報収集を同時に要するシナリオ（例：「来週月曜の空き時間を教えてください」）はConversational AIなしでは解けませんでした。',
+      ko: '단일 세션 + 하드웨어 AEC, 단일 세션 + 후처리 노이즈 캔슬레이션도 검토했지만 PSTN 환경 변동성(통신사·단말·코덱)에서는 일관된 결과를 못 냈습니다. 또 SaaS 통역 솔루션은 양쪽 통화자 모두에게 클라이언트 설치를 요구해 제품 가설(앱 없이 일반 전화로 받기)에 맞지 않았습니다.',
+      en: 'Considered single-session + hardware AEC and single-session + post-processing noise cancellation, but neither stayed consistent across the PSTN variability we faced (carrier / device / codec). Off-the-shelf SaaS translation services required client install on both ends, which broke our product hypothesis (no-app, regular phone).',
+      ja: '単一セッション + ハードウェアAEC、単一セッション + 後処理ノイズキャンセルも検討しましたが、PSTN環境の変動性（キャリア・端末・コーデック）下では一貫した結果を出せませんでした。またSaaS通訳ソリューションは双方の通話者にクライアントインストールを要求し、製品仮説（アプリなし・普通の電話）に合いませんでした。',
     },
     decision: {
-      ko: 'Next.js 16 + Supabase 백엔드 위에 GPT-4o-mini(시나리오 정보 수집 + Entity 추출), ElevenLabs Conversational AI(동적 프롬프트·음성 통화), Twilio(실 전화 발신/수신), 네이버 지도 API(장소·전화번호 자동 조회)를 결합한 4-tier 아키텍처를 채택했습니다.',
-      en: 'Built a four-tier architecture on Next.js 16 + Supabase: GPT-4o-mini handles scenario-driven detail collection and entity extraction, ElevenLabs Conversational AI generates the dynamic prompt and runs the voice call, Twilio places and receives the actual phone call, and the Naver Maps API resolves the venue and phone number automatically.',
-      ja: 'Next.js 16 + Supabaseバックエンド上にGPT-4o-mini（シナリオ情報収集 + Entity抽出）、ElevenLabs Conversational AI（動的プロンプト・音声通話）、Twilio（実電話発信/受信）、NAVERマップAPI（場所・電話番号自動照会）を結合した4-tierアーキテクチャを採用しました。',
+      ko: '듀얼 OpenAI Realtime 세션(방향별 1개) + 소프트웨어 전용 에코 게이팅 파이프라인을 채택했습니다. 각 세션의 출력 오디오를 반대편 입력으로 흘리기 전에 게이팅·VAD로 자기 출력을 필터링하고, 양쪽 세션의 상태(말하는 중 / 듣는 중)를 공유 컨트롤러가 조율합니다. 통화 매체는 PSTN/SIP, 게이트웨이는 Twilio.',
+      en: 'Settled on dual OpenAI Realtime sessions (one per direction) plus a software-only echo-gating pipeline. Before each session\'s output audio is routed into the other side\'s input, gating + VAD filters out the session\'s own output, and a shared controller coordinates speaking/listening state between the two sessions. PSTN/SIP as the transport, Twilio as the gateway.',
+      ja: 'デュアルOpenAI Realtimeセッション（方向ごとに1個）+ ソフトウェア専用エコーゲーティングパイプラインを採用しました。各セッションの出力音声を反対側の入力に流す前に、ゲーティング・VADで自セッションの出力をフィルタリングし、両セッションの状態（発話中/聴取中）を共有コントローラーが調整します。通話媒体はPSTN/SIP、ゲートウェイはTwilio。',
     },
     execution: {
-      ko: '대분류 3종(예약·문의·AS) × 세부 12 유형 중 사용자가 시나리오를 고르면 그에 맞는 필수 항목(장소명·전화번호·일시·인원 등)을 GPT-4o-mini가 대화로 채웁니다. 장소명을 말하면 네이버 지도가 자동 매칭, 정보가 모이면 ElevenLabs 동적 프롬프트를 만들어 Twilio로 전화를 겁니다. 모든 대화·통화 기록은 Supabase에 저장돼 대시보드에서 다시 볼 수 있습니다.',
-      en: 'Within three top categories (reservations / inquiries / service tickets) and 12 sub-types, picking a scenario kicks off GPT-4o-mini collecting the required fields (venue, phone, time, party size) through chat. Mentioning a venue name lets the Naver Maps integration auto-match it; once the slots are filled, ElevenLabs gets a dynamic prompt and Twilio dials out. Every chat + call record is persisted in Supabase and visible on the dashboard.',
-      ja: '大分類3種（予約・問い合わせ・AS）× 詳細12タイプから、ユーザーがシナリオを選ぶとそれに合う必須項目（場所名・電話番号・日時・人数など）をGPT-4o-miniが会話で埋めていきます。場所名を話すとNAVERマップが自動マッチング、情報が揃うとElevenLabsの動的プロンプトを生成しTwilioで電話発信。すべての会話・通話記録はSupabaseに保存され、ダッシュボードで再確認できます。',
+      ko: '운영에 도달하기까지 7단계 진화를 거쳤습니다. 단일 세션에서는 에코를 못 잡았고, 단순 듀얼 세션은 두 세션이 서로의 TTS를 듣고 끝없이 발화하는 루프가 생겼습니다. 자기 출력 인식 필터 → VAD 기반 게이팅 → 양 세션 상태 공유 → 발화권 컨트롤러로 단계를 쌓아가며 잡았고, 운영 환경에서는 VAD 지연을 480ms까지 끌어내려 자연스러운 대화 속도를 유지했습니다.',
+      en: 'Production took seven rounds of iteration. A single session couldn\'t catch the echo at all; a naïve dual session ended up in an infinite loop where each side kept hearing the other\'s TTS and re-speaking. We layered solutions step by step — self-output detection, VAD-based gating, shared state across both sessions, and a speaking-turn controller — and in production we got VAD latency down to 480ms, fast enough to keep the conversation natural.',
+      ja: '本番到達まで7段階の進化を経ました。単一セッションではエコーを捕えられず、単純なデュアルセッションでは互いのTTSを聞き続けて無限発話するループが発生。自出力認識フィルタ → VADベースゲーティング → 両セッション状態共有 → 発話権コントローラーと段階的に積み上げて解決し、本番ではVAD遅延を480msまで詰めて自然な会話速度を維持しました。',
     },
     result: {
-      ko: '실제 음식점·미용실·치과·부동산 같은 7가지 use case에서 동작 가능한 형태로 데모를 마쳤습니다. 사용자가 "내일 오후 3시 커트"만 입력하면 정보 요약 → AI가 미용실에 실제 전화 → 예약 확인까지 한 흐름으로 돌아갑니다.',
-      en: 'Demoed working flows across seven real-world use cases (restaurants, hair salons, dental clinics, real-estate brokers, …). The user only types "hair cut, 3pm tomorrow" — the system summarizes the request, the AI dials the salon for real, and the reservation comes back confirmed in a single thread.',
-      ja: '実際の飲食店・美容院・歯科・不動産など7つのuse caseで動作可能な形でデモを完成しました。ユーザーが「明日午後3時カット」だけ入力すると、情報要約 → AIが美容院に実際に電話 → 予約確認まで1フローで回ります。',
+      ko: '실측 기준 평균 종단 간 지연 약 557ms, 148건의 실통화에서 0건의 에코 루프를 기록했습니다. 이 결과를 정리한 시스템 논문이 ACL 2026 System Demonstrations에 1저자로 채택됐고, 수신자는 앱 설치 없이 일반 전화로 받기만 하면 양방향 통역이 동작하는 형태로 운영 단계에 도달했습니다.',
+      en: 'Measured ~557ms average end-to-end latency and 0 echo loops across 148 live production calls. The system paper went to ACL 2026 System Demonstrations as the first author, and the product reached the operating stage where the called party just picks up a regular phone — no install — and two-way translation runs.',
+      ja: '実測平均エンド・ツー・エンド遅延約557ms、148件の実通話でエコーループ0件を記録しました。この結果をまとめたシステム論文がACL 2026 System Demonstrationsに第一著者で採択され、受信者がアプリなしで普通の電話で出るだけで双方向通訳が動作する運用段階に到達しました。',
     },
     reflection: {
-      ko: '음성 통화는 시각 UI보다 실수 비용이 훨씬 큽니다(상대방이 진짜 사람이라서). 그래서 ElevenLabs 동적 프롬프트가 정보 누락 없이 만들어졌는지, Twilio 발신 직전에 사용자 확인을 한 단계 둘지가 가장 큰 설계 선택이었습니다. "사람 개입을 빼는 게 목표지만, 통화 직전 한 번은 사람이 컨펌하는 게 안전하다"는 결론을 받아들였습니다.',
-      en: 'Voice calls have a much higher error cost than visual UIs because there\'s a real human on the other end. The two biggest design calls turned out to be (1) making sure the ElevenLabs dynamic prompt is fully populated before dial-out, and (2) inserting a single human confirmation step right before Twilio dials. "Remove humans from the loop, but keep one confirm right before the call goes out" became the rule we settled on.',
-      ja: '音声通話は視覚UIより誤りのコストがはるかに大きいです（相手が本物の人間なので）。そのためElevenLabsの動的プロンプトが情報漏れなく生成されたか、Twilio発信直前にユーザー確認の1段を置くかが最大の設計判断でした。「人の介入をなくすのが目標だが、通話直前の1回は人が確認する方が安全」という結論を受け入れました。',
+      ko: '에코 게이팅을 하드웨어 AEC가 아닌 소프트웨어 파이프라인으로 풀기로 한 결정이 핵심이었습니다. PSTN 환경 변동성을 정면으로 받는 대신 게이팅·VAD·상태 공유 3축으로 분해해 각각을 측정·튜닝 가능한 단위로 만들었기 때문에, 7단계 진화 안에서 정확히 어디가 깨지는지를 매번 짚을 수 있었습니다.',
+      en: 'The pivotal call was choosing to solve echo with a software pipeline rather than hardware AEC. Instead of taking PSTN variability head-on, we decomposed the problem into gating, VAD, and shared state — three measurable, tunable axes. Across the seven iterations that decomposition let us pinpoint exactly which piece was breaking, every time.',
+      ja: 'エコーゲーティングをハードウェアAECではなくソフトウェアパイプラインで解決した決定が核心でした。PSTN環境の変動性を正面から受ける代わりにゲーティング・VAD・状態共有の3軸に分解し、それぞれを測定・チューニング可能な単位にしたため、7段階の進化の中で毎回どこが壊れているかを正確に指摘できました。',
     },
     visuals: {
-      decision: { diagramKey: 'wigvo' },
+      decision: {
+        image: {
+          src: '/images/projects/wigvo_architecture.png',
+          alt: { ko: 'WIGVO 듀얼 세션 + 에코 게이팅 아키텍처', en: 'WIGVO dual-session + echo-gating architecture', ja: 'WIGVOデュアルセッション + エコーゲーティングアーキテクチャ' },
+          caption: { ko: '방향별 OpenAI Realtime 세션 2개를 병렬로 돌리고, 소프트웨어 전용 에코 게이팅 + VAD + 발화권 컨트롤러로 두 세션을 분리. PSTN/SIP 통화 매체는 Twilio.', en: 'Two parallel OpenAI Realtime sessions, one per direction, isolated by software-only echo gating + VAD + a speaking-turn controller. PSTN/SIP transport via Twilio.', ja: '方向ごとに2つのOpenAI Realtimeセッションを並列で動作させ、ソフトウェア専用のエコーゲーティング + VAD + 発話権コントローラーで両セッションを分離。PSTN/SIPの通話媒体はTwilio。' },
+        },
+      },
     },
   },
 }

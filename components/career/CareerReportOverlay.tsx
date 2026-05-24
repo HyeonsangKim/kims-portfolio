@@ -49,10 +49,6 @@ import MohaniArchitectureDiagram from './diagrams/MohaniArchitectureDiagram'
 import KoccaArchitectureDiagram from './diagrams/KoccaArchitectureDiagram'
 import PurpleArchitectureDiagram from './diagrams/PurpleArchitectureDiagram'
 import AigoseoArchitectureDiagram from './diagrams/AigoseoArchitectureDiagram'
-import WigvoArchitectureDiagram from './diagrams/WigvoArchitectureDiagram'
-import WigentArchitectureDiagram from './diagrams/WigentArchitectureDiagram'
-import WigtnflakeArchitectureDiagram from './diagrams/WigtnflakeArchitectureDiagram'
-import WigpluginArchitectureDiagram from './diagrams/WigpluginArchitectureDiagram'
 
 const ui: Record<string, Record<Locale, string>> = {
   eyebrow: { ko: '경력 리포트', en: 'Career Report', ja: 'キャリアレポート' },
@@ -633,6 +629,22 @@ function StorySection({
         />
       )}
 
+      {visuals?.image && (
+        <figure className="mt-6 rounded-xl border border-white/10 bg-black/40 overflow-hidden">
+          <img
+            src={visuals.image.src}
+            alt={visuals.image.alt[locale]}
+            className="w-full h-auto"
+            loading="lazy"
+          />
+          {visuals.image.caption && (
+            <figcaption className="px-4 py-3 text-[12px] md:text-[13px] text-gray-400 leading-relaxed border-t border-white/5">
+              {visuals.image.caption[locale]}
+            </figcaption>
+          )}
+        </figure>
+      )}
+
       {visuals?.diagramKey && (
         <div className="mt-6 rounded-xl border border-white/10 bg-black/40 p-2 sm:p-4 md:p-6 overflow-x-auto">
           {visuals.diagramKey === 'odiya' && <OdiyaArchitectureDiagram />}
@@ -640,10 +652,6 @@ function StorySection({
           {visuals.diagramKey === 'kocca' && <KoccaArchitectureDiagram />}
           {visuals.diagramKey === 'purple' && <PurpleArchitectureDiagram />}
           {visuals.diagramKey === 'aigoseo' && <AigoseoArchitectureDiagram />}
-          {visuals.diagramKey === 'wigvo' && <WigvoArchitectureDiagram />}
-          {visuals.diagramKey === 'wigent' && <WigentArchitectureDiagram />}
-          {visuals.diagramKey === 'wigtnflake' && <WigtnflakeArchitectureDiagram />}
-          {visuals.diagramKey === 'wigplugin' && <WigpluginArchitectureDiagram />}
           <div className="mt-3 text-[11px] text-gray-500 text-right">
             {locale === 'ko' && '카드의 ‘서버 아키텍처 보기’ 버튼으로 더 크게 열 수 있음'}
             {locale === 'en' && 'Open larger via the “View Server Architecture” button on the card'}
