@@ -37,7 +37,7 @@ export const awards: Award[] = [
       en: 'WIGTN FLAKE — Tech Track Top 3 (2nd Place)',
       ja: 'WIGTN FLAKE — Tech Track Top 3（2位）',
     },
-    date: '2026',
+    date: '2026-04',
     projectSlug: 'wigtnflake',
     link: {
       url: 'https://www.newswire.co.kr/newsRead.php?no=1033575',

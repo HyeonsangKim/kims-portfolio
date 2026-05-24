@@ -123,33 +123,18 @@ export default function TechStack() {
   }
 
   function FloatingIcon({ skill }: { skill: Skill }) {
-    // 초기값을 0으로 둡니다.
-    const [randomValues, setRandomValues] = useState({ y: 0, duration: 0, delay: 0 });
-    const [isMounted, setIsMounted] = useState(false);
-    
     // 모바일 터치 상태
     const [isTouched, setIsTouched] = useState(false);
-
-    useEffect(() => {
-        // ✅ 2. Linter Error 해결: setTimeout(..., 0)으로 감싸기
-        // 이렇게 하면 렌더링 사이클을 방해하지 않고 비동기(Asynchronous)로 상태를 업데이트하므로
-        // 'synchronous state update' 에러가 사라집니다.
-        const timer = setTimeout(() => {
-            setIsMounted(true);
-            setRandomValues({
-                y: Math.random() * 10 - 5,
-                duration: 3 + Math.random() * 2,
-                delay: Math.random() * 2
-            });
-        }, 0);
-
-        return () => clearTimeout(timer);
-    }, []); 
 
     const handleInteraction = () => {
         setIsTouched(!isTouched);
     };
 
+    // 이전 버전은 각 아이콘이 Math.random() 기반 y 오프셋으로 floating
+    // 했는데, 그 결과 "어떤 아이콘은 가운데, 어떤 아이콘은 위/아래로
+    // 어긋난" 시각 정렬이 만들어졌다. 카드 안에서 아이콘이 정확히
+    // 가운데 박혀 보이는 것이 통일감에 훨씬 중요하므로 floating은
+    // 제거하고 hover/touch 시 미세 scale-up만 남긴다.
     return (
       <motion.div
         variants={itemVariants}
@@ -157,15 +142,7 @@ export default function TechStack() {
         onClick={handleInteraction}
         className="group relative flex flex-col items-center justify-center w-24 h-24 sm:w-28 sm:h-28 cursor-pointer"
       >
-        <motion.div
-          // isMounted가 true일 때만 랜덤 애니메이션 실행
-          animate={isMounted ? { y: [0, randomValues.y, 0] } : {}}
-          transition={{ 
-            duration: randomValues.duration, 
-            repeat: Infinity, 
-            ease: "easeInOut",
-            delay: randomValues.delay 
-          }}
+        <div
           className="w-full h-full flex flex-col items-center justify-center relative z-10"
         >
           {/* 아이콘: isTouched(모바일) 혹은 group-hover(PC) 상태일 때 활성화 */}
@@ -183,14 +160,14 @@ export default function TechStack() {
           <span className="text-xs font-medium text-gray-400 mt-1 transition-colors duration-300 group-hover:text-gray-200">
             {skill.name}
           </span>
-        </motion.div>
-        
+        </div>
+
         {/* Glow 배경 효과 */}
-        <div 
+        <div
             className={`
                 absolute inset-0 bg-white/5 rounded-full blur-xl transition-opacity duration-500 pointer-events-none
                 ${isTouched ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}
-            `} 
+            `}
         />
       </motion.div>
     )

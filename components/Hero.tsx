@@ -19,16 +19,21 @@ export default function Hero() {
           { opacity: 1, y: 0, rotateX: 0, duration: 0.8, stagger: 0.05, ease: "back.out(1.7)" }
         )
       }
+      // ScrollTrigger toggleActions로 임계점 통과 시점에 한 번에 fade out한다.
+      // 이전 scrub:1은 스크롤 위치에 비례해 opacity를 계속 변경시켜,
+      // 사용자가 중간 위치에 스크롤을 멈추면 글씨가 흐릿하게 박힌 채로
+      // 남는 UX 문제가 있었다. 임계점 트리거 + 짧은 transition으로 교체.
       gsap.to(containerRef.current, {
         opacity: 0,
-        y: -100,
-        scale: 0.95,
+        y: -60,
+        scale: 0.96,
+        duration: 0.5,
+        ease: 'power2.out',
         scrollTrigger: {
           trigger: containerRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: 1,
-        }
+          start: 'bottom 70%',
+          toggleActions: 'play none none reverse',
+        },
       })
     }, containerRef)
     return () => ctx.revert()
