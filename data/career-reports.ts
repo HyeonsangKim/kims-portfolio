@@ -608,11 +608,11 @@ export const careerStoryBlocksV1: Partial<
             },
           },
           {
-            value: '99.5% 차단',
+            value: 'family 일괄 무력화',
             label: {
-              ko: '5회 실패 시 계정 15분 잠금. brute-force 1,000회 시도해도 5회만 통과, 공격 완수에 50시간 필요해 사실상 불가능합니다.',
-              en: '5 failed logins lock the account for 15 minutes. A 1,000-attempt brute-force only gets 5 through and needs ~50 hours, effectively impractical.',
-              ja: 'ログイン5回失敗で15分ロック。Brute-force 1,000回試行でも5回しか通らず、攻撃完遂に約50時間かかり事実上不可能です。',
+              ko: 'Refresh 토큰 재사용이 감지되면 family_id로 묶인 N개의 토큰을 단일 query로 즉시 모두 무력화. 토큰 도난·복제 대응이 사람 개입 없이 자동으로 끝납니다.',
+              en: 'Token family revoke — when refresh-token reuse is detected, all N tokens linked by family_id are revoked in a single query, so theft and replay are handled automatically without operator intervention.',
+              ja: 'family一括無効化 — Refreshトークンの再利用が検知されたらfamily_idで紐づく全Nトークンを単一クエリで即時無効化。盗難・複製対応が運用者の介入なしで自動完結します。',
             },
           },
         ],
