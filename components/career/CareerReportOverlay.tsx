@@ -10,6 +10,16 @@ import {
 import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Cell,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from 'recharts'
+import {
   FiX,
   FiBriefcase,
   FiTarget,
@@ -609,6 +619,14 @@ function StorySection({
         </div>
       )}
 
+      {visuals?.chart && (
+        <SlotChartCard
+          chart={visuals.chart}
+          locale={locale}
+          gradientCss={gradientCss}
+        />
+      )}
+
       {visuals?.diagramKey && (
         <div className="mt-6 rounded-xl border border-white/10 bg-black/40 p-2 sm:p-4 md:p-6 overflow-x-auto">
           {visuals.diagramKey === 'odiya' && <OdiyaArchitectureDiagram />}
@@ -623,6 +641,101 @@ function StorySection({
       )}
 
     </section>
+  )
+}
+
+/* ────────────── Slot chart (Recharts) ────────────── */
+
+function SlotChartCard({
+  chart,
+  locale,
+  gradientCss,
+}: {
+  chart: NonNullable<SlotVisuals['chart']>
+  locale: Locale
+  gradientCss: string
+}) {
+  // Recharts는 client-side에서만 동작하므로 dynamic import + ssr:false로
+  // 묶어 빌드/SSR 부담을 피하고, 그라데이션 색상은 모달의 카테고리 그라데이션
+  // 양 끝에서 추출해 카드 톤과 시각적으로 일치시킨다.
+  const data = chart.data.map((d) => ({
+    label: d.label[locale],
+    value: d.value,
+  }))
+
+  // gradientCss 예: "linear-gradient(135deg, #3b82f6, #22d3ee)" — 첫 색상을 막대 색으로 사용
+  const gradientColors = chart.data.map(() => extractFirstColor(gradientCss))
+
+  return (
+    <div className="mt-6 rounded-xl border border-white/10 bg-black/40 p-4 md:p-6">
+      <div style={{ width: '100%', height: 220 }}>
+        <ChartContent data={data} colors={gradientColors} />
+      </div>
+      {chart.unitLabel && (
+        <div className="mt-2 text-[11px] text-gray-500 text-right">
+          {chart.unitLabel[locale]}
+        </div>
+      )}
+      {chart.caption && (
+        <p className="mt-3 text-[12px] md:text-[13px] text-gray-400 leading-relaxed">
+          {chart.caption[locale]}
+        </p>
+      )}
+    </div>
+  )
+}
+
+function extractFirstColor(gradientCss: string): string {
+  const match = gradientCss.match(/#[0-9a-fA-F]{3,8}/g)
+  return match?.[0] ?? '#a855f7'
+}
+
+function ChartContent({
+  data,
+  colors,
+}: {
+  data: { label: string; value: number }[]
+  colors: string[]
+}) {
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <BarChart
+        data={data}
+        margin={{ top: 12, right: 16, left: 8, bottom: 8 }}
+      >
+        <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.08)" />
+        <XAxis
+          dataKey="label"
+          tick={{ fill: 'rgba(255,255,255,0.7)', fontSize: 12 }}
+          axisLine={{ stroke: 'rgba(255,255,255,0.15)' }}
+          tickLine={false}
+        />
+        <YAxis
+          tick={{ fill: 'rgba(255,255,255,0.5)', fontSize: 11 }}
+          axisLine={{ stroke: 'rgba(255,255,255,0.15)' }}
+          tickLine={false}
+        />
+        <Tooltip
+          cursor={{ fill: 'rgba(255,255,255,0.05)' }}
+          contentStyle={{
+            background: 'rgba(10, 10, 15, 0.95)',
+            border: '1px solid rgba(255,255,255,0.15)',
+            borderRadius: '8px',
+            color: '#fff',
+            fontSize: '12px',
+          }}
+        />
+        <Bar dataKey="value" radius={[6, 6, 0, 0]}>
+          {data.map((_, i) => (
+            <Cell
+              key={i}
+              fill={colors[i] ?? colors[0]}
+              fillOpacity={i === 0 ? 0.4 : 1}
+            />
+          ))}
+        </Bar>
+      </BarChart>
+    </ResponsiveContainer>
   )
 }
 

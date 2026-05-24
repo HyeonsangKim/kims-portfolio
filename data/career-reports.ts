@@ -74,6 +74,22 @@ export interface SlotTable {
   selectedRow?: number
 }
 
+/**
+ * Bar chart for outcomes that read better visually than in prose
+ * (예: "부하 95% 감소" = before/after 막대). Two-series comparison only —
+ * intentionally narrow so the modal stays scannable.
+ */
+export interface SlotChart {
+  /** Chart variant. 'bar' = before/after 비교. */
+  type: 'bar'
+  /** Y-axis unit label (e.g. "분당 INSERT", "%"). */
+  unitLabel?: L
+  /** 2 data points: 보통 before / after. */
+  data: { label: L; value: number }[]
+  /** 차트 아래 caption — 출처·근거·해석 한 줄. */
+  caption?: L
+}
+
 export interface SlotVisuals {
   /** "큰 숫자 + 한 줄 설명" 카드들. Result 같은 곳에서 강조용. */
   metrics?: SlotMetric[]
@@ -81,6 +97,8 @@ export interface SlotVisuals {
   table?: SlotTable
   /** 핵심 포인트 bullet — prose보다 빠른 스캔용. */
   bullets?: LA
+  /** Before/after 막대 차트 — 운영 결과를 텍스트보다 직관적으로. */
+  chart?: SlotChart
   /** Inline architecture diagram slug. Decision 슬롯에서 인라인 표시. */
   diagramKey?: 'odiya' | 'mohani' | 'kocca'
 }
@@ -443,6 +461,15 @@ export const careerStoryBlocksV1: Partial<
           { value: '0대', label: { ko: '인프라 추가 증설', en: 'New infra added', ja: 'インフラ追加' } },
           { value: '~230%', label: { ko: 'B2B 매출 성장 기여 (회사 발표 기준)', en: 'B2B revenue growth contributed', ja: 'B2B売上成長寄与' } },
         ],
+        chart: {
+          type: 'bar',
+          unitLabel: { ko: '분당 INSERT (정규화)', en: 'INSERTs / min (normalized)', ja: '分単位INSERT (正規化)' },
+          data: [
+            { label: { ko: 'Before', en: 'Before', ja: 'Before' }, value: 100 },
+            { label: { ko: 'After', en: 'After', ja: 'After' }, value: 5 },
+          ],
+          caption: { ko: '재설계 전후 DB 쓰기 부하 비교 (정규화 100 기준 — Redis 버퍼 + 60초 배치 적용 후 약 5 수준).', en: 'DB write load before vs after the redesign, normalized to 100 (drops to ~5 after Redis buffer + 60s batch).', ja: '再設計前後のDB書き込み負荷比較（100基準で正規化 — Redisバッファ + 60秒バッチ適用後は約5）。' },
+        },
       },
     },
   },
