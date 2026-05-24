@@ -100,7 +100,16 @@ export interface SlotVisuals {
   /** Before/after 막대 차트 — 운영 결과를 텍스트보다 직관적으로. */
   chart?: SlotChart
   /** Inline architecture diagram slug. Decision 슬롯에서 인라인 표시. */
-  diagramKey?: 'odiya' | 'mohani' | 'kocca' | 'purple' | 'aigoseo' | 'wigvo'
+  diagramKey?:
+    | 'odiya'
+    | 'mohani'
+    | 'kocca'
+    | 'purple'
+    | 'aigoseo'
+    | 'wigvo'
+    | 'wigent'
+    | 'wigtnflake'
+    | 'wigplugin'
 }
 
 /**
@@ -1067,6 +1076,9 @@ export const careerStoryBlocksV1: Partial<
       en: 'Letting an AI agent merge code outright explodes the trust bill, so the most important design decision was splitting permission into dry-run → comment-only → full and graduating step by step. SelfMergeViolation — blocking the path where the bot waves its own MR through — is the kind of guard that turns out to be central to autonomy safety, not a footnote.',
       ja: 'AIエージェントがコードを直接マージできるようにすると信頼コストが跳ね上がります。そのため権限をdry-run → comment-only → fullに分割し段階的に昇格する構造自体が最大の設計判断でした。同時にSelfMergeViolationのように「ボットが自分自身を通す経路」を塞ぐ仕組みが自律システムの安全性において本質的だと再確認しました。',
     },
+    visuals: {
+      decision: { diagramKey: 'wigent' },
+    },
   },
 
   wigtnflake: {
@@ -1115,6 +1127,9 @@ export const careerStoryBlocksV1: Partial<
       en: 'Left to their own devices, agents will diverge instead of converge. What made the system actually settle was giving a PM moderator the right to forcibly reclaim the floor, and separating that from the right of tools like ANOMALY_DETECTION to interrupt the debate. Bottom line: "designing the system to converge without a human in the loop every turn" is the real product question for multi-agent apps.',
       ja: 'エージェントは放っておくと議論が発散します。PM進行役が発言権を強制的に回収する仕組みと、ANOMALY_DETECTIONのようなツールが議論に割り込む権限を分離したことが収束の鍵でした。結局「人が毎回判断しなくてもシステムが収束するよう設計する」ことがマルチエージェント製品の本質だと再確認しました。',
     },
+    visuals: {
+      decision: { diagramKey: 'wigtnflake' },
+    },
   },
 
   wigplugin: {
@@ -1162,6 +1177,9 @@ export const careerStoryBlocksV1: Partial<
       ko: 'AI 어시스턴트의 본질은 "더 좋은 답"이 아니라 "사람이 매번 사이를 잇지 않아도 시스템이 끝까지 도는 구조"라는 점을 가장 깊이 배운 프로젝트입니다. 그래서 점수 기반 자동 머지·Security Zero-Tolerance·역할 분리 같은 운영 구조 결정이 모델 선택보다 훨씬 큰 영향을 미쳤습니다.',
       en: 'The deepest lesson from this one: the real value of AI assistants isn\'t "a better answer," it\'s "a structure that runs end-to-end without a human stitching every gap." Decisions about score-driven auto-merge, Security Zero-Tolerance, and role separation ended up mattering far more than which model we picked.',
       ja: 'AIアシスタントの本質は「より良い回答」ではなく「人が毎回間を繋がなくてもシステムが最後まで回る構造」だということを最も深く学んだプロジェクトです。そのためスコアベース自動マージ・Security Zero-Tolerance・役割分離のような運用構造の決定がモデル選択よりはるかに大きな影響を与えました。',
+    },
+    visuals: {
+      decision: { diagramKey: 'wigplugin' },
     },
   },
 
