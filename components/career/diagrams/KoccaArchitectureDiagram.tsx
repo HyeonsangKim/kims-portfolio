@@ -167,7 +167,7 @@ export default function KoccaArchitectureDiagram() {
           ② 브라우저 음성 가공(에코 제거·노이즈 억제) 모두 OFF
         </text>
         <text x={66} y={518} fontSize="10" fill="rgba(255,255,255,0.7)" fontFamily="ui-sans-serif,system-ui">
-          ③ 44바이트 WAV 헤더 손수 작성 (외부 라이브러리 의존 0)
+          ③ 44바이트 WAV 헤더 손수 작성
         </text>
       </g>
 

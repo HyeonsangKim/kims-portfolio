@@ -738,9 +738,9 @@ export const careerStoryBlocksV1: Partial<
       ja: 'Soundmind在籍中、外国人学習者向け韓国語発音・スピーキング評価のR&Dをフルスタック単独で出荷しました。自作の16kHz/1ch/16bit WAVエンコーダ、韓国語型STT（Selvy `kocca_stt`）との3フェーズ通信、発音5段階・スピーキング7段階の受験state machine、ミドルウェアRBAC、Dockerコンテナのセキュリティ強化を単独責任で政府R&D成果物として納品しました。',
     },
     context: {
-      ko: 'KOCCA(한국콘텐츠진흥원) 정부 R&D 과제로 진행한 외국인 학생 대상 한국어 평가 플랫폼입니다. 4역할(STUDENT, TEACHER MAIN, TEACHER SUB, TEACHER ADMIN), 학교별 멀티테넌트, 8단계 시험 회차 state machine 구조 안에서, 팀장으로서 App Router·Server Action·Route Handler·DB 스키마·Docker 배포까지 리딩하며 핵심 설계를 담당했습니다. 다만 3인 합의 채점 알고리즘과 채점자 자동 배정 race 방어는 다른 팀원 담당이라 본인 기여로 표기하지 않습니다.',
-      en: 'A KOCCA-funded Korean-speaking assessment platform for foreign learners with four user roles (STUDENT, TEACHER MAIN, TEACHER SUB, TEACHER ADMIN), school-level multitenancy, and an eight-stage exam-status state machine. As team lead I owned the full stack solo: App Router, Server Action, Route Handler, DB schema, Docker deployment. Honest scope note: the three-grader consensus scoring algorithm and the race-condition-safe grader auto-assignment were owned by another engineer, not me.',
-      ja: 'KOCCA（韓国コンテンツ振興院）政府R&D課題として進められた外国人学習者向け韓国語評価プラットフォーム。4ロール（STUDENT / TEACHER MAIN / TEACHER SUB / TEACHER ADMIN）・学校別マルチテナント・8段階の試験回次state machine構造の中で、チームリーダーとしてApp Router・Server Action・Route Handler・DBスキーマ・Dockerデプロイを単独責任。ただし3名合議採点アルゴリズムと採点者自動割当のrace防御は他メンバー担当のため、自分の貢献としては表記しません。',
+      ko: 'KOCCA(한국콘텐츠진흥원) 정부 R&D 과제로 진행한 외국인 학생 대상 한국어 평가 플랫폼입니다. 4역할(STUDENT, TEACHER MAIN, TEACHER SUB, TEACHER ADMIN), 학교별 멀티테넌트, 8단계 시험 회차 state machine 구조 안에서, 팀장으로서 App Router·Server Action·Route Handler·DB 스키마·Docker 배포까지 리딩하며 핵심 설계를 담당했습니다.',
+      en: 'A KOCCA-funded Korean-speaking assessment platform for foreign learners with four user roles (STUDENT, TEACHER MAIN, TEACHER SUB, TEACHER ADMIN), school-level multitenancy, and an eight-stage exam-status state machine. As team lead I led the full stack: App Router, Server Action, Route Handler, DB schema, Docker deployment.',
+      ja: 'KOCCA（韓国コンテンツ振興院）政府R&D課題として進められた外国人学習者向け韓国語評価プラットフォーム。4ロール（STUDENT / TEACHER MAIN / TEACHER SUB / TEACHER ADMIN）・学校別マルチテナント・8段階の試験回次state machine構造の中で、チームリーダーとしてApp Router・Server Action・Route Handler・DBスキーマ・Dockerデプロイをリーディングし、コア設計を担当しました。',
     },
     problem: {
       ko: '핵심은 STT 포맷 제약이었습니다. Selvy `kocca_stt`가 16kHz/1ch/16bit PCM RIFF만 받기 때문에 MediaRecorder의 webm/opus를 그대로 보내면 서버 ffmpeg 변환이 필요해 응답 지연, 트랜스코딩 손실, iOS Safari 호환성 문제가 누적됩니다. 동시에 응시 흐름(발음 5단계와 말하기 7단계)의 안정적인 운영, 4역할 RBAC, 학교별 멀티테넌트 격리까지 한 설계 안에서 잡아야 했습니다.',
@@ -825,7 +825,7 @@ export const careerStoryBlocksV1: Partial<
             ],
             [
               { ko: '자체 WAV 인코더 + Selvy STT 4단계 폴링', en: 'Hand-written WAV encoder + Selvy STT 4-phase poll', ja: '自作WAVエンコーダ + Selvy STT 4段ポーリング' },
-              { ko: '서버 변환 단계 제거 + STT 포맷 정확히 일치 + 외부 라이브러리 의존 0', en: 'Eliminates server-side conversion + exact STT format match + zero third-party deps', ja: 'サーバー変換段階を消去 + STT形式に正確一致 + 外部依存0' },
+              { ko: '서버 변환 단계 제거 + STT 포맷 정확히 일치', en: 'Eliminates server-side conversion + exact STT format match', ja: 'サーバー変換段階を消去 + STT形式に正確一致' },
               { ko: 'ScriptProcessor는 W3C deprecated — 장기적으로 AudioWorklet 마이그레이션 필요', en: 'ScriptProcessor is W3C-deprecated — long-term AudioWorklet migration needed', ja: 'ScriptProcessorはW3C deprecated — 長期的にAudioWorklet移行が必要' },
             ],
           ],
@@ -840,7 +840,7 @@ export const careerStoryBlocksV1: Partial<
           ko: [
             '① sample rate 16kHz로 직접 캡처 — Selvy가 16kHz만 받으므로 클라이언트에서 같은 sample rate로 캡처해 서버 리샘플링 + 트래픽 폭증 동시 회피',
             '② ScriptProcessor(4096) — AudioWorklet 호환이 부족했던 시기의 지연·CPU 부하 균형점 + 모노 1채널로 STT 입력 사양 정확 일치 + 트래픽/메모리 절반',
-            '③ 44바이트 WAV 헤더 직접 작성 — 외부 라이브러리 의존 0으로 STT가 받는 정확한 포맷을 클라이언트에서 생성',
+            '③ 44바이트 WAV 헤더 직접 작성 — STT가 받는 정확한 포맷을 클라이언트에서 생성',
             '★ 응시 흐름 안정성 — 발음 5단계 + 말하기 7단계 state machine 분리, 녹음 데이터는 `useState`가 아닌 `useRef`로 누적해 리렌더 사이 음성 유실 방지',
             '★ Server Action(인증, 부수효과) vs Route Handler(데이터, 단순 조회) 의도적 분리 — 클라이언트 번들 가벼움',
             '★ 학교별 격리 — 모든 응시·채점 쿼리에 학교 ID 필터 강제 + 미들웨어가 토큰의 소속 학교와 요청 경로 학교 ID 일치 여부 검증',
@@ -848,7 +848,7 @@ export const careerStoryBlocksV1: Partial<
           en: [
             '① Capture at 16 kHz directly — Selvy only accepts 16 kHz, so matching the client capture rate avoids both server resampling and bandwidth bloat',
             '② ScriptProcessor(4096) — the latency/CPU balance point when AudioWorklet support was thin + mono 1-channel matches the STT input spec exactly + halves bandwidth and memory',
-            '③ 44-byte WAV header written by hand — zero third-party dependency while producing the exact format Selvy expects on the client',
+            '③ 44-byte WAV header written by hand — produces the exact format Selvy expects on the client',
             '★ Exam-flow stability — pronunciation (5) + speaking (7) split into state machines, recordings accumulated in `useRef` (not `useState`) so re-renders never drop audio',
             '★ Server Action (auth, side-effect) vs Route Handler (data, simple fetch) split keeps the client bundle lean by design',
             '★ School-level isolation — every exam/grading query carries a school_id filter and middleware verifies the token’s school matches the route’s school_id',
@@ -856,7 +856,7 @@ export const careerStoryBlocksV1: Partial<
           ja: [
             '① sample rate 16kHzで直接キャプチャ — Selvyが16kHzのみ受領するため、クライアントで同じsample rateで取得しサーバーリサンプリングとトラフィック膨張を同時回避',
             '② ScriptProcessor(4096) — AudioWorklet互換が薄かった時期の遅延・CPU負荷の均衡点 + モノ1チャネルでSTT入力仕様に正確一致 + トラフィック/メモリ半減',
-            '③ 44バイトWAVヘッダを直接記述 — 外部ライブラリ依存0でSTTが受け取る正確な形式をクライアントで生成',
+            '③ 44バイトWAVヘッダを直接記述 — STTが受け取る正確な形式をクライアントで生成',
             '★ 受験フロー安定性 — 発音5段階 + スピーキング7段階のstate machineに分離、録音Blobは`useState`ではなく`useRef`で累積し再レンダ中の音声消失を防止',
             '★ Server Action（認証、副作用）vs Route Handler（データ、単純fetch）の意図的分離でクライアントバンドルを軽く',
             '★ 学校別隔離 — すべての受験・採点クエリにschool_idフィルタを強制 + ミドルウェアがトークンの所属校とルートのschool_id一致を検証',
@@ -942,9 +942,9 @@ export const careerStoryBlocksV1: Partial<
       ja: '責任範囲を正確に — 漢字ごとの領域座標自体は発注元が算出して提供し、本人はその座標に合わせて写真を1文字ずつ正確に切り出すシステム + 後続のOCR・翻訳パイプラインに繋がるバックエンドAPI実装が担当。アルゴリズム決定者ではなく、発注元仕様をシステムとして統合する実装責任。',
     },
     hypothesis: {
-      ko: 'Canvas API의 `getImageData` / `putImageData`로 픽셀 좌표 기반 이미지 분할을 직접 다루면, 외부 라이브러리 의존 없이 발주처 좌표 사양을 그대로 받아 시각화·분할이 가능합니다. 발주처가 좌표를 확인·수정하며 즉시 분할 결과를 검수해야 하는 워크플로우였기 때문에, 클라이언트 측 즉시 렌더링이 핵심이라고 판단했습니다.',
-      en: 'Hypothesis: Canvas’s `getImageData` / `putImageData` would let me do pixel-coordinate-based slicing directly, zero third-party dependency, consuming the client’s coordinate spec as-is. The workflow needed the client to inspect and tweak coordinates with the slicing result rendering immediately — client-side rendering was the load-bearing requirement.',
-      ja: '仮説 — Canvas APIの`getImageData` / `putImageData`でピクセル座標ベースの画像分割を直接扱えば、外部ライブラリ依存なしに発注元の座標仕様をそのまま受け取って可視化・分割が可能。発注元が座標を確認・修正しながら分割結果を即座に検収するワークフローのため、クライアント側の即時レンダリングが鍵。',
+      ko: 'Canvas API의 `getImageData` / `putImageData`로 픽셀 좌표 기반 이미지 분할을 직접 다루면, 발주처 좌표 사양을 그대로 받아 시각화·분할이 가능합니다. 발주처가 좌표를 확인·수정하며 즉시 분할 결과를 검수해야 하는 워크플로우였기 때문에, 클라이언트 측 즉시 렌더링이 핵심이라고 판단했습니다.',
+      en: 'Hypothesis: Canvas’s `getImageData` / `putImageData` would let me do pixel-coordinate-based slicing directly, consuming the client’s coordinate spec as-is. The workflow needed the client to inspect and tweak coordinates with the slicing result rendering immediately — client-side rendering was the load-bearing requirement.',
+      ja: '仮説 — Canvas APIの`getImageData` / `putImageData`でピクセル座標ベースの画像分割を直接扱えば、発注元の座標仕様をそのまま受け取って可視化・分割が可能。発注元が座標を確認・修正しながら分割結果を即座に検収するワークフローのため、クライアント側の即時レンダリングが鍵。',
     },
     alternatives: {
       ko: 'OpenCV.js는 비전 라이브러리지만 본인 책임이 알고리즘이 아니라 좌표 기반 분할이라 과한 도구였습니다. 서버사이드 이미지 처리(Sharp / ImageMagick)는 발주처 검수 루프에서 서버 왕복 부담이 컸고, 백엔드는 SI 회사 표준 스택을 따라 Spring Boot + JPA로 갔습니다.',

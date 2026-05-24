@@ -87,9 +87,9 @@ const meta: Record<ArchitectureKey, ArchitectureMeta> = {
       ja: 'ミドルウェアがnon-APIリクエストをRBACで一次フィルタし、ブラウザがSelvy STTの仕様通りにWAVを直接エンコードしてサーバー変換段階を消去、4段ポーリングで送信。学校別隔離はクエリとミドルウェアの2層で強制。',
     },
     caption: {
-      ko: '★ 자체 WAV 인코더 세 결정: ① 16kHz 그대로 캡처 ② AudioWorklet 호환 부족 시기에 ScriptProcessor 균형점 ③ 외부 라이브러리 의존 0. ★ Server Action(인증) vs Route Handler(데이터) 의도적 분리 — 클라이언트 번들 가벼움.',
-      en: '★ Three encoder choices: ① capture at 16 kHz directly ② ScriptProcessor as the practical balance when AudioWorklet support was thin ③ zero third-party deps. ★ Server Action (auth) vs Route Handler (data) split keeps the client bundle lean.',
-      ja: '★ 自作WAVエンコーダ3決定：① 16kHzで直接キャプチャ ② AudioWorklet互換性が薄い時期のScriptProcessor均衡 ③ 外部依存0。★ Server Action（認証）vs Route Handler（データ）意図的分離でクライアントバンドルを軽く。',
+      ko: '★ 자체 WAV 인코더 두 결정: ① 16kHz 그대로 캡처 ② AudioWorklet 호환 부족 시기에 ScriptProcessor 균형점. ★ Server Action(인증) vs Route Handler(데이터) 의도적 분리 — 클라이언트 번들 가벼움.',
+      en: '★ Two encoder choices: ① capture at 16 kHz directly ② ScriptProcessor as the practical balance when AudioWorklet support was thin. ★ Server Action (auth) vs Route Handler (data) split keeps the client bundle lean.',
+      ja: '★ 自作WAVエンコーダ2決定：① 16kHzで直接キャプチャ ② AudioWorklet互換性が薄い時期のScriptProcessor均衡。★ Server Action（認証）vs Route Handler（データ）意図的分離でクライアントバンドルを軽く。',
     },
     gradient: 'linear-gradient(135deg, #fb923c, #f59e0b)',
   },
