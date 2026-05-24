@@ -10,6 +10,11 @@ export type CareerReportKey =
   | 'kocca'
   | 'purple-english'
   | 'aigoseo'
+  // WIGTN 사이드 프로젝트 — 통일감을 위해 Career와 동일한 9슬롯 v1 구조로 운영
+  | 'wigent'
+  | 'wigtnflake'
+  | 'wigplugin'
+  | 'wigvo'
 
 export interface CareerReport {
   about: L
@@ -113,7 +118,10 @@ export const careerStoryBlockSlotLabels: Record<
   result: { ko: '성과', en: 'Result', ja: '成果' },
 }
 
-export const careerReports: Record<CareerReportKey, CareerReport> = {
+// Legacy 3-slot reports (about / role / highlights) — only Career projects use
+// this form. WIGTN side projects rely entirely on the v1 9-slot story blocks
+// below, so the legacy map is intentionally Partial.
+export const careerReports: Partial<Record<CareerReportKey, CareerReport>> = {
   'oem-integration-server': {
     about: {
       ko: '노란마켓 같은 B2B 파트너사와 협력해, 갤럭시 공부폰 등 어린이용 특화 디바이스에 사전 탑재되는 자녀 안심 서비스의 통합 인증·권한 인프라. 파트너별 화이트라벨 서비스가 공유하는 단일 인증 인프라 위에서 자녀 위치 조회(오디야)와 자녀 디바이스 원격 제어(모하니)를 동시 수용해야 하며, 파트너 단위 권한 분리와 운영 추적성을 동시에 보장해야 하는 환경이었습니다.',
@@ -975,6 +983,200 @@ export const careerStoryBlocksV1: Partial<
       ko: '지금 시점에서 같은 과제를 다시 한다면 SAM·YOLO·LLM 기반 OCR 같은 도구로 좌표 추출·이미지 분할이 상당 부분 자동화 가능합니다. 다만 그 시기에 LLM·AI 보조 도구가 없는 환경에서 Canvas API의 픽셀 단위 처리·좌표 시스템 정합성·발주처 사양과의 round-trip 검수 워크플로우를 체득한 것이, 이후 모든 프로젝트에서 "외부 사양을 시스템으로 통합하는 책임"의 기반이 됐습니다.',
       en: 'If I picked up the same project today, tools like SAM, YOLO, or LLM-backed OCR would automate much of the coordinate extraction and slicing. But living through the pre-LLM version of this work — Canvas pixel-level operations, coordinate-system alignment, the tight inspection loop with the client — became the foundation for "owning the integration of an external specification into a real system" that I have leaned on in every later project.',
       ja: '現在の時点で同じ課題をやり直すなら、SAM・YOLO・LLMベースOCRのようなツールで座標抽出・画像分割が相当部分自動化可能です。ただし当時のLLM・AI補助ツールがない環境でCanvas APIのピクセル単位処理・座標系整合性・発注元仕様とのround-trip検収ワークフローを直接体得したことは、以降の全プロジェクトにおける「外部仕様をシステムとして統合する責任」の基盤になりました。',
+    },
+  },
+
+  /* ───────── WIGTN 사이드 프로젝트 ───────── */
+
+  wigent: {
+    oneLiner: {
+      ko: 'GitLab 리포에 상주하며 PR 리뷰부터 머지된 코드 감시·이슈 자동 발급·자동 수정까지 24/7 자율 동작하는 시니어 에이전트. Google Cloud Rapid Agent Hackathon 2026 GitLab Track 출품작.',
+      en: 'A senior-engineer agent that lives inside a GitLab repo and runs 24/7 — PR review, post-merge code monitoring, automatic issue creation, and auto-fix MRs. Built for the Google Cloud Rapid Agent Hackathon 2026 GitLab Track.',
+      ja: 'GitLabリポに常駐し、PRレビューからマージ後のコード監視・課題自動起票・自動修正までを24/7自律で回すシニアエンジニアエージェント。Google Cloud Rapid Agent Hackathon 2026 GitLabトラック出品作。',
+    },
+    context: {
+      ko: '기존 PR 리뷰 봇은 PR이 열려야만 동작하고, 머지된 후의 코드 건강도에는 관여하지 않습니다. 이 한계를 풀기 위해 Reactive·Proactive·Auto-Fix 3 lane 자율 사이클로 24/7 동작하는 에이전트를 설계했습니다.',
+      en: 'Conventional PR review bots are reactive by design — they only kick in when a PR opens and walk away after merge. To close that gap we designed an agent that runs 24/7 across three independent lanes (Reactive · Proactive · Auto-Fix).',
+      ja: '従来のPRレビューボットはPRが開かれた時だけ動作し、マージ後のコード健康度には関与しません。この限界を解くため、Reactive・Proactive・Auto-Fixの3レーン自律サイクルで24/7動作するエージェントを設計しました。',
+    },
+    problem: {
+      ko: 'PR 열림에만 반응하면 머지된 코드에서 발생하는 보안·성능·테스트 부채를 누가 잡을지가 불명확합니다. 또 단일 페르소나로 LLM-as-a-judge를 돌리면 코드 리뷰의 다양한 관점이 단일 시각으로 압축돼 신뢰가 떨어집니다.',
+      en: 'A PR-only workflow leaves post-merge security, performance, and test debt with no clear owner. And running LLM-as-a-judge with a single persona compresses many review angles into one voice, which reviewers stop trusting.',
+      ja: 'PRオープン時のみ反応する設計では、マージ後に積もるセキュリティ・性能・テスト負債の担当が不明になります。さらに単一ペルソナでLLM-as-a-judgeを回すと、コードレビューの多様な視点が一つの声に圧縮され信頼が下がります。',
+    },
+    hypothesis: {
+      ko: '리뷰는 단일 판단보다 다중 페르소나의 토론·합의로 가져가야 신뢰가 만들어지고, 동작 트리거를 PR 열림 외에 cron sweep과 명시적 명령으로 확장해 머지 후 영역까지 자율 커버해야 한다고 봤습니다.',
+      en: 'Trust comes from a debate among multiple personas rather than a single LLM judge; and to actually cover the post-merge surface, the agent has to fire on cron sweeps and explicit commands, not just PR open events.',
+      ja: 'レビューは単一判断より複数ペルソナの議論・合意で運用したほうが信頼が築け、PRオープン以外にcronスイープと明示コマンドへトリガを広げてマージ後の領域まで自律カバーすべきだと考えました。',
+    },
+    alternatives: {
+      ko: '단일 LLM judge·룰 기반 정적 분석·외부 SaaS 코드 리뷰 도구를 검토했지만, 페르소나 다중성과 자율 동작 양쪽을 동시에 만족하는 솔루션은 없었습니다.',
+      en: 'Looked at a single-LLM judge, rules-based static analysis, and off-the-shelf SaaS review tools — none of them combined multi-persona debate with autonomous post-merge action.',
+      ja: '単一LLM judge・ルールベース静的解析・外部SaaSコードレビューツールを検討しましたが、ペルソナ多重性と自律動作を同時に満たす選択肢はありませんでした。',
+    },
+    decision: {
+      ko: 'Google Cloud Agent Builder ADK를 베이스로 4 페르소나(security_guard·performance_hunter·test_fanatic·team_lead) ParallelAgent + 3 lane 자율 사이클을 설계했습니다. 신뢰는 dry-run → comment-only → full 3단계 권한 모드로 점진적 확보.',
+      en: 'Built on Google Cloud Agent Builder ADK: a four-persona ParallelAgent (security_guard / performance_hunter / test_fanatic / team_lead as meta) plus the three-lane autonomy. Trust is earned in stages via dry-run → comment-only → full permission modes.',
+      ja: 'Google Cloud Agent Builder ADKをベースに、4ペルソナ（security_guard・performance_hunter・test_fanatic・team_lead）ParallelAgent + 3レーン自律サイクルを設計。信頼はdry-run → comment-only → fullの3段権限モードで段階的に獲得。',
+    },
+    execution: {
+      ko: 'Reactive Lane은 GitLab Webhook에서 시작해 4 페르소나가 병렬로 인라인 코멘트와 risk score(0~100)를 만듭니다. Proactive Lane은 Cloud Scheduler가 매시간 머지 코드를 스윕해 코사인 유사도 0.85 기준 dedupe 후 이슈를 발급합니다. Auto-Fix Lane은 변경 계획 → 5분 대기 → 브랜치·커밋·MR + 셀프 리뷰까지 가고, 봇이 자기 MR 머지를 시도하면 SelfMergeViolation으로 차단됩니다.',
+      en: 'Reactive lane starts at the GitLab webhook and runs four personas in parallel, producing inline comments and a 0~100 risk score. Proactive lane has Cloud Scheduler sweep merged code hourly, deduping with cosine similarity ≥ 0.85 before opening issues. Auto-Fix lane goes change plan → 5-minute hold → branch + commit + MR + self-review, and a SelfMergeViolation guard blocks the bot from merging its own MR.',
+      ja: 'Reactive LaneはGitLab Webhookで起動し、4ペルソナが並列にインラインコメントとrisk score（0~100）を生成。Proactive LaneはCloud Schedulerが毎時マージ済みコードをスイープし、コサイン類似度0.85以上でdedupeしてから課題を起票。Auto-Fix Laneは変更計画 → 5分待機 → ブランチ・コミット・MR + セルフレビューまで進み、ボットが自分のMRをマージしようとするとSelfMergeViolationで遮断します。',
+    },
+    result: {
+      ko: 'Google Cloud Rapid Agent Hackathon 2026 GitLab Track 출품작으로, 페르소나 토론 + 3 lane 자율 사이클이 실제 GitLab 리포에서 동작하는 형태로 시연을 마쳤습니다. GitLab MCP 도구 12개를 활용하고, Prompt Injection 5계층 방어와 위험 파일 차단 가드(≤5 파일·≤500 라인)로 운영 안전성을 함께 확보했습니다.',
+      en: 'Shipped as the Google Cloud Rapid Agent Hackathon 2026 GitLab Track submission — persona debate + the three-lane autonomy runs against a real GitLab repo end-to-end. Uses 12 GitLab MCP tools, with five-layer prompt-injection defense and a risky-file blocklist (≤ 5 files, ≤ 500 lines per auto-fix) keeping operations safe.',
+      ja: 'Google Cloud Rapid Agent Hackathon 2026 GitLabトラック出品作として、ペルソナ議論 + 3レーン自律サイクルを実GitLabリポでエンドツーエンド稼働させた状態で出展しました。GitLab MCPツール12個を活用し、Prompt Injection 5層防御と危険ファイル遮断ガード（≤5ファイル・≤500行）で運用安全性も併せて確保。',
+    },
+    reflection: {
+      ko: 'AI 에이전트가 코드를 직접 머지할 수 있게 만들면 신뢰 비용이 폭발합니다. 그래서 권한을 dry-run → comment-only → full로 쪼개 점진적으로 승격하는 구조 자체가 가장 큰 설계 선택이었습니다. 동시에 SelfMergeViolation처럼 "봇이 자기 자신을 통과시키는 경로"를 막는 것이 자율 시스템의 안전성에서 본질적이라는 것을 다시 확인했습니다.',
+      en: 'Letting an AI agent merge code outright explodes the trust bill, so the most important design decision was splitting permission into dry-run → comment-only → full and graduating step by step. SelfMergeViolation — blocking the path where the bot waves its own MR through — is the kind of guard that turns out to be central to autonomy safety, not a footnote.',
+      ja: 'AIエージェントがコードを直接マージできるようにすると信頼コストが跳ね上がります。そのため権限をdry-run → comment-only → fullに分割し段階的に昇格する構造自体が最大の設計判断でした。同時にSelfMergeViolationのように「ボットが自分自身を通す経路」を塞ぐ仕組みが自律システムの安全性において本質的だと再確認しました。',
+    },
+  },
+
+  wigtnflake: {
+    oneLiner: {
+      ko: '"무엇을 하고 싶은지" 목적을 선택하면 5명의 Snowflake Cortex 전문가 에이전트가 토론으로 답하는 동네 인텔리전스 플랫폼. Snowflake AI & Data Hackathon Korea 2026 Tech Track 준우승.',
+      en: 'A neighborhood-intelligence platform where you pick what you want to do and five Snowflake Cortex specialist agents debate to the answer. 2nd place at the Snowflake AI & Data Hackathon Korea 2026 (Tech Track).',
+      ja: '「何をしたいか」目的を選ぶと、5名のSnowflake Cortex専門家エージェントが議論で答える地域インテリジェンス基盤。Snowflake AI & Data Hackathon Korea 2026 Tech Track準優勝。',
+    },
+    context: {
+      ko: '카페 창업·렌탈 가전 마케팅·광고판 입지·부동산 투자·상권 이상 시그널 — 수억 원이 걸린 동네 단위 의사결정을 풀려면 부동산 시세·유동인구·카드 매출·통신 계약 같은 이종 데이터를 동시에 해석해야 했습니다. 사람이 직접 SQL을 다 짜기엔 도메인 한정이라 멀티 에이전트 토론으로 풀기로 했습니다.',
+      en: 'Decisions that hinge on a single neighborhood — opening a cafe, allocating rental-appliance ad budget, picking billboard spots, real-estate investing, anomaly response — require cross-reading several heterogeneous datasets at once (real-estate prices, foot traffic, card sales, telecom contracts). Hand-writing SQL across them is too domain-locked, so we leaned on a multi-agent debate.',
+      ja: 'カフェ創業・レンタル家電マーケ・看板入地・不動産投資・商圏異常検知 — 数億円規模の地域単位意思決定を解くには、不動産価格・人流・カード売上・通信契約のような異種データを同時に解釈する必要がありました。人手でSQLをすべて書くのはドメイン限定的なので、マルチエージェント議論で解くことにしました。',
+    },
+    problem: {
+      ko: '단일 SQL이나 단일 LLM 답변으로는 도메인 전문가의 시각(시세·트렌드·예측·이상감지·감성)을 동시에 다루기 어렵고, 결과의 신뢰가 빨리 떨어집니다. 또 각 분석이 따로 돌면 모순된 결론이 사용자 화면에 그대로 노출되는 문제가 있었습니다.',
+      en: 'A single SQL query or single LLM answer can\'t simultaneously hold the multiple specialist viewpoints (pricing, trends, forecast, anomaly, sentiment) the decision needs, and the output stops being trustworthy fast. Running each analysis in isolation also tends to surface contradictions directly to the user.',
+      ja: '単一SQLや単一LLMの回答ではドメイン専門家の視点（価格・トレンド・予測・異常検知・センチメント）を同時に扱うのが難しく、結果の信頼が急速に下がります。さらに各分析が独立して回ると、矛盾した結論がそのままユーザー画面に出てしまう問題がありました。',
+    },
+    hypothesis: {
+      ko: 'GPT-4o 오케스트레이터가 목적별로 Cortex 전문가 5명을 동적으로 소환해 토론으로 합의에 도달시키면, 단일 답변보다 신뢰도와 깊이가 동시에 올라간다는 가설로 시작했습니다.',
+      en: 'Hypothesis: a GPT-4o orchestrator dynamically summons five Cortex specialists per purpose and drives them to consensus through debate — that should beat a single-shot answer on both trust and depth at the same time.',
+      ja: '仮説 — GPT-4oオーケストレーターが目的別にCortex専門家5名を動的に召喚し、議論で合意へ導けば、単一回答より信頼度と深度を同時に上げられる。',
+    },
+    alternatives: {
+      ko: '단일 LLM(GPT-4o) 답변·단순 SQL 대시보드·룰 기반 추천 엔진을 검토했지만, 5종 데이터셋 교차 해석과 도메인 전문성을 동시에 만족하는 구조는 멀티 에이전트 토론밖에 없었습니다.',
+      en: 'Considered a single-LLM (GPT-4o) answer, a plain SQL dashboard, and a rules-based recommendation engine — none of them simultaneously covered five-dataset cross-analysis and the per-domain expertise we needed, so multi-agent debate became the only fit.',
+      ja: '単一LLM（GPT-4o）回答・通常のSQLダッシュボード・ルールベース推薦エンジンを検討しましたが、5種データセット横断解析とドメイン専門性を同時に満たす構造はマルチエージェント議論しかありませんでした。',
+    },
+    decision: {
+      ko: 'GPT-4o 오케스트레이터 + 5명의 Cortex 전문가(데이터 분석가·트렌드 분석가·예측 분석가·인사이트 분석가·감성 분석가) 토론 구조로 결정했습니다. Cortex Analyst text-to-SQL × 4개 데이터셋 + ANOMALY_DETECTION + FORECAST + AI_CLASSIFY + AI_SENTIMENT 같은 Cortex Functions를 토론 안에서 자동 호출하게 묶었습니다.',
+      en: 'Settled on a GPT-4o orchestrator plus five Cortex specialists (data analyst / trend analyst / forecaster / insight analyst / sentiment analyst) debating in turns, with Cortex Analyst text-to-SQL across four datasets + ANOMALY_DETECTION, FORECAST, AI_CLASSIFY, and AI_SENTIMENT called from inside the debate.',
+      ja: 'GPT-4oオーケストレーター + 5名のCortex専門家（データ分析家・トレンド分析家・予測分析家・インサイト分析家・センチメント分析家）議論構造に決定。Cortex Analyst text-to-SQL × 4データセット + ANOMALY_DETECTION + FORECAST + AI_CLASSIFY + AI_SENTIMENTなどのCortex Functionsを議論内から自動呼び出しで束ねました。',
+    },
+    execution: {
+      ko: '사용자가 목적 카드(카페 창업·렌탈·광고·투자·이상감지)를 선택하면 오케스트레이터가 그 목적에 맞는 전문가 5명을 동적으로 소환합니다. 전문가들은 20턴 안에서 SPH 유동인구·카드매출·자산소득·통신 신규개통 등을 교차 조회하며 토론하고, 이상치는 ANOMALY_DETECTION이 자동으로 끼어들어 발화권을 가져갑니다. 결론은 Top 3 동네 + 6개월 예측 + 이상 시그널 배지 + 실행 액션 체크리스트 형태로 정리됩니다.',
+      en: 'A user picks a purpose card (cafe / rental / ad placement / investment / anomaly response) and the orchestrator dynamically summons five purpose-matched specialists. Within a 20-turn ceiling they cross-query foot traffic, card sales, asset income, telecom signups, and so on — and ANOMALY_DETECTION can interrupt the debate to claim the floor when it spots an outlier. The output lands as a Top 3 neighborhood ranking + a 6-month forecast + anomaly badges + an action checklist.',
+      ja: 'ユーザーが目的カード（カフェ創業・レンタル・広告・投資・異常検知）を選ぶとオーケストレーターが目的に合う専門家5名を動的に召喚。専門家は20ターン以内でSPH人流・カード売上・資産所得・通信新規開通などを横断照会して議論し、外れ値はANOMALY_DETECTIONが自動で割り込んで発言権を取ります。結論はTop 3地域 + 6ヶ月予測 + 異常シグナルバッジ + 実行アクションのチェックリストとして整理されます。',
+    },
+    result: {
+      ko: 'Snowflake AI & Data Hackathon Korea 2026 Tech Track 준우승(2위)을 받았습니다. 5개 프리셋 시나리오(카페 창업·렌탈 가전 마케팅·광고판 입지·부동산 투자·상권 이상감지)와 자유 입력 모두에서 토론 + 이상 시그널 + 6개월 예측 + 액션 체크리스트가 한 흐름으로 나오는 데모를 완성했습니다.',
+      en: 'Took second place in the Snowflake AI & Data Hackathon Korea 2026 Tech Track. The demo runs all five preset scenarios (cafe / rental / ad placement / investment / anomaly response) plus a free-text path, each producing a single flow of debate + anomaly signal + 6-month forecast + action checklist.',
+      ja: 'Snowflake AI & Data Hackathon Korea 2026 Tech Track準優勝（2位）を受賞しました。5つのプリセットシナリオ（カフェ創業・レンタル家電マーケ・広告入地・不動産投資・商圏異常検知）と自由入力のいずれでも、議論 + 異常シグナル + 6ヶ月予測 + アクションチェックリストが一連の流れで出るデモを完成させました。',
+    },
+    reflection: {
+      ko: '에이전트가 그냥 토론만 하면 답이 발산합니다. PM 진행자 역할로 발화권을 강제로 회수하는 구조와, ANOMALY_DETECTION 같은 도구가 토론 흐름에 끼어드는 권한을 분리한 게 수렴의 핵심이었습니다. 결국 "사람이 매번 판단하지 않아도 시스템이 수렴하도록 설계"가 멀티에이전트 제품의 본질이라는 것을 다시 확인했습니다.',
+      en: 'Left to their own devices, agents will diverge instead of converge. What made the system actually settle was giving a PM moderator the right to forcibly reclaim the floor, and separating that from the right of tools like ANOMALY_DETECTION to interrupt the debate. Bottom line: "designing the system to converge without a human in the loop every turn" is the real product question for multi-agent apps.',
+      ja: 'エージェントは放っておくと議論が発散します。PM進行役が発言権を強制的に回収する仕組みと、ANOMALY_DETECTIONのようなツールが議論に割り込む権限を分離したことが収束の鍵でした。結局「人が毎回判断しなくてもシステムが収束するよう設計する」ことがマルチエージェント製品の本質だと再確認しました。',
+    },
+  },
+
+  wigplugin: {
+    oneLiner: {
+      ko: '하나의 플러그인으로 12개 에이전트·3개 커맨드(/prd · /implement · /auto-commit)·3개 스킬을 묶어 "아이디어부터 프로덕션까지" 한 파이프라인으로 돌리는 Claude Code 플러그인. 오픈소스 공개.',
+      en: 'A Claude Code plugin that bundles 12 agents, 3 commands (/prd · /implement · /auto-commit), and 3 skills into a single "idea → production" pipeline. Open-sourced.',
+      ja: '一つのプラグインで12エージェント・3コマンド（/prd · /implement · /auto-commit）・3スキルを束ね、「アイデアからプロダクションまで」を1パイプラインで回すClaude Codeプラグイン。オープンソース公開。',
+    },
+    context: {
+      ko: 'WIGTN 안에서 여러 명이 동시에 Claude Code로 개발할수록 결과물 충돌과 컨텍스트 혼선이 오히려 생산성을 떨어뜨리는 문제가 보였습니다. 단일 명령으로 PRD → 설계 → 병렬 빌드 → 코드 리뷰 → 커밋까지 같은 워크플로우 위에서 돌게 해야 한다는 필요가 명확해졌고, 그 결과물을 오픈소스로 공개해 다른 개발자들도 같은 흐름을 쓸 수 있게 했습니다.',
+      en: 'Inside WIGTN, the more engineers ran Claude Code in parallel, the more output collisions and context drift started costing us productivity. We needed a single command path — PRD → design → parallel build → review → commit — sitting on the same workflow. We packaged that workflow as a plugin and opened it up.',
+      ja: 'WIGTN内で複数人が同時にClaude Codeで開発するほど、成果物の衝突とコンテキスト混乱が逆に生産性を落とす問題が見えました。単一コマンドでPRD → 設計 → 並列ビルド → コードレビュー → コミットまで同じワークフロー上で回る必要が明確になり、その成果物をオープンソースで公開して他の開発者も同じフローを使えるようにしました。',
+    },
+    problem: {
+      ko: 'AI 어시스턴트 생산성은 "AI 성능"보다 "여러 에이전트가 안정적으로 협업할 수 있는 운영 구조"에서 결정된다는 가설이 있었습니다. 개별 명령으로 PRD·구현·리뷰를 따로 호출하면 컨텍스트가 끊기고, 사람이 매번 사이를 이어줘야 했습니다.',
+      en: 'Our working hypothesis: AI-assisted productivity is gated by the operating structure that lets multiple agents collaborate reliably, not by the model itself. Calling PRD / implement / review as separate commands kept dropping context and forced a human to stitch them back together every time.',
+      ja: 'AIアシスタントの生産性は「AI性能」より「複数エージェントが安定協業できる運用構造」で決まるという仮説がありました。個別コマンドでPRD・実装・レビューを別々に呼び出すとコンテキストが切れ、人が毎回間を繋ぐ必要がありました。',
+    },
+    hypothesis: {
+      ko: 'PRD → 설계 → 병렬 빌드 → 리뷰 → 커밋을 하나의 파이프라인 안에서 에이전트 팀(Backend·Frontend·AI Server·Ops)이 병렬로 분담하면, 같은 작업의 순차 진행 대비 ~6분 vs ~20분 수준으로 시간이 압축된다고 봤습니다.',
+      en: 'If PRD → design → parallel build → review → commit all live in one pipeline and the agent teams (Backend / Frontend / AI Server / Ops) divide the build in parallel, we expected to compress full-cycle time from roughly 20 minutes (sequential) down to ~6 minutes.',
+      ja: 'PRD → 設計 → 並列ビルド → レビュー → コミットを1パイプライン内でエージェントチーム（Backend・Frontend・AI Server・Ops）が並列分担すれば、同じ作業の順次進行 vs 約6分 vs 約20分のレベルで時間を圧縮できると考えました。',
+    },
+    alternatives: {
+      ko: '에이전트마다 개별 호출하는 기존 방식, 단일 메가 에이전트로 통합하는 방식도 검토했지만 전자는 컨텍스트 전달 비용이 누적되고 후자는 한 에이전트가 모든 역할을 떠안아 책임 경계가 무너졌습니다.',
+      en: 'Two alternatives were on the table — invoking each agent separately (the current default) or merging them into one mega-agent. The first kept piling up context-handoff cost; the second collapsed role boundaries because one agent had to wear every hat.',
+      ja: 'エージェントごとに個別呼び出しする既存方式、単一メガエージェントに統合する方式も検討しましたが、前者はコンテキスト引き渡しコストが累積し、後者は一つのエージェントがすべての役割を抱えて責任境界が崩れました。',
+    },
+    decision: {
+      ko: '단일 플러그인으로 12개 에이전트·3개 커맨드(/prd · /implement · /auto-commit)·3개 스킬·20개 디자인 스타일을 묶고, /implement는 자동으로 Backend·Frontend·AI Server·Ops 팀에 병렬 분배되게 설계했습니다. /auto-commit은 3개 리뷰 에이전트가 병렬로 평가하고 점수 ≥80일 때만 커밋, Security Critical은 점수 무관 차단.',
+      en: 'Decided on a single plugin that bundles 12 agents, 3 commands (/prd · /implement · /auto-commit), 3 skills, and 20 design styles, with /implement auto-dispatching across Backend / Frontend / AI Server / Ops teams in parallel. /auto-commit runs three review agents in parallel and only commits at score ≥ 80, with Security Critical force-failing regardless of score.',
+      ja: '単一プラグインで12エージェント・3コマンド（/prd · /implement · /auto-commit）・3スキル・20デザインスタイルを束ね、/implementは自動でBackend・Frontend・AI Server・Opsチームに並列分配される設計に。/auto-commitは3つのレビューエージェントが並列評価し、スコア80以上の時のみコミット、Security Criticalはスコア無関係に遮断。',
+    },
+    execution: {
+      ko: '/prd는 PRD.md + 단계별 task plan을 생성하면서 동시에 4 에이전트 병렬 분석(Completeness·Feasibility·Security·Consistency)으로 PRD 자체의 품질 게이트를 건너뜁니다. /implement는 설계 단계에서 PRD 검증·아키텍처 결정·gap 분석을 병렬로 끝낸 뒤, 빌드 단계로 넘어가 4개 팀이 동시에 자기 영역만 짭니다. /auto-commit은 점수 기반 자동 머지와 사람 검토를 분리해 운영 안전성을 잡았습니다.',
+      en: '/prd produces PRD.md + a phased task plan while running four agents in parallel to score the PRD itself across Completeness, Feasibility, Security, and Consistency. /implement closes design (PRD verification + architecture decision + gap analysis) in parallel, then drops into the build phase where four teams each touch only their slice. /auto-commit separates score-driven auto-merge from human-eyes review to keep production-side safety.',
+      ja: '/prdはPRD.md + 段階別タスクプランを生成しながら、同時に4エージェント並列分析（Completeness・Feasibility・Security・Consistency）でPRD自体の品質ゲートを越えます。/implementは設計段階でPRD検証・アーキテクチャ決定・gap分析を並列で終え、ビルド段階に進んで4チームが同時に自分の領域だけを書きます。/auto-commitはスコアベース自動マージと人の検証を分離して運用安全性を確保しました。',
+    },
+    result: {
+      ko: 'WIGTN-Coding은 Claude Code 플러그인으로 오픈소스 공개됐고, 다른 개발자들이 같은 파이프라인 위에서 작업할 수 있는 형태로 정리됐습니다. 풀 파이프라인 ~6분(vs 순차 ~20분)으로 압축됐고, 본인이 설계한 이 워크플로우 위에서 WIGENT(TRAE 대상)·WIGTN FLAKE(Snowflake 준우승)·WIGVO 등 후속 프로젝트가 모두 만들어졌습니다.',
+      en: 'Released WIGTN-Coding as an open-source Claude Code plugin so other engineers can build on the same pipeline. Full pipeline compresses from ~20 minutes sequential to ~6 minutes, and every downstream project — WIGENT (TRAE Grand Prize), WIGTN FLAKE (Snowflake 2nd place), WIGVO — was built on top of this workflow.',
+      ja: 'WIGTN-CodingをClaude Codeプラグインとしてオープンソース公開し、他の開発者が同じパイプライン上で作業できる形に整理しました。フルパイプライン約6分（vs 順次約20分）に圧縮され、本人が設計したこのワークフロー上でWIGENT（TRAE大賞）・WIGTN FLAKE（Snowflake準優勝）・WIGVOなど後続プロジェクトがすべて構築されました。',
+    },
+    reflection: {
+      ko: 'AI 어시스턴트의 본질은 "더 좋은 답"이 아니라 "사람이 매번 사이를 잇지 않아도 시스템이 끝까지 도는 구조"라는 점을 가장 깊이 배운 프로젝트입니다. 그래서 점수 기반 자동 머지·Security Zero-Tolerance·역할 분리 같은 운영 구조 결정이 모델 선택보다 훨씬 큰 영향을 미쳤습니다.',
+      en: 'The deepest lesson from this one: the real value of AI assistants isn\'t "a better answer," it\'s "a structure that runs end-to-end without a human stitching every gap." Decisions about score-driven auto-merge, Security Zero-Tolerance, and role separation ended up mattering far more than which model we picked.',
+      ja: 'AIアシスタントの本質は「より良い回答」ではなく「人が毎回間を繋がなくてもシステムが最後まで回る構造」だということを最も深く学んだプロジェクトです。そのためスコアベース自動マージ・Security Zero-Tolerance・役割分離のような運用構造の決定がモデル選択よりはるかに大きな影響を与えました。',
+    },
+  },
+
+  wigvo: {
+    oneLiner: {
+      ko: '전화를 걸어야만 해결되는 일을 AI가 대신 걸어주는 voice-only 어시스턴트. GPT-4o-mini가 시나리오 기반으로 정보를 수집하고 ElevenLabs + Twilio로 실제 전화를 발신합니다.',
+      en: 'A voice-only assistant that places real phone calls on your behalf for things that only get resolved over the phone. GPT-4o-mini collects the right details by scenario, ElevenLabs + Twilio actually dial out.',
+      ja: '電話をかけなければ解決しない用件をAIが代わりに発信するvoice-onlyアシスタント。GPT-4o-miniがシナリオベースで情報を収集し、ElevenLabs + Twilioが実際に電話を発信します。',
+    },
+    context: {
+      ko: '캐치테이블·네이버 예약이 닿지 않는 전통 오프라인 서비스(부동산 중개·수리점·노포)는 여전히 전화가 유일한 관문입니다. 디지털 파편화, 거절 두려움 같은 심리적 비용, 앱과 현장 정보 비대칭이라는 3 장벽을 풀기 위한 제품입니다.',
+      en: 'The legacy offline services that Catch Table or Naver Reservations don\'t cover — real-estate brokers, repair shops, mom-and-pop restaurants — still treat a phone call as the only door in. WIGVO targets the three barriers that creates: digital fragmentation, the psychological cost of cold-calling, and the information asymmetry between the app and the actual storefront.',
+      ja: 'CatchTable・NAVER予約が届かない伝統的オフラインサービス（不動産仲介・修理店・老舗）は依然として電話が唯一の窓口です。デジタル分断・拒絶への心理的コスト・アプリと現場の情報非対称という3つの障壁を解くための製品です。',
+    },
+    problem: {
+      ko: '전화 한 통이 막혀 있는 일들이 의외로 많습니다. 부동산 매물 광고가 살아있는지 확인, 미용실/병원 예약, 가전 AS 접수 — 전부 전화가 가장 빠른데 사용자는 거절·복잡한 용건 전달·시간대 등을 이유로 못 겁니다.',
+      en: 'There\'s a surprisingly long list of jobs gated by a single phone call: confirming whether an advertised listing is still live, booking a hair salon or clinic, opening an appliance service ticket — the phone is the fastest path, but users avoid it because of rejection, the effort of explaining a complex request, or wrong-hour anxiety.',
+      ja: '電話1本が塞がれている用件が意外と多いです。不動産掲載が生きているか確認、美容院・病院予約、家電AS受付 — どれも電話が最速ですが、ユーザーは拒絶・複雑な用件説明・時間帯不安などの理由でかけられません。',
+    },
+    hypothesis: {
+      ko: '사용자가 "무엇을 해달라"를 텍스트로 말하면, 시나리오 기반 정보 수집(GPT-4o-mini) → 네이버 지도에서 장소·전화번호 자동 검색 → 실제 음성 전화 발신(ElevenLabs Conversational AI + Twilio)까지 전체 흐름을 사람 손 없이 자율로 돌릴 수 있을 거라고 봤습니다.',
+      en: 'If a user just types "I need X done," the entire chain — scenario-based detail collection (GPT-4o-mini) → Naver Maps lookup for venue + phone number → an actual voice call placed via ElevenLabs Conversational AI + Twilio — can run end-to-end without a human in the middle.',
+      ja: 'ユーザーが「何をしてほしい」をテキストで話すと、シナリオベースの情報収集（GPT-4o-mini）→ NAVERマップで場所・電話番号自動検索 → 実音声通話発信（ElevenLabs Conversational AI + Twilio）まで全フローを人手なしで自律で回せると考えました。',
+    },
+    alternatives: {
+      ko: '단순 TTS 발신·녹음 메시지 자동화·콜센터 RPA를 검토했지만, 자연어 대화와 동적 정보 수집이 동시에 필요한 시나리오(예: "다음 주 월요일 가능 시간 알려주세요")는 Conversational AI 없이는 풀리지 않았습니다.',
+      en: 'Looked at plain TTS dialing, prerecorded message automation, and call-center RPA — but scenarios that need both natural-language conversation and dynamic info gathering ("tell me what slots are open next Monday") collapsed without a true Conversational AI backbone.',
+      ja: '単純TTS発信・録音メッセージ自動化・コールセンターRPAを検討しましたが、自然言語対話と動的情報収集を同時に要するシナリオ（例：「来週月曜の空き時間を教えてください」）はConversational AIなしでは解けませんでした。',
+    },
+    decision: {
+      ko: 'Next.js 16 + Supabase 백엔드 위에 GPT-4o-mini(시나리오 정보 수집 + Entity 추출), ElevenLabs Conversational AI(동적 프롬프트·음성 통화), Twilio(실 전화 발신/수신), 네이버 지도 API(장소·전화번호 자동 조회)를 결합한 4-tier 아키텍처를 채택했습니다.',
+      en: 'Built a four-tier architecture on Next.js 16 + Supabase: GPT-4o-mini handles scenario-driven detail collection and entity extraction, ElevenLabs Conversational AI generates the dynamic prompt and runs the voice call, Twilio places and receives the actual phone call, and the Naver Maps API resolves the venue and phone number automatically.',
+      ja: 'Next.js 16 + Supabaseバックエンド上にGPT-4o-mini（シナリオ情報収集 + Entity抽出）、ElevenLabs Conversational AI（動的プロンプト・音声通話）、Twilio（実電話発信/受信）、NAVERマップAPI（場所・電話番号自動照会）を結合した4-tierアーキテクチャを採用しました。',
+    },
+    execution: {
+      ko: '대분류 3종(예약·문의·AS) × 세부 12 유형 중 사용자가 시나리오를 고르면 그에 맞는 필수 항목(장소명·전화번호·일시·인원 등)을 GPT-4o-mini가 대화로 채웁니다. 장소명을 말하면 네이버 지도가 자동 매칭, 정보가 모이면 ElevenLabs 동적 프롬프트를 만들어 Twilio로 전화를 겁니다. 모든 대화·통화 기록은 Supabase에 저장돼 대시보드에서 다시 볼 수 있습니다.',
+      en: 'Within three top categories (reservations / inquiries / service tickets) and 12 sub-types, picking a scenario kicks off GPT-4o-mini collecting the required fields (venue, phone, time, party size) through chat. Mentioning a venue name lets the Naver Maps integration auto-match it; once the slots are filled, ElevenLabs gets a dynamic prompt and Twilio dials out. Every chat + call record is persisted in Supabase and visible on the dashboard.',
+      ja: '大分類3種（予約・問い合わせ・AS）× 詳細12タイプから、ユーザーがシナリオを選ぶとそれに合う必須項目（場所名・電話番号・日時・人数など）をGPT-4o-miniが会話で埋めていきます。場所名を話すとNAVERマップが自動マッチング、情報が揃うとElevenLabsの動的プロンプトを生成しTwilioで電話発信。すべての会話・通話記録はSupabaseに保存され、ダッシュボードで再確認できます。',
+    },
+    result: {
+      ko: '실제 음식점·미용실·치과·부동산 같은 7가지 use case에서 동작 가능한 형태로 데모를 마쳤습니다. 사용자가 "내일 오후 3시 커트"만 입력하면 정보 요약 → AI가 미용실에 실제 전화 → 예약 확인까지 한 흐름으로 돌아갑니다.',
+      en: 'Demoed working flows across seven real-world use cases (restaurants, hair salons, dental clinics, real-estate brokers, …). The user only types "hair cut, 3pm tomorrow" — the system summarizes the request, the AI dials the salon for real, and the reservation comes back confirmed in a single thread.',
+      ja: '実際の飲食店・美容院・歯科・不動産など7つのuse caseで動作可能な形でデモを完成しました。ユーザーが「明日午後3時カット」だけ入力すると、情報要約 → AIが美容院に実際に電話 → 予約確認まで1フローで回ります。',
+    },
+    reflection: {
+      ko: '음성 통화는 시각 UI보다 실수 비용이 훨씬 큽니다(상대방이 진짜 사람이라서). 그래서 ElevenLabs 동적 프롬프트가 정보 누락 없이 만들어졌는지, Twilio 발신 직전에 사용자 확인을 한 단계 둘지가 가장 큰 설계 선택이었습니다. "사람 개입을 빼는 게 목표지만, 통화 직전 한 번은 사람이 컨펌하는 게 안전하다"는 결론을 받아들였습니다.',
+      en: 'Voice calls have a much higher error cost than visual UIs because there\'s a real human on the other end. The two biggest design calls turned out to be (1) making sure the ElevenLabs dynamic prompt is fully populated before dial-out, and (2) inserting a single human confirmation step right before Twilio dials. "Remove humans from the loop, but keep one confirm right before the call goes out" became the rule we settled on.',
+      ja: '音声通話は視覚UIより誤りのコストがはるかに大きいです（相手が本物の人間なので）。そのためElevenLabsの動的プロンプトが情報漏れなく生成されたか、Twilio発信直前にユーザー確認の1段を置くかが最大の設計判断でした。「人の介入をなくすのが目標だが、通話直前の1回は人が確認する方が安全」という結論を受け入れました。',
     },
   },
 }

@@ -8,6 +8,20 @@ import { badgeStyle } from '@/data/projects'
 import { useI18n, type Locale } from '@/lib/i18n'
 import { projectReports } from '@/data/reports'
 import ProjectReportOverlay from './ProjectReportOverlay'
+import CareerReportOverlay from '@/components/career/CareerReportOverlay'
+import { careerStoryBlocksV1, type CareerReportKey } from '@/data/career-reports'
+
+// WIGTN 사이드 프로젝트는 Career와 동일한 9슬롯 v1 모달로 렌더해서
+// 통일감을 확보한다. 각 프로젝트의 모달 헤더에 필요한 메타데이터
+// (period / role)를 한 곳에 모아둔다. company는 모두 'WIGTN'.
+const wigtnReportMeta: Record<string, { period: string; role: string }> = {
+  wigent: { period: '2026-03', role: 'Co-creator · Hackathon' },
+  wigtnflake: { period: '2026-04', role: 'Lead Engineer · Hackathon' },
+  wigplugin: { period: '2026', role: 'Creator · Open Source' },
+  wigvo: { period: '2026', role: 'Side Project' },
+}
+
+const wigtnReportKeys = new Set<string>(Object.keys(wigtnReportMeta))
 
 const iconMap = {
   github: FiGithub,
@@ -182,12 +196,24 @@ export default function ProjectAccordion({
   const { locale } = useI18n()
   const hasMedia = project.media.type !== 'none'
   const report = projectReports[project.id]
+  // WIGTN 프로젝트는 Career와 동일 v1 모달을 띄운다.
+  const wigtnKey = wigtnReportKeys.has(project.id) && careerStoryBlocksV1[project.id as CareerReportKey]
+    ? (project.id as CareerReportKey)
+    : null
   const [reportOpen, setReportOpen] = useState(false)
+  const [wigtnReportOpen, setWigtnReportOpen] = useState(false)
 
   const gradientCss =
     gradientCssMap[project.gradient] ?? gradientCssMap['from-violet-500 to-fuchsia-500']
 
-  const reportCTA = report ? (
+  // WIGTN 프로젝트면 9슬롯 CTA를, 아니면 기존 legacy 리포트 CTA를 노출한다.
+  const reportCTA = wigtnKey ? (
+    <ReportCTA
+      label={reportLabel[locale]}
+      onClick={() => setWigtnReportOpen(true)}
+      gradient={gradientCss}
+    />
+  ) : report ? (
     <ReportCTA
       label={reportLabel[locale]}
       onClick={() => setReportOpen(true)}
@@ -262,6 +288,17 @@ export default function ProjectAccordion({
           project={project}
           report={report}
           onClose={() => setReportOpen(false)}
+        />
+      )}
+      {wigtnReportOpen && wigtnKey && (
+        <CareerReportOverlay
+          reportKey={wigtnKey}
+          gradientCss={gradientCss}
+          company="WIGTN"
+          period={wigtnReportMeta[wigtnKey].period}
+          role={wigtnReportMeta[wigtnKey].role}
+          projectName={project.title}
+          onClose={() => setWigtnReportOpen(false)}
         />
       )}
     </AnimatePresence>
