@@ -47,6 +47,9 @@ import {
 import OdiyaArchitectureDiagram from './diagrams/OdiyaArchitectureDiagram'
 import MohaniArchitectureDiagram from './diagrams/MohaniArchitectureDiagram'
 import KoccaArchitectureDiagram from './diagrams/KoccaArchitectureDiagram'
+import PurpleArchitectureDiagram from './diagrams/PurpleArchitectureDiagram'
+import AigoseoArchitectureDiagram from './diagrams/AigoseoArchitectureDiagram'
+import WigvoArchitectureDiagram from './diagrams/WigvoArchitectureDiagram'
 
 const ui: Record<string, Record<Locale, string>> = {
   eyebrow: { ko: '경력 리포트', en: 'Career Report', ja: 'キャリアレポート' },
@@ -632,6 +635,9 @@ function StorySection({
           {visuals.diagramKey === 'odiya' && <OdiyaArchitectureDiagram />}
           {visuals.diagramKey === 'mohani' && <MohaniArchitectureDiagram />}
           {visuals.diagramKey === 'kocca' && <KoccaArchitectureDiagram />}
+          {visuals.diagramKey === 'purple' && <PurpleArchitectureDiagram />}
+          {visuals.diagramKey === 'aigoseo' && <AigoseoArchitectureDiagram />}
+          {visuals.diagramKey === 'wigvo' && <WigvoArchitectureDiagram />}
           <div className="mt-3 text-[11px] text-gray-500 text-right">
             {locale === 'ko' && '카드의 ‘서버 아키텍처 보기’ 버튼으로 더 크게 열 수 있음'}
             {locale === 'en' && 'Open larger via the “View Server Architecture” button on the card'}

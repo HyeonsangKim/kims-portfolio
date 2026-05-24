@@ -100,7 +100,7 @@ export interface SlotVisuals {
   /** Before/after 막대 차트 — 운영 결과를 텍스트보다 직관적으로. */
   chart?: SlotChart
   /** Inline architecture diagram slug. Decision 슬롯에서 인라인 표시. */
-  diagramKey?: 'odiya' | 'mohani' | 'kocca'
+  diagramKey?: 'odiya' | 'mohani' | 'kocca' | 'purple' | 'aigoseo' | 'wigvo'
 }
 
 /**
@@ -958,6 +958,9 @@ export const careerStoryBlocksV1: Partial<
       en: 'The honest reflection is that I did not formally compare React Native against Flutter, Capacitor, or PWA. At the time, "reuse our React assets directly" felt like a self-evident criterion, but stepping back as a senior would, the missing step is the verification of the decision itself — even one explicit comparison would have made the choice stronger. The other reflection is on the cleanup work: prepping the codebase before the migration was the right call, but some areas still diverged into RN-only branches mid-flight, and I should have written down a sharper decision matrix earlier — where the shared code ends and where the platform-specific code begins.',
       ja: '最も正直な振り返りは、RN以外の選択肢（Flutter・Capacitor・PWA）を明示的に比較しなかった点です。当時はReact資産再利用という単一基準で自明な選択でしたが、シニア視点で見ると決定そのものを検証するステップが抜けていました。またモジュール化・コンポーネント化を事前に進めたのは正しい判断でしたが、移行中も一部領域はRN専用に分岐したという点で、共有可能な範囲と分岐すべき範囲をもっと早く決定マトリックスとして整理すべきだったと考えます。',
     },
+    visuals: {
+      decision: { diagramKey: 'purple' },
+    },
   },
 
   aigoseo: {
@@ -1010,6 +1013,9 @@ export const careerStoryBlocksV1: Partial<
       ko: '지금 시점에서 같은 과제를 다시 한다면 SAM·YOLO·LLM 기반 OCR 같은 도구로 좌표 추출·이미지 분할이 상당 부분 자동화 가능합니다. 다만 그 시기에 LLM·AI 보조 도구가 없는 환경에서 Canvas API의 픽셀 단위 처리·좌표 시스템 정합성·발주처 사양과의 round-trip 검수 워크플로우를 체득한 것이, 이후 모든 프로젝트에서 "외부 사양을 시스템으로 통합하는 책임"의 기반이 됐습니다.',
       en: 'If I picked up the same project today, tools like SAM, YOLO, or LLM-backed OCR would automate much of the coordinate extraction and slicing. But living through the pre-LLM version of this work — Canvas pixel-level operations, coordinate-system alignment, the tight inspection loop with the client — became the foundation for "owning the integration of an external specification into a real system" that I have leaned on in every later project.',
       ja: '現在の時点で同じ課題をやり直すなら、SAM・YOLO・LLMベースOCRのようなツールで座標抽出・画像分割が相当部分自動化可能です。ただし当時のLLM・AI補助ツールがない環境でCanvas APIのピクセル単位処理・座標系整合性・発注元仕様とのround-trip検収ワークフローを直接体得したことは、以降の全プロジェクトにおける「外部仕様をシステムとして統合する責任」の基盤になりました。',
+    },
+    visuals: {
+      decision: { diagramKey: 'aigoseo' },
     },
   },
 
@@ -1204,6 +1210,9 @@ export const careerStoryBlocksV1: Partial<
       ko: '음성 통화는 시각 UI보다 실수 비용이 훨씬 큽니다(상대방이 진짜 사람이라서). 그래서 ElevenLabs 동적 프롬프트가 정보 누락 없이 만들어졌는지, Twilio 발신 직전에 사용자 확인을 한 단계 둘지가 가장 큰 설계 선택이었습니다. "사람 개입을 빼는 게 목표지만, 통화 직전 한 번은 사람이 컨펌하는 게 안전하다"는 결론을 받아들였습니다.',
       en: 'Voice calls have a much higher error cost than visual UIs because there\'s a real human on the other end. The two biggest design calls turned out to be (1) making sure the ElevenLabs dynamic prompt is fully populated before dial-out, and (2) inserting a single human confirmation step right before Twilio dials. "Remove humans from the loop, but keep one confirm right before the call goes out" became the rule we settled on.',
       ja: '音声通話は視覚UIより誤りのコストがはるかに大きいです（相手が本物の人間なので）。そのためElevenLabsの動的プロンプトが情報漏れなく生成されたか、Twilio発信直前にユーザー確認の1段を置くかが最大の設計判断でした。「人の介入をなくすのが目標だが、通話直前の1回は人が確認する方が安全」という結論を受け入れました。',
+    },
+    visuals: {
+      decision: { diagramKey: 'wigvo' },
     },
   },
 }
