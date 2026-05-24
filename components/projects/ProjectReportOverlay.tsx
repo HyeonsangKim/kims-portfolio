@@ -138,11 +138,14 @@ export default function ProjectReportOverlay({
           onClick={(e) => e.stopPropagation()}
           className="relative mx-auto my-4 md:my-8 w-full max-w-5xl rounded-2xl border border-white/10 bg-[#0a0a0f] shadow-2xl"
         >
-          {/* Close button — absolute, pinned to modal top-right corner */}
+          {/* Desktop: close button anchored to the card's top-right corner.
+              Mobile users close via the bottom-of-modal action rendered after
+              the body — keeps the affordance reachable when the case study
+              scrolls past the viewport. */}
           <button
             onClick={onClose}
             aria-label="close"
-            className="absolute top-4 right-4 md:top-5 md:right-5 z-20 p-2 rounded-full bg-black/50 hover:bg-white/15 border border-white/15 text-gray-200 hover:text-white transition-colors backdrop-blur"
+            className="hidden md:flex absolute md:top-5 md:right-5 z-20 p-2 rounded-full bg-black/50 hover:bg-white/15 border border-white/15 text-gray-200 hover:text-white transition-colors backdrop-blur"
           >
             <FiX className="w-5 h-5" />
           </button>
@@ -526,6 +529,24 @@ export default function ProjectReportOverlay({
                 </div>
               </Section>
             )}
+
+            {/* Bottom-of-modal close action — primary affordance on mobile, a
+                redundant fallback alongside the top-right X on desktop. */}
+            <div className="pt-2 flex justify-center">
+              <button
+                onClick={onClose}
+                className="w-full md:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 md:py-2.5 rounded-full border border-white/15 bg-white/[0.04] hover:bg-white/[0.1] text-sm text-gray-200 hover:text-white transition-colors"
+              >
+                <FiX className="w-4 h-4" />
+                <span>
+                  {locale === 'ko'
+                    ? '닫기'
+                    : locale === 'ja'
+                      ? '閉じる'
+                      : 'Close'}
+                </span>
+              </button>
+            </div>
           </div>
         </motion.div>
       </motion.div>

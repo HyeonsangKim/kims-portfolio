@@ -39,7 +39,7 @@ const meta: Record<ArchitectureKey, ArchitectureMeta> = {
       ja: '子供端末の座標burstをRedis Listバッファで受け、60秒単位で一括DBへ流し、親側の子供情報pollingはRedisキャッシュhitで吸収。既存インフラ再利用・インフラ追加0。',
     },
     caption: {
-      ko: '청록 = write 경로 (단건 INSERT 폭증 흡수) · 앰버 = read 경로 (부모 polling 부하 흡수). Redis 단일 인스턴스는 의도된 trade-off — 트래픽 임계치 넘어가면 Sentinel/Cluster로 자연 확장.',
+      ko: '청록 = 쓰기 경로 (단건 INSERT 폭증 흡수) · 앰버 = 읽기 경로 (부모 폴링 부하 흡수). Redis 단일 인스턴스는 의도적으로 두었고, 트래픽이 임계치를 넘으면 Sentinel/Cluster로 자연 확장합니다.',
       en: 'Cyan = write path (absorbs single-INSERT bursts) · Amber = read path (absorbs parent polling). Single-Redis is an intentional trade-off; the path to Sentinel/Cluster is left open once traffic crosses the threshold.',
       ja: '青緑 = write経路（単件INSERT polling吸収）・橙 = read経路（親polling吸収）。単一Redisは意図的trade-off — トラフィック閾値超過時にSentinel/Clusterへ自然拡張。',
     },

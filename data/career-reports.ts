@@ -352,7 +352,7 @@ export const careerStoryBlocksV1: Partial<
       ja: 'サウンドマインド入社後の最初のプロジェクト。外注が作った親子位置共有サービス（イエローマーケット・公부폰OEM事前搭載）をチームリーダーとして引き継ぎ、位置パイプライン全体を設計し直した。',
     },
     problem: {
-      ko: '외주사 코드는 자녀 단말 좌표 송출마다 JPA save() 단건 INSERT를 호출했고, 같은 흐름에서 안전구역 평가 SQL까지 누적돼 MySQL CPU가 100%에 도달했습니다. 즉 "burst로 들어오는 write"와 "유저별 최신 1점이면 충분한 read"가 같은 path에서 직렬로 돌고 있었습니다. 단말 수 × 송출 빈도가 선형으로 늘어 인프라 증설 외에는 길이 보이지 않던 시점이었습니다.',
+      ko: '외주사 코드는 자녀 단말 좌표 송출마다 JPA save() 단건 INSERT를 호출했고, 같은 흐름에서 안전구역 평가 SQL까지 누적돼 MySQL CPU가 100%에 도달했습니다. 즉 "몰아치는 쓰기"와 "사용자마다 최신 좌표 한 건이면 충분한 읽기"가 같은 경로에서 직렬로 돌고 있었습니다. 단말 수 × 송출 빈도가 선형으로 늘어 인프라 증설 외에는 길이 보이지 않던 시점이었습니다.',
       en: 'The vendor code called JPA `save()` per coordinate from every child device, and safe-zone evaluation SQL piled onto the same flow — MySQL CPU pegged at 100%. The structural issue was that "burst writes" and "reads that only need the latest coordinate per user" were running serially on the same path. With load scaling linearly with devices × send rate, scaling infra looked like the only path.',
       ja: '外注コードは子供端末の座標送出ごとにJPA save() 単件INSERTを呼び、同じフローで安全ゾーン評価SQLまで累積してMySQL CPUが100%に到達。本質的にはburst writeと「ユーザーごとの最新1点で十分なread」が同じpathで直列に動いていた構造でした。台数×送出頻度が線形に増え、インフラ増設以外の道が見えなかった時点。',
     },
@@ -589,6 +589,34 @@ export const careerStoryBlocksV1: Partial<
           ],
         },
       },
+      result: {
+        metrics: [
+          {
+            value: '1 인증 진입점',
+            label: {
+              ko: '오디야·모하니 등 여러 화이트라벨 서비스가 한 인증 백엔드 위에서 동작. 신규 서비스도 회원 데이터 중복 없이 즉시 연동됩니다.',
+              en: 'Odiya, Mohani and other white-label services all run on a single auth backend. New services plug in without duplicating user data.',
+              ja: 'オディヤ・モハニなど複数のホワイトラベルサービスが単一の認証バックエンド上で稼働。新規サービスも会員データを重複させず即時連携できます。',
+            },
+          },
+          {
+            value: '3단계 자동 정리',
+            label: {
+              ko: '휴면 → 익명화 → 완전 삭제 3단계가 매일 12:00 자동 실행. 개인정보보호법 보존 기간을 사람 손 없이 따라갑니다.',
+              en: 'Three-stage lifecycle (dormant → anonymise → hard-delete) runs daily at 12:00, so privacy-law retention rules are followed without manual ops.',
+              ja: '休眠 → 匿名化 → 完全削除の3段階を毎日12:00に自動実行。個人情報保護法の保存期間を人手なしで追従します。',
+            },
+          },
+          {
+            value: '99.5% 차단',
+            label: {
+              ko: '5회 실패 시 계정 15분 잠금. brute-force 1,000회 시도해도 5회만 통과, 공격 완수에 50시간 필요해 사실상 불가능합니다.',
+              en: '5 failed logins lock the account for 15 minutes. A 1,000-attempt brute-force only gets 5 through and needs ~50 hours, effectively impractical.',
+              ja: 'ログイン5回失敗で15分ロック。Brute-force 1,000回試行でも5回しか通らず、攻撃完遂に約50時間かかり事実上不可能です。',
+            },
+          },
+        ],
+      },
     },
   },
 
@@ -614,7 +642,7 @@ export const careerStoryBlocksV1: Partial<
       ja: '原則 — 「変更履歴で最も近い原因から疑う」。Knox SDK統合時点を強い候補とし、Knoxコードがmainスレッドを詰まらせている可能性を仮説とした。',
     },
     alternatives: {
-      ko: 'systrace, Perfetto, Crashlytics ANR thread dump는 정확도는 높지만 셋업과 학습 곡선 부담이 컸습니다. 시점 단서가 명확했기 때문에 Android Studio Logcat과 AI 코드 분석 보조를 조합한 빠른 길을 골랐습니다.',
+      ko: 'systrace, Perfetto, Crashlytics ANR thread dump는 정확도는 높지만 셋업과 학습 곡선 부담이 컸습니다. 시점 단서가 명확했기 때문에 Android Studio Logcat과 AI 코드 분석 보조를 조합해 더 가볍게 접근했습니다.',
       en: 'systrace / Perfetto / Crashlytics ANR thread dumps were precise but heavy on setup / learning curve. With the timing clue clear, I picked the lightweight path — Android Studio Logcat + AI as a reading partner.',
       ja: 'systrace・Perfetto・Crashlytics ANR thread dumpは精度は高いがセットアップ・学習コスト負担が大きかった。タイミング手掛かりが明確だったため、Android Studio Logcat + AIコード分析補助のpathを選択。',
     },
@@ -624,7 +652,7 @@ export const careerStoryBlocksV1: Partial<
       ja: '重いNative処理をバックグラウンドスレッドに分離 — Knox呼び出しを単一スレッドexecutor上で非同期に動かし、mainスレッドpin経路を断ち切った。遮断自体も単一トリガーでは回避される領域のため、5層多層防御に構成。',
     },
     execution: {
-      ko: '먼저 Knox 호출을 단일 스레드 executor로 옮겨 main thread를 잡고 있던 경로를 끊었고, 그 과정에서 호출이 폭주하면 큐가 무한히 쌓이는 새로운 문제가 보여 bounded queue + 한도 초과 시 호출 스레드 직접 실행으로 backlog 자체를 막았습니다. 우회 차단은 처음에는 `TYPE_WINDOW_STATE_CHANGED` 트리거만으로 처리했지만 PIP·음악·녹음 같이 화면 없는 앱은 그 이벤트가 발화하지 않아, FGS(포그라운드 서비스) 시작·종료 카운트를 차단 판단에 더했습니다. 시간 안전망은 1분 메인 폴링과 5분 backup 이중화, 부모 정책 변경은 FCM 즉시 발사 + 30분 fallback 동기화로 단일 실패 지점이 없도록 묶었습니다.',
+      ko: '먼저 Knox 호출을 단일 스레드 실행자로 옮겨 메인 스레드를 잡고 있던 경로를 끊었고, 그 과정에서 호출이 폭주하면 큐가 무한히 쌓이는 새로운 문제가 보여 큐 길이 상한과 한도 초과 시 호출 스레드에서 직접 실행하는 방식으로 적체 자체를 막았습니다. 우회 차단은 처음에는 `TYPE_WINDOW_STATE_CHANGED` 트리거만으로 처리했지만 PIP·음악·녹음 같이 화면 없는 앱은 그 이벤트가 발화하지 않아, FGS(포그라운드 서비스) 시작·종료 카운트를 차단 판단에 더했습니다. 시간 안전망은 1분 메인 폴링과 5분 보조 폴링 이중화, 부모 정책 변경은 FCM 즉시 발사와 30분 보조 동기화로 단일 실패 지점이 없도록 묶었습니다.',
       en: 'First moved Knox calls onto a single-threaded executor to sever the main-thread-pin path; that surfaced a new failure mode where bursts piled an unbounded queue, so I added a bounded queue with caller-thread execution on overflow to kill the backlog at the source. The bypass started with `TYPE_WINDOW_STATE_CHANGED` alone, but headless apps (PIP, music, recorder) never fire it, so I added FGS start/stop counts to the blocking decision. The time safety net is doubled (1-min main poll plus 5-min backup), and parent-policy propagation goes through FCM immediately with a 30-min fallback sync, leaving no single failure point.',
       ja: 'まずKnox呼び出しを単一スレッドexecutorに移してmainスレッドpin経路を断ち切り、その過程でバースト時にキューが無限に積まれる新たな問題が見えたためbounded queue + 超過時呼び出しスレッド直接実行でbacklog自体を遮断しました。回避は当初`TYPE_WINDOW_STATE_CHANGED`トリガのみで処理していましたが、PIP・音楽・録音のように画面のないアプリではこのイベントが発火せず、FGS（フォアグラウンドサービス）開始・終了カウントを遮断判定に追加しました。時間安全網は1分メインポーリング + 5分backupの2重化、親ポリシー変更はFCM即時 + 30分fallback同期で単一障害点が残らないよう束ねました。',
     },
@@ -724,7 +752,7 @@ export const careerStoryBlocksV1: Partial<
       result: {
         metrics: [
           { value: '5중 다층 방어', label: { ko: '하나가 우회당해도 나머지가 잡는 구조 — 앱 전환 감지·1분 폴링·화면 없는 앱 감지·정책 변경 즉시 반영·원격 차단 명령', en: 'Five independent triggers — when one is bypassed the others still catch it (app transition · 1-min poll · headless-app detection · instant policy propagation · remote block command)', ja: '5層の多層防御 — 1つが回避されても他が捕える構造（アプリ遷移・1分ポーリング・ヘッドレスアプリ検知・ポリシー即時反映・遠隔遮断コマンド）' } },
-          { value: '최대 1분', label: { ko: '차단 누락 지연 — 메인 폴링이 1분 주기로 돌고, 실패해도 5분 backup이 한 번 더 잡음. 부모 정책 변경은 FCM 즉시 + 30분 fallback', en: 'Worst-case blocking-miss window — 1-min main poll with a 5-min backup if it fails; parent policy changes go out via FCM with a 30-min fallback sync', ja: '遮断漏れの最大遅延 — メインポーリングが1分周期で回り、失敗時も5分backupがもう1回捕える。親ポリシー変更はFCM即時 + 30分fallback' } },
+          { value: '최대 1분', label: { ko: '차단 누락 지연 — 메인 폴링이 1분 주기로 돌고, 실패해도 5분 보조 폴링이 한 번 더 잡습니다. 부모 정책 변경은 FCM 즉시 발사와 30분 보조 동기화로 이중화', en: 'Worst-case blocking-miss window — 1-min main poll with a 5-min backup if it fails; parent policy changes go out via FCM with a 30-min fallback sync', ja: '遮断漏れの最大遅延 — メインポーリングが1分周期で回り、失敗時も5分のバックアップポーリングがもう1回捕える。親ポリシー変更はFCM即時 + 30分の補助同期で二重化' } },
           { value: 'PIP·음악·녹음', label: { ko: '화면 없는 앱도 차단 — 포그라운드 서비스 시작·종료 카운트 추적으로 단일 트리거가 못 잡던 우회 경로 봉쇄', en: 'Headless apps blocked too — tracking foreground-service start/stop counts closes the bypass single-trigger schemes miss', ja: '画面のないアプリも遮断 — フォアグラウンドサービスの開始・終了カウント追跡で単一トリガでは捕えられない回避経路を封鎖' } },
         ],
       },
@@ -748,7 +776,7 @@ export const careerStoryBlocksV1: Partial<
       ja: '中核はSTTフォーマット制約 — Selvy `kocca_stt`が16kHz/1ch/16bit PCM RIFFのみ受領するため、MediaRecorder webm/opusをそのまま送るとサーバーffmpeg変換が必要となり応答遅延・トランスコード損失・iOS Safari問題が累積。同時に受験フロー（発音5段階 + スピーキング7段階）の安定運用、4ロールRBAC、学校別マルチテナント隔離を一つの設計で押さえる必要があった。',
     },
     hypothesis: {
-      ko: '클라이언트에서 STT가 받는 정확한 포맷을 직접 만들면 서버 변환을 통째로 제거할 수 있고 트랜스코딩 손실도 없습니다. STT는 결과를 받기까지 시간이 걸리는 작업이라 단발 요청보다 폴링 패턴이 적합하다고 봤습니다.',
+      ko: '클라이언트에서 STT가 받는 정확한 포맷을 직접 만들면 서버 변환을 통째로 제거할 수 있고 트랜스코딩 손실도 없습니다. STT는 결과를 받기까지 시간이 걸리는 작업이라, 단발 요청보다 폴링 패턴이 적합하다고 판단했습니다.',
       en: 'If the client generates exactly the format the STT expects, the entire server-conversion step disappears + zero transcoding loss. STT is long-running, so polling fits better than a single round-trip.',
       ja: 'クライアント側でSTTが受け取る正確なフォーマットを直接生成すれば、サーバー変換段階を丸ごと消去 + トランスコード損失0。STTはlong-running作業のため単発リクエストよりポーリングパターンが適合。',
     },
@@ -889,12 +917,12 @@ export const careerStoryBlocksV1: Partial<
       ja: '2方向同時の圧力。① Web環境での音声再生セキュリティ — 学習コンテンツである音声資産が漏洩すれば事業価値が崩れるが、ブラウザで堅牢に防ぐ方法がない。② モバイルブラウザ互換性 — ユーザーのスマホごとにブラウザ種別・バージョンが異なり対応マトリックスが膨張、一部環境では正常動作自体が不可能。結論は明確 — アプリリリースなしには事業が前進できない。',
     },
     hypothesis: {
-      ko: '가설은 단순. "React Native 경험은 없지만, 기존 React 코드를 컴포넌트·모듈 단위로 강하게 분리해두면 RN으로 옮기는 학습 곡선은 낮음." 마이그레이션 자체보다 직전의 준비 작업(코드베이스 정리)이 성공의 관건이라고 봤습니다.',
+      ko: '가설은 단순했습니다. "React Native 경험은 없지만, 기존 React 코드를 컴포넌트·모듈 단위로 강하게 분리해두면 RN으로 옮기는 학습 곡선은 낮을 것이다." 마이그레이션 자체보다 직전의 준비 작업(코드베이스 정리)이 성공의 관건이라고 판단했습니다.',
       en: 'Simple hypothesis: "I haven’t shipped React Native yet, but if I get the existing React codebase into properly modular components first, the migration learning curve drops sharply." The success lever wasn’t the migration itself — it was the preparation step right before it.',
       ja: '仮説は単純 — 「React Native経験はないが、既存のReactコードをコンポーネント・モジュール単位で強く分離しておけばRN移行の学習曲線は低い」。移行そのものより、その直前の準備作業（コードベース整理）が成功の鍵だと見た。',
     },
     alternatives: {
-      ko: '정직하게 말하면 Flutter, Capacitor, PWA, 모바일 웹 강화 같은 다른 옵션을 명시적으로 비교하지 않았습니다. 기존 React 자산을 가장 직접적으로 재사용할 수 있는 RN이 자명한 선택이라고 봤고, 1년차 사원에 2명 팀의 자원 한계에서 비교 검토 비용 자체가 부담이었습니다. 이 부분은 회고 영역으로 남깁니다.',
+      ko: '정직하게 말하면 Flutter, Capacitor, PWA, 모바일 웹 강화 같은 다른 옵션을 명시적으로 비교하지 않았습니다. 기존 React 자산을 가장 직접적으로 재사용할 수 있는 RN이 자명한 선택이었고, 1년차 사원에 2명 팀의 자원 한계에서 비교 검토 비용 자체가 부담이었습니다. 이 부분은 회고 영역으로 남깁니다.',
       en: 'Honestly — I did not explicitly evaluate Flutter / Capacitor / PWA / mobile-web hardening. RN was the most direct reuse path for our existing React assets and felt self-evident; given the resourcing (one junior, two-person team) the cost of running a real comparison itself felt prohibitive. Acknowledged as a reflection-area gap.',
       ja: '正直に言えばFlutter・Capacitor・PWA・モバイルWeb強化のような他の選択肢を明示的に比較しなかった。既存のReact資産を最も直接的に再利用できるRNが自明な選択肢と見ており、1年目社員 + 2名チームのリソース制約下では比較検討コスト自体が負担。この点は振り返り領域。',
     },
@@ -919,7 +947,7 @@ export const careerStoryBlocksV1: Partial<
       ja: 'やり直すなら2点は別の進め方をします。第一に、React Native以外の選択肢（Flutter・Capacitor・PWA）を明示的に比較しませんでした。当時はReact資産再利用という単一基準で自明な選択でしたが、シニア視点で見ると決定そのものを検証する手順が抜けていました。同じ選択を再び下すとしても、比較表1枚でも残しておく方がより堅固でした。第二に、モジュール化・コンポーネント化を事前に進めたのは正しい判断でしたが、移行中も一部領域はRN専用に分岐したため、共有可能な範囲と分岐すべき範囲をもっと早く決定マトリックスとして整理しておくべきだったと考えます。',
     },
     reflection: {
-      ko: '가장 정직한 회고는 RN 외 다른 옵션(Flutter·Capacitor·PWA)을 명시적으로 비교하지 않았다는 점입니다. 그 시점에는 React 자산 재사용이라는 단일 기준으로 자명한 선택이었지만, 시니어 관점에서 보면 결정 자체를 검증하는 절차가 빠진 셈입니다. 또 모듈화·컴포넌트화 정비를 사전에 진행한 것은 옳은 판단이었지만 — 마이그레이션 중에도 일부 영역은 RN-only로 결국 분기되었다는 점에서, 어디까지가 공유 가능하고 어디부터는 분기였는지를 더 일찍 결정 매트릭스로 정리했어야 했다고 봅니다.',
+      ko: '가장 정직한 회고는 RN 외 다른 옵션(Flutter·Capacitor·PWA)을 명시적으로 비교하지 않았다는 점입니다. 그 시점에는 React 자산 재사용이라는 단일 기준으로 자명한 선택이었지만, 시니어 관점에서 보면 결정 자체를 검증하는 절차가 빠진 셈입니다. 또 모듈화·컴포넌트화 정비를 사전에 진행한 것은 옳은 판단이었지만, 마이그레이션 중에도 일부 영역은 RN 전용으로 결국 분기되었기 때문에, 어디까지가 공유 가능하고 어디부터는 분기였는지를 더 일찍 결정 매트릭스로 정리했어야 했다고 봅니다.',
       en: 'The honest reflection is that I did not formally compare React Native against Flutter, Capacitor, or PWA. At the time, "reuse our React assets directly" felt like a self-evident criterion, but stepping back as a senior would, the missing step is the verification of the decision itself — even one explicit comparison would have made the choice stronger. The other reflection is on the cleanup work: prepping the codebase before the migration was the right call, but some areas still diverged into RN-only branches mid-flight, and I should have written down a sharper decision matrix earlier — where the shared code ends and where the platform-specific code begins.',
       ja: '最も正直な振り返りは、RN以外の選択肢（Flutter・Capacitor・PWA）を明示的に比較しなかった点です。当時はReact資産再利用という単一基準で自明な選択でしたが、シニア視点で見ると決定そのものを検証するステップが抜けていました。またモジュール化・コンポーネント化を事前に進めたのは正しい判断でしたが、移行中も一部領域はRN専用に分岐したという点で、共有可能な範囲と分岐すべき範囲をもっと早く決定マトリックスとして整理すべきだったと考えます。',
     },
@@ -942,7 +970,7 @@ export const careerStoryBlocksV1: Partial<
       ja: '責任範囲を正確に — 漢字ごとの領域座標自体は発注元が算出して提供し、本人はその座標に合わせて写真を1文字ずつ正確に切り出すシステム + 後続のOCR・翻訳パイプラインに繋がるバックエンドAPI実装が担当。アルゴリズム決定者ではなく、発注元仕様をシステムとして統合する実装責任。',
     },
     hypothesis: {
-      ko: 'Canvas API의 `getImageData` / `putImageData`로 픽셀 좌표 기반 이미지 분할을 직접 다루면, 외부 라이브러리 의존 없이 발주처 좌표 사양을 그대로 받아 시각화·분할이 가능합니다. 발주처가 좌표를 확인·수정하며 즉시 분할 결과를 검수해야 하는 워크플로우라, 클라이언트 측 즉시 렌더링이 핵심이라고 봤습니다.',
+      ko: 'Canvas API의 `getImageData` / `putImageData`로 픽셀 좌표 기반 이미지 분할을 직접 다루면, 외부 라이브러리 의존 없이 발주처 좌표 사양을 그대로 받아 시각화·분할이 가능합니다. 발주처가 좌표를 확인·수정하며 즉시 분할 결과를 검수해야 하는 워크플로우였기 때문에, 클라이언트 측 즉시 렌더링이 핵심이라고 판단했습니다.',
       en: 'Hypothesis: Canvas’s `getImageData` / `putImageData` would let me do pixel-coordinate-based slicing directly, zero third-party dependency, consuming the client’s coordinate spec as-is. The workflow needed the client to inspect and tweak coordinates with the slicing result rendering immediately — client-side rendering was the load-bearing requirement.',
       ja: '仮説 — Canvas APIの`getImageData` / `putImageData`でピクセル座標ベースの画像分割を直接扱えば、外部ライブラリ依存なしに発注元の座標仕様をそのまま受け取って可視化・分割が可能。発注元が座標を確認・修正しながら分割結果を即座に検収するワークフローのため、クライアント側の即時レンダリングが鍵。',
     },
