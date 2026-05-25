@@ -1195,9 +1195,9 @@ export const careerStoryBlocksV1: Partial<
       ja: 'Claude Code導入初期は「AIでどれだけ速くコードを出せるか」に集中していました。しかしプロジェクトが大きくなるにつれ、本当のボトルネックは生成速度ではなく「要求をどう構造化し、どのコンテキストを与え、結果物をどの基準で検証するか」だと分かりました。AIに作業を投げるのではなく、AIと人間が共に働く開発フロー自体を設計する必要があると考え、その成果をオープンソースで公開しました。',
     },
     problem: {
-      ko: '세 가지 병목이 명확했습니다. 첫째, 컨텍스트 오염 — 한 세션 안에서 PRD·설계·구현이 섞이면 AI가 이전 발화에 끌려가 결과물이 발산합니다. 둘째, 역할 경계 부재 — PM·아키텍트·구현·리뷰가 같은 컨텍스트에서 동작하면 책임이 흐려져 코드 품질이 떨어집니다. 셋째, 검증 부재 — AI 생성 결과를 사람이 매번 검수하면 속도 이득이 사라집니다. 결국 역할별로 에이전트를 분리하고 단계별 validation을 거친 뒤 다음 에이전트로 넘기는 워크플로우가 필요했습니다.',
-      en: 'Three bottlenecks were clear. First, context contamination — when PRD, design, and implementation share one session, the AI gets pulled by prior turns and the output diverges. Second, no role boundary — PM, architect, implementer, reviewer running in the same context blurs responsibility and erodes code quality. Third, no validation — if a human has to eyeball every AI output, the speed gain vanishes. The answer was separating agents by role and gating each handoff with validation before the next agent picks up.',
-      ja: 'ボトルネックは3つ明確でした。第一に、コンテキスト汚染 — PRD・設計・実装が1セッションに混ざるとAIが前の発話に引きずられ結果物が発散します。第二に、役割境界の不在 — PM・アーキテクト・実装・レビューが同じコンテキストで動くと責任が曖昧になりコード品質が落ちます。第三に、検証の不在 — AI生成結果を毎回人が見直すと速度の利点が消えます。結局、役割別にエージェントを分け、段階別バリデーションを経てから次のエージェントに引き継ぐワークフローが必要でした。',
+      ko: '세 가지 병목이 명확했습니다(아래 카드 참조). 결국 역할별로 에이전트를 분리하고 단계별 validation을 거친 뒤 다음 에이전트로 넘기는 워크플로우가 필요했습니다.',
+      en: 'Three bottlenecks were clear (see cards below). The answer was separating agents by role and gating each handoff with validation before the next agent picks up.',
+      ja: 'ボトルネックは3つ明確でした（下のカード参照）。結局、役割別にエージェントを分け、段階別バリデーションを経てから次のエージェントに引き継ぐワークフローが必要でした。',
     },
     hypothesis: {
       ko: 'PRD → 설계 → 병렬 빌드 → 리뷰 → 커밋을 단일 파이프라인 안에서 역할별 에이전트 팀(Backend·Frontend·AI Server·Ops)이 병렬로 분담하면, 사람이 단계 사이를 매번 잇지 않아도 컨텍스트가 끊기지 않고 흘러갈 것이라고 봤습니다.',
@@ -1230,6 +1230,25 @@ export const careerStoryBlocksV1: Partial<
       ja: 'AIアシスタントの本質は「より良い回答」ではなく「人が毎回間を繋がなくてもシステムが最後まで回る構造」だということを最も深く学んだプロジェクトです。そのためスコアベース自動マージ・Security Zero-Tolerance・役割分離のような運用構造の決定がモデル選択よりはるかに大きな影響を与えました。',
     },
     visuals: {
+      problem: {
+        bullets: {
+          ko: [
+            '컨텍스트 오염 — 한 세션 안에서 PRD·설계·구현이 섞이면 AI가 이전 발화에 끌려가 결과물이 발산',
+            '역할 경계 부재 — PM·아키텍트·구현·리뷰가 같은 컨텍스트에서 동작하면 책임이 흐려져 코드 품질 저하',
+            '검증 부재 — AI 생성 결과를 사람이 매번 검수하면 속도 이득이 사라짐',
+          ],
+          en: [
+            'Context contamination — when PRD, design, and implementation share one session, the AI gets pulled by prior turns and the output diverges',
+            'No role boundary — PM, architect, implementer, reviewer running in the same context blurs responsibility and erodes code quality',
+            'No validation — if a human has to eyeball every AI output, the speed gain vanishes',
+          ],
+          ja: [
+            'コンテキスト汚染 — PRD・設計・実装が1セッションに混ざるとAIが前の発話に引きずられ結果物が発散',
+            '役割境界の不在 — PM・アーキテクト・実装・レビューが同じコンテキストで動くと責任が曖昧になりコード品質が低下',
+            '検証の不在 — AI生成結果を毎回人が見直すと速度の利点が消える',
+          ],
+        },
+      },
       decision: {
         image: {
           src: '/images/projects/wigtncoding.svg',
