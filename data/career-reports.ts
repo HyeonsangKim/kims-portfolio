@@ -1077,9 +1077,9 @@ export const careerStoryBlocksV1: Partial<
       ja: '残り3時間で、審査員が実際に触るデプロイ済みURLを提出しなければなりませんでした。「エージェントの価値」を1画面で体感させる必要があり、単なるチャットではなく複数の専門家が自律的に議論し収束して結論に到達する姿そのものがデモである必要がありました。',
     },
     hypothesis: {
-      ko: '여러 명의 에이전트가 채팅 UI 안에서 자유 토론으로 충돌하고 수렴하면, 그 결과를 그대로 사업 아이디어 결정 보고서와 랜딩 페이지로 만들어낼 수 있을 거라고 봤습니다. 핵심은 "토론이 안전하게 수렴하도록 누가 조율할 것인가"이고, 그 답이 오케스트레이터(PM 에이전트)의 역할이었습니다.',
-      en: 'If several agents collide and converge inside a free-form chat UI, the same debate output should be enough to drop directly into a structured business idea + landing page. The hard question wasn\'t "can agents talk to each other" — it was "who safely drives them to convergence." That role lands on the orchestrator (PM agent).',
-      ja: '複数のエージェントがチャットUI内で自由議論によって衝突・収束すれば、その結果をそのままビジネスアイデア決定レポート + ランディングページに落とし込めると考えました。核心は「議論が安全に収束するように誰が調整するか」 — つまりオーケストレーター（PMエージェント）の役割でした。',
+      ko: '여러 명의 에이전트가 채팅 UI 안에서 자유 토론으로 충돌하고 수렴하면, 그 결과를 그대로 사업 아이디어 결정 보고서와 랜딩 페이지로 만들어낼 수 있을 거라고 봤습니다. 단순히 여러 에이전트가 대화하는 것에서 끝나지 않고, 오케스트레이터가 지휘하듯 토론 흐름에 따라 필요 없는 페르소나는 퇴장시키고 새로운 전문가를 소환하는 구조까지 포함해야 진짜 "에이전트"를 보여주는 데모가 된다고 봤습니다.',
+      en: 'If several agents collide and converge inside a free-form chat UI, the same debate output should be enough to drop directly into a structured business idea + landing page. But it couldn\'t stop at "agents chatting" — the orchestrator had to conduct the debate like a conductor: retiring personas that have served their purpose and summoning new specialists as the topic deepens. That level of autonomy is what makes it a real agent demo.',
+      ja: '複数のエージェントがチャットUI内で自由議論によって衝突・収束すれば、その結果をそのままビジネスアイデア決定レポート + ランディングページに落とし込めると考えました。単に複数エージェントが会話するだけでは終わらず、オーケストレーターが指揮者のように議論の流れに応じて不要なペルソナを退場させ新たな専門家を召喚する構造まで含めてこそ、本当の「エージェント」を見せるデモになると考えました。',
     },
     alternatives: {
       ko: '단일 챗봇·룰 기반 토론 시뮬레이터·외부 LLM 토론 API도 검토했지만, 모두 발화권 회수와 수렴 강제가 약했습니다. 사용자가 결과를 거절하면 다시 토론이 이어져야 한다는 Human-in-the-Loop 요구까지 합쳐, 직접 오케스트레이터 + 상태 머신을 짜는 쪽이 가장 정확했습니다.',
