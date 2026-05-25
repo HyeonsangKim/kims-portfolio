@@ -14,7 +14,7 @@ export default function AigoseoArchitectureDiagram() {
     <svg
       role="img"
       aria-label="AIGOSEO — Canvas API 픽셀 단위 분할 + Spring Boot 백엔드 + 발주처 좌표 검수 라운드트립 흐름도"
-      viewBox="0 0 1080 380"
+      viewBox="0 0 1080 260"
       className="w-full h-auto min-w-[640px]"
       preserveAspectRatio="xMidYMid meet"
     >
@@ -76,16 +76,6 @@ export default function AigoseoArchitectureDiagram() {
         tag="정부 R&D 산출물 납품"
       />
 
-      {/* 하단 강조 */}
-      <g>
-        <rect x={40} y={298} width={1000} height={56} rx={10} fill="rgba(251, 146, 60, 0.08)" stroke="url(#aigoseo-accent)" strokeWidth={1.2} strokeDasharray="6 4" />
-        <text x={60} y={324} fontSize="12.5" fontWeight="700" fill="#fafafa" fontFamily="ui-sans-serif,system-ui">
-          ★ 핵심 결정: LLM·Vision API 부재 시기에 발주처 좌표 사양을 그대로 받는 클라이언트 즉시 렌더링
-        </text>
-        <text x={60} y={344} fontSize="11" fill="rgba(255,255,255,0.65)" fontFamily="ui-sans-serif,system-ui">
-          발주처가 좌표를 수정하면 즉시 분할 결과를 검수할 수 있어, 사양 협의 라운드트립을 클라이언트 단에서 완결.
-        </text>
-      </g>
     </svg>
   )
 }

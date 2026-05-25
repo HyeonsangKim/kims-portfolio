@@ -64,7 +64,8 @@ export default function PurpleArchitectureDiagram() {
 
       {/* Arrow 2 → 3 */}
       <line x1={660} y1={158} x2={800} y2={158} stroke="#f472b6" strokeWidth={1.6} markerEnd="url(#purple-arrow)" />
-      <text x={675} y={148} fontSize="10.5" fill="#fbcfe8" fontFamily="ui-monospace,monospace">컴포넌트 단위 마이그</text>
+      <text x={730} y={140} textAnchor="middle" fontSize="10.5" fill="#fbcfe8" fontFamily="ui-monospace,monospace">컴포넌트 단위</text>
+      <text x={730} y={152} textAnchor="middle" fontSize="10.5" fill="#fbcfe8" fontFamily="ui-monospace,monospace">마이그레이션</text>
 
       {/* Node 3: React Native */}
       <PNode

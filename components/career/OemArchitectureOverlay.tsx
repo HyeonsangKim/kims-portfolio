@@ -246,12 +246,12 @@ function OemArchitectureDiagram() {
         w={420}
         h={160}
         title="Mohani Server"
-        subtitle="mohani.soundmind.life · Spring Boot · MariaDB · Redis"
+        subtitle="Spring Boot · MariaDB · Redis"
         bullets={[
           'Receives webhooks at /api/internal/notifications',
-          'SERVICE_WITHDRAWN — 4-Phase processing (Tx → Redis → FCM → Token)',
-          'CompletableFuture sync — COLLECT_APPS / WEEK_STATISTICS (10s timeout)',
-          'data-only FCM (BLOCK_APP, UPDATE_TIME_LIMIT, UPDATE_SLEEP, …)',
+          'Service withdrawal — 4-Phase processing (Tx → Redis → FCM → Token)',
+          'CompletableFuture sync — usage / stats fetch (10s timeout)',
+          'data-only FCM (policy-driven commands)',
           'Last-parent-unlink → ChildSettingsResetService',
         ]}
       />
@@ -334,9 +334,9 @@ function Node({
 }
 
 function AuthServerNode() {
-  const x = 250
+  const x = 230
   const y = 196
-  const w = 580
+  const w = 620
   const h = 214
   return (
     <g>
@@ -348,7 +348,7 @@ function AuthServerNode() {
         OEM Auth Server
       </text>
       <text x={x + 22} y={y + 50} fontSize="11" fill="rgba(255,255,255,0.55)" fontFamily="ui-sans-serif,system-ui">
-        sso.soundmind.life · Spring Boot 17 · MariaDB · Redis · Flyway V1–V23
+        Spring Boot 3.2 · Java 17 · MariaDB · Redis · Flyway
       </text>
 
       {/* 2-column feature list */}
@@ -364,7 +364,7 @@ function AuthServerNode() {
       ].map(([label, val], i) => {
         const col = i % 2
         const row = Math.floor(i / 2)
-        const cx = x + 22 + col * 280
+        const cx = x + 22 + col * 310
         const cy = y + 88 + row * 30
         return (
           <g key={i}>
