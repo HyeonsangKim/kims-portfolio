@@ -70,9 +70,9 @@ export const projects: Project[] = [
     title: 'WIGTN Coding',
     tagline: 'Claude Code plugin ecosystem',
     description: {
-      ko: '아이디어부터 배포까지 끊김 없이 잇는 Claude Code 플러그인. 12개 에이전트 · 3개 스킬 · 17개 디자인 스타일이 팀 단위로 병렬 실행되어 PRD → 아키텍처 결정 → 빌드 → 3-agent 병렬 코드 리뷰 → 자동 커밋까지 전 파이프라인을 3-5배 가속합니다. Build with TRAE 해커톤(ByteDance)에서 이 워크플로우로 3명 · 3.5시간 만에 토론 플랫폼을 기획부터 배포까지 완성해 대상을 받았습니다.',
-      en: 'Unified Claude Code plugin — from idea to deploy, zero friction. 12 agents, 3 skills, and 17 design styles run as parallel teams across the full pipeline (PRD → architecture → build → 3-agent review → auto-commit) for 3-5x speedup. Proven at Build with TRAE (ByteDance): 3 engineers shipped a multi-agent debate platform end-to-end in 3.5 hours and took 1st place.',
-      ja: 'アイデアからデプロイまで摩擦ゼロでつなぐClaude Codeプラグイン。12エージェント・3スキル・17デザインスタイルがチーム単位で並列実行され、PRD→アーキテクチャ決定→ビルド→3エージェント並列レビュー→自動コミットまで全パイプラインを3〜5倍加速。Build with TRAE（ByteDance）で3名・3.5時間で議論プラットフォームを企画から本番まで完成、大賞受賞。',
+      ko: 'WigPlugin은 Claude Code 마켓플레이스에 공개된 AI 개발 워크플로우 플러그인입니다(44★). 13개의 전문 에이전트가 병렬로 PRD 생성, 화면정의서, 아키텍처 결정, 빌드, 코드 리뷰, 커밋까지 자동화합니다.',
+      en: 'AI development workflow plugin on Claude Code marketplace (44★). 13 specialized agents run in parallel to automate PRD, screen spec, architecture, build, review, and commit.',
+      ja: 'Claude Codeマーケットプレイス公開のAI開発ワークフロープラグイン（44★）。13の専門エージェントが並列でPRD生成、画面定義書、アーキテクチャ決定、ビルド、レビュー、コミットまで自動化。',
     },
     badges: [{ label: '44★', variant: 'award' }, { label: 'Open Source', variant: 'active' }],
     tech: ['Claude Code', 'TypeScript', 'MCP', 'Bash hooks'],

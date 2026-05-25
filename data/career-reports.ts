@@ -164,7 +164,7 @@ export const projectStoryBlockSlotLabels: Record<
   CareerStoryBlockSlot,
   Record<Locale, string>
 > = {
-  context: { ko: '동기', en: 'Motivation', ja: '動機' },
+  context: { ko: '계기', en: 'Origin', ja: 'きっかけ' },
   problem: { ko: '도전', en: 'Challenge', ja: '挑戦' },
   hypothesis: { ko: '접근', en: 'Approach', ja: 'アプローチ' },
   alternatives: { ko: '검토한 대안', en: 'Alternatives', ja: '代替案' },
@@ -1072,9 +1072,9 @@ export const careerStoryBlocksV1: Partial<
       ja: '当日完結型ハッカソンへの2回目の出場でした。1回目で一生懸命準備したのに受賞者はライブデモなしの収録動画で入賞していたので、今回は完成後に動画を撮影して提出する戦略で臨みました。ところが審査基準がデプロイ済みURLを提出し、人間審査員とAI審査員が直接テストする方式でした。戦略が完全に外れてパニック状態で時間を浪費し、残り約3時間でAgentの本質を思い出しました。人がAgentを作る理由は「自動化」か「自律的な意思決定による補助」であり、それを最も説得力ある形で見せるのは複数の専門家が議論で結論に到達する姿だと判断しました。',
     },
     problem: {
-      ko: '기존 브레인스토밍은 세 가지로 깨집니다. 혼자 하면 시야가 좁아지고, 팀으로 하면 시간이 오래 걸리고, 일반 AI 챗은 단일 의견만 줍니다. 이 세 가지를 동시에 푸는 것이 해커톤에서 풀어야 할 핵심 도전이었습니다.',
-      en: 'Existing brainstorming is broken three ways: solo thinking is biased, team sessions are slow, and a single AI chat gives you a one-sided answer. Breaking all three at once was the core challenge for the hackathon.',
-      ja: '既存のブレインストーミングは3つの形で壊れています — 一人だと視野が狭くなり、チームでやると時間がかかり、通常のAIチャットは単一意見しか返しません。この3つを同時に解くことがハッカソンでの核心的な挑戦でした。',
+      ko: '3시간 안에 배포된 URL을 제출해야 하고, 심사위원이 직접 써보는 방식이라 "에이전트의 가치"를 한 화면에서 체감시켜야 했습니다. 단순히 에이전트를 만드는 게 아니라, 여러 전문가가 자동으로 토론하고 수렴해서 결론까지 도달하는 모습 자체가 데모여야 했습니다.',
+      en: 'With three hours left, we had to submit a deployed URL that judges would actually use. The demo had to make the value of "agents" tangible on one screen — not just an agent chatting, but multiple experts autonomously debating, converging, and reaching a conclusion.',
+      ja: '残り3時間で、審査員が実際に触るデプロイ済みURLを提出しなければなりませんでした。「エージェントの価値」を1画面で体感させる必要があり、単なるチャットではなく複数の専門家が自律的に議論し収束して結論に到達する姿そのものがデモである必要がありました。',
     },
     hypothesis: {
       ko: '여러 명의 에이전트가 채팅 UI 안에서 자유 토론으로 충돌하고 수렴하면, 그 결과를 그대로 사업 아이디어 결정 보고서와 랜딩 페이지로 만들어낼 수 있을 거라고 봤습니다. 핵심은 "토론이 안전하게 수렴하도록 누가 조율할 것인가"이고, 그 답이 오케스트레이터(PM 에이전트)의 역할이었습니다.',
@@ -1209,14 +1209,14 @@ export const careerStoryBlocksV1: Partial<
 
   wigplugin: {
     oneLiner: {
-      ko: '하나의 플러그인으로 12개 에이전트·3개 커맨드(/prd · /implement · /auto-commit)·3개 스킬을 묶어 "아이디어부터 프로덕션까지" 한 파이프라인으로 돌리는 Claude Code 플러그인. 오픈소스 공개.',
-      en: 'A Claude Code plugin that bundles 12 agents, 3 commands (/prd · /implement · /auto-commit), and 3 skills into a single "idea → production" pipeline. Open-sourced.',
-      ja: '一つのプラグインで12エージェント・3コマンド（/prd · /implement · /auto-commit）・3スキルを束ね、「アイデアからプロダクションまで」を1パイプラインで回すClaude Codeプラグイン。オープンソース公開。',
+      ko: 'PRD 작성 → 화면정의서 → 병렬 빌드 → 코드 리뷰 → 커밋까지 한 파이프라인으로 돌리는 Claude Code 플러그인. 13개 에이전트·5개 커맨드·4개 스킬을 묶어 오픈소스로 공개.',
+      en: 'A Claude Code plugin that runs PRD → screen spec → parallel build → code review → commit as a single pipeline. Bundles 13 agents, 5 commands, and 4 skills. Open-sourced.',
+      ja: 'PRD作成 → 画面定義書 → 並列ビルド → コードレビュー → コミットまでを1パイプラインで回すClaude Codeプラグイン。13エージェント・5コマンド・4スキルを束ねてオープンソース公開。',
     },
     context: {
-      ko: '처음 Claude Code를 접했을 때 정말 놀랐습니다. 하지만 바이브코딩을 반복할수록 결과물이 들쑥날쑥이었고, "이렇게 쓰는 게 맞는 건가" 하는 의문이 커졌습니다. 그러다 skill·hook 같은 고급 기능을 알게 됐고, AI 시대에 코드를 짜는 능력보다 문제를 정의하는 능력이 중요하다는 걸 느꼈습니다. 그러려면 프로젝트를 시작하기 전에 명세서(PRD)를 제대로 쓰는 게 가장 중요하고, AI가 만든 결과물을 검증할 수 있는 구조가 필요했습니다. 여기에 커밋 같은 워크플로우 자동화까지 더해 플러그인을 만들었고, 오픈소스로 공개했습니다.',
-      en: 'I was genuinely amazed the first time I used Claude Code. But the more I vibe-coded, the more the output quality swung wildly, and I started wondering whether I was even using it right. Then I discovered advanced features like skills and hooks, and realized that in the AI era, the ability to define a problem matters more than the ability to write code. That meant writing a proper spec (PRD) before touching anything, having a structure that can actually validate AI output, and automating the workflow around commits. I built all of that into a plugin and open-sourced it.',
-      ja: '初めてClaude Codeに触れた時は本当に驚きました。しかしバイブコーディングを繰り返すほど結果物にムラが出て、「この使い方で合っているのか」という疑問が大きくなりました。skill・hookなどの高度な機能を知り、AI時代はコードを書く力より問題を定義する力が重要だと感じました。プロジェクト開始前にPRDをきちんと書くこと、AI生成物を検証できる構造、コミットなどのワークフロー自動化を一つのプラグインにまとめ、オープンソースで公開しました。',
+      ko: '처음 Claude Code를 접했을 때 정말 놀랐습니다. 그런데 바이브코딩을 반복할수록 결과물이 들쑥날쑥이었고, 점점 "이렇게 쓰는 게 맞는 건가"라는 의문이 커졌습니다. 고민하다 깨달은 건, AI 시대에는 코드를 잘 짜는 것보다 "뭘 만들지"를 정확히 정의하는 게 더 중요하다는 점이었습니다. 그래서 PRD를 먼저 쓰고, AI가 만든 결과물을 자동으로 검증하고, 커밋까지 한 번에 돌아가는 파이프라인을 직접 만들어 오픈소스로 공개했습니다.',
+      en: 'I was genuinely amazed the first time I used Claude Code. But the more I vibe-coded, the more the output quality swung — and I started wondering whether I was even using it right. What I eventually realized was that in the AI era, defining *what* to build matters more than writing the code itself. So I built a pipeline that starts from a PRD, auto-validates AI output, and runs all the way to commit — then open-sourced it.',
+      ja: '初めてClaude Codeに触れた時は本当に驚きました。しかしバイブコーディングを繰り返すほど結果物にムラが出て、「この使い方で合っているのか」という疑問が大きくなりました。やがて気づいたのは、AI時代はコードを書く力より「何を作るか」を正確に定義する力が重要だということ。PRDから始めてAI生成物を自動検証しコミットまで一気に通すパイプラインを自ら作り、オープンソースで公開しました。',
     },
     problem: {
       ko: '실제로 써보니 세 가지 벽이 보였습니다(아래 카드 참조). 결국 역할별로 에이전트를 분리하고 단계별 validation을 거친 뒤 다음 에이전트로 넘기는 워크플로우가 필요했습니다.',
@@ -1234,14 +1234,14 @@ export const careerStoryBlocksV1: Partial<
       ja: 'エージェントごとに個別呼び出しする既存方式、単一メガエージェントに統合する方式も検討しましたが、前者はコンテキスト引き渡しコストが累積し、後者は一つのエージェントがすべての役割を抱えて責任境界が崩れました。',
     },
     decision: {
-      ko: '단일 플러그인으로 12 에이전트 + 3 커맨드 + 3 스킬 + 20 디자인 스타일 + 4 안전 훅을 묶었습니다. 핵심은 `/prd → /implement → /auto-commit` 한 줄 파이프라인이고, `/implement`는 4개 팀에 자동 병렬 분배·`/auto-commit`은 3개 리뷰 에이전트 점수 합산 후 80점 이상이면 자동 머지·Security Critical은 점수 무관 강제 차단입니다.',
-      en: 'One plugin bundles 12 agents + 3 commands + 3 skills + 20 design styles + 4 safety hooks. The spine is a single `/prd → /implement → /auto-commit` pipeline: `/implement` auto-dispatches to four teams in parallel, and `/auto-commit` aggregates three reviewer scores — commit at ≥80, Security Critical force-fails regardless.',
-      ja: '単一プラグインで12エージェント + 3コマンド + 3スキル + 20デザインスタイル + 4安全フックを束ねました。核心は `/prd → /implement → /auto-commit` の1パイプライン: `/implement` は4チームに自動並列分配、`/auto-commit` は3レビュアースコアを集計してスコア80以上で自動マージ、Security Criticalはスコア無関係に強制遮断します。',
+      ko: '단일 플러그인으로 13 에이전트 + 5 커맨드 + 4 스킬 + 20 디자인 스타일 + 4 안전 훅을 묶었습니다. 핵심은 `/prd → /screen-spec → /implement → /auto-commit` 파이프라인이고, `/screen-spec`은 UI 프로젝트에서 PRD와 구현 사이에 화면정의서 5종을 자동 생성하는 선택적 게이트, `/implement`는 4개 팀에 자동 병렬 분배, `/auto-commit`은 3개 리뷰 에이전트 점수 합산 후 80점 이상이면 자동 머지·Security Critical은 점수 무관 강제 차단입니다.',
+      en: 'One plugin bundles 13 agents + 5 commands + 4 skills + 20 design styles + 4 safety hooks. The spine is `/prd → /screen-spec → /implement → /auto-commit`: `/screen-spec` is a selective gate that auto-generates five screen-specification artifacts for UI projects between PRD and build; `/implement` auto-dispatches to four teams in parallel; `/auto-commit` aggregates three reviewer scores — commit at ≥80, Security Critical force-fails regardless.',
+      ja: '単一プラグインで13エージェント + 5コマンド + 4スキル + 20デザインスタイル + 4安全フックを束ねました。核心は `/prd → /screen-spec → /implement → /auto-commit` パイプライン: `/screen-spec` はUIプロジェクトでPRDとビルドの間に画面定義書5種を自動生成する選択的ゲート、`/implement` は4チームに自動並列分配、`/auto-commit` は3レビュアースコアを集計してスコア80以上で自動マージ、Security Criticalはスコア無関係に強制遮断します。',
     },
     execution: {
-      ko: '한 흐름으로 보면 단순합니다. `/prd`는 PRD + 단계별 task plan을 만들면서 4 카테고리 품질 게이트(Completeness·Feasibility·Security·Consistency)를 통과시키고, `/implement`는 설계 3 에이전트 병렬 실행 후 빌드 단계에서 4팀(Backend·Frontend·AI Server·Ops)을 동시 가동, `/auto-commit`은 3 리뷰 점수 합산 + 4 안전 훅이 백그라운드에서 위험 명령·빠진 검증을 차단합니다.',
-      en: 'Linearly the flow is simple. `/prd` produces a PRD + phased task plan while running a four-category quality gate (Completeness, Feasibility, Security, Consistency); `/implement` runs three design agents in parallel, then fires four teams (Backend, Frontend, AI Server, Ops) concurrently in the build phase; `/auto-commit` aggregates three review scores while four safety hooks block risky commands and missing checks in the background.',
-      ja: '一連の流れは単純です。`/prd` はPRD + 段階別タスクプランを作りつつ4カテゴリ品質ゲート（Completeness・Feasibility・Security・Consistency）を通し、`/implement` は設計3エージェントの並列実行後にビルド段階で4チーム（Backend・Frontend・AI Server・Ops）を同時稼働、`/auto-commit` は3レビュースコアを集計しつつ4安全フックが危険コマンドや漏れた検証をバックグラウンドで遮断します。',
+      ko: '한 흐름으로 보면 단순합니다. `/prd`가 PRD + 단계별 task plan을 만들면서 4 카테고리 품질 게이트를 통과시키고, UI 프로젝트면 `/screen-spec`이 IA·유저 플로우·화면 명세·와이어프레임·개발 핸드오프 5종을 생성합니다. `/implement`는 설계 에이전트 병렬 실행 후 4팀(Backend·Frontend·AI Server·Ops) 동시 가동, `/auto-commit`은 3 리뷰 점수 합산 + 4 안전 훅이 백그라운드에서 위험 명령·빠진 검증을 차단합니다.',
+      en: 'Linearly the flow is simple. `/prd` produces a PRD + phased task plan while running a four-category quality gate; for UI projects `/screen-spec` generates five artifacts (IA, user flow, screen spec, wireframe, dev handoff). `/implement` runs design agents in parallel, then fires four teams (Backend, Frontend, AI Server, Ops) concurrently; `/auto-commit` aggregates three review scores while four safety hooks block risky commands and missing checks in the background.',
+      ja: '一連の流れは単純です。`/prd` がPRD + 段階別タスクプランを作りつつ4カテゴリ品質ゲートを通し、UIプロジェクトでは `/screen-spec` がIA・ユーザーフロー・画面仕様・ワイヤーフレーム・開発ハンドオフの5種を生成。`/implement` は設計エージェントの並列実行後に4チーム（Backend・Frontend・AI Server・Ops）を同時稼働、`/auto-commit` は3レビュースコアを集計しつつ4安全フックが危険コマンドや漏れた検証をバックグラウンドで遮断します。',
     },
     result: {
       ko: 'WIGTN-Coding을 Claude Code 플러그인으로 오픈소스 공개해 다른 개발자도 동일 워크플로우 위에서 작업할 수 있게 다듬었습니다. 본인이 설계한 이 워크플로우 위에서 WIGENT(TRAE 대상)·WIGTN FLAKE(Snowflake Tech Track 2위)·WIGVO 등 후속 프로젝트가 모두 만들어졌고, GitHub 별 약 44개 받은 상태입니다.',
@@ -1314,19 +1314,19 @@ export const careerStoryBlocksV1: Partial<
           ],
           en: [
             '4 safety hooks (run in background) — Dangerous Command Blocker · Pipeline Completion reminder · Frontend Formatting reminder · Backend Pattern Compliance check',
-            '3 skills — code-review-levels (Level 3 deep · Level 4 architecture review) · design-system-reference (20 style guides) · team-memory-protocol (shared context across parallel builds)',
+            '4 skills — code-review-levels (Level 3 deep · Level 4 architecture review) · design-system-reference (20 style guides) · screen-spec (5-artifact UI spec generation) · team-memory-protocol (shared context across parallel builds)',
             '20 design styles — Editorial · Brutalist · Glassmorphism · Swiss Minimal · Neomorphism · Bento Grid · Dark Mode First · Retro Pixel · Maximalist · 3D Immersive · Liquid Glass · Claymorphism · Neobrutalism · Aurora/Gradient Mesh · Terminal/Hacker · Kinetic Typography, … (each with an anti-pattern checklist)',
           ],
           ja: [
             '4安全フック（バックグラウンド自動実行） — Dangerous Command Blocker · Pipeline Completion通知 · Frontend Formattingリマインダー · Backend Pattern Complianceチェック',
-            '3スキル — code-review-levels（Level 3 deep review · Level 4 architecture review）· design-system-reference（20スタイルガイド）· team-memory-protocol（並列ビルド共有コンテキスト）',
+            '4スキル — code-review-levels（Level 3 deep review · Level 4 architecture review）· design-system-reference（20スタイルガイド）· screen-spec（5種UI仕様自動生成）· team-memory-protocol（並列ビルド共有コンテキスト）',
             '20デザインスタイル — Editorial · Brutalist · Glassmorphism · Swiss Minimal · Neomorphism · Bento Grid · Dark Mode First · Retro Pixel · Maximalist · 3D Immersive · Liquid Glass · Claymorphism · Neobrutalism · Aurora/Gradient Mesh · Terminal/Hacker · Kinetic Typographyなど（各自anti-patternチェックリスト付き）',
           ],
         },
       },
       result: {
         metrics: [
-          { value: '12 agents', label: { ko: '단일 파이프라인 통합 (PRD → 빌드 → 리뷰 → 커밋)', en: 'Bundled into one pipeline (PRD → build → review → commit)', ja: '単一パイプライン統合（PRD → ビルド → レビュー → コミット）' } },
+          { value: '13 agents', label: { ko: '단일 파이프라인 통합 (PRD → 화면정의서 → 빌드 → 리뷰 → 커밋)', en: 'Bundled into one pipeline (PRD → screen spec → build → review → commit)', ja: '単一パイプライン統合（PRD → 画面定義書 → ビルド → レビュー → コミット）' } },
           { value: '44', label: { ko: 'GitHub stars (오픈소스 공개 후 수신, 외부 개발자 사용 신호)', en: 'GitHub stars after open-sourcing — signal of external adoption', ja: 'GitHubスター（オープンソース公開後、外部開発者の採用シグナル）' } },
           { value: '3 프로젝트', label: { ko: '본인이 이 워크플로우로 만든 후속 프로젝트 (WIGENT·WIGTN FLAKE·WIGVO)', en: 'Downstream projects shipped on this workflow (WIGENT · WIGTN FLAKE · WIGVO)', ja: 'このワークフロー上で構築した後続プロジェクト（WIGENT・WIGTN FLAKE・WIGVO）' } },
         ],

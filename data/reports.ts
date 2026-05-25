@@ -71,9 +71,9 @@ export const projectReports: Record<string, ProjectReport> = {
   wigplugin: {
     slug: 'wigplugin',
     oneLiner: {
-      en: 'One plugin. 12 agents. From idea to production — in parallel.',
-      ko: '플러그인 하나, 에이전트 12개. 아이디어부터 프로덕션까지 — 병렬로.',
-      ja: 'プラグイン1つ、エージェント12体。アイデアから本番まで — 並列で。',
+      en: 'One plugin. 13 agents. From idea to production — in parallel.',
+      ko: '플러그인 하나, 에이전트 13개. 아이디어부터 프로덕션까지 — 병렬로.',
+      ja: 'プラグイン1つ、エージェント13体。アイデアから本番まで — 並列で。',
     },
     problem: {
       en: [
