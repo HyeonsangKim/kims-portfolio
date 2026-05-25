@@ -1190,19 +1190,19 @@ export const careerStoryBlocksV1: Partial<
       ja: '一つのプラグインで12エージェント・3コマンド（/prd · /implement · /auto-commit）・3スキルを束ね、「アイデアからプロダクションまで」を1パイプラインで回すClaude Codeプラグイン。オープンソース公開。',
     },
     context: {
-      ko: 'WIGTN 안에서 여러 명이 동시에 Claude Code로 개발할수록 결과물 충돌과 컨텍스트 혼선이 오히려 생산성을 떨어뜨리는 문제가 보였습니다. 단일 명령으로 PRD → 설계 → 병렬 빌드 → 코드 리뷰 → 커밋까지 같은 워크플로우 위에서 돌게 해야 한다는 필요가 명확해졌고, 그 결과물을 오픈소스로 공개해 다른 개발자들도 같은 흐름을 쓸 수 있게 했습니다.',
-      en: 'Inside WIGTN, the more engineers ran Claude Code in parallel, the more output collisions and context drift started costing us productivity. We needed a single command path — PRD → design → parallel build → review → commit — sitting on the same workflow. We packaged that workflow as a plugin and opened it up.',
-      ja: 'WIGTN内で複数人が同時にClaude Codeで開発するほど、成果物の衝突とコンテキスト混乱が逆に生産性を落とす問題が見えました。単一コマンドでPRD → 設計 → 並列ビルド → コードレビュー → コミットまで同じワークフロー上で回る必要が明確になり、その成果物をオープンソースで公開して他の開発者も同じフローを使えるようにしました。',
+      ko: '처음 Claude Code를 도입했을 때는 "AI로 얼마나 빨리 코드를 뽑아낼 수 있는가"에 집중했습니다. 그런데 프로젝트가 커질수록 진짜 병목은 생성 속도가 아니라 "요구사항을 어떻게 구조화하고, 어떤 컨텍스트를 제공하며, 결과물을 어떤 기준으로 검증할 것인가"였습니다. AI에게 일을 시키는 게 아니라 AI와 인간이 함께 일하는 개발 흐름 자체를 설계해야 한다고 봤고, 그 결과물을 오픈소스로 공개했습니다.',
+      en: 'When we first brought Claude Code in, the focus was "how fast can we generate code with AI." But as projects grew, the real bottleneck turned out to be how to structure requirements, what context to feed in, and what bar to validate output against — not raw generation speed. We treated this as designing the human-AI workflow itself, not just dispatching tasks to AI, and open-sourced what we built.',
+      ja: 'Claude Code導入初期は「AIでどれだけ速くコードを出せるか」に集中していました。しかしプロジェクトが大きくなるにつれ、本当のボトルネックは生成速度ではなく「要求をどう構造化し、どのコンテキストを与え、結果物をどの基準で検証するか」だと分かりました。AIに作業を投げるのではなく、AIと人間が共に働く開発フロー自体を設計する必要があると考え、その成果をオープンソースで公開しました。',
     },
     problem: {
-      ko: 'AI 어시스턴트 생산성은 "AI 성능"보다 "여러 에이전트가 안정적으로 협업할 수 있는 운영 구조"에서 결정된다는 가설이 있었습니다. 개별 명령으로 PRD·구현·리뷰를 따로 호출하면 컨텍스트가 끊기고, 사람이 매번 사이를 이어줘야 했습니다.',
-      en: 'Our working hypothesis: AI-assisted productivity is gated by the operating structure that lets multiple agents collaborate reliably, not by the model itself. Calling PRD / implement / review as separate commands kept dropping context and forced a human to stitch them back together every time.',
-      ja: 'AIアシスタントの生産性は「AI性能」より「複数エージェントが安定協業できる運用構造」で決まるという仮説がありました。個別コマンドでPRD・実装・レビューを別々に呼び出すとコンテキストが切れ、人が毎回間を繋ぐ必要がありました。',
+      ko: '세 가지 병목이 명확했습니다. (1) **컨텍스트 오염** — 한 세션 안에서 PRD·설계·구현이 섞이면 AI가 이전 발화에 끌려가 결과물이 발산합니다. (2) **역할 경계 부재** — PM·아키텍트·구현·리뷰가 같은 컨텍스트에서 동작하면 책임이 흐려져 코드 품질이 떨어집니다. (3) **검증 부재** — AI 생성 결과를 사람이 매번 검수하면 속도 이득이 사라집니다. 결국 역할별로 에이전트를 분리하고 단계별 validation을 거친 뒤 다음 에이전트로 넘기는 워크플로우가 필요했습니다.',
+      en: 'Three bottlenecks were clear. (1) **Context contamination** — when PRD, design, and implementation share one session, the AI gets pulled by prior turns and the output diverges. (2) **No role boundary** — PM, architect, implementer, reviewer running in the same context blurs responsibility and erodes code quality. (3) **No validation** — if a human has to eyeball every AI output, the speed gain vanishes. The answer was separating agents by role and gating each handoff with validation before the next agent picks up.',
+      ja: 'ボトルネックは3つ明確でした。(1) **コンテキスト汚染** — PRD・設計・実装が1セッションに混ざるとAIが前の発話に引きずられ結果物が発散します。(2) **役割境界の不在** — PM・アーキテクト・実装・レビューが同じコンテキストで動くと責任が曖昧になりコード品質が落ちます。(3) **検証の不在** — AI生成結果を毎回人が見直すと速度の利点が消えます。結局、役割別にエージェントを分け、段階別バリデーションを経てから次のエージェントに引き継ぐワークフローが必要でした。',
     },
     hypothesis: {
-      ko: 'PRD → 설계 → 병렬 빌드 → 리뷰 → 커밋을 하나의 파이프라인 안에서 에이전트 팀(Backend·Frontend·AI Server·Ops)이 병렬로 분담하면, 같은 작업의 순차 진행 대비 ~6분 vs ~20분 수준으로 시간이 압축된다고 봤습니다.',
-      en: 'If PRD → design → parallel build → review → commit all live in one pipeline and the agent teams (Backend / Frontend / AI Server / Ops) divide the build in parallel, we expected to compress full-cycle time from roughly 20 minutes (sequential) down to ~6 minutes.',
-      ja: 'PRD → 設計 → 並列ビルド → レビュー → コミットを1パイプライン内でエージェントチーム（Backend・Frontend・AI Server・Ops）が並列分担すれば、同じ作業の順次進行 vs 約6分 vs 約20分のレベルで時間を圧縮できると考えました。',
+      ko: 'PRD → 설계 → 병렬 빌드 → 리뷰 → 커밋을 단일 파이프라인 안에서 역할별 에이전트 팀(Backend·Frontend·AI Server·Ops)이 병렬로 분담하면, 사람이 단계 사이를 매번 잇지 않아도 컨텍스트가 끊기지 않고 흘러갈 것이라고 봤습니다.',
+      en: 'If PRD → design → parallel build → review → commit all live in one pipeline and role-split agent teams (Backend / Frontend / AI Server / Ops) divide the build in parallel, context should flow end-to-end without a human stitching the steps each time.',
+      ja: 'PRD → 設計 → 並列ビルド → レビュー → コミットを単一パイプライン内で役割別エージェントチーム（Backend・Frontend・AI Server・Ops）が並列分担すれば、人が毎回ステップ間を繋がなくてもコンテキストが切れずに流れると考えました。',
     },
     alternatives: {
       ko: '에이전트마다 개별 호출하는 기존 방식, 단일 메가 에이전트로 통합하는 방식도 검토했지만 전자는 컨텍스트 전달 비용이 누적되고 후자는 한 에이전트가 모든 역할을 떠안아 책임 경계가 무너졌습니다.',
@@ -1220,9 +1220,9 @@ export const careerStoryBlocksV1: Partial<
       ja: '一連の流れは単純です。`/prd` はPRD + 段階別タスクプランを作りつつ4カテゴリ品質ゲート（Completeness・Feasibility・Security・Consistency）を通し、`/implement` は設計3エージェントの並列実行後にビルド段階で4チーム（Backend・Frontend・AI Server・Ops）を同時稼働、`/auto-commit` は3レビュースコアを集計しつつ4安全フックが危険コマンドや漏れた検証をバックグラウンドで遮断します。',
     },
     result: {
-      ko: 'WIGTN-Coding을 Claude Code 플러그인으로 오픈소스 공개해 다른 개발자도 동일 워크플로우 위에서 작업할 수 있게 다듬었습니다. 풀 파이프라인 약 6분(순차 진행 ~20분 대비 약 3배 압축), 본인이 설계한 이 워크플로우 위에서 WIGENT(TRAE 대상)·WIGTN FLAKE(Snowflake Tech Track 2위)·WIGVO 등 후속 프로젝트가 만들어졌고, GitHub 별 약 44개 받은 상태입니다.',
-      en: 'Released WIGTN-Coding as an open-source Claude Code plugin so other engineers run the same workflow end-to-end. Full pipeline compresses from ~20 minutes (sequential) to ~6 minutes (~3× speedup); every downstream project — WIGENT (TRAE Grand Prize), WIGTN FLAKE (Snowflake Tech Track 2nd), WIGVO — was built on top, and the repo currently sits at ~44 GitHub stars.',
-      ja: 'WIGTN-CodingをClaude Codeプラグインとしてオープンソース公開し、他の開発者も同じワークフロー上でエンドツーエンドに作業できる形に整備しました。フルパイプライン約6分（順次進行の約20分比べて約3倍の圧縮）、本人が設計したこのワークフロー上でWIGENT（TRAE大賞）・WIGTN FLAKE（Snowflake Tech Track 2位）・WIGVOなど後続プロジェクトが構築され、現在GitHubで約44スターを獲得した状態です。',
+      ko: 'WIGTN-Coding을 Claude Code 플러그인으로 오픈소스 공개해 다른 개발자도 동일 워크플로우 위에서 작업할 수 있게 다듬었습니다. 본인이 설계한 이 워크플로우 위에서 WIGENT(TRAE 대상)·WIGTN FLAKE(Snowflake Tech Track 2위)·WIGVO 등 후속 프로젝트가 모두 만들어졌고, GitHub 별 약 44개 받은 상태입니다.',
+      en: 'Released WIGTN-Coding as an open-source Claude Code plugin so other engineers can run the same workflow end-to-end. Every downstream project — WIGENT (TRAE Grand Prize), WIGTN FLAKE (Snowflake Tech Track 2nd), WIGVO — was built on top of this workflow, and the repo currently sits at ~44 GitHub stars.',
+      ja: 'WIGTN-CodingをClaude Codeプラグインとしてオープンソース公開し、他の開発者も同じワークフロー上でエンドツーエンドに作業できる形に整備しました。本人が設計したこのワークフロー上でWIGENT（TRAE大賞）・WIGTN FLAKE（Snowflake Tech Track 2位）・WIGVOなど後続プロジェクトがすべて構築され、現在GitHubで約44スターを獲得した状態です。',
     },
     reflection: {
       ko: 'AI 어시스턴트의 본질은 "더 좋은 답"이 아니라 "사람이 매번 사이를 잇지 않아도 시스템이 끝까지 도는 구조"라는 점을 가장 깊이 배운 프로젝트입니다. 그래서 점수 기반 자동 머지·Security Zero-Tolerance·역할 분리 같은 운영 구조 결정이 모델 선택보다 훨씬 큰 영향을 미쳤습니다.',
@@ -1283,7 +1283,7 @@ export const careerStoryBlocksV1: Partial<
       },
       result: {
         metrics: [
-          { value: '~6분', label: { ko: '풀 파이프라인 시간 (순차 ~20분 대비 약 3배 압축)', en: 'Full pipeline runtime (~3× faster than sequential ~20 min)', ja: 'フルパイプライン時間（順次約20分比べ約3倍圧縮）' } },
+          { value: '12 agents', label: { ko: '단일 파이프라인 통합 (PRD → 빌드 → 리뷰 → 커밋)', en: 'Bundled into one pipeline (PRD → build → review → commit)', ja: '単一パイプライン統合（PRD → ビルド → レビュー → コミット）' } },
           { value: '⭐ 44', label: { ko: 'GitHub stars (오픈소스 공개 후 수신, 외부 개발자 사용 신호)', en: 'GitHub stars after open-sourcing — signal of external adoption', ja: 'GitHubスター（オープンソース公開後、外部開発者の採用シグナル）' } },
           { value: '3 프로젝트', label: { ko: '본인이 이 워크플로우로 만든 후속 프로젝트 (WIGENT·WIGTN FLAKE·WIGVO)', en: 'Downstream projects shipped on this workflow (WIGENT · WIGTN FLAKE · WIGVO)', ja: 'このワークフロー上で構築した後続プロジェクト（WIGENT・WIGTN FLAKE・WIGVO）' } },
         ],
