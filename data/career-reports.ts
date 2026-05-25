@@ -1224,9 +1224,9 @@ export const careerStoryBlocksV1: Partial<
       ja: '以下の問題を解決してこそ検証されたハーネスを実装でき、自動化されたワークフローを作れると考えました。コンテキスト汚染、役割境界の不在、検証の不在を解かなければAI生成物を信頼できませんでした。',
     },
     hypothesis: {
-      ko: 'PRD → 설계 → 병렬 빌드 → 리뷰 → 커밋을 단일 파이프라인 안에서 역할별 에이전트 팀(Backend·Frontend·AI Server·Ops)이 병렬로 분담하면, 사람이 단계 사이를 매번 잇지 않아도 컨텍스트가 끊기지 않고 흘러갈 것이라고 봤습니다.',
-      en: 'If PRD → design → parallel build → review → commit all live in one pipeline and role-split agent teams (Backend / Frontend / AI Server / Ops) divide the build in parallel, context should flow end-to-end without a human stitching the steps each time.',
-      ja: 'PRD → 設計 → 並列ビルド → レビュー → コミットを単一パイプライン内で役割別エージェントチーム（Backend・Frontend・AI Server・Ops）が並列分担すれば、人が毎回ステップ間を繋がなくてもコンテキストが切れずに流れると考えました。',
+      ko: '세 가지를 한 파이프라인 안에서 동시에 풀어야 한다고 봤습니다. 첫째, PRD 단계에서 4 카테고리(Completeness·Feasibility·Security·Consistency) 검증 에이전트가 명세를 먼저 걸러내야 구현 단계의 방향 이탈을 막을 수 있습니다. 둘째, 빌드 단계에서는 SHARED_CONTEXT 파일로 팀 간 컨텍스트를 공유하면서 Backend·Frontend·AI Server·Ops 4팀이 병렬로 분담해야 사람이 사이를 잇지 않아도 흐름이 끊기지 않습니다. 셋째, 커밋 전에 3개 리뷰 에이전트가 자동으로 점수를 매기고 Security Critical은 점수 무관하게 차단해야 사람 검수 없이도 결과물을 신뢰할 수 있습니다.',
+      en: 'Three things had to be solved inside one pipeline. First, at the PRD stage, a validation agent checking four categories (Completeness, Feasibility, Security, Consistency) has to filter the spec before implementation can diverge. Second, at the build stage, a SHARED_CONTEXT file lets four teams (Backend, Frontend, AI Server, Ops) share context and build in parallel without a human stitching the gaps. Third, before commit, three review agents score automatically and Security Critical issues force-fail regardless of score, so the output can be trusted without manual review.',
+      ja: '3つを1パイプライン内で同時に解く必要があると考えました。第一にPRD段階で4カテゴリ（Completeness・Feasibility・Security・Consistency）検証エージェントが仕様をフィルタリングし、実装段階の方向逸脱を防ぐ。第二にビルド段階ではSHARED_CONTEXTファイルでチーム間コンテキストを共有しながらBackend・Frontend・AI Server・Opsの4チームが並列分担し、人が間を繋がなくても流れが途切れない。第三にコミット前に3レビューエージェントが自動で点数をつけ、Security Criticalはスコア無関係に遮断し、人の検収なしでも成果物を信頼できるようにする。',
     },
     alternatives: {
       ko: '에이전트마다 개별 호출하는 기존 방식, 단일 메가 에이전트로 통합하는 방식도 검토했지만 전자는 컨텍스트 전달 비용이 누적되고 후자는 한 에이전트가 모든 역할을 떠안아 책임 경계가 무너졌습니다.',
