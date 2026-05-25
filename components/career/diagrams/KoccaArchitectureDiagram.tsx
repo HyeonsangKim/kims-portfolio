@@ -5,17 +5,18 @@
  *   1) Auth + RBAC — middleware filters every non-API request, API routes
  *      re-verify via `getCurrentUser()`. Server Action handles side-effects,
  *      Route Handler handles data reads.
- *   2) Voice pipeline — Browser captures 16kHz/1ch/16bit WAV via a hand-
- *      written encoder, then drives a 4-phase STT poll against Selvy.
+ *   2) Voice pipeline — Browser captures the STT-required PCM format via a
+ *      hand-written encoder, then drives a polling pattern against the
+ *      external Korean STT.
  *
- *   School-level tenancy (`school_id`) is enforced both at the query level
- *   and at the middleware level (token school ↔ route school must match).
+ *   School-level tenancy is enforced both at the query level and at the
+ *   middleware level (token school ↔ route school must match).
  */
 export default function KoccaArchitectureDiagram() {
   return (
     <svg
       role="img"
-      aria-label="KOCCA — 4역할 RBAC + 자체 WAV 인코더 + STT 4단계 폴링 + 학교별 멀티테넌트 흐름도"
+      aria-label="KOCCA — 4역할 RBAC + 자체 WAV 인코더 + STT 폴링 + 학교별 멀티테넌트 흐름도"
       viewBox="0 0 1080 640"
       className="w-full h-auto min-w-[640px]"
       preserveAspectRatio="xMidYMid meet"
@@ -51,8 +52,8 @@ export default function KoccaArchitectureDiagram() {
 
       {/* 4 roles */}
       <RoleCard x={40} y={60} role="STUDENT" desc="응시" color="#22d3ee" />
-      <RoleCard x={40} y={108} role="TEACHER (MAIN)" desc="1·3차 채점" color="#a855f7" />
-      <RoleCard x={40} y={156} role="TEACHER (SUB)" desc="2차 채점" color="#f472b6" />
+      <RoleCard x={40} y={108} role="TEACHER (MAIN)" desc="채점" color="#a855f7" />
+      <RoleCard x={40} y={156} role="TEACHER (SUB)" desc="채점 (보조)" color="#f472b6" />
       <RoleCard x={40} y={204} role="TEACHER ADMIN" desc="회차 관리" color="#fb923c" />
 
       {/* roles → middleware */}
@@ -83,7 +84,7 @@ export default function KoccaArchitectureDiagram() {
           loginAction · signupAction
         </text>
         <text x={490} y={230} textAnchor="middle" fontSize="9.5" fill="rgba(255,255,255,0.5)" fontFamily="ui-sans-serif,system-ui">
-          JWT HS512 + 90일
+          JWT 발급
         </text>
 
         <rect x={576} y={158} width={148} height={84} rx={8} fill="rgba(34,211,238,0.08)" stroke="rgba(34,211,238,0.35)" />
@@ -111,14 +112,14 @@ export default function KoccaArchitectureDiagram() {
           MySQL + Prisma
         </text>
         <text x={925} y={142} textAnchor="middle" fontSize="10" fill="rgba(255,255,255,0.55)" fontFamily="ui-sans-serif,system-ui">
-          학교별 멀티테넌트 (`school_id`)
+          학교별 멀티테넌트
         </text>
 
         <text x={816} y={172} fontSize="10.5" fill="#fafafa" fontFamily="ui-monospace,monospace">
           모든 응시·채점 쿼리에
         </text>
         <text x={816} y={188} fontSize="10.5" fill="#fafafa" fontFamily="ui-monospace,monospace">
-          학교 ID 필터 강제
+          학교 식별자 필터 강제
         </text>
         <text x={816} y={210} fontSize="10" fill="rgba(245,158,11,0.85)" fontFamily="ui-monospace,monospace">
           ↑ 미들웨어가
@@ -143,7 +144,7 @@ export default function KoccaArchitectureDiagram() {
           Browser (응시자)
         </text>
         <text x={210} y={386} textAnchor="middle" fontSize="10" fill="rgba(255,255,255,0.55)" fontFamily="ui-sans-serif,system-ui">
-          발음 5단계 · 말하기 7단계 state machine
+          발음 · 말하기 state machine 분리
         </text>
 
         {/* state machine row */}
@@ -158,7 +159,7 @@ export default function KoccaArchitectureDiagram() {
         {/* WAV encoder */}
         <rect x={56} y={448} width={308} height={84} rx={8} fill="rgba(34,211,238,0.08)" stroke="rgba(34,211,238,0.35)" />
         <text x={66} y={468} fontSize="11" fontWeight="700" fill="#22d3ee" fontFamily="ui-monospace,monospace">
-          자체 WAV 인코더 (16kHz / 1ch / 16bit PCM)
+          자체 WAV 인코더 (STT가 요구하는 PCM 포맷)
         </text>
         <text x={66} y={486} fontSize="10" fill="rgba(255,255,255,0.7)" fontFamily="ui-sans-serif,system-ui">
           ① STT 사양에 맞춰 클라이언트에서 직접 생성 → 서버 변환 0
@@ -167,7 +168,7 @@ export default function KoccaArchitectureDiagram() {
           ② 브라우저 음성 가공(에코 제거·노이즈 억제) 모두 OFF
         </text>
         <text x={66} y={518} fontSize="10" fill="rgba(255,255,255,0.7)" fontFamily="ui-sans-serif,system-ui">
-          ③ 44바이트 WAV 헤더 손수 작성
+          ③ 표준 WAV 헤더 직접 작성
         </text>
       </g>
 
@@ -179,16 +180,16 @@ export default function KoccaArchitectureDiagram() {
       <g>
         <rect x={500} y={344} width={300} height={206} rx={12} fill="url(#kocca-nodebg)" stroke="rgba(34,211,238,0.4)" strokeWidth={1.5} />
         <text x={650} y={370} textAnchor="middle" fontSize="13" fontWeight="700" fill="#fafafa" fontFamily="ui-sans-serif,system-ui">
-          Selvy STT (한국어 특화)
+          외부 한국어 STT
         </text>
         <text x={650} y={386} textAnchor="middle" fontSize="10" fill="rgba(255,255,255,0.55)" fontFamily="ui-sans-serif,system-ui">
-          4단계 폴링 패턴 · 2초 간격 · 최대 약 2분
+          다단계 폴링 패턴
         </text>
 
-        <PhaseRow x={516} y={404} idx="1" label="준비" sub="POST /prepare → ticketId" />
-        <PhaseRow x={516} y={434} idx="2" label="음성 전송" sub="POST /sendaudio (base64)" />
-        <PhaseRow x={516} y={464} idx="3" label="진행 상태 폴링" sub="2초 간격 · 최대 60회" />
-        <PhaseRow x={516} y={494} idx="4" label="마무리" sub="POST /finish → 결과 수신" />
+        <PhaseRow x={516} y={404} idx="1" label="준비" sub="요청 ID 발급" />
+        <PhaseRow x={516} y={434} idx="2" label="음성 전송" sub="인코딩된 PCM 업로드" />
+        <PhaseRow x={516} y={464} idx="3" label="진행 상태 폴링" sub="주기적 폴링" />
+        <PhaseRow x={516} y={494} idx="4" label="마무리" sub="결과 수신" />
         <text x={650} y={530} textAnchor="middle" fontSize="9.5" fill="rgba(255,255,255,0.45)" fontFamily="ui-monospace,monospace">
           long-running 작업이라 단발 요청 X
         </text>
@@ -203,18 +204,15 @@ export default function KoccaArchitectureDiagram() {
       <text x={960} y={446} textAnchor="middle" fontSize="10" fill="rgba(255,255,255,0.55)" fontFamily="ui-sans-serif,system-ui">
         학교별 격리 저장
       </text>
-      <text x={960} y={466} textAnchor="middle" fontSize="9.5" fill="rgba(255,255,255,0.4)" fontFamily="ui-sans-serif,system-ui">
-        (채점 알고리즘은 다른 팀원 담당)
-      </text>
 
-      {/* Honesty banner */}
+      {/* Scope banner */}
       <g transform="translate(40, 576)">
         <rect width={1010} height={50} rx={8} fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" />
         <text x={16} y={22} fontSize="11" fontWeight="700" fill="rgba(255,255,255,0.7)" fontFamily="ui-monospace,monospace">
           ★ 본인 책임 범위
         </text>
         <text x={16} y={40} fontSize="10.5" fill="rgba(255,255,255,0.6)" fontFamily="ui-sans-serif,system-ui">
-          음성 신호처리 + STT 통합 + 응시 흐름 + RBAC + 컨테이너 보안. 3인 합의 채점 / 채점자 자동 배정 race 방어는 다른 팀원 담당.
+          음성 신호처리 + STT 통합 + 응시 흐름 + RBAC + 컨테이너 보안.
         </text>
       </g>
     </svg>

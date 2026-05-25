@@ -1,5 +1,5 @@
 /**
- * AIGOSEO (조선왕조실록 디지털화 R&D) — at-a-glance architecture for the career modal.
+ * AIGOSEO (한자 고문헌 디지털화 R&D) — at-a-glance architecture for the career modal.
  *
  * Reading flow:
  *   발주처 ─► (1) 사진 + 좌표 사양 전달

@@ -2,9 +2,9 @@
  * Odiya location pipeline — at-a-glance architecture for the career modal.
  *
  * Reading flow (left → right):
- *   Child device → odiya-backend → Redis (two roles) → 60s batch → DB
+ *   Child device → odiya-backend → Redis (two roles) → periodic batch → DB
  *                                                ↑
- *                            Parent device polls (10s) — served by cache
+ *                            Parent device polls — served by cache
  *
  * The cyan path is the write-side buffer that absorbs burst INSERTs.
  * The amber path is the read-side cache that absorbs parent polling.
@@ -13,7 +13,7 @@ export default function OdiyaArchitectureDiagram() {
   return (
     <svg
       role="img"
-      aria-label="Odiya — Redis 두 갈래 활용 + 60초 batch + RANGE 파티션 흐름도"
+      aria-label="Odiya — Redis 두 갈래 활용 + 주기 배치 + 일자 파티션 흐름도"
       viewBox="0 0 1080 540"
       className="w-full h-auto min-w-[640px]"
       preserveAspectRatio="xMidYMid meet"
@@ -65,7 +65,7 @@ export default function OdiyaArchitectureDiagram() {
         w={200}
         h={92}
         title="부모 단말"
-        subtitle="RN · 10초 polling"
+        subtitle="RN · 주기 polling"
         tag="자녀 정보 반복 조회"
       />
 
@@ -120,7 +120,7 @@ export default function OdiyaArchitectureDiagram() {
           Hash (최신 좌표)
         </text>
         <text x={566} y={230} fontSize="10.5" fill="rgba(255,255,255,0.65)" fontFamily="ui-sans-serif,system-ui">
-          유저별 1개 · TTL 24h
+          유저별 1개 · 짧은 TTL
         </text>
         <text x={566} y={250} fontSize="10" fill="rgba(125,211,252,0.85)" fontFamily="ui-monospace,monospace">
           → 안전구역 평가에 사용
@@ -144,7 +144,7 @@ export default function OdiyaArchitectureDiagram() {
           → DB read 부하 흡수
         </text>
         <text x={566} y={420} fontSize="9.5" fill="rgba(255,255,255,0.45)" fontFamily="ui-monospace,monospace">
-          부모 polling 10초 간격
+          부모 polling 주기 간격
         </text>
       </g>
 
@@ -163,8 +163,8 @@ export default function OdiyaArchitectureDiagram() {
         w={220}
         h={92}
         title="MariaDB"
-        subtitle="odiya_gathered_positions"
-        tag="일자 기준 RANGE 파티션 · 15일 보존"
+        subtitle="좌표 누적 테이블"
+        tag="일자 단위 파티션 · 단기 보존"
       />
 
       {/* Redis List → 60s batch → DB */}
@@ -180,7 +180,7 @@ export default function OdiyaArchitectureDiagram() {
         LocationSyncService
       </text>
       <text x={905} y={283} textAnchor="middle" fontSize="10.5" fill="#7dd3fc" fontFamily="ui-monospace,monospace">
-        60초 주기 · batch INSERT
+        주기 batch INSERT
       </text>
 
       {/* Sync ↔ List */}
@@ -194,7 +194,7 @@ export default function OdiyaArchitectureDiagram() {
         PartitionManagerService
       </text>
       <text x={905} y={367} textAnchor="middle" fontSize="10.5" fill="rgba(255,255,255,0.65)" fontFamily="ui-sans-serif,system-ui">
-        매일 0시 · 다음날 생성 · 15일 전 DROP
+        다음날 파티션 자동 생성 · 오래된 파티션 자동 DROP
       </text>
 
       {/* Legend bottom */}
@@ -212,7 +212,7 @@ export default function OdiyaArchitectureDiagram() {
           ① 기존에 운영 중인 Redis 인프라 재활용
         </text>
         <text x={480} y={41} fontSize="10.5" fill="rgba(255,255,255,0.55)" fontFamily="ui-sans-serif,system-ui">
-          ② 60s batch + RANGE 파티션으로 인프라 증설 0
+          ② 주기 batch + 일자 파티션으로 인프라 증설 0
         </text>
       </g>
     </svg>
