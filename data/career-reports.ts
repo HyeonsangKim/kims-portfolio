@@ -1214,9 +1214,9 @@ export const careerStoryBlocksV1: Partial<
       ja: 'PRD作成 → 画面定義書 → 並列ビルド → コードレビュー → コミットまでを1パイプラインで回すClaude Codeプラグイン。13エージェント・5コマンド・4スキルを束ねてオープンソース公開。',
     },
     context: {
-      ko: '처음 Claude Code를 접했을 때 정말 놀랐습니다. 그런데 바이브코딩을 반복할수록 결과물이 들쑥날쑥이었고, 점점 "이렇게 쓰는 게 맞는 건가"라는 의문이 커졌습니다. 고민하다 깨달은 건, AI 시대에는 코드를 잘 짜는 것보다 "뭘 만들지"를 정확히 정의하는 게 더 중요하다는 점이었습니다. 그래서 PRD를 먼저 쓰고, AI가 만든 결과물을 자동으로 검증하고, 커밋까지 한 번에 돌아가는 파이프라인을 직접 만들어 오픈소스로 공개했습니다.',
-      en: 'I was genuinely amazed the first time I used Claude Code. But the more I vibe-coded, the more the output quality swung — and I started wondering whether I was even using it right. What I eventually realized was that in the AI era, defining *what* to build matters more than writing the code itself. So I built a pipeline that starts from a PRD, auto-validates AI output, and runs all the way to commit — then open-sourced it.',
-      ja: '初めてClaude Codeに触れた時は本当に驚きました。しかしバイブコーディングを繰り返すほど結果物にムラが出て、「この使い方で合っているのか」という疑問が大きくなりました。やがて気づいたのは、AI時代はコードを書く力より「何を作るか」を正確に定義する力が重要だということ。PRDから始めてAI生成物を自動検証しコミットまで一気に通すパイプラインを自ら作り、オープンソースで公開しました。',
+      ko: 'Claude Code를 쓰면 쓸수록 결과물이 들쑥날쑥이었습니다. 그러다 skill이나 hook 같은 고급 기능을 알게 됐고, AI 시대에는 코드를 잘 짜는 것보다 문제를 정확히 정의하고 초반 명세를 탄탄하게 잡는 게 더 중요하다는 걸 느꼈습니다. PRD를 먼저 제대로 쓰고, AI가 만든 결과물을 자동으로 검증하고, 커밋까지 한 번에 돌아가는 파이프라인이 필요했고, 그걸 직접 만들어 오픈소스로 공개했습니다.',
+      en: 'The more I used Claude Code, the more the output swung wildly. Then I discovered advanced features like skills and hooks, and realized that in the AI era, defining the problem precisely and nailing the spec up front matters more than writing code. I needed a pipeline that starts from a solid PRD, auto-validates AI output, and runs all the way to commit — so I built one and open-sourced it.',
+      ja: 'Claude Codeを使えば使うほど結果物にムラが出ました。やがてskillやhookなどの高度な機能を知り、AI時代はコードを書く力より問題を正確に定義し初期の仕様をしっかり固めることが重要だと感じました。PRDをまずきちんと書き、AI生成物を自動検証しコミットまで一気に通すパイプラインが必要で、それを自ら作りオープンソースで公開しました。',
     },
     problem: {
       ko: '실제로 써보니 세 가지 벽이 보였습니다(아래 카드 참조). 결국 역할별로 에이전트를 분리하고 단계별 validation을 거친 뒤 다음 에이전트로 넘기는 워크플로우가 필요했습니다.',
@@ -1244,9 +1244,9 @@ export const careerStoryBlocksV1: Partial<
       ja: '一連の流れは単純です。`/prd` がPRD + 段階別タスクプランを作りつつ4カテゴリ品質ゲートを通し、UIプロジェクトでは `/screen-spec` がIA・ユーザーフロー・画面仕様・ワイヤーフレーム・開発ハンドオフの5種を生成。`/implement` は設計エージェントの並列実行後に4チーム（Backend・Frontend・AI Server・Ops）を同時稼働、`/auto-commit` は3レビュースコアを集計しつつ4安全フックが危険コマンドや漏れた検証をバックグラウンドで遮断します。',
     },
     result: {
-      ko: 'WIGTN-Coding을 Claude Code 플러그인으로 오픈소스 공개해 다른 개발자도 동일 워크플로우 위에서 작업할 수 있게 다듬었습니다. 본인이 설계한 이 워크플로우 위에서 WIGENT(TRAE 대상)·WIGTN FLAKE(Snowflake Tech Track 2위)·WIGVO 등 후속 프로젝트가 모두 만들어졌고, GitHub 별 약 44개 받은 상태입니다.',
+      ko: 'WIGTN-Coding을 Claude Code 플러그인으로 오픈소스 공개해 다른 개발자도 동일 워크플로우 위에서 작업할 수 있게 다듬었습니다. 이 워크플로우 위에서 WIGENT(TRAE 대상)·WIGTN FLAKE(Snowflake Tech Track 2위)·WIGVO 등 후속 프로젝트가 모두 만들어졌고, GitHub 별 약 44개 받은 상태입니다.',
       en: 'Released WIGTN-Coding as an open-source Claude Code plugin so other engineers can run the same workflow end-to-end. Every downstream project — WIGENT (TRAE Grand Prize), WIGTN FLAKE (Snowflake Tech Track 2nd), WIGVO — was built on top of this workflow, and the repo currently sits at ~44 GitHub stars.',
-      ja: 'WIGTN-CodingをClaude Codeプラグインとしてオープンソース公開し、他の開発者も同じワークフロー上でエンドツーエンドに作業できる形に整備しました。本人が設計したこのワークフロー上でWIGENT（TRAE大賞）・WIGTN FLAKE（Snowflake Tech Track 2位）・WIGVOなど後続プロジェクトがすべて構築され、現在GitHubで約44スターを獲得した状態です。',
+      ja: 'WIGTN-CodingをClaude Codeプラグインとしてオープンソース公開し、他の開発者も同じワークフロー上でエンドツーエンドに作業できる形に整備しました。このワークフロー上でWIGENT（TRAE大賞）・WIGTN FLAKE（Snowflake Tech Track 2位）・WIGVOなど後続プロジェクトがすべて構築され、現在GitHubで約44スターを獲得した状態です。',
     },
     reflection: {
       ko: 'AI 어시스턴트의 본질은 "더 좋은 답"이 아니라 "사람이 매번 사이를 잇지 않아도 시스템이 끝까지 도는 구조"라는 점을 가장 깊이 배운 프로젝트입니다. 그래서 점수 기반 자동 머지·Security Zero-Tolerance·역할 분리 같은 운영 구조 결정이 모델 선택보다 훨씬 큰 영향을 미쳤습니다.',

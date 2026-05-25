@@ -1,125 +1,165 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 620" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif">
-  <rect width="1100" height="620" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 640" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif">
+  <rect width="1100" height="640" fill="#0a0a0f"/>
 
-  <text x="550" y="42" text-anchor="middle" font-size="20" font-weight="600" fill="#0a0a0a">WIGTN Coding — 3-Stage Pipeline &#215; 3-Tier Agents</text>
+  <text x="550" y="38" text-anchor="middle" font-size="18" font-weight="600" fill="#fafafa">WIGTN Coding — 4-Stage Pipeline × 3-Tier Agents</text>
 
-  <g transform="translate(310,72)">
-    <rect width="12" height="12" rx="3" fill="#6366f1"/>
-    <text x="20" y="11" font-size="12" fill="#525252">Coordinators</text>
-    <rect x="135" width="12" height="12" rx="3" fill="#10b981"/>
-    <text x="155" y="11" font-size="12" fill="#525252">Developers</text>
-    <rect x="270" width="12" height="12" rx="3" fill="#f59e0b"/>
-    <text x="290" y="11" font-size="12" fill="#525252">Quality</text>
+  <g transform="translate(310,60)">
+    <rect width="10" height="10" rx="3" fill="#818cf8"/>
+    <text x="16" y="10" font-size="11" fill="rgba(255,255,255,0.6)">Coordinators (4)</text>
+    <rect x="140" width="10" height="10" rx="3" fill="#34d399"/>
+    <text x="156" y="10" font-size="11" fill="rgba(255,255,255,0.6)">Developers (4)</text>
+    <rect x="280" width="10" height="10" rx="3" fill="#fbbf24"/>
+    <text x="296" y="10" font-size="11" fill="rgba(255,255,255,0.6)">Quality (5)</text>
   </g>
 
-  <g transform="translate(60,120)">
-    <rect width="290" height="320" rx="14" fill="#fafafa" stroke="#d4d4d4" stroke-width="1.5"/>
-    <text x="20" y="32" font-size="11" font-weight="600" fill="#a3a3a3" letter-spacing="2">STAGE 1 &#183; PLAN</text>
-    <text x="20" y="62" font-size="22" font-weight="700" fill="#0a0a0a">/prd</text>
-    <text x="20" y="84" font-size="12" fill="#737373">Idea &#8594; PRD + PLAN.md</text>
+  <!-- STAGE 1: /prd -->
+  <g transform="translate(30,95)">
+    <rect width="230" height="280" rx="12" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.12)" stroke-width="1.2"/>
+    <text x="16" y="26" font-size="10" font-weight="600" fill="rgba(255,255,255,0.4)" letter-spacing="1.5">STAGE 1 · PLAN</text>
+    <text x="16" y="52" font-size="20" font-weight="700" fill="#fafafa">/prd</text>
+    <text x="16" y="70" font-size="11" fill="rgba(255,255,255,0.5)">Idea → PRD + PLAN.md</text>
 
-    <g transform="translate(20,104)">
-      <rect width="250" height="42" rx="8" fill="#ffffff" stroke="#6366f1" stroke-width="1.5"/>
-      <text x="14" y="26" font-size="13" font-weight="500" fill="#0a0a0a">parallel-digging-coordinator</text>
+    <g transform="translate(14,88)">
+      <rect width="202" height="32" rx="6" fill="rgba(129,140,248,0.1)" stroke="#818cf8" stroke-width="1"/>
+      <text x="10" y="21" font-size="11" font-weight="500" fill="#c7d2fe">parallel-digging-coordinator</text>
 
-      <rect y="54" width="250" height="42" rx="8" fill="#ffffff" stroke="#f59e0b" stroke-width="1.5"/>
-      <text x="14" y="80" font-size="13" font-weight="500" fill="#0a0a0a">prd-reviewer</text>
+      <rect y="40" width="202" height="32" rx="6" fill="rgba(251,191,36,0.08)" stroke="#fbbf24" stroke-width="1"/>
+      <text x="10" y="61" font-size="11" font-weight="500" fill="#fde68a">prd-reviewer</text>
     </g>
 
-    <g transform="translate(20,236)">
-      <text x="0" y="0" font-size="12" font-weight="500" fill="#525252">4-category gap analysis</text>
-      <text x="0" y="20" font-size="11" fill="#737373">Completeness &#183; Feasibility</text>
-      <text x="0" y="38" font-size="11" fill="#737373">Security &#183; Consistency</text>
-    </g>
-  </g>
-
-  <g transform="translate(355,275)">
-    <line x1="0" y1="0" x2="34" y2="0" stroke="#a3a3a3" stroke-width="1.8"/>
-    <polygon points="34,0 26,-5 26,5" fill="#a3a3a3"/>
-  </g>
-
-  <g transform="translate(400,120)">
-    <rect width="290" height="320" rx="14" fill="#fafafa" stroke="#d4d4d4" stroke-width="1.5"/>
-    <text x="20" y="32" font-size="11" font-weight="600" fill="#a3a3a3" letter-spacing="2">STAGE 2 &#183; BUILD</text>
-    <text x="20" y="62" font-size="22" font-weight="700" fill="#0a0a0a">/implement</text>
-    <text x="20" y="84" font-size="12" fill="#737373">PRD &#8594; Code (4 teams parallel)</text>
-
-    <g transform="translate(20,104)">
-      <rect width="250" height="34" rx="8" fill="#ffffff" stroke="#6366f1" stroke-width="1.5"/>
-      <text x="14" y="22" font-size="13" font-weight="500" fill="#0a0a0a">architecture-decision</text>
-
-      <rect y="44" width="250" height="34" rx="8" fill="#ffffff" stroke="#f59e0b" stroke-width="1.5"/>
-      <text x="14" y="66" font-size="13" font-weight="500" fill="#0a0a0a">design-discovery (FE only)</text>
-
-      <rect y="88" width="250" height="34" rx="8" fill="#ffffff" stroke="#6366f1" stroke-width="1.5"/>
-      <text x="14" y="110" font-size="13" font-weight="500" fill="#0a0a0a">team-build-coordinator</text>
-    </g>
-
-    <text x="32" y="248" font-size="11" fill="#737373" font-style="italic">&#8627; dispatch 4 teams</text>
-
-    <g transform="translate(20,256)">
-      <rect width="120" height="28" rx="6" fill="#ffffff" stroke="#10b981" stroke-width="1.5"/>
-      <text x="60" y="19" text-anchor="middle" font-size="11" fill="#0a0a0a">frontend-developer</text>
-
-      <rect x="130" width="120" height="28" rx="6" fill="#ffffff" stroke="#10b981" stroke-width="1.5"/>
-      <text x="190" y="19" text-anchor="middle" font-size="11" fill="#0a0a0a">backend-architect</text>
-
-      <rect y="36" width="120" height="28" rx="6" fill="#ffffff" stroke="#10b981" stroke-width="1.5"/>
-      <text x="60" y="55" text-anchor="middle" font-size="11" fill="#0a0a0a">mobile-developer</text>
-
-      <rect x="130" y="36" width="120" height="28" rx="6" fill="#ffffff" stroke="#10b981" stroke-width="1.5"/>
-      <text x="190" y="55" text-anchor="middle" font-size="11" fill="#0a0a0a">ai-agent</text>
+    <g transform="translate(16,200)">
+      <text x="0" y="0" font-size="10" font-weight="500" fill="rgba(255,255,255,0.55)">4-category gap analysis</text>
+      <text x="0" y="16" font-size="10" fill="rgba(255,255,255,0.4)">Completeness · Feasibility</text>
+      <text x="0" y="30" font-size="10" fill="rgba(255,255,255,0.4)">Security · Consistency</text>
+      <text x="0" y="52" font-size="10" fill="#ef4444" font-weight="600">≥ 1 critical → BLOCKED</text>
     </g>
   </g>
 
-  <g transform="translate(695,275)">
-    <line x1="0" y1="0" x2="34" y2="0" stroke="#a3a3a3" stroke-width="1.8"/>
-    <polygon points="34,0 26,-5 26,5" fill="#a3a3a3"/>
+  <!-- Arrow 1→2 -->
+  <g transform="translate(262,235)">
+    <line x1="0" y1="0" x2="24" y2="0" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+    <polygon points="24,0 18,-4 18,4" fill="rgba(255,255,255,0.3)"/>
   </g>
 
-  <g transform="translate(740,120)">
-    <rect width="290" height="320" rx="14" fill="#fafafa" stroke="#d4d4d4" stroke-width="1.5"/>
-    <text x="20" y="32" font-size="11" font-weight="600" fill="#a3a3a3" letter-spacing="2">STAGE 3 &#183; SHIP</text>
-    <text x="20" y="62" font-size="22" font-weight="700" fill="#0a0a0a">/auto-commit</text>
-    <text x="20" y="84" font-size="12" fill="#737373">Code &#8594; 100-pt gate &#8594; commit</text>
+  <!-- STAGE 2: /screen-spec -->
+  <g transform="translate(290,95)">
+    <rect width="230" height="280" rx="12" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.12)" stroke-width="1.2"/>
+    <text x="16" y="26" font-size="10" font-weight="600" fill="rgba(255,255,255,0.4)" letter-spacing="1.5">STAGE 2 · SPEC</text>
+    <text x="16" y="52" font-size="20" font-weight="700" fill="#fafafa">/screen-spec</text>
+    <text x="16" y="70" font-size="11" fill="rgba(255,255,255,0.5)">PRD → 5 UI artifacts</text>
 
-    <g transform="translate(20,104)">
-      <rect width="250" height="34" rx="8" fill="#ffffff" stroke="#6366f1" stroke-width="1.5"/>
-      <text x="14" y="22" font-size="13" font-weight="500" fill="#0a0a0a">parallel-review-coordinator</text>
+    <g transform="translate(14,88)">
+      <rect width="202" height="32" rx="6" fill="rgba(251,191,36,0.08)" stroke="#fbbf24" stroke-width="1"/>
+      <text x="10" y="21" font-size="11" font-weight="500" fill="#fde68a">design-discovery</text>
+
+      <rect y="40" width="202" height="32" rx="6" fill="rgba(251,191,36,0.08)" stroke="#fbbf24" stroke-width="1"/>
+      <text x="10" y="61" font-size="11" font-weight="500" fill="#fde68a">frontend-developer (review)</text>
     </g>
 
-    <text x="32" y="170" font-size="11" fill="#737373" font-style="italic">&#8627; 3 reviewers in parallel</text>
-
-    <g transform="translate(20,180)">
-      <rect width="250" height="30" rx="6" fill="#ffffff" stroke="#f59e0b" stroke-width="1.5"/>
-      <text x="14" y="20" font-size="12" fill="#0a0a0a">Readability</text>
-      <text x="236" y="20" text-anchor="end" font-size="11" fill="#737373">code-reviewer</text>
-
-      <rect y="38" width="250" height="30" rx="6" fill="#ffffff" stroke="#f59e0b" stroke-width="1.5"/>
-      <text x="14" y="58" font-size="12" fill="#0a0a0a">Performance</text>
-      <text x="236" y="58" text-anchor="end" font-size="11" fill="#737373">code-reviewer</text>
-
-      <rect y="76" width="250" height="30" rx="6" fill="#ffffff" stroke="#f59e0b" stroke-width="1.5"/>
-      <text x="14" y="96" font-size="12" fill="#0a0a0a">Security</text>
-      <text x="236" y="96" text-anchor="end" font-size="11" fill="#737373">code-reviewer</text>
-    </g>
-
-    <g transform="translate(20,310)">
-      <text x="0" y="0" font-size="11" fill="#059669" font-weight="600">&#8805; 80 &#8594; auto-commit</text>
-      <text x="135" y="0" font-size="11" fill="#d97706" font-weight="600">60&#8211;79 &#8594; fix &amp; retry</text>
+    <g transform="translate(16,190)">
+      <text x="0" y="0" font-size="10" font-weight="500" fill="rgba(255,255,255,0.55)">5 artifacts</text>
+      <text x="0" y="16" font-size="10" fill="rgba(255,255,255,0.4)">IA · User Flow</text>
+      <text x="0" y="30" font-size="10" fill="rgba(255,255,255,0.4)">Screen Spec · Wireframe</text>
+      <text x="0" y="44" font-size="10" fill="rgba(255,255,255,0.4)">Dev Handoff</text>
+      <text x="0" y="66" font-size="10" fill="rgba(129,140,248,0.8)" font-style="italic">FE pages only · skip if backend-only</text>
     </g>
   </g>
 
-  <g transform="translate(60,470)">
-    <rect width="970" height="84" rx="10" fill="#faf5ff" stroke="#e9d5ff" stroke-width="1.5"/>
-    <text x="20" y="26" font-size="11" font-weight="600" fill="#7c3aed" letter-spacing="2">CROSS-CUTTING &#183; ALWAYS ACTIVE</text>
-
-    <text x="20" y="50" font-size="12" font-weight="600" fill="#525252">Skills (3)</text>
-    <text x="86" y="50" font-size="12" fill="#525252">code-review-levels &#183; design-system-reference (20 styles) &#183; team-memory-protocol</text>
-
-    <text x="20" y="72" font-size="12" font-weight="600" fill="#525252">Hooks (4+1)</text>
-    <text x="100" y="72" font-size="12" fill="#525252">Dangerous Cmd Blocker &#183; Frontend Format &#183; Backend Pattern &#183; Pipeline Stop &#183; Stale Branch Detection</text>
+  <!-- Arrow 2→3 -->
+  <g transform="translate(522,235)">
+    <line x1="0" y1="0" x2="24" y2="0" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+    <polygon points="24,0 18,-4 18,4" fill="rgba(255,255,255,0.3)"/>
   </g>
 
-  <text x="550" y="595" text-anchor="middle" font-size="11" fill="#a3a3a3" font-style="italic">+ /review-pr &#8594; pr-reviewer (out-of-band GitHub PR review)  &#183;  Apache 2.0  &#183;  EN / KO / CN docs</text>
+  <!-- STAGE 3: /implement -->
+  <g transform="translate(550,95)">
+    <rect width="250" height="280" rx="12" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.12)" stroke-width="1.2"/>
+    <text x="16" y="26" font-size="10" font-weight="600" fill="rgba(255,255,255,0.4)" letter-spacing="1.5">STAGE 3 · BUILD</text>
+    <text x="16" y="52" font-size="20" font-weight="700" fill="#fafafa">/implement</text>
+    <text x="16" y="70" font-size="11" fill="rgba(255,255,255,0.5)">PRD → Code (4 teams parallel)</text>
+
+    <g transform="translate(14,86)">
+      <rect width="222" height="28" rx="6" fill="rgba(129,140,248,0.1)" stroke="#818cf8" stroke-width="1"/>
+      <text x="10" y="19" font-size="11" font-weight="500" fill="#c7d2fe">architecture-decision</text>
+
+      <rect y="34" width="222" height="28" rx="6" fill="rgba(129,140,248,0.1)" stroke="#818cf8" stroke-width="1"/>
+      <text x="10" y="53" font-size="11" font-weight="500" fill="#c7d2fe">team-build-coordinator</text>
+    </g>
+
+    <text x="26" y="176" font-size="10" fill="rgba(255,255,255,0.45)" font-style="italic">↳ dispatch 4 teams</text>
+
+    <g transform="translate(14,186)">
+      <rect width="106" height="24" rx="5" fill="rgba(52,211,153,0.08)" stroke="#34d399" stroke-width="1"/>
+      <text x="53" y="16" text-anchor="middle" font-size="10" fill="#a7f3d0">frontend-dev</text>
+
+      <rect x="112" width="106" height="24" rx="5" fill="rgba(52,211,153,0.08)" stroke="#34d399" stroke-width="1"/>
+      <text x="165" y="16" text-anchor="middle" font-size="10" fill="#a7f3d0">backend-arch</text>
+
+      <rect y="30" width="106" height="24" rx="5" fill="rgba(52,211,153,0.08)" stroke="#34d399" stroke-width="1"/>
+      <text x="53" y="46" text-anchor="middle" font-size="10" fill="#a7f3d0">mobile-dev</text>
+
+      <rect x="112" y="30" width="106" height="24" rx="5" fill="rgba(52,211,153,0.08)" stroke="#34d399" stroke-width="1"/>
+      <text x="165" y="46" text-anchor="middle" font-size="10" fill="#a7f3d0">ai-agent</text>
+    </g>
+  </g>
+
+  <!-- Arrow 3→4 -->
+  <g transform="translate(802,235)">
+    <line x1="0" y1="0" x2="24" y2="0" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+    <polygon points="24,0 18,-4 18,4" fill="rgba(255,255,255,0.3)"/>
+  </g>
+
+  <!-- STAGE 4: /auto-commit -->
+  <g transform="translate(830,95)">
+    <rect width="240" height="280" rx="12" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.12)" stroke-width="1.2"/>
+    <text x="16" y="26" font-size="10" font-weight="600" fill="rgba(255,255,255,0.4)" letter-spacing="1.5">STAGE 4 · SHIP</text>
+    <text x="16" y="52" font-size="20" font-weight="700" fill="#fafafa">/auto-commit</text>
+    <text x="16" y="70" font-size="11" fill="rgba(255,255,255,0.5)">Code → 100-pt gate → commit</text>
+
+    <g transform="translate(14,86)">
+      <rect width="212" height="28" rx="6" fill="rgba(129,140,248,0.1)" stroke="#818cf8" stroke-width="1"/>
+      <text x="10" y="19" font-size="11" font-weight="500" fill="#c7d2fe">parallel-review-coordinator</text>
+    </g>
+
+    <text x="26" y="138" font-size="10" fill="rgba(255,255,255,0.45)" font-style="italic">↳ 3 reviewers in parallel</text>
+
+    <g transform="translate(14,148)">
+      <rect width="212" height="24" rx="5" fill="rgba(251,191,36,0.08)" stroke="#fbbf24" stroke-width="1"/>
+      <text x="10" y="16" font-size="10" fill="#fde68a">Readability + Maintainability</text>
+
+      <rect y="30" width="212" height="24" rx="5" fill="rgba(251,191,36,0.08)" stroke="#fbbf24" stroke-width="1"/>
+      <text x="10" y="46" font-size="10" fill="#fde68a">Performance + Testability</text>
+
+      <rect y="60" width="212" height="24" rx="5" fill="rgba(251,191,36,0.08)" stroke="#fbbf24" stroke-width="1"/>
+      <text x="10" y="76" font-size="10" fill="#fde68a">Best Practices + Security</text>
+    </g>
+
+    <g transform="translate(16,250)">
+      <text x="0" y="0" font-size="10" fill="#34d399" font-weight="600">≥ 80 → auto-commit</text>
+      <text x="0" y="16" font-size="10" fill="#fbbf24" font-weight="600">60–79 → fix &amp; retry</text>
+      <text x="120" y="16" font-size="10" fill="#ef4444" font-weight="600">Security → force-fail</text>
+    </g>
+  </g>
+
+  <!-- CROSS-CUTTING -->
+  <g transform="translate(30,400)">
+    <rect width="1040" height="72" rx="10" fill="rgba(129,140,248,0.04)" stroke="rgba(129,140,248,0.2)" stroke-width="1"/>
+    <text x="16" y="22" font-size="10" font-weight="600" fill="rgba(129,140,248,0.7)" letter-spacing="1.5">CROSS-CUTTING · ALWAYS ACTIVE</text>
+
+    <text x="16" y="44" font-size="11" font-weight="600" fill="rgba(255,255,255,0.6)">Skills (4)</text>
+    <text x="80" y="44" font-size="11" fill="rgba(255,255,255,0.45)">code-review-levels · design-system-reference (20 styles) · screen-spec (5 templates) · team-memory-protocol</text>
+
+    <text x="16" y="62" font-size="11" font-weight="600" fill="rgba(255,255,255,0.6)">Hooks (4)</text>
+    <text x="80" y="62" font-size="11" fill="rgba(255,255,255,0.45)">Dangerous Cmd Blocker · Frontend Format · Backend Pattern · Pipeline Stop</text>
+  </g>
+
+  <!-- FOOTER -->
+  <g transform="translate(30,490)">
+    <rect width="1040" height="52" rx="10" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+    <text x="16" y="22" font-size="10" font-weight="600" fill="rgba(255,255,255,0.4)" letter-spacing="1.5">OUT-OF-BAND</text>
+    <text x="16" y="40" font-size="11" fill="rgba(255,255,255,0.45)">/review-pr → pr-reviewer (GitHub PR review from terminal) · Apache 2.0 · EN / KO docs</text>
+    <text x="720" y="22" font-size="11" fill="rgba(255,255,255,0.35)">13 agents · 5 commands · 4 skills · 20 design styles · 4 hooks</text>
+  </g>
+
+  <text x="550" y="574" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.25)" font-style="italic">github.com/wigtn/wigtn-plugins-with-claude-code</text>
 </svg>
