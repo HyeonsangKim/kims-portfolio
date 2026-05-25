@@ -1097,9 +1097,9 @@ export const careerStoryBlocksV1: Partial<
       ja: 'PMエージェントは常に存在し、「誰がこれを買うのか」のような現実検証発言を投げる役割です。トピック別専門家は動的に召喚され、デザイナーエージェントは3ターン目に合流。ユーザーが結果のランディングページを拒絶するとPMが拒絶を告知し、追加8ターンの議論 → 新しいランディングページが生成されます。議論に直接テキストを入力せずに人の判断がシステムに反映されるHuman-in-the-Loop構造です。',
     },
     result: {
-      ko: 'Build with TRAE Seoul(ByteDance) 대상 수상. 3.5시간 안에 26 커밋·0 머지 충돌로 PRD부터 동작 데모까지 완성했고, 채팅 UI가 그대로 랜딩 페이지로 전환되는 흐름이 심사 핵심 포인트로 작용했습니다. 본인이 설계한 오케스트레이터 + 상태 머신이 토론의 발산을 막고 수렴으로 끌고 가는 척추 역할을 했습니다.',
-      en: 'Won the Grand Prize at the Build with TRAE Seoul (ByteDance) hackathon. Shipped 26 commits with 0 merge conflicts in 3.5 hours, going from PRD to a working demo where the chat UI morphs into a landing page — the judges flagged that transition as the decisive moment. The orchestrator + state machine I designed acted as the spine keeping the debate from diverging.',
-      ja: 'Build with TRAE Seoul（ByteDance）大賞受賞。3.5時間で26コミット・マージ衝突0件、PRDから動作デモまでを完成させ、チャットUIがそのままランディングページに変わる流れが審査の決め手として作用しました。本人が設計したオーケストレーター + 状態マシンが議論の発散を防ぎ収束へ導く脊柱の役割を果たしました。',
+      ko: 'Build with TRAE Seoul(ByteDance) 대상 수상. 26 커밋·0 머지 충돌로 PRD부터 동작 데모까지 완성했고, 채팅 UI가 그대로 랜딩 페이지로 전환되는 흐름이 심사 핵심 포인트로 작용했습니다. 오케스트레이터 + 상태 머신이 토론의 발산을 막고 수렴으로 끌고 가는 척추 역할을 했습니다.',
+      en: 'Won the Grand Prize at the Build with TRAE Seoul (ByteDance) hackathon. Shipped 26 commits with 0 merge conflicts, going from PRD to a working demo where the chat UI morphs into a landing page — the judges flagged that transition as the decisive moment. The orchestrator + state machine acted as the spine keeping the debate from diverging.',
+      ja: 'Build with TRAE Seoul（ByteDance）大賞受賞。26コミット・マージ衝突0件でPRDから動作デモまでを完成させ、チャットUIがそのままランディングページに変わる流れが審査の決め手として作用しました。オーケストレーター + 状態マシンが議論の発散を防ぎ収束へ導く脊柱の役割を果たしました。',
     },
     reflection: {
       ko: '에이전트가 모여 토론한다는 컨셉 자체는 모두 떠올릴 수 있습니다. 차별점은 결국 "토론이 발산하지 않도록 누가 어떻게 조율하는가"였고, 그 답은 시각적으로 보이는 채팅 UI 뒤에 있는 오케스트레이터·발화권 컨트롤러·강제 수렴 모드 같은 시스템 디자인이었습니다. 멀티 에이전트 제품의 본질은 모델 성능이 아니라 "수렴 가능한 상태 머신"이라는 점을 가장 명확히 배운 프로젝트입니다.',
@@ -1138,7 +1138,7 @@ export const careerStoryBlocksV1: Partial<
       ja: '仮説 — 「ユーザーはSQLを知らずに目的だけを投げ、GPT-4oオーケストレーターがその目的に合う5名のCortex専門家を動的に召喚して4データセットを横断照会しながら議論する」。11個のCortex機能は議論の途中で自動呼び出しされ、各専門家の発言根拠として流れ込む形に束ねます。',
     },
     alternatives: {
-      ko: 'Cortex 단일 호출 데모·룰 기반 추천 엔진·일반 BI 대시보드도 검토했지만 — Cortex 기능 카탈로그를 한 줄 흐름에 통합하면서 동시에 사용자가 SQL을 안 보게 만드는 길은 결국 멀티 에이전트 토론밖에 없었습니다. 또 Cortex Agent의 trial 한계가 데모 중 터질 위험이 있어 3-tier fallback(Cortex Agent → Cortex Analyst 직접 → GPT-4o Function Calling)을 함께 짜야 했습니다.',
+      ko: 'Cortex 단일 호출 데모, 룰 기반 추천 엔진, 일반 BI 대시보드도 검토했지만 Cortex 기능 카탈로그를 한 줄 흐름에 통합하면서 동시에 사용자가 SQL을 안 보게 만드는 길은 결국 멀티 에이전트 토론밖에 없었습니다. 또 Cortex Agent의 trial 한계가 데모 중 터질 위험이 있어 3-tier fallback(Cortex Agent → Cortex Analyst 직접 → GPT-4o Function Calling)을 함께 짜야 했습니다.',
       en: 'Considered single Cortex calls as a demo, rules-based recommendation engines, and standard BI dashboards — but the only path that wove the Cortex catalog into a single flow and kept SQL invisible to the user was multi-agent debate. On top of that, the Cortex Agent trial limit could blow up mid-demo, so we layered a three-tier fallback (Cortex Agent → Cortex Analyst direct → GPT-4o Function Calling) to keep the demo green either way.',
       ja: 'Cortex単一呼び出しデモ・ルールベース推薦エンジン・通常のBIダッシュボードも検討しましたが、Cortex機能カタログを一連の流れに統合しつつユーザーにSQLを見せない道は結局マルチエージェント議論しかありませんでした。さらにCortex Agentのtrial限界がデモ中に発生するリスクがあり、3層フォールバック（Cortex Agent → Cortex Analyst直接 → GPT-4o Function Calling）を併設する必要がありました。',
     },
@@ -1148,12 +1148,12 @@ export const careerStoryBlocksV1: Partial<
       ja: 'GPT-4oオーケストレーター + 5 Cortex専門家（PM進行役・データ分析家・予測分析家・インサイト分析家・センチメント分析家）の議論構造を採用。Cortex Analystがtext-to-SQLで4データセット（SPH・RichGo・NextTrade・AJD）に並列照会し、ANOMALY_DETECTION・FORECASTはPromise.allで並列実行、結果がウェアハウスで統合されてからデータ分析家が合算結論を発言します。4種のSemantic Model YAML + 2種Dynamic Tables + 2種Python UDFで11個のCortex機能を単一ユーザーフローに織り込みました。',
     },
     execution: {
-      ko: '사용자가 5개 목적 카드 또는 자유 입력으로 시작하면, 오케스트레이터가 목적별 전문가를 부르고 토론 도중 ANOMALY_DETECTION·FORECAST가 이상치·예측을 잡는 순간 자동으로 발화권을 가져와 끼어듭니다. 결론은 Top 3 동네 + 이상 시그널 배지 + 예측 차트 + 액션 체크리스트가 한 화면에 정리됩니다. 단계별 흐름은 아래 카드 참조.',
+      ko: '사용자가 5개 목적 카드 또는 자유 입력으로 시작하면, 오케스트레이터가 목적별 전문가를 부르고 토론 도중 ANOMALY_DETECTION·FORECAST가 이상치·예측을 잡는 순간 자동으로 발화권을 가져와 끼어듭니다. 결론은 Top 3 동네 + 이상 시그널 배지 + 예측 차트 + 액션 체크리스트가 한 화면에 정리됩니다.',
       en: 'Users start from one of five purpose cards or free input. The orchestrator summons purpose-matched specialists, and mid-debate ANOMALY_DETECTION or FORECAST auto-claims the floor the moment it catches an outlier or projection. The conclusion lands on one screen: Top 3 districts + anomaly badges + forecast charts + action checklist. Step-by-step flow in the cards below.',
       ja: 'ユーザーが5つの目的カードまたは自由入力で開始すると、オーケストレーターが目的別の専門家を呼び、議論中にANOMALY_DETECTION・FORECASTが外れ値・予測を捕える瞬間に自動的に発話権を取り割り込みます。結論はTop 3地域 + 異常シグナルバッジ + 予測チャート + アクションチェックリストが1画面に整理されます。段階別フローは下のカード参照。',
     },
     result: {
-      ko: 'Snowflake AI & Data Hackathon Korea 2026 Tech Track 2위. Cortex 11종을 단일 사용자 흐름에 녹인 점과 3-tier fallback으로 trial 한계 상황에서도 데모가 끊기지 않게 만든 점이 심사 포인트였습니다. 상세 메트릭은 아래 카드 참조.',
+      ko: 'Snowflake AI & Data Hackathon Korea 2026 Tech Track 2위. Cortex 11종을 단일 사용자 흐름에 녹인 점과 3-tier fallback으로 trial 한계 상황에서도 데모가 끊기지 않게 만든 점이 심사 포인트였습니다.',
       en: '2nd place in Snowflake AI & Data Hackathon Korea 2026 Tech Track. The judges flagged two things: weaving 11 Cortex capabilities into one user flow, and the three-tier fallback that kept the demo running even when Cortex trial limits hit. Metrics in the cards below.',
       ja: 'Snowflake AI & Data Hackathon Korea 2026 Tech Track 2位。11個のCortex機能を単一ユーザーフローに織り込んだ点、3層フォールバックでtrial限界状況下でもデモが途切れないようにした点が審査ポイントでした。詳細メトリクスは下のカード参照。',
     },
@@ -1214,12 +1214,12 @@ export const careerStoryBlocksV1: Partial<
       ja: 'PRD作成 → 画面定義書 → 並列ビルド → コードレビュー → コミットまでを1パイプラインで回すClaude Codeプラグイン。13エージェント・5コマンド・4スキルを束ねてオープンソース公開。',
     },
     context: {
-      ko: 'Claude Code를 쓰면 쓸수록 결과물이 들쑥날쑥이었습니다. 그러다 skill이나 hook 같은 고급 기능을 알게 됐고, AI 시대에는 코드를 잘 짜는 것보다 문제를 정확히 정의하고 초반 명세를 탄탄하게 잡는 게 더 중요하다는 걸 느꼈습니다. PRD를 먼저 제대로 쓰고, AI가 만든 결과물을 자동으로 검증하고, 커밋까지 한 번에 돌아가는 파이프라인이 필요했고, 그걸 직접 만들어 오픈소스로 공개했습니다.',
-      en: 'The more I used Claude Code, the more the output swung wildly. Then I discovered advanced features like skills and hooks, and realized that in the AI era, defining the problem precisely and nailing the spec up front matters more than writing code. I needed a pipeline that starts from a solid PRD, auto-validates AI output, and runs all the way to commit — so I built one and open-sourced it.',
-      ja: 'Claude Codeを使えば使うほど結果物にムラが出ました。やがてskillやhookなどの高度な機能を知り、AI時代はコードを書く力より問題を正確に定義し初期の仕様をしっかり固めることが重要だと感じました。PRDをまずきちんと書き、AI生成物を自動検証しコミットまで一気に通すパイプラインが必要で、それを自ら作りオープンソースで公開しました。',
+      ko: 'Claude Code를 처음 알게 됐을 때 정말 놀랐습니다. 하지만 점점 사용하다 보니 결과물이 들쑥날쑥이었고, "이렇게 쓰는 게 맞는 건가"라는 의문이 커졌습니다. 그러다 skill이나 hook 같은 고급 기능을 알게 됐고, AI 시대에는 코드를 잘 짜는 것보다 문제를 정확히 정의하고 초반 명세를 탄탄하게 잡는 게 더 중요하다는 걸 느꼈습니다. PRD를 먼저 제대로 쓰고, AI가 만든 결과물을 자동으로 검증하고, 커밋까지 한 번에 돌아가는 파이프라인이 필요했고, 그걸 직접 만들어 오픈소스로 공개했습니다.',
+      en: 'I was genuinely amazed when I first discovered Claude Code. But the more I used it, the more the output quality swung wildly, and I started wondering whether I was even using it right. Then I discovered advanced features like skills and hooks, and realized that in the AI era, defining the problem precisely and nailing the spec up front matters more than writing code. I needed a pipeline that starts from a solid PRD, auto-validates AI output, and runs all the way to commit, so I built one and open-sourced it.',
+      ja: 'Claude Codeを初めて知った時は本当に驚きました。しかし使えば使うほど結果物にムラが出て、「この使い方で合っているのか」という疑問が大きくなりました。やがてskillやhookなどの高度な機能を知り、AI時代はコードを書く力より問題を正確に定義し初期の仕様をしっかり固めることが重要だと感じました。PRDをまずきちんと書き、AI生成物を自動検証しコミットまで一気に通すパイプラインが必要で、それを作りオープンソースで公開しました。',
     },
     problem: {
-      ko: '실제로 써보니 세 가지 벽이 보였습니다(아래 카드 참조). 결국 역할별로 에이전트를 분리하고 단계별 validation을 거친 뒤 다음 에이전트로 넘기는 워크플로우가 필요했습니다.',
+      ko: '실제로 써보니 세 가지 벽이 보였습니다. 결국 역할별로 에이전트를 분리하고 단계별 validation을 거친 뒤 다음 에이전트로 넘기는 워크플로우가 필요했습니다.',
       en: 'In practice, three walls showed up (see cards below). The answer was separating agents by role and gating each handoff with validation before the next agent picks up.',
       ja: '実際に使ってみると3つの壁が見えました（下のカード参照）。結局、役割別にエージェントを分け、段階別バリデーションを経てから次のエージェントに引き継ぐワークフローが必要でした。',
     },
@@ -1328,7 +1328,7 @@ export const careerStoryBlocksV1: Partial<
         metrics: [
           { value: '13 agents', label: { ko: '단일 파이프라인 통합 (PRD → 화면정의서 → 빌드 → 리뷰 → 커밋)', en: 'Bundled into one pipeline (PRD → screen spec → build → review → commit)', ja: '単一パイプライン統合（PRD → 画面定義書 → ビルド → レビュー → コミット）' } },
           { value: '44', label: { ko: 'GitHub stars (오픈소스 공개 후 수신, 외부 개발자 사용 신호)', en: 'GitHub stars after open-sourcing — signal of external adoption', ja: 'GitHubスター（オープンソース公開後、外部開発者の採用シグナル）' } },
-          { value: '3 프로젝트', label: { ko: '본인이 이 워크플로우로 만든 후속 프로젝트 (WIGENT·WIGTN FLAKE·WIGVO)', en: 'Downstream projects shipped on this workflow (WIGENT · WIGTN FLAKE · WIGVO)', ja: 'このワークフロー上で構築した後続プロジェクト（WIGENT・WIGTN FLAKE・WIGVO）' } },
+          { value: '3 프로젝트', label: { ko: '이 워크플로우로 만든 후속 프로젝트 (WIGENT·WIGTN FLAKE·WIGVO)', en: 'Downstream projects shipped on this workflow (WIGENT · WIGTN FLAKE · WIGVO)', ja: 'このワークフロー上で構築した後続プロジェクト（WIGENT・WIGTN FLAKE・WIGVO）' } },
         ],
       },
     },
@@ -1361,7 +1361,7 @@ export const careerStoryBlocksV1: Partial<
       ja: '単一セッション + ハードウェアAEC、単一セッション + 後処理ノイズキャンセルも検討しましたが、PSTN環境の変動性（キャリア・端末・コーデック）下では一貫した結果を出せませんでした。またSaaS通訳ソリューションは双方の通話者にクライアントインストールを要求し、製品仮説（アプリなし・普通の電話）に合いませんでした。',
     },
     decision: {
-      ko: 'Dual-Session Echo Gating 아키텍처를 채택했습니다. 한 줄로 요약하면 — 방향별 Realtime 세션 2개를 분리해서 돌리고, 두 세션 사이에 소프트웨어 에코 게이트를 두며, STT와 번역을 분리해 환각으로 인한 문장 추가를 차단했습니다. 상세 구성은 아래 카드 참조.',
+      ko: 'Dual-Session Echo Gating 아키텍처를 채택했습니다. 방향별 Realtime 세션 2개를 분리해서 돌리고, 두 세션 사이에 소프트웨어 에코 게이트를 두며, STT와 번역을 분리해 환각으로 인한 문장 추가를 차단했습니다.',
       en: 'Settled on a Dual-Session Echo Gating architecture. The shape in one line — two per-direction Realtime sessions kept separate, a software echo gate sitting between them, and STT split from translation so hallucinated additions can\'t leak in. Detailed configuration in the cards below.',
       ja: 'Dual-Session Echo Gatingアーキテクチャを採用しました。一行で要約すると — 方向ごとのRealtimeセッション2つを分離して回し、両セッションの間にソフトウェアエコーゲートを設置、STTと翻訳を分離して幻覚による文の追加を遮断しました。詳細構成は下のカードを参照。',
     },
