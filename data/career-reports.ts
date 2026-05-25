@@ -1219,9 +1219,9 @@ export const careerStoryBlocksV1: Partial<
       ja: 'Claude Codeを初めて知った時は本当に驚きました。しかし使えば使うほど結果物にムラが出て、「この使い方で合っているのか」という疑問が大きくなりました。やがてskillやhookなどの高度な機能を知り、AI時代はコードを書く力より問題を正確に定義し初期の仕様をしっかり固めることが重要だと感じました。PRDをまずきちんと書き、AI生成物を自動検証しコミットまで一気に通すパイプラインが必要で、それを作りオープンソースで公開しました。',
     },
     problem: {
-      ko: '이 문제들을 해결해야 검증된 하네스를 구현할 수 있고, 자동화된 워크플로우를 만들 수 있다고 생각했습니다. 컨텍스트 오염, 역할 경계 부재, 검증 부재를 풀지 않으면 AI가 만든 결과물을 신뢰할 수 없었습니다.',
-      en: 'I believed these problems had to be solved before a validated harness and an automated workflow could exist. Without fixing context contamination, missing role boundaries, and the lack of validation, AI output could not be trusted.',
-      ja: 'これらの問題を解決してこそ検証されたハーネスを実装でき、自動化されたワークフローを作れると考えました。コンテキスト汚染、役割境界の不在、検証の不在を解かなければAI生成物を信頼できませんでした。',
+      ko: '아래의 문제들을 해결해야 검증된 하네스를 구현할 수 있고, 자동화된 워크플로우를 만들 수 있다고 생각했습니다. 컨텍스트 오염, 역할 경계 부재, 검증 부재를 풀지 않으면 AI가 만든 결과물을 신뢰할 수 없었습니다.',
+      en: 'The problems below had to be solved before a validated harness and an automated workflow could exist. Without fixing context contamination, missing role boundaries, and the lack of validation, AI output could not be trusted.',
+      ja: '以下の問題を解決してこそ検証されたハーネスを実装でき、自動化されたワークフローを作れると考えました。コンテキスト汚染、役割境界の不在、検証の不在を解かなければAI生成物を信頼できませんでした。',
     },
     hypothesis: {
       ko: 'PRD → 설계 → 병렬 빌드 → 리뷰 → 커밋을 단일 파이프라인 안에서 역할별 에이전트 팀(Backend·Frontend·AI Server·Ops)이 병렬로 분담하면, 사람이 단계 사이를 매번 잇지 않아도 컨텍스트가 끊기지 않고 흘러갈 것이라고 봤습니다.',
