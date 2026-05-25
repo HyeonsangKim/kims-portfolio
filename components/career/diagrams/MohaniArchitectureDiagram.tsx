@@ -120,7 +120,7 @@ export default function MohaniArchitectureDiagram() {
         {/* MDM + Accessibility 이중망 */}
         <rect x={776} y={362} width={268} height={56} rx={10} fill="rgba(168,85,247,0.08)" stroke="rgba(168,85,247,0.4)" strokeWidth={1} />
         <text x={786} y={380} fontSize="11" fontWeight="700" fill="#a855f7" fontFamily="ui-monospace,monospace">
-          이중망 실행 layer
+          복합 실행 layer
         </text>
         <text x={786} y={398} fontSize="11" fill="#fafafa" fontFamily="ui-sans-serif,system-ui">
           외부 MDM SDK (OS 레벨)
@@ -183,7 +183,7 @@ export default function MohaniArchitectureDiagram() {
           ★ 다층 트리거 — 단일 트리거로는 우회되는 도메인
         </text>
         <text x={520} y={41} fontSize="10.5" fill="rgba(255,255,255,0.55)" fontFamily="ui-sans-serif,system-ui">
-          ★ MDM SDK + Accessibility 이중 실행망
+          ★ MDM SDK + Accessibility 복합 실행
         </text>
       </g>
     </svg>
