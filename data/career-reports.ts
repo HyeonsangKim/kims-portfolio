@@ -1062,19 +1062,19 @@ export const careerStoryBlocksV1: Partial<
 
   wigent: {
     oneLiner: {
-      ko: 'Build with TRAE Seoul(ByteDance) 해커톤 대상 수상작. 주제가 "에이전트"였고, 에이전트를 가장 잘 보여주는 길은 결국 멀티 에이전트가 토론으로 결론에 도달하는 모습이라고 보고, 3.5시간 안에 PRD부터 채팅 UI가 그대로 랜딩 페이지로 변신하는 시연까지 만들었습니다.',
-      en: 'Grand Prize winner at the Build with TRAE Seoul (ByteDance) hackathon. The theme was "agents" — we decided the most convincing way to *show* an agent was to let several of them debate to a conclusion, and shipped a 3.5-hour build that goes from PRD to a working demo where the chat UI itself morphs into the landing page the agents produced.',
-      ja: 'Build with TRAE Seoul（ByteDance）ハッカソン大賞受賞作。テーマが「エージェント」で、エージェントを最も納得感ある形で見せる道は複数のエージェントが議論で結論に到達する姿だと判断し、3.5時間でPRDからチャットUIがそのままランディングページへ変身するデモまでを作りました。',
+      ko: 'Build with TRAE Seoul(ByteDance) 해커톤 대상 수상작. 여러 AI 에이전트가 토론으로 결론에 도달하고, 그 결과물이 사업 아이디어 보고서와 랜딩 페이지로 바로 나오는 멀티에이전트 토론 플랫폼.',
+      en: 'Grand Prize winner at Build with TRAE Seoul (ByteDance). Multiple AI agents debate to a conclusion, and the output drops directly into a business idea report and landing page — a multi-agent debate platform.',
+      ja: 'Build with TRAE Seoul（ByteDance）ハッカソン大賞受賞作。複数のAIエージェントが議論で結論に到達し、その成果がビジネスアイデアレポートとランディングページとして即座に出力されるマルチエージェント議論プラットフォーム。',
     },
     context: {
-      ko: '해커톤 주제는 "에이전트"였고, 3명의 엔지니어가 3.5시간 안에 만들어야 했습니다. Claude Code를 활용한 병렬 개발로 PRD에서 동작하는 프로토타입까지 55분, 나머지 2시간 동안 기능 추가와 다듬기를 진행했습니다. 26개 커밋, 0건의 머지 충돌. 본인은 오케스트레이터·상태 머신·발화권 컨트롤러 같은 시스템의 중심축을 설계·구현했습니다.',
-      en: 'Theme: "agents." Constraint: three engineers, 3.5 hours, single weekend. We leaned on Claude Code for parallel development — went from PRD to a working prototype in 55 minutes, then spent the remaining two hours on feature additions and polish. 26 commits, 0 merge conflicts. I owned the orchestrator, the state machine, and the speaking-turn controller — the spine of the system.',
-      ja: 'ハッカソンテーマは「エージェント」、制約は3名のエンジニアで3.5時間。Claude Codeを活用した並列開発でPRDから動作プロトタイプまで55分、残り2時間で機能追加と仕上げ。26コミット、マージ衝突0件。本人はオーケストレーター・状態マシン・発話権コントローラーといったシステムの中核を設計・実装しました。',
+      ko: '당일치기 해커톤 두 번째 출전이었습니다. 첫 해커톤에서 열심히 준비했는데 수상자들은 라이브 데모 없이 촬영된 동영상으로도 수상하는 모습을 봤기에, 이번에는 프로젝트를 완성한 뒤 동영상 촬영으로 출품하겠다는 전략을 세워갔습니다. 그런데 심사기준이 배포된 프로젝트 URL을 제출하고, 사람 심사위원과 AI 심사위원이 직접 테스트하는 방식이었습니다. 전략이 완전히 어긋나서 멘붕 상태로 시간을 허비했고, 3시간 정도 남았을 때 Agent의 본질을 떠올렸습니다. 사람이 Agent를 만드는 이유는 결국 "자동화" 또는 "자율적인 의사결정을 통한 보조"이고, 그걸 가장 잘 보여주는 건 여러 전문가가 토론으로 결론에 도달하는 모습이라고 판단했습니다.',
+      en: 'This was my second one-day hackathon. At the first one I had prepared hard but noticed that winners shipped pre-recorded videos without live demos, so I came in with a strategy: finish the project, then record a polished video. Except the judging format was different — submit a deployed URL and let human judges and an AI judge test it live. My entire plan fell apart and I froze, burning time. With about three hours left I stepped back and thought about what an agent actually is. People build agents for "automation" or "autonomous decision-making as an assistant." The most convincing way to show that was to let multiple expert personas debate to a conclusion.',
+      ja: '当日完結型ハッカソンへの2回目の出場でした。1回目で一生懸命準備したのに受賞者はライブデモなしの収録動画で入賞していたので、今回は完成後に動画を撮影して提出する戦略で臨みました。ところが審査基準がデプロイ済みURLを提出し、人間審査員とAI審査員が直接テストする方式でした。戦略が完全に外れてパニック状態で時間を浪費し、残り約3時間でAgentの本質を思い出しました。人がAgentを作る理由は「自動化」か「自律的な意思決定による補助」であり、それを最も説得力ある形で見せるのは複数の専門家が議論で結論に到達する姿だと判断しました。',
     },
     problem: {
-      ko: '아이디어 브레인스토밍은 세 가지로 깨집니다. 혼자 하면 시야가 좁아지고, 팀으로 하면 시간이 오래 걸리고, 일반 AI 챗은 단일 의견만 줍니다. "에이전트"를 보여주려면 이 세 가지를 동시에 푸는 데모가 필요했습니다.',
-      en: 'Brainstorming a business idea is broken three ways: solo thinking is biased, team sessions are slow, and a single AI chat gives you a one-sided answer. To convincingly *show* an agent, the demo had to break all three at once.',
-      ja: 'アイデアブレインストーミングは3つの形で壊れています — 一人だと視野が狭くなり、チームでやると時間がかかり、通常のAIチャットは単一意見しか返しません。「エージェント」を見せるには、この3つを同時に解くデモが必要でした。',
+      ko: '기존 브레인스토밍은 세 가지로 깨집니다. 혼자 하면 시야가 좁아지고, 팀으로 하면 시간이 오래 걸리고, 일반 AI 챗은 단일 의견만 줍니다. 이 세 가지를 동시에 푸는 것이 해커톤에서 풀어야 할 핵심 도전이었습니다.',
+      en: 'Existing brainstorming is broken three ways: solo thinking is biased, team sessions are slow, and a single AI chat gives you a one-sided answer. Breaking all three at once was the core challenge for the hackathon.',
+      ja: '既存のブレインストーミングは3つの形で壊れています — 一人だと視野が狭くなり、チームでやると時間がかかり、通常のAIチャットは単一意見しか返しません。この3つを同時に解くことがハッカソンでの核心的な挑戦でした。',
     },
     hypothesis: {
       ko: '여러 명의 에이전트가 채팅 UI 안에서 자유 토론으로 충돌하고 수렴하면, 그 결과를 그대로 사업 아이디어 결정 보고서와 랜딩 페이지로 만들어낼 수 있을 거라고 봤습니다. 핵심은 "토론이 안전하게 수렴하도록 누가 조율할 것인가"이고, 그 답이 오케스트레이터(PM 에이전트)의 역할이었습니다.',
@@ -1214,14 +1214,14 @@ export const careerStoryBlocksV1: Partial<
       ja: '一つのプラグインで12エージェント・3コマンド（/prd · /implement · /auto-commit）・3スキルを束ね、「アイデアからプロダクションまで」を1パイプラインで回すClaude Codeプラグイン。オープンソース公開。',
     },
     context: {
-      ko: '처음 Claude Code를 도입했을 때는 "AI로 얼마나 빨리 코드를 뽑아낼 수 있는가"에 집중했습니다. 그런데 프로젝트가 커질수록 진짜 병목은 생성 속도가 아니라 "요구사항을 어떻게 구조화하고, 어떤 컨텍스트를 제공하며, 결과물을 어떤 기준으로 검증할 것인가"였습니다. AI에게 일을 시키는 게 아니라 AI와 인간이 함께 일하는 개발 흐름 자체를 설계해야 한다고 봤고, 그 결과물을 오픈소스로 공개했습니다.',
-      en: 'When we first brought Claude Code in, the focus was "how fast can we generate code with AI." But as projects grew, the real bottleneck turned out to be how to structure requirements, what context to feed in, and what bar to validate output against — not raw generation speed. We treated this as designing the human-AI workflow itself, not just dispatching tasks to AI, and open-sourced what we built.',
-      ja: 'Claude Code導入初期は「AIでどれだけ速くコードを出せるか」に集中していました。しかしプロジェクトが大きくなるにつれ、本当のボトルネックは生成速度ではなく「要求をどう構造化し、どのコンテキストを与え、結果物をどの基準で検証するか」だと分かりました。AIに作業を投げるのではなく、AIと人間が共に働く開発フロー自体を設計する必要があると考え、その成果をオープンソースで公開しました。',
+      ko: '처음 Claude Code를 접했을 때 정말 놀랐습니다. 하지만 바이브코딩을 반복할수록 결과물이 들쑥날쑥이었고, "이렇게 쓰는 게 맞는 건가" 하는 의문이 커졌습니다. 그러다 skill·hook 같은 고급 기능을 알게 됐고, AI 시대에 코드를 짜는 능력보다 문제를 정의하는 능력이 중요하다는 걸 느꼈습니다. 그러려면 프로젝트를 시작하기 전에 명세서(PRD)를 제대로 쓰는 게 가장 중요하고, AI가 만든 결과물을 검증할 수 있는 구조가 필요했습니다. 여기에 커밋 같은 워크플로우 자동화까지 더해 플러그인을 만들었고, 오픈소스로 공개했습니다.',
+      en: 'I was genuinely amazed the first time I used Claude Code. But the more I vibe-coded, the more the output quality swung wildly, and I started wondering whether I was even using it right. Then I discovered advanced features like skills and hooks, and realized that in the AI era, the ability to define a problem matters more than the ability to write code. That meant writing a proper spec (PRD) before touching anything, having a structure that can actually validate AI output, and automating the workflow around commits. I built all of that into a plugin and open-sourced it.',
+      ja: '初めてClaude Codeに触れた時は本当に驚きました。しかしバイブコーディングを繰り返すほど結果物にムラが出て、「この使い方で合っているのか」という疑問が大きくなりました。skill・hookなどの高度な機能を知り、AI時代はコードを書く力より問題を定義する力が重要だと感じました。プロジェクト開始前にPRDをきちんと書くこと、AI生成物を検証できる構造、コミットなどのワークフロー自動化を一つのプラグインにまとめ、オープンソースで公開しました。',
     },
     problem: {
-      ko: '세 가지 병목이 명확했습니다(아래 카드 참조). 결국 역할별로 에이전트를 분리하고 단계별 validation을 거친 뒤 다음 에이전트로 넘기는 워크플로우가 필요했습니다.',
-      en: 'Three bottlenecks were clear (see cards below). The answer was separating agents by role and gating each handoff with validation before the next agent picks up.',
-      ja: 'ボトルネックは3つ明確でした（下のカード参照）。結局、役割別にエージェントを分け、段階別バリデーションを経てから次のエージェントに引き継ぐワークフローが必要でした。',
+      ko: '실제로 써보니 세 가지 벽이 보였습니다(아래 카드 참조). 결국 역할별로 에이전트를 분리하고 단계별 validation을 거친 뒤 다음 에이전트로 넘기는 워크플로우가 필요했습니다.',
+      en: 'In practice, three walls showed up (see cards below). The answer was separating agents by role and gating each handoff with validation before the next agent picks up.',
+      ja: '実際に使ってみると3つの壁が見えました（下のカード参照）。結局、役割別にエージェントを分け、段階別バリデーションを経てから次のエージェントに引き継ぐワークフローが必要でした。',
     },
     hypothesis: {
       ko: 'PRD → 설계 → 병렬 빌드 → 리뷰 → 커밋을 단일 파이프라인 안에서 역할별 에이전트 팀(Backend·Frontend·AI Server·Ops)이 병렬로 분담하면, 사람이 단계 사이를 매번 잇지 않아도 컨텍스트가 끊기지 않고 흘러갈 것이라고 봤습니다.',
