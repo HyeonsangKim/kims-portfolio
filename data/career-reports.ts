@@ -1148,26 +1148,26 @@ export const careerStoryBlocksV1: Partial<
       execution: {
         bullets: {
           ko: [
-            '🎯 입력 — 목적 카드 5종(카페·렌탈·광고판·투자·이상 시그널) 또는 자유 입력',
-            '🗣️ 토론 중 가로채기 — ANOMALY_DETECTION/FORECAST가 이상치·예측 잡는 즉시 발화권 회수',
-            '📋 한 화면 결론 — Top 3 동네 + 이상 시그널 배지 + 예측 차트 + 액션 체크리스트',
+            '입력 — 목적 카드 5종(카페·렌탈·광고판·투자·이상 시그널) 또는 자유 입력',
+            '토론 중 가로채기 — ANOMALY_DETECTION·FORECAST가 이상치·예측 잡는 즉시 발화권 회수',
+            '한 화면 결론 — Top 3 동네 + 이상 시그널 배지 + 예측 차트 + 액션 체크리스트',
           ],
           en: [
-            '🎯 Input — 5 purpose cards (cafe / rental / billboard / investment / anomaly) or free text',
-            '🗣️ Interrupt mid-debate — ANOMALY_DETECTION/FORECAST claims the floor the moment it lands a signal',
-            '📋 One-screen conclusion — Top 3 districts + anomaly badges + forecast charts + action checklist',
+            'Input — 5 purpose cards (cafe / rental / billboard / investment / anomaly) or free text',
+            'Interrupt mid-debate — ANOMALY_DETECTION / FORECAST claims the floor the moment it lands a signal',
+            'One-screen conclusion — Top 3 districts + anomaly badges + forecast charts + action checklist',
           ],
           ja: [
-            '🎯 入力 — 目的カード5種（カフェ・レンタル・看板・投資・異常シグナル）または自由入力',
-            '🗣️ 議論中の割り込み — ANOMALY_DETECTION/FORECASTが信号を捕えた瞬間に発話権を奪取',
-            '📋 1画面結論 — Top 3地域 + 異常バッジ + 予測チャート + アクションチェックリスト',
+            '入力 — 目的カード5種（カフェ・レンタル・看板・投資・異常シグナル）または自由入力',
+            '議論中の割り込み — ANOMALY_DETECTION・FORECASTが信号を捕えた瞬間に発話権を奪取',
+            '1画面結論 — Top 3地域 + 異常バッジ + 予測チャート + アクションチェックリスト',
           ],
         },
       },
       result: {
         metrics: [
           {
-            value: '🥈 2위',
+            value: '2위',
             label: { ko: 'Snowflake AI & Data Hackathon Korea 2026 Tech Track', en: 'Snowflake AI & Data Hackathon Korea 2026 Tech Track', ja: 'Snowflake AI & Data Hackathon Korea 2026 Tech Track' },
           },
           {
@@ -1195,9 +1195,9 @@ export const careerStoryBlocksV1: Partial<
       ja: 'Claude Code導入初期は「AIでどれだけ速くコードを出せるか」に集中していました。しかしプロジェクトが大きくなるにつれ、本当のボトルネックは生成速度ではなく「要求をどう構造化し、どのコンテキストを与え、結果物をどの基準で検証するか」だと分かりました。AIに作業を投げるのではなく、AIと人間が共に働く開発フロー自体を設計する必要があると考え、その成果をオープンソースで公開しました。',
     },
     problem: {
-      ko: '세 가지 병목이 명확했습니다. (1) **컨텍스트 오염** — 한 세션 안에서 PRD·설계·구현이 섞이면 AI가 이전 발화에 끌려가 결과물이 발산합니다. (2) **역할 경계 부재** — PM·아키텍트·구현·리뷰가 같은 컨텍스트에서 동작하면 책임이 흐려져 코드 품질이 떨어집니다. (3) **검증 부재** — AI 생성 결과를 사람이 매번 검수하면 속도 이득이 사라집니다. 결국 역할별로 에이전트를 분리하고 단계별 validation을 거친 뒤 다음 에이전트로 넘기는 워크플로우가 필요했습니다.',
-      en: 'Three bottlenecks were clear. (1) **Context contamination** — when PRD, design, and implementation share one session, the AI gets pulled by prior turns and the output diverges. (2) **No role boundary** — PM, architect, implementer, reviewer running in the same context blurs responsibility and erodes code quality. (3) **No validation** — if a human has to eyeball every AI output, the speed gain vanishes. The answer was separating agents by role and gating each handoff with validation before the next agent picks up.',
-      ja: 'ボトルネックは3つ明確でした。(1) **コンテキスト汚染** — PRD・設計・実装が1セッションに混ざるとAIが前の発話に引きずられ結果物が発散します。(2) **役割境界の不在** — PM・アーキテクト・実装・レビューが同じコンテキストで動くと責任が曖昧になりコード品質が落ちます。(3) **検証の不在** — AI生成結果を毎回人が見直すと速度の利点が消えます。結局、役割別にエージェントを分け、段階別バリデーションを経てから次のエージェントに引き継ぐワークフローが必要でした。',
+      ko: '세 가지 병목이 명확했습니다. 첫째, 컨텍스트 오염 — 한 세션 안에서 PRD·설계·구현이 섞이면 AI가 이전 발화에 끌려가 결과물이 발산합니다. 둘째, 역할 경계 부재 — PM·아키텍트·구현·리뷰가 같은 컨텍스트에서 동작하면 책임이 흐려져 코드 품질이 떨어집니다. 셋째, 검증 부재 — AI 생성 결과를 사람이 매번 검수하면 속도 이득이 사라집니다. 결국 역할별로 에이전트를 분리하고 단계별 validation을 거친 뒤 다음 에이전트로 넘기는 워크플로우가 필요했습니다.',
+      en: 'Three bottlenecks were clear. First, context contamination — when PRD, design, and implementation share one session, the AI gets pulled by prior turns and the output diverges. Second, no role boundary — PM, architect, implementer, reviewer running in the same context blurs responsibility and erodes code quality. Third, no validation — if a human has to eyeball every AI output, the speed gain vanishes. The answer was separating agents by role and gating each handoff with validation before the next agent picks up.',
+      ja: 'ボトルネックは3つ明確でした。第一に、コンテキスト汚染 — PRD・設計・実装が1セッションに混ざるとAIが前の発話に引きずられ結果物が発散します。第二に、役割境界の不在 — PM・アーキテクト・実装・レビューが同じコンテキストで動くと責任が曖昧になりコード品質が落ちます。第三に、検証の不在 — AI生成結果を毎回人が見直すと速度の利点が消えます。結局、役割別にエージェントを分け、段階別バリデーションを経てから次のエージェントに引き継ぐワークフローが必要でした。',
     },
     hypothesis: {
       ko: 'PRD → 설계 → 병렬 빌드 → 리뷰 → 커밋을 단일 파이프라인 안에서 역할별 에이전트 팀(Backend·Frontend·AI Server·Ops)이 병렬로 분담하면, 사람이 단계 사이를 매번 잇지 않아도 컨텍스트가 끊기지 않고 흘러갈 것이라고 봤습니다.',
@@ -1284,7 +1284,7 @@ export const careerStoryBlocksV1: Partial<
       result: {
         metrics: [
           { value: '12 agents', label: { ko: '단일 파이프라인 통합 (PRD → 빌드 → 리뷰 → 커밋)', en: 'Bundled into one pipeline (PRD → build → review → commit)', ja: '単一パイプライン統合（PRD → ビルド → レビュー → コミット）' } },
-          { value: '⭐ 44', label: { ko: 'GitHub stars (오픈소스 공개 후 수신, 외부 개발자 사용 신호)', en: 'GitHub stars after open-sourcing — signal of external adoption', ja: 'GitHubスター（オープンソース公開後、外部開発者の採用シグナル）' } },
+          { value: '44', label: { ko: 'GitHub stars (오픈소스 공개 후 수신, 외부 개발자 사용 신호)', en: 'GitHub stars after open-sourcing — signal of external adoption', ja: 'GitHubスター（オープンソース公開後、外部開発者の採用シグナル）' } },
           { value: '3 프로젝트', label: { ko: '본인이 이 워크플로우로 만든 후속 프로젝트 (WIGENT·WIGTN FLAKE·WIGVO)', en: 'Downstream projects shipped on this workflow (WIGENT · WIGTN FLAKE · WIGVO)', ja: 'このワークフロー上で構築した後続プロジェクト（WIGENT・WIGTN FLAKE・WIGVO）' } },
         ],
       },
@@ -1347,19 +1347,19 @@ export const careerStoryBlocksV1: Partial<
         // decision 본문의 디테일을 카드 bullets로 분리해 본문은 짧게, 시각은 한눈에
         bullets: {
           ko: [
-            '🔀 듀얼 세션 — Session A(브라우저→전화) · Session B(전화→브라우저)가 각자 system prompt와 6턴 슬라이딩 컨텍스트를 독립 유지',
-            '🎯 AudioRouter — Strategy 패턴으로 V2V / T2V / FullAgent 3 파이프라인에 이벤트 위임',
-            '🛡️ STT-Translation 분리 — Realtime API의 Whisper-1은 STT만 담당, 번역은 GPT-4o-mini(temperature=0)가 별도 처리 + context_prune_keep=0으로 환각 문장 추가 차단',
+            '듀얼 세션 — Session A(브라우저→전화) · Session B(전화→브라우저)가 각자 system prompt와 6턴 슬라이딩 컨텍스트를 독립 유지',
+            'AudioRouter — Strategy 패턴으로 V2V / T2V / FullAgent 3 파이프라인에 이벤트 위임',
+            'STT-Translation 분리 — Realtime API의 Whisper-1은 STT만 담당, 번역은 GPT-4o-mini(temperature=0)가 별도 처리 + context_prune_keep=0으로 환각 문장 추가 차단',
           ],
           en: [
-            '🔀 Dual sessions — Session A (browser→phone) and Session B (phone→browser) each keep their own system prompt and 6-turn sliding context',
-            '🎯 AudioRouter — Strategy-pattern delegation across three pipelines (V2V / T2V / FullAgent)',
-            '🛡️ STT-Translation split — the Realtime API\'s Whisper-1 only handles STT; translation runs separately on GPT-4o-mini (temperature=0) with context_prune_keep=0 to block hallucinated additions',
+            'Dual sessions — Session A (browser→phone) and Session B (phone→browser) each keep their own system prompt and 6-turn sliding context',
+            'AudioRouter — Strategy-pattern delegation across three pipelines (V2V / T2V / FullAgent)',
+            'STT-Translation split — the Realtime API\'s Whisper-1 only handles STT; translation runs separately on GPT-4o-mini (temperature=0) with context_prune_keep=0 to block hallucinated additions',
           ],
           ja: [
-            '🔀 デュアルセッション — Session A（ブラウザ→電話）とSession B（電話→ブラウザ）が独自のsystem promptと6ターンスライディングコンテキストを独立保持',
-            '🎯 AudioRouter — StrategyパターンでV2V / T2V / FullAgent 3パイプラインにイベント委譲',
-            '🛡️ STT-翻訳分離 — Realtime APIのWhisper-1はSTTのみ、翻訳はGPT-4o-mini（temperature=0）で別途処理 + context_prune_keep=0で幻覚による文の追加を遮断',
+            'デュアルセッション — Session A（ブラウザ→電話）とSession B（電話→ブラウザ）が独自のsystem promptと6ターンスライディングコンテキストを独立保持',
+            'AudioRouter — StrategyパターンでV2V / T2V / FullAgent 3パイプラインにイベント委譲',
+            'STT-翻訳分離 — Realtime APIのWhisper-1はSTTのみ、翻訳はGPT-4o-mini（temperature=0）で別途処理 + context_prune_keep=0で幻覚による文の追加を遮断',
           ],
         },
       },
