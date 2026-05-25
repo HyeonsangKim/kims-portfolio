@@ -140,8 +140,8 @@ export const projects: Project[] = [
     ],
     tech: ['Next.js 16', 'React 19', 'TypeScript', 'Snowflake Cortex', 'GPT-4o', 'snowflake-sdk', 'Vega-Lite', 'SSE'],
     links: [
-      { label: 'GitHub', url: 'https://github.com/wigtn/wigtn-for-snowflake', icon: 'github' },
       { label: 'News', url: 'https://www.newswire.co.kr/newsRead.php?no=1033575', icon: 'external' },
+      { label: 'GitHub', url: 'https://github.com/wigtn/wigtn-for-snowflake', icon: 'github' },
     ],
     gradient: 'from-sky-500 to-blue-600',
     media: { type: 'youtube', videoId: '1YzSp3SdzTk' },

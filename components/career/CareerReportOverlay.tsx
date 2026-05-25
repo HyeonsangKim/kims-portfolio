@@ -93,9 +93,11 @@ export default function CareerReportOverlay({
   period,
   role,
   projectName,
+  youtubeId,
   onClose,
 }: {
   reportKey: CareerReportKey | null
+  youtubeId?: string
   gradientCss: string
   company: string
   period: string
@@ -203,9 +205,7 @@ export default function CareerReportOverlay({
                 reportKey={reportKey!}
                 locale={locale}
                 gradientCss={gradientCss}
-                /* v1 mode keeps the legacy `highlights` as a top-of-modal
-                   "주요 성과" box so visitors get the quick-scan summary
-                   before the 8-slot narrative. */
+                youtubeId={youtubeId}
                 highlights={legacy?.highlights[locale]}
                 role={legacy?.role[locale]}
               />
@@ -246,6 +246,7 @@ function StoryBlockBody({
   reportKey,
   locale,
   gradientCss,
+  youtubeId,
   highlights,
   role,
 }: {
@@ -253,6 +254,7 @@ function StoryBlockBody({
   reportKey: CareerReportKey
   locale: Locale
   gradientCss: string
+  youtubeId?: string
   highlights?: string[]
   role?: string
 }) {
@@ -479,6 +481,17 @@ function StoryBlockBody({
       </nav>
 
       <div className="px-6 md:px-12 py-10 md:py-14 space-y-12">
+        {youtubeId && (
+          <div className="aspect-video rounded-xl overflow-hidden bg-black/50">
+            <iframe
+              src={`https://www.youtube.com/embed/${youtubeId}?rel=0`}
+              title="Project demo"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="w-full h-full"
+            />
+          </div>
+        )}
         {slots.map((slot) => (
           <StorySection
             key={slot}

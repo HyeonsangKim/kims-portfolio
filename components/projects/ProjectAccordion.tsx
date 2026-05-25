@@ -194,7 +194,7 @@ export default function ProjectAccordion({
   isOpen: boolean
 }) {
   const { locale } = useI18n()
-  const hasMedia = project.media.type !== 'none'
+  const hasMedia = project.media.type !== 'none' && !wigtnReportKeys.has(project.id)
   const report = projectReports[project.id]
   // WIGTN 프로젝트는 Career와 동일 v1 모달을 띄운다.
   const wigtnKey = wigtnReportKeys.has(project.id) && careerStoryBlocksV1[project.id as CareerReportKey]
@@ -298,6 +298,7 @@ export default function ProjectAccordion({
           period={wigtnReportMeta[wigtnKey].period}
           role={wigtnReportMeta[wigtnKey].role}
           projectName={project.title}
+          youtubeId={project.media.type === 'youtube' ? project.media.videoId : undefined}
           onClose={() => setWigtnReportOpen(false)}
         />
       )}

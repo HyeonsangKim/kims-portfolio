@@ -164,7 +164,7 @@ export const projectStoryBlockSlotLabels: Record<
   CareerStoryBlockSlot,
   Record<Locale, string>
 > = {
-  context: { ko: '계기', en: 'Origin', ja: 'きっかけ' },
+  context: { ko: '개요', en: 'Overview', ja: '概要' },
   problem: { ko: '도전', en: 'Challenge', ja: '挑戦' },
   hypothesis: { ko: '접근', en: 'Approach', ja: 'アプローチ' },
   alternatives: { ko: '검토한 대안', en: 'Alternatives', ja: '代替案' },
