@@ -136,7 +136,7 @@ export const projectReports: Record<string, ProjectReport> = {
         },
       },
       {
-        value: '20',
+        value: '17',
         label: {
           en: 'Design Styles',
           ko: '디자인 스타일',
@@ -393,14 +393,14 @@ export const projectReports: Record<string, ProjectReport> = {
       { label: { en: 'Agents', ko: '에이전트', ja: 'エージェント' }, value: '12 (4 coord · 4 dev · 4 quality)' },
       { label: { en: 'Skills', ko: '스킬', ja: 'スキル' }, value: '3' },
       { label: { en: 'Hooks', ko: '훅', ja: 'フック' }, value: '4' },
-      { label: { en: 'Design styles', ko: '디자인 스타일', ja: 'デザインスタイル' }, value: '20' },
+      { label: { en: 'Design styles', ko: '디자인 스타일', ja: 'デザインスタイル' }, value: '17' },
       { label: { en: 'PRD analysis categories', ko: 'PRD 분석 카테고리', ja: 'PRD分析カテゴリ' }, value: '4' },
       { label: { en: 'Code review scoring', ko: '코드 리뷰 스코어링', ja: 'コードレビュースコアリング' }, value: '100-point · 5 categories' },
       { label: { en: 'Parallel review agents', ko: '병렬 리뷰 에이전트', ja: '並列レビューエージェント' }, value: '3' },
       { label: { en: 'GitHub stars', ko: 'GitHub 스타', ja: 'GitHub スター' }, value: '44' },
       { label: { en: 'License', ko: '라이선스', ja: 'ライセンス' }, value: 'Apache 2.0' },
     ],
-    sourceUrl: 'https://github.com/wigtn/wigtn-plugins-with-claude-code',
+    sourceUrl: 'https://wigtn.com/projects/wigtn-coding',
   },
 
   wigent: {

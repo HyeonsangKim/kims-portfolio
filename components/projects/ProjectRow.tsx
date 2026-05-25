@@ -2,10 +2,15 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { FiChevronRight } from 'react-icons/fi'
+import { FiChevronRight, FiGithub, FiExternalLink } from 'react-icons/fi'
 import type { Project, Gradient } from '@/data/projects'
-import { badgeStyle } from '@/data/projects'
+import { badgeStyle, badgePriority } from '@/data/projects'
 import ProjectAccordion from './ProjectAccordion'
+
+const linkIconMap = {
+  github: FiGithub,
+  external: FiExternalLink,
+} as const
 
 const gradientMap: Record<Gradient, string> = {
   'from-violet-500 to-fuchsia-500': 'linear-gradient(to right, #8b5cf6, #d946ef)',
@@ -83,17 +88,42 @@ export default function ProjectRow({
             </p>
           </div>
 
-          {/* Badges (desktop) */}
+          {/* Badges (desktop) — award 우선 정렬해서 상/논문이 먼저 시선 잡힘. */}
           <div className="hidden md:flex items-center gap-2 shrink-0">
-            {project.badges.map((b) => (
-              <span
-                key={b.label}
-                className={`px-2.5 py-0.5 text-xs font-medium rounded-full border ${badgeStyle[b.variant]}`}
-              >
-                {b.label}
-              </span>
-            ))}
+            {[...project.badges]
+              .sort((a, b) => badgePriority[a.variant] - badgePriority[b.variant])
+              .map((b) => (
+                <span
+                  key={b.label}
+                  className={`px-2.5 py-0.5 text-xs font-medium rounded-full border ${badgeStyle[b.variant]}`}
+                >
+                  {b.label}
+                </span>
+              ))}
           </div>
+
+          {/* Quick links — GitHub / Live 등을 행 자체에서 바로 클릭 가능하게 노출 (accordion 펼치지 않아도). */}
+          {project.links.length > 0 && (
+            <div className="hidden md:flex items-center gap-1 shrink-0">
+              {project.links.map((link) => {
+                const Icon = linkIconMap[link.icon]
+                return (
+                  <a
+                    key={link.url}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    aria-label={`${project.title} — ${link.label}`}
+                    title={link.label}
+                    className="inline-flex items-center justify-center w-8 h-8 rounded-full border border-white/15 bg-white/[0.04] text-gray-300 hover:text-white hover:border-white/30 hover:bg-white/10 transition-colors"
+                  >
+                    <Icon className="w-3.5 h-3.5" />
+                  </a>
+                )
+              })}
+            </div>
+          )}
 
           {/* Arrow */}
           <motion.div

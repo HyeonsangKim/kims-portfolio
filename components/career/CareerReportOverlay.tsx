@@ -32,6 +32,8 @@ import {
   FiPlayCircle,
   FiTrendingUp,
   FiRefreshCw,
+  FiZap,
+  FiLayers,
 } from 'react-icons/fi'
 import { useI18n, type Locale } from '@/lib/i18n'
 import {
@@ -39,6 +41,9 @@ import {
   careerStoryBlockSlotLabels,
   careerStoryBlockSlotOrder,
   careerStoryBlocksV1,
+  projectStoryBlockSlotLabels,
+  projectStoryBlockSlotOrder,
+  wigtnProjectKeys,
   type CareerReportKey,
   type CareerStoryBlockSlot,
   type CareerStoryBlockV1,
@@ -52,6 +57,7 @@ import AigoseoArchitectureDiagram from './diagrams/AigoseoArchitectureDiagram'
 
 const ui: Record<string, Record<Locale, string>> = {
   eyebrow: { ko: '경력 리포트', en: 'Career Report', ja: 'キャリアレポート' },
+  eyebrowProject: { ko: '프로젝트 리포트', en: 'Project Report', ja: 'プロジェクトレポート' },
   about: { ko: 'About', en: 'About', ja: 'About' },
   role: { ko: 'My Role', en: 'My Role', ja: 'My Role' },
   highlights: { ko: 'Highlights', en: 'Highlights', ja: 'Highlights' },
@@ -66,6 +72,16 @@ const slotIconMap: Record<CareerStoryBlockSlot, ComponentType<{ className?: stri
   hypothesis: FiCpu,
   alternatives: FiGitBranch,
   decision: FiFlag,
+  execution: FiPlayCircle,
+  result: FiTrendingUp,
+}
+
+const projectSlotIconMap: Record<CareerStoryBlockSlot, ComponentType<{ className?: string }>> = {
+  context: FiCompass,
+  problem: FiTarget,
+  hypothesis: FiZap,
+  alternatives: FiGitBranch,
+  decision: FiLayers,
   execution: FiPlayCircle,
   result: FiTrendingUp,
 }
@@ -158,7 +174,7 @@ export default function CareerReportOverlay({
               />
               <div className="relative">
                 <div className="text-[11px] uppercase tracking-[0.25em] text-gray-400 mb-3">
-                  {t('eyebrow', locale)} · {period}
+                  {t(reportKey && wigtnProjectKeys.has(reportKey) ? 'eyebrowProject' : 'eyebrow', locale)} · {period}
                 </div>
                 <div className="flex items-baseline flex-wrap gap-x-3 gap-y-1 mb-2">
                   <span className="text-base md:text-lg font-semibold text-white/70">{company}</span>
@@ -184,6 +200,7 @@ export default function CareerReportOverlay({
             {storyBlock ? (
               <StoryBlockBody
                 data={storyBlock}
+                reportKey={reportKey!}
                 locale={locale}
                 gradientCss={gradientCss}
                 /* v1 mode keeps the legacy `highlights` as a top-of-modal
@@ -226,18 +243,22 @@ export default function CareerReportOverlay({
 
 function StoryBlockBody({
   data,
+  reportKey,
   locale,
   gradientCss,
   highlights,
   role,
 }: {
   data: CareerStoryBlockV1
+  reportKey: CareerReportKey
   locale: Locale
   gradientCss: string
   highlights?: string[]
   role?: string
 }) {
-  const slots = careerStoryBlockSlotOrder
+  const isProject = wigtnProjectKeys.has(reportKey)
+  const slots = isProject ? projectStoryBlockSlotOrder : careerStoryBlockSlotOrder
+  const slotLabels = isProject ? projectStoryBlockSlotLabels : careerStoryBlockSlotLabels
   const [activeSlot, setActiveSlot] = useState<CareerStoryBlockSlot>(slots[0])
   const sectionRefs = useRef<Record<CareerStoryBlockSlot, HTMLElement | null>>(
     {} as Record<CareerStoryBlockSlot, HTMLElement | null>,
@@ -422,7 +443,7 @@ function StoryBlockBody({
           <ul className="flex items-center gap-1.5 md:gap-2 min-w-max">
             {slots.map((slot) => {
               const active = slot === activeSlot
-              const Icon = slotIconMap[slot]
+              const Icon = (isProject ? projectSlotIconMap : slotIconMap)[slot]
               return (
                 <li key={slot}>
                   <button
@@ -448,7 +469,7 @@ function StoryBlockBody({
                     aria-current={active ? 'true' : undefined}
                   >
                     <Icon className="w-3 h-3 md:w-3.5 md:h-3.5" aria-hidden />
-                    <span>{careerStoryBlockSlotLabels[slot][locale]}</span>
+                    <span>{slotLabels[slot][locale]}</span>
                   </button>
                 </li>
               )
@@ -462,6 +483,8 @@ function StoryBlockBody({
           <StorySection
             key={slot}
             slot={slot}
+            label={slotLabels[slot][locale]}
+            icon={(isProject ? projectSlotIconMap : slotIconMap)[slot]}
             text={data[slot][locale]}
             visuals={data.visuals?.[slot]}
             locale={locale}
@@ -478,6 +501,8 @@ function StoryBlockBody({
 
 function StorySection({
   slot,
+  label,
+  icon: Icon,
   text,
   visuals,
   locale,
@@ -485,19 +510,19 @@ function StorySection({
   registerRef,
 }: {
   slot: CareerStoryBlockSlot
+  label: string
+  icon: ComponentType<{ className?: string }>
   text: string
   visuals?: SlotVisuals
   locale: Locale
   gradientCss: string
   registerRef: (el: HTMLElement | null) => void
 }) {
-  const Icon = slotIconMap[slot]
   return (
     <section
       ref={registerRef}
       data-slot={slot}
       id={`story-${slot}`}
-      // Account for the sticky TOC when jumping via anchor or scrollIntoView.
       className="scroll-mt-20 md:scroll-mt-24"
     >
       <div className="flex items-center gap-3 mb-5">
@@ -509,7 +534,7 @@ function StorySection({
           <Icon className="w-4 h-4" />
         </span>
         <h3 className="text-xl md:text-2xl font-semibold text-white tracking-tight">
-          {careerStoryBlockSlotLabels[slot][locale]}
+          {label}
         </h3>
       </div>
       <p className="text-[15px] text-gray-300 leading-relaxed whitespace-pre-line">

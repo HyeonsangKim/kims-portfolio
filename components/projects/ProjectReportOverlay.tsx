@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
@@ -16,6 +16,7 @@ import {
   FiCheckCircle,
   FiRefreshCw,
   FiImage,
+  FiPlay,
 } from 'react-icons/fi'
 import type { Project, Gradient } from '@/data/projects'
 import { pickL, type ProjectReport } from '@/data/reports'
@@ -101,9 +102,14 @@ export default function ProjectReportOverlay({
   const worked = pickL(report.lessons?.worked, locale)
   const wouldChange = pickL(report.lessons?.wouldChange, locale)
 
+  // visuals 섹션은 hero 비디오(youtube/video) 또는 갤러리 이미지 중 하나라도 있으면 노출.
+  // → 다른 카드는 비디오를 accordion 안에만 보여줘서 "리포트엔 왜 없지?"라는 포맷 불일치가 생겼던 것을 해결.
+  const hasHeroMedia = project.media.type === 'youtube' || project.media.type === 'video'
+  const hasVisuals = hasHeroMedia || !!project.gallery?.length
+
   const sections: Section[] = useMemo(
     () => [
-      { id: 'visuals', title: t('visuals', locale), icon: FiImage, show: !!project.gallery?.length },
+      { id: 'visuals', title: t('visuals', locale), icon: FiImage, show: hasVisuals },
       { id: 'problem', title: t('problem', locale), icon: FiTarget, show: !!problem?.length },
       { id: 'solution', title: t('solution', locale), icon: FiZap, show: !!solution?.length },
       { id: 'metrics', title: t('metrics', locale), icon: FiBarChart2, show: !!report.metrics?.length },
@@ -114,7 +120,7 @@ export default function ProjectReportOverlay({
       { id: 'lessons', title: t('lessons', locale), icon: FiCheckCircle, show: !!(worked?.length || wouldChange?.length) },
       { id: 'numbers', title: t('numbers', locale), icon: FiBarChart2, show: !!report.byTheNumbers?.length },
     ],
-    [project.gallery, report, locale, problem, solution, worked, wouldChange],
+    [project.gallery, report, locale, problem, solution, worked, wouldChange, hasVisuals],
   )
   const visibleSections = sections.filter((s) => s.show)
 
@@ -239,36 +245,45 @@ export default function ProjectReportOverlay({
 
           {/* Body */}
           <div className="px-6 md:px-12 py-10 md:py-14 space-y-14">
-            {project.gallery && project.gallery.length > 0 && (
+            {hasVisuals && (
               <Section id="visuals" title={t('visuals', locale)} icon={FiImage} gradient={gradient}>
-                <div
-                  className={`grid gap-4 ${
-                    project.gallery.length === 1 ? 'grid-cols-1' : 'sm:grid-cols-2'
-                  }`}
-                >
-                  {project.gallery.map((img, i) => (
-                    <figure
-                      key={i}
-                      className="rounded-xl border border-white/10 bg-black/40 overflow-hidden flex flex-col"
-                    >
-                      {/* Uniform 16:9 frame with object-contain — diagrams stay readable, all cells align. */}
-                      <div className="aspect-video bg-black/60 flex items-center justify-center p-3">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          src={img.src}
-                          alt={img.alt}
-                          loading="lazy"
-                          className="max-w-full max-h-full object-contain"
-                        />
-                      </div>
-                      {img.caption && (
-                        <figcaption className="px-4 py-3 text-[12px] text-gray-400 leading-snug border-t border-white/5">
-                          {img.caption}
-                        </figcaption>
-                      )}
-                    </figure>
-                  ))}
-                </div>
+                {/* Hero 비디오 — 비디오를 가진 프로젝트는 리포트 첫 자리에 풀폭으로 보여줘서
+                    accordion / 리포트 사이 포맷 일치를 보장한다. */}
+                {hasHeroMedia && (
+                  <div className="mb-4">
+                    <HeroMedia project={project} />
+                  </div>
+                )}
+                {project.gallery && project.gallery.length > 0 && (
+                  <div
+                    className={`grid gap-4 ${
+                      project.gallery.length === 1 ? 'grid-cols-1' : 'sm:grid-cols-2'
+                    }`}
+                  >
+                    {project.gallery.map((img, i) => (
+                      <figure
+                        key={i}
+                        className="rounded-xl border border-white/10 bg-black/40 overflow-hidden flex flex-col"
+                      >
+                        {/* Uniform 16:9 frame with object-contain — diagrams stay readable, all cells align. */}
+                        <div className="aspect-video bg-black/60 flex items-center justify-center p-3">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={img.src}
+                            alt={img.alt}
+                            loading="lazy"
+                            className="max-w-full max-h-full object-contain"
+                          />
+                        </div>
+                        {img.caption && (
+                          <figcaption className="px-4 py-3 text-[12px] text-gray-400 leading-snug border-t border-white/5">
+                            {img.caption}
+                          </figcaption>
+                        )}
+                      </figure>
+                    ))}
+                  </div>
+                )}
               </Section>
             )}
 
@@ -554,6 +569,70 @@ export default function ProjectReportOverlay({
   )
 
   return createPortal(overlay, document.body)
+}
+
+/**
+ * Hero media slot inside the report's visuals section. Mirrors the embed
+ * pattern used in ProjectAccordion's MediaEmbed so a viewer sees the same
+ * video in either entry point — fixes the "report format looks different"
+ * feedback for cards like WIGTN FLAKE that lead with a YouTube demo.
+ */
+function HeroMedia({ project }: { project: Project }) {
+  const [ytLoaded, setYtLoaded] = useState(false)
+  const m = project.media
+
+  if (m.type === 'youtube') {
+    return (
+      <div className="rounded-xl overflow-hidden border border-white/10 bg-black aspect-video">
+        {!ytLoaded ? (
+          <button
+            type="button"
+            onClick={() => setYtLoaded(true)}
+            className="relative w-full h-full group cursor-pointer"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={`https://img.youtube.com/vi/${m.videoId}/hqdefault.jpg`}
+              alt={project.title}
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/10 transition-colors">
+              <div className="w-14 h-14 rounded-full bg-white/90 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <FiPlay className="w-6 h-6 text-black ml-0.5" />
+              </div>
+            </div>
+          </button>
+        ) : (
+          <iframe
+            src={`https://www.youtube.com/embed/${m.videoId}?autoplay=1&rel=0`}
+            allow="autoplay; encrypted-media"
+            allowFullScreen
+            loading="lazy"
+            className="w-full h-full"
+            title={project.title}
+          />
+        )}
+      </div>
+    )
+  }
+
+  if (m.type === 'video') {
+    return (
+      <div className="rounded-xl overflow-hidden border border-white/10 bg-black aspect-video">
+        {/* Demo video — no speech, captions not applicable */}
+        <video
+          src={m.src}
+          controls
+          playsInline
+          preload="none"
+          className="w-full h-full object-cover"
+        />
+      </div>
+    )
+  }
+
+  return null
 }
 
 function Section({

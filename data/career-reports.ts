@@ -151,6 +151,30 @@ export const careerStoryBlockSlotLabels: Record<
   result: { ko: '성과', en: 'Result', ja: '成果' },
 }
 
+export const projectStoryBlockSlotOrder = [
+  'context',
+  'problem',
+  'hypothesis',
+  'decision',
+  'execution',
+  'result',
+] as const
+
+export const projectStoryBlockSlotLabels: Record<
+  CareerStoryBlockSlot,
+  Record<Locale, string>
+> = {
+  context: { ko: '동기', en: 'Motivation', ja: '動機' },
+  problem: { ko: '도전', en: 'Challenge', ja: '挑戦' },
+  hypothesis: { ko: '접근', en: 'Approach', ja: 'アプローチ' },
+  alternatives: { ko: '검토한 대안', en: 'Alternatives', ja: '代替案' },
+  decision: { ko: '구조', en: 'Architecture', ja: 'アーキテクチャ' },
+  execution: { ko: '실행', en: 'Execution', ja: '実行' },
+  result: { ko: '결과 & 성과', en: 'Result & Impact', ja: '結果と成果' },
+}
+
+export const wigtnProjectKeys = new Set<CareerReportKey>(['wigent', 'wigtnflake', 'wigplugin', 'wigvo'])
+
 // Legacy 3-slot reports (about / role / highlights) — only Career projects use
 // this form. WIGTN side projects rely entirely on the v1 9-slot story blocks
 // below, so the legacy map is intentionally Partial.
