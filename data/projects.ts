@@ -70,7 +70,7 @@ export const projects: Project[] = [
     title: 'WIGTN Coding',
     tagline: 'Claude Code plugin ecosystem',
     description: {
-      ko: 'WigPlugin은 Claude Code 마켓플레이스에 공개된 AI 개발 워크플로우 플러그인입니다(44★). 13개의 전문 에이전트가 병렬로 PRD 생성, 화면정의서, 아키텍처 결정, 빌드, 코드 리뷰, 커밋까지 자동화합니다.',
+      ko: 'WIGTN Coding은 Claude Code 마켓플레이스에 공개된 AI 개발 워크플로우 플러그인입니다(44★). 13개의 전문 에이전트가 병렬로 PRD 생성, 화면정의서, 아키텍처 결정, 빌드, 코드 리뷰, 커밋까지 자동화합니다.',
       en: 'AI development workflow plugin on Claude Code marketplace (44★). 13 specialized agents run in parallel to automate PRD, screen spec, architecture, build, review, and commit.',
       ja: 'Claude Codeマーケットプレイス公開のAI開発ワークフロープラグイン（44★）。13の専門エージェントが並列でPRD生成、画面定義書、アーキテクチャ決定、ビルド、レビュー、コミットまで自動化。',
     },
@@ -86,7 +86,7 @@ export const projects: Project[] = [
       {
         src: '/images/projects/wigtncoding.svg',
         alt: 'WIGTN Coding — Claude Code plugin overview',
-        caption: 'WIGTN Coding — 12 specialized agents and 3 skills orchestrated by 3 top-level commands (/prd, /implement, /auto-commit).',
+        caption: 'WIGTN Coding — 13 agents, 4 skills, and 5 commands orchestrated in a single pipeline (/prd → /screen-spec → /implement → /auto-commit).',
       },
     ],
   },
