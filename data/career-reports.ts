@@ -1124,14 +1124,14 @@ export const careerStoryBlocksV1: Partial<
       ja: 'GPT-4oオーケストレーター + 5 Cortex専門家（PM進行役・データ分析家・予測分析家・インサイト分析家・センチメント分析家）の議論構造を採用。Cortex Analystがtext-to-SQLで4データセット（SPH・RichGo・NextTrade・AJD）に並列照会し、ANOMALY_DETECTION・FORECASTはPromise.allで並列実行、結果がウェアハウスで統合されてからデータ分析家が合算結論を発言します。4種のSemantic Model YAML + 2種Dynamic Tables + 2種Python UDFで11個のCortex機能を単一ユーザーフローに織り込みました。',
     },
     execution: {
-      ko: '사용자가 5개 목적 카드(카페 창업·렌탈 가전 마케팅·광고판 입지·부동산 투자·상권 이상 시그널) 또는 자유 입력으로 시작합니다. 오케스트레이터가 목적별 전문가를 소환하고, 토론 중 ANOMALY_DETECTION이 이상치를 잡으면 자동으로 발화권을 가져가 "잠깐, 이 동네 2024년 6월부터 카페 매출 +18% 이상치 감지"처럼 끼어듭니다. FORECAST가 6개월 예측을 발언으로 흘리고, 결론은 Top 3 동네 + 이상 시그널 배지 + 예측 차트 + 액션 체크리스트로 한 화면에 정리됩니다.',
-      en: 'Users start by picking one of five purpose cards (cafe / rental / billboard / investment / anomaly response) or typing free-form. The orchestrator summons purpose-matched specialists; mid-debate, if ANOMALY_DETECTION catches an outlier it auto-claims the floor — "hold on, this district shows a +18% cafe-sales anomaly since June 2024." FORECAST surfaces 6-month projections as speech, and the final report lands as Top 3 districts + anomaly badges + forecast charts + an action checklist, all on one screen.',
-      ja: 'ユーザーが5つの目的カード（カフェ創業・レンタル家電マーケ・看板入地・不動産投資・商圏異常検知）または自由入力で開始します。オーケストレーターが目的別の専門家を召喚し、議論中にANOMALY_DETECTIONが外れ値を捕えると自動的に発話権を取り「待って、この地域は2024年6月からカフェ売上+18%の異常を検知」のように割り込みます。FORECASTが6ヶ月予測を発言として流し、結論はTop 3地域 + 異常シグナルバッジ + 予測チャート + アクションチェックリストとして1画面に整理されます。',
+      ko: '사용자가 5개 목적 카드 또는 자유 입력으로 시작하면, 오케스트레이터가 목적별 전문가를 부르고 토론 도중 ANOMALY_DETECTION·FORECAST가 이상치·예측을 잡는 순간 자동으로 발화권을 가져와 끼어듭니다. 결론은 Top 3 동네 + 이상 시그널 배지 + 예측 차트 + 액션 체크리스트가 한 화면에 정리됩니다. 단계별 흐름은 아래 카드 참조.',
+      en: 'Users start from one of five purpose cards or free input. The orchestrator summons purpose-matched specialists, and mid-debate ANOMALY_DETECTION or FORECAST auto-claims the floor the moment it catches an outlier or projection. The conclusion lands on one screen: Top 3 districts + anomaly badges + forecast charts + action checklist. Step-by-step flow in the cards below.',
+      ja: 'ユーザーが5つの目的カードまたは自由入力で開始すると、オーケストレーターが目的別の専門家を呼び、議論中にANOMALY_DETECTION・FORECASTが外れ値・予測を捕える瞬間に自動的に発話権を取り割り込みます。結論はTop 3地域 + 異常シグナルバッジ + 予測チャート + アクションチェックリストが1画面に整理されます。段階別フローは下のカード参照。',
     },
     result: {
-      ko: 'Snowflake AI & Data Hackathon Korea 2026 Tech Track 2위 수상. Cortex 기능 11종(Agent·Analyst×4·LLM·FORECAST·ANOMALY_DETECTION·AI_SENTIMENT·AI_CLASSIFY·data_to_chart·Dynamic Tables×2·Python UDF×2·Semantic Model YAML×4)을 단일 사용자 흐름에 통합한 점, 그리고 3-tier fallback으로 trial 한계 상황에서도 데모가 끊기지 않게 만든 점이 심사 포인트로 작용했습니다.',
-      en: 'Won 2nd place in Snowflake AI & Data Hackathon Korea 2026 Tech Track. Two things stood out to the judges: weaving 11 Cortex capabilities (Agent · Analyst × 4 · LLM · FORECAST · ANOMALY_DETECTION · AI_SENTIMENT · AI_CLASSIFY · data_to_chart · Dynamic Tables × 2 · Python UDF × 2 · Semantic Model YAML × 4) into a single user flow, and the three-tier fallback that kept the demo running even when Cortex trial limits hit.',
-      ja: 'Snowflake AI & Data Hackathon Korea 2026 Tech Track 2位受賞。11個のCortex機能（Agent・Analyst×4・LLM・FORECAST・ANOMALY_DETECTION・AI_SENTIMENT・AI_CLASSIFY・data_to_chart・Dynamic Tables×2・Python UDF×2・Semantic Model YAML×4）を単一ユーザーフローに統合した点、そして3層フォールバックでtrial限界状況下でもデモが途切れないようにした点が審査ポイントとして作用しました。',
+      ko: 'Snowflake AI & Data Hackathon Korea 2026 Tech Track 2위. Cortex 11종을 단일 사용자 흐름에 녹인 점과 3-tier fallback으로 trial 한계 상황에서도 데모가 끊기지 않게 만든 점이 심사 포인트였습니다. 상세 메트릭은 아래 카드 참조.',
+      en: '2nd place in Snowflake AI & Data Hackathon Korea 2026 Tech Track. The judges flagged two things: weaving 11 Cortex capabilities into one user flow, and the three-tier fallback that kept the demo running even when Cortex trial limits hit. Metrics in the cards below.',
+      ja: 'Snowflake AI & Data Hackathon Korea 2026 Tech Track 2位。11個のCortex機能を単一ユーザーフローに織り込んだ点、3層フォールバックでtrial限界状況下でもデモが途切れないようにした点が審査ポイントでした。詳細メトリクスは下のカード参照。',
     },
     reflection: {
       ko: 'WIGENT는 "토론 구조"가 산출물을 만든다는 검증이었고, WIGTN FLAKE는 "제약 안에서 같은 구조를 어떻게 녹이는가"라는 다른 질문이었습니다. 데이터셋이 고정돼 있으면 라우팅 책임이 오케스트레이터로 더 크게 옮겨가고, 도구(Cortex)가 정해져 있으면 "도구가 토론에 끼어드는 권한"을 어디서 끊을지가 핵심 결정이 됩니다. 제약이 강한 환경일수록 시스템 디자인의 무게가 커진다는 점을 가장 또렷이 느낀 프로젝트입니다.',
@@ -1144,6 +1144,41 @@ export const careerStoryBlocksV1: Partial<
           src: '/images/projects/wigtnflake.png',
           alt: { ko: 'WIGTN FLAKE 아키텍처', en: 'WIGTN FLAKE architecture', ja: 'WIGTN FLAKEアーキテクチャ' },
         },
+      },
+      execution: {
+        bullets: {
+          ko: [
+            '🎯 입력 — 목적 카드 5종(카페·렌탈·광고판·투자·이상 시그널) 또는 자유 입력',
+            '🗣️ 토론 중 가로채기 — ANOMALY_DETECTION/FORECAST가 이상치·예측 잡는 즉시 발화권 회수',
+            '📋 한 화면 결론 — Top 3 동네 + 이상 시그널 배지 + 예측 차트 + 액션 체크리스트',
+          ],
+          en: [
+            '🎯 Input — 5 purpose cards (cafe / rental / billboard / investment / anomaly) or free text',
+            '🗣️ Interrupt mid-debate — ANOMALY_DETECTION/FORECAST claims the floor the moment it lands a signal',
+            '📋 One-screen conclusion — Top 3 districts + anomaly badges + forecast charts + action checklist',
+          ],
+          ja: [
+            '🎯 入力 — 目的カード5種（カフェ・レンタル・看板・投資・異常シグナル）または自由入力',
+            '🗣️ 議論中の割り込み — ANOMALY_DETECTION/FORECASTが信号を捕えた瞬間に発話権を奪取',
+            '📋 1画面結論 — Top 3地域 + 異常バッジ + 予測チャート + アクションチェックリスト',
+          ],
+        },
+      },
+      result: {
+        metrics: [
+          {
+            value: '🥈 2위',
+            label: { ko: 'Snowflake AI & Data Hackathon Korea 2026 Tech Track', en: 'Snowflake AI & Data Hackathon Korea 2026 Tech Track', ja: 'Snowflake AI & Data Hackathon Korea 2026 Tech Track' },
+          },
+          {
+            value: '11종',
+            label: { ko: 'Cortex 기능을 단일 사용자 흐름에 통합', en: 'Cortex capabilities woven into one user flow', ja: 'Cortex機能を単一ユーザーフローに統合' },
+          },
+          {
+            value: '3-tier',
+            label: { ko: 'Fallback으로 trial 한계에도 데모 끊김 0', en: 'Fallback kept demo uptime at 100% under trial limits', ja: 'フォールバックでtrial限界下でもデモ途切れ0' },
+          },
+        ],
       },
     },
   },
