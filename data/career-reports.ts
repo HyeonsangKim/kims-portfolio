@@ -59,7 +59,7 @@ export interface CareerStoryBlockV1 {
 }
 
 export interface SlotMetric {
-  /** Big number / phrase shown in the card (e.g. "95%", "한계 → 안정"). */
+  /** Big number / phrase shown in the card (e.g. "95%", "MySQL CPU 100% → 안정"). */
   value: string
   /** One-line caption underneath. */
   label: L
@@ -210,31 +210,31 @@ export const careerReports: Partial<Record<CareerReportKey, CareerReport>> = {
       ja: 'モハニ — 子供デバイス遠隔制御サービス。外部MDM SDKとAccessibilityServiceを組み合わせ、保護者ポリシーに基づくシステムレベル遮断・遠隔制御を提供し、プッシュ通知ベースの遠隔コマンドを安定的に処理する必要のある環境でした。',
     },
     role: {
-      ko: '외부 MDM SDK의 네트워크 도메인 차단과 AccessibilityService 기반 앱 실시간 감지·차단 시스템을 개발해 보호자 정책 기반 디바이스 도메인 제어와 실시간 사용 제어를 구현했습니다. React Native Bridge와 외부 SDK IPC, Android Broadcast가 얽혀 발생한 응답성 이슈를 Native 비동기 분리로 해결해 원격 제어 안정성을 확보했습니다.',
-      en: 'Built domain blocking through an external MDM SDK and AccessibilityService-based real-time app detection / blocking, implementing guardian-policy device-domain control and live usage control. Diagnosed and resolved a responsiveness issue caused by React Native Bridge, external-SDK IPC, and Android Broadcast interactions by offloading heavy native work to a background async pipeline — restoring real-time control stability.',
-      ja: '外部MDM SDKのネットワークドメイン遮断とAccessibilityServiceベースのアプリリアルタイム検知・遮断システムを開発し、保護者ポリシーに基づくデバイスドメイン制御とリアルタイム使用制御を実装。React Native Bridge・外部SDK IPC・Android Broadcastが絡んで発生した応答性のイシューをNative非同期分離で解決し、遠隔制御の安定性を確保しました。',
+      ko: '외부 MDM SDK의 네트워크 도메인 차단과 AccessibilityService 기반 앱 실시간 감지·차단 시스템을 개발해 보호자 정책 기반 디바이스 도메인 제어와 실시간 사용 제어를 구현했습니다. React Native Bridge와 외부 SDK IPC, Android Broadcast가 얽힌 ANR 문제를 Native 비동기 분리로 해결해 원격 제어 안정성을 확보했습니다.',
+      en: 'Built domain blocking through an external MDM SDK and AccessibilityService-based real-time app detection / blocking, implementing guardian-policy device-domain control and live usage control. Diagnosed and resolved a recurring ANR caused by React Native Bridge, external-SDK IPC, and Android Broadcast interactions by offloading heavy native work to a background async pipeline — restoring real-time control stability.',
+      ja: '外部MDM SDKのネットワークドメイン遮断とAccessibilityServiceベースのアプリリアルタイム検知・遮断システムを開発し、保護者ポリシーに基づくデバイスドメイン制御とリアルタイム使用制御を実装。React Native Bridge・外部SDK IPC・Android Broadcastが絡んだANR問題をNative非同期分離で解決し、遠隔制御の安定性を確保しました。',
     },
     highlights: {
       ko: [
         '외부 MDM SDK 기반 네트워크 도메인 차단 — 보호자 정책 기반 디바이스 도메인 제어 지원',
         'AccessibilityService 기반 앱 실시간 감지·차단 시스템 — 제품 핵심 기능인 실시간 사용 제어 구현',
         '푸시 알림 기반 command / request-response 구조 설계 — 원격 디바이스 제어 기능 구현',
-        'React Native Bridge Queue 병목 + 외부 SDK IPC 지연 + Android Broadcast timeout이 얽혀 발생한 응답성 이슈 분석',
-        '무거운 Native 작업을 백그라운드 비동기 처리 구조로 분리 — 응답성 이슈 해소',
+        'React Native Bridge Queue 병목 + 외부 SDK IPC 지연 + Android Broadcast timeout이 얽힌 ANR 문제 분석',
+        '무거운 Native 작업을 백그라운드 비동기 처리 구조로 분리 — 반복 발생하던 ANR 제거',
       ],
       en: [
         'External MDM SDK–driven network-level domain blocking — guardian-policy device-domain control',
         "AccessibilityService-based real-time app detection / blocking — implemented the product's core live-usage-control feature",
         'Push-notification-based command / request-response architecture — remote device control',
-        'Diagnosed a responsiveness issue caused by React Native Bridge Queue contention + external-SDK IPC latency + Android Broadcast timeout',
-        'Offloaded heavy native work to a background async pipeline — restored responsiveness',
+        'Diagnosed an ANR caused by React Native Bridge Queue contention + external-SDK IPC latency + Android Broadcast timeout',
+        'Offloaded heavy native work to a background async pipeline — eliminated the recurring ANR',
       ],
       ja: [
         '外部MDM SDKベースのネットワークドメイン遮断 — 保護者ポリシーに基づくデバイスドメイン制御',
         'AccessibilityServiceベースのアプリリアルタイム検知・遮断システム — 製品のコア機能であるリアルタイム使用制御を実装',
         'プッシュ通知ベースのcommand / request-response構造設計 — 遠隔デバイス制御',
-        'React Native Bridge Queueボトルネック + 外部SDK IPC遅延 + Android Broadcast timeoutが絡んで発生した応答性のイシューを分析',
-        '重いNative処理をバックグラウンド非同期処理構造に分離 — 応答性のイシューを解消',
+        'React Native Bridge Queueボトルネック + 外部SDK IPC遅延 + Android Broadcast timeoutが絡んだANR問題を分析',
+        '重いNative処理をバックグラウンド非同期処理構造に分離 — 反復発生していたANRを除去',
       ],
     },
   },
@@ -383,9 +383,9 @@ export const careerStoryBlocksV1: Partial<
 > = {
   odiya: {
     oneLiner: {
-      ko: '외주사 코드의 DB 쓰기 부하가 한계에 도달한 상태를 Redis 버퍼 + 주기 배치 + 일자 파티션 구조로 재설계해 쓰기 부하 ~95%를 줄이고, 인프라 증설 없이 운영을 안정화했습니다.',
-      en: 'Reworked an inherited outsourced codebase whose DB write load had reached its limit — a Redis buffer + periodic batch + daily partition setup cut write load by ~95% and stabilized operations without scaling infra.',
-      ja: '外注コードのDB書き込み負荷が限界に達した状態を、Redisバッファ + 周期バッチ + 日次パーティション構造で再設計し、書き込み負荷を~95%削減、インフラ増設なしで運用を安定化しました。',
+      ko: '외주사 코드의 DB 부하 사태(MySQL CPU 포화)를 Redis 버퍼 + 주기 배치 + 일자 파티션 구조로 재설계해 DB 쓰기 부하 ~95%를 줄이고, 인프라 증설 없이 운영을 안정화했습니다.',
+      en: 'Reworked an inherited outsourced codebase that was driving MySQL CPU to saturation — a Redis buffer + periodic batch + daily partition setup cut DB write load by ~95% and stabilized operations without scaling infra.',
+      ja: '外注コードのDB過負荷（MySQL CPU飽和）を、Redisバッファ + 周期バッチ + 日次パーティション構造で再設計し、DB書き込み負荷を~95%削減、インフラ増設なしで運用を安定化しました。',
     },
     context: {
       ko: '사운드마인드 합류 후 첫 프로젝트로 오디야를 맡았습니다. 외주사가 만든 부모-자녀 위치 공유 서비스(OEM 사전탑재 채널 포함)를 팀장으로서 리딩하며 위치 파이프라인 전체를 다시 설계했습니다.',
@@ -393,9 +393,9 @@ export const careerStoryBlocksV1: Partial<
       ja: 'サウンドマインド入社後の最初のプロジェクト。外注が作った親子位置共有サービス（OEM事前搭載チャネル含む）をチームリーダーとして引き継ぎ、位置パイプライン全体を設計し直した。',
     },
     problem: {
-      ko: '외주사 코드는 자녀 단말 좌표 송출마다 JPA save() 단건 INSERT를 호출했고, 같은 흐름에서 안전구역 평가 SQL까지 누적돼 DB 쓰기 부하가 한계에 가까운 수준이었습니다. 즉 "몰아치는 쓰기"와 "사용자마다 최신 좌표 한 건이면 충분한 읽기"가 같은 경로에서 직렬로 돌고 있었습니다. 단말 수 × 송출 빈도가 선형으로 늘어 인프라 증설 외에는 길이 보이지 않던 시점이었습니다.',
-      en: 'The vendor code called JPA `save()` per coordinate from every child device, and safe-zone evaluation SQL piled onto the same flow — DB write load was running near its limit. The structural issue was that "burst writes" and "reads that only need the latest coordinate per user" were running serially on the same path. With load scaling linearly with devices × send rate, scaling infra looked like the only path.',
-      ja: '外注コードは子供端末の座標送出ごとにJPA save() 単件INSERTを呼び、同じフローで安全ゾーン評価SQLまで累積してDB書き込み負荷が限界近い水準にありました。本質的にはburst writeと「ユーザーごとの最新1点で十分なread」が同じpathで直列に動いていた構造でした。台数×送出頻度が線形に増え、インフラ増設以外の道が見えなかった時点。',
+      ko: '외주사 코드는 자녀 단말 좌표 송출마다 JPA save() 단건 INSERT를 호출했고, 같은 흐름에서 안전구역 평가 SQL까지 누적돼 MySQL CPU가 포화 수준에 도달했습니다. 즉 "몰아치는 쓰기"와 "사용자마다 최신 좌표 한 건이면 충분한 읽기"가 같은 경로에서 직렬로 돌고 있었습니다. 단말 수 × 송출 빈도가 선형으로 늘어 인프라 증설 외에는 길이 보이지 않던 시점이었습니다.',
+      en: 'The vendor code called JPA `save()` per coordinate from every child device, and safe-zone evaluation SQL piled onto the same flow — MySQL CPU reached saturation. The structural issue was that "burst writes" and "reads that only need the latest coordinate per user" were running serially on the same path. With load scaling linearly with devices × send rate, scaling infra looked like the only path.',
+      ja: '外注コードは子供端末の座標送出ごとにJPA save() 単件INSERTを呼び、同じフローで安全ゾーン評価SQLまで累積してMySQL CPUが飽和水準に到達。本質的にはburst writeと「ユーザーごとの最新1点で十分なread」が同じpathで直列に動いていた構造でした。台数×送出頻度が線形に増え、インフラ増設以外の道が見えなかった時点。',
     },
     hypothesis: {
       ko: '들어오는 좌표는 짧은 시간에 몰아치는 쓰기 부하지만, 안전구역 판정은 사용자마다 가장 최근 좌표 한 건만 보면 됩니다. 들어오는 좌표를 그때그때 DB에 박을 필요가 없으니, 이미 운영 중인 Redis를 추가 자원 없이 버퍼로 재활용할 수 있다고 판단했습니다.',
@@ -418,24 +418,24 @@ export const careerStoryBlocksV1: Partial<
       ja: '最初から「バッファ + バッチ」で直進し、別形態から移ったような試行錯誤はありませんでした。運用中、子供端末のGPS信号が跳ねるケース（短時間に非現実的な距離で座標がジャンプする現象）が安全ゾーン評価を歪める問題が見え、短時間に非現実的な距離が動いた場合は安全ゾーン評価をスキップする補助ルールを追加しました。',
     },
     result: {
-      ko: 'DB 쓰기 부하가 한계에 가깝게 올라가던 흐름이 해소되어, 인프라 증설 없이 운영이 안정화됐습니다. DB 쓰기 부하는 분당 INSERT 기준 약 95% 감소했고, 이 안정화가 OEM 사전탑재 채널 확장의 전제가 되어 회사 B2B 매출 약 230% 성장에 기여했습니다.',
-      en: 'The write load that had been pushing toward the DB’s limit was brought back into a safe range — operations stabilised with zero new infra. DB write load down ~95% measured by inserts per minute. That stability became the prerequisite for the OEM pre-install channel expansion, contributing to ~230% B2B revenue growth at the company.',
-      ja: 'DB書き込み負荷が限界に近づいていた状況を解消 — インフラ増設なしで運用安定化。DB書き込み負荷は分単位INSERT基準で~95%削減。この安定化がOEM事前搭載チャネル拡張の前提となり、会社B2B売上~230%成長に寄与。',
+      ko: 'MySQL CPU 포화 사태가 해소되어, 인프라 증설 없이 운영이 안정화됐습니다. DB 쓰기 부하는 분당 INSERT 기준 약 95% 감소했고, 이 안정화가 OEM 사전탑재 채널 확장의 전제가 되어 회사 B2B 매출 약 230% 성장에 기여했습니다.',
+      en: 'MySQL CPU stopped saturating — operations stabilised with zero new infra. DB write load down ~95% measured by inserts per minute. That stability became the prerequisite for the OEM pre-install channel expansion, contributing to ~230% B2B revenue growth at the company.',
+      ja: 'MySQL CPU飽和事態を解消 — インフラ増設なしで運用安定化。DB書き込み負荷は分単位INSERT基準で~95%削減。この安定化がOEM事前搭載チャネル拡張の前提となり、会社B2B売上~230%成長に寄与。',
     },
     improvements: {
-      ko: '두 가지를 다시 한다면 다르게 잡았을 것입니다. 첫째, 인계받은 외주사 코드에 운영 메트릭이 거의 없는 상태였기 때문에 부하가 임계점에 도달한 뒤에야 Redis 도입을 결정하는 사후 대응이 됐습니다. 인계 첫 단계에서 분당 INSERT 추이·DB 부하·버퍼 적체·배치 소요 시간을 관측 도구로 먼저 박아 임계점에 도달하기 전에 신호를 받는 쪽으로 가져갔어야 했습니다. 둘째, 운영 중 추가한 GPS 노이즈 보조 규칙의 임계값은 운영 데이터로 검증한 값이 아니라 직관으로 정한 휴리스틱이라, 거짓 양성 분포를 운영 데이터로 측정해 다시 잡는 것이 다음 단계입니다.',
-      en: 'Two things I would do differently. First, the inherited vendor code had almost no operational metrics, so the Redis migration was reactive — it only kicked off after load reached the threshold. From day one of the handover, I should have wired observability around inserts per minute, DB load, buffer backlog, and batch duration so we get signal before the threshold breaks. Second, the GPS-noise guard rule was set by intuition, not calibrated against production data — the next step is to measure the false-positive distribution from real traffic and re-tune the thresholds.',
-      ja: 'やり直すなら2点は別の進め方をします。第一に、引継いだ外注コードに運用メトリクスがほぼ無く、負荷が臨界点に達してからRedis導入を決めた事後対応となりました。引継ぎ初日から分単位INSERT推移・DB負荷・バッファ滞留・バッチ所要時間を観測ツールで可視化し、閾値到達前にシグナルを受ける側に持っていくべきでした。第二に、運用中に追加したGPSノイズ補助ルールの閾値は運用データ検証なしの直感ヒューリスティックで、偽陽性分布を実運用データで測定し再調整するのが次のステップです。',
+      ko: '두 가지를 다시 한다면 다르게 잡았을 것입니다. 첫째, 인계받은 외주사 코드에 운영 메트릭이 거의 없는 상태였기 때문에 DB CPU가 포화 수준까지 치솟는 것을 본 뒤에야 Redis 도입을 결정하는 사후 대응이 됐습니다. 인계 첫 단계에서 분당 INSERT 추이·DB CPU·버퍼 적체·배치 소요 시간을 관측 도구로 먼저 박아 임계점에 도달하기 전에 신호를 받는 쪽으로 가져갔어야 했습니다. 둘째, 운영 중 추가한 GPS 노이즈 보조 규칙의 임계값은 운영 데이터로 검증한 값이 아니라 직관으로 정한 휴리스틱이라, 거짓 양성 분포를 운영 데이터로 측정해 다시 잡는 것이 다음 단계입니다.',
+      en: 'Two things I would do differently. First, the inherited vendor code had almost no operational metrics, so the Redis migration was reactive — it only kicked off after DB CPU hit saturation. From day one of the handover, I should have wired observability around inserts per minute, DB CPU, buffer backlog, and batch duration so we get signal before the threshold breaks. Second, the GPS-noise guard rule was set by intuition, not calibrated against production data — the next step is to measure the false-positive distribution from real traffic and re-tune the thresholds.',
+      ja: 'やり直すなら2点は別の進め方をします。第一に、引継いだ外注コードに運用メトリクスがほぼ無く、DB CPU飽和水準到達を見てからRedis導入を決めた事後対応となりました。引継ぎ初日から分単位INSERT推移・DB CPU・バッファ滞留・バッチ所要時間を観測ツールで可視化し、閾値到達前にシグナルを受ける側に持っていくべきでした。第二に、運用中に追加したGPSノイズ補助ルールの閾値は運用データ検証なしの直感ヒューリスティックで、偽陽性分布を実運用データで測定し再調整するのが次のステップです。',
     },
     reflection: {
-      ko: '다시 한다면 관측 지표를 처음부터 박았을 것입니다. Redis 도입은 "부하가 임계점에 도달한 걸 보고" 시작한 사후 대응이었는데, 분당 INSERT 추이·Connection Pool 사용률·DB 부하·버퍼 적체·배치 소요 시간을 관측 도구로 시각화했다면 임계점에 도달하기 전에 신호를 받을 수 있었을 것입니다. 단일 Redis 인스턴스가 SPOF로 남은 부분도 같은 맥락이라, 메트릭이 있었다면 Sentinel/Cluster 도입 우선순위를 더 일찍 올렸을 것이라 봅니다. 운영 중 추가한 GPS 튐 필터의 임계값도 데이터 분석 없이 직관으로 정한 휴리스틱이라, 휴리스틱을 데이터로 검증하는 단계를 건너뛴 점이 솔직히 후회됩니다.',
-      en: 'If I were to start over, I would wire observability in from day one. The Redis migration was reactive, kicked off after watching load reach the threshold. Charting inserts per minute, connection pool usage, DB load, buffer backlog, and batch duration would have given me a signal before the threshold was breached. The single-Redis SPOF falls in the same category: with metrics in place I would have raised the priority on Sentinel or Cluster sooner. The GPS-noise heuristic is another honest regret — the thresholds were intuited, not validated against production data, and I skipped the step of grounding the heuristic in numbers.',
-      ja: 'やり直すならobservabilityを初日から組み込みます。Redis導入は「負荷が臨界点に達するのを見て」始めた事後対応で、分単位INSERT推移・Connection Pool使用率・DB負荷・バッファ滞留・バッチ所要時間を観測ツールで可視化していれば、閾値到達前にシグナルを受けられたはずです。単一Redisが SPOFのまま残っている点も同じ流れで、メトリクスがあればSentinel/Cluster導入優先度を早く上げていたと考えます。運用中に追加したGPS雑音フィルタの閾値もデータ検証なしで直感で決めたヒューリスティックで、ヒューリスティックを数値で裏付ける段階を飛ばした点は率直に悔いが残ります。',
+      ko: '다시 한다면 관측 지표를 처음부터 박았을 것입니다. Redis 도입은 "DB CPU가 포화 수준까지 치솟는 걸 보고" 시작한 사후 대응이었는데, 분당 INSERT 추이·Connection Pool 사용률·DB CPU%·버퍼 적체·배치 소요 시간을 관측 도구로 시각화했다면 임계점에 도달하기 전에 신호를 받을 수 있었을 것입니다. 단일 Redis 인스턴스가 SPOF로 남은 부분도 같은 맥락이라, 메트릭이 있었다면 Sentinel/Cluster 도입 우선순위를 더 일찍 올렸을 것이라 봅니다. 운영 중 추가한 GPS 튐 필터의 임계값도 데이터 분석 없이 직관으로 정한 휴리스틱이라, 휴리스틱을 데이터로 검증하는 단계를 건너뛴 점이 솔직히 후회됩니다.',
+      en: 'If I were to start over, I would wire observability in from day one. The Redis migration was reactive, kicked off after watching DB CPU hit saturation. Charting inserts per minute, connection pool usage, DB CPU%, buffer backlog, and batch duration would have given me a signal before the threshold was breached. The single-Redis SPOF falls in the same category: with metrics in place I would have raised the priority on Sentinel or Cluster sooner. The GPS-noise heuristic is another honest regret — the thresholds were intuited, not validated against production data, and I skipped the step of grounding the heuristic in numbers.',
+      ja: 'やり直すならobservabilityを初日から組み込みます。Redis導入は「DB CPUが飽和水準に達するのを見て」始めた事後対応で、分単位INSERT推移・Connection Pool使用率・DB CPU%・バッファ滞留・バッチ所要時間を観測ツールで可視化していれば、閾値到達前にシグナルを受けられたはずです。単一Redisが SPOFのまま残っている点も同じ流れで、メトリクスがあればSentinel/Cluster導入優先度を早く上げていたと考えます。運用中に追加したGPS雑音フィルタの閾値もデータ検証なしで直感で決めたヒューリスティックで、ヒューリスティックを数値で裏付ける段階を飛ばした点は率直に悔いが残ります。',
     },
     visuals: {
       problem: {
         metrics: [
-          { value: '한계 근접', label: { ko: 'DB 쓰기 부하 (지속적)', en: 'DB write load near limit (sustained)', ja: 'DB書き込み負荷が限界近く（持続的）' } },
+          { value: '포화', label: { ko: 'MySQL CPU 도달 (지속적)', en: 'MySQL CPU saturation (sustained)', ja: 'MySQL CPU飽和（持続的）' } },
           { value: '주기적', label: { ko: '서버 다운', en: 'Server outages', ja: '定期的サーバーダウン' } },
           { value: '단건 INSERT', label: { ko: '좌표마다 1회', en: 'Per-coordinate INSERT', ja: '座標ごとに1回' } },
         ],
@@ -598,21 +598,21 @@ export const careerStoryBlocksV1: Partial<
       decision: {
         bullets: {
           ko: [
-            '토큰 회수 정책 — 회수된 토큰이 다시 사용되면 같은 묶음을 무효화하고 기록을 남김',
+            '토큰 재사용 탐지 — 회수된 토큰의 재사용이 감지되면 같은 묶음 전체를 즉시 무효화 + 감사 로그',
             '비대칭 토큰 모델 — 자녀 쪽은 장수명 토큰을 DB에 안전 보관해 백그라운드 위치 송출이 끊기지 않게 처리',
-            'Webhook 전달 추적 — 전용 비동기 풀에서 단계적 재시도 → 실패 시 별도 보관소 + 운영 콘솔(목록·재시도·포기 + 기록)',
+            'Webhook 전달 추적 — 전용 비동기 풀에서 단계적 재시도 → 실패 시 별도 보관소 + 운영자 콘솔(목록·재시도·포기 + 감사 로그)',
             '라이프사이클 자동화 — 휴면 안내 → 익명화 → 완전 삭제 단계가 자동 진행',
           ],
           en: [
-            'Token revocation policy — a reused revoked token invalidates the family and is logged',
+            'Reuse detection — a revoked-token reuse triggers an immediate family-wide invalidation + audit log',
             'Asymmetric token model — the child side holds a longer-lived token safely in the DB so background location reporting never breaks',
-            'Webhook delivery tracing — dedicated async pool with staged retries → failures land in a holding area + operator console (list / retry / dismiss + log)',
+            'Webhook delivery tracing — dedicated async pool with staged retries → failures land in a holding area + operator console (list / retry / dismiss + audit)',
             'Lifecycle automation — dormancy notice → anonymise → hard-delete runs as an automated pipeline',
           ],
           ja: [
-            'トークン回収ポリシー — 回収済みトークンが再利用されるとファミリー単位で無効化し記録を残す',
+            '再利用検知 — 回収済みトークンの再利用検知時にファミリー単位で即時無効化 + 監査ログ',
             '非対称トークンモデル — 子側は長寿命トークンをDBで安全保管し背景位置送出が途切れない構造',
-            'Webhook配信追跡 — 専用非同期プールで段階的リトライ → 失敗時は別保管領域 + 運用コンソール（一覧・再試行・破棄 + 記録）',
+            'Webhook配信追跡 — 専用非同期プールで段階的リトライ → 失敗時は別保管領域 + 運用者コンソール（一覧・再試行・破棄 + 監査）',
             'ライフサイクル自動化 — 休眠通知 → 匿名化 → 完全削除が自動で進行',
           ],
         },
@@ -644,9 +644,9 @@ export const careerStoryBlocksV1: Partial<
 
   mohani: {
     oneLiner: {
-      ko: '자녀 단말 통제에서 차단 동작 이슈를 추적하다가 외부 MDM SDK 통합 시점에 생긴 메인 스레드 점유 이슈를 발견, 무거운 Native 작업을 백그라운드 스레드로 분리해 응답성을 회복하고 OS 레벨 MDM + AccessibilityService 복합 차단으로 자녀 단말 제어를 안정화했습니다.',
-      en: 'Tracking a blocking-behaviour issue led me to a main-thread-occupation trail that appeared the moment an external MDM SDK was wired in — moving the heavy native calls onto a background executor restored responsiveness and got the OS-level MDM + AccessibilityService composite blocking back to steady-state.',
-      ja: '子供端末制御で遮断動作のイシューを追跡する中で、外部MDM SDK統合タイミングに生じたメインスレッド占有のイシューを発見、重いNative処理をバックグラウンドスレッドに分離して応答性を回復し、OSレベルMDM + AccessibilityServiceの複合遮断で子供端末制御を安定化させました。',
+      ko: '자녀 단말 통제에서 "차단이 안 되는 버그"를 추적하다가 외부 MDM SDK 통합 시점에 생긴 CPU 과부하를 발견, 무거운 Native 작업을 백그라운드 스레드로 분리해 ANR을 해소하고 OS 레벨 MDM + AccessibilityService 다층 방어로 자녀 단말 제어를 안정화했습니다.',
+      en: 'Tracking a "blocking does not fire" bug led me to a CPU-overload trail that appeared the moment an external MDM SDK was wired in — moving the heavy native calls onto a background executor cleared the recurring ANR and got the OS-level MDM + AccessibilityService defence-in-depth back to steady-state.',
+      ja: '子供端末制御で「ブロックが効かない」バグを追跡する中で、外部MDM SDK統合タイミングに生じたCPU過負荷を発見、重いNative処理をバックグラウンドスレッドに分離してANRを解消し、OSレベルMDM + AccessibilityServiceの多層防御で子供端末制御を安定化させました。',
     },
     context: {
       ko: '부모 앱이 자녀 단말의 앱 차단·시간 제한·콘텐츠 차단을 원격 제어하는 제품입니다. 사업부 요구는 들어왔지만 일반 앱 권한으로 가능한지 검증되지 않은 상태였기에, AccessibilityService와 OS 레벨 MDM SDK 조합으로 시스템 레벨 차단이 가능하다는 기술 검증 보고서를 직접 작성해 출시 일정 근거를 만들었습니다. 이후 팀장으로서 자녀앱(RN+Native)·부모앱(RN)·서버(Spring Boot) 세 컴포넌트의 아키텍처를 주도해 설계·구현했습니다. 자녀 단말의 네트워크 단 도메인 차단은 네트워크 레벨 MDM SDK 기능을 별도 레이어로 함께 적용해 앱 단위 차단(AccessibilityService)과 OS 단위 제어 위에 보조 안전망을 두었습니다.',
@@ -654,9 +654,9 @@ export const careerStoryBlocksV1: Partial<
       ja: '親アプリが子供端末のアプリブロック・時間制限・コンテンツブロックを遠隔制御する製品。事業側の要求は先行したが一般アプリ権限で技術的に可能か未検証状態のため、AccessibilityService + OSレベルMDM SDKでシステムレベル遮断が可能という技術検証レポートを自ら作成しリリース日程の根拠を作成、以降チームリーダーとして子供アプリ（RN+Native）・親アプリ（RN）・サーバー（Spring Boot）3コンポーネントのアーキテクチャを主導して設計・実装しました。子供端末のネットワーク層ドメイン遮断は同系MDM SDKのネットワーク機能を別レイヤーで併用し、アプリ単位遮断（AccessibilityService）とOS単位制御の上に補助セーフティネットを設けました。',
     },
     problem: {
-      ko: '문제는 두 갈래로 들어왔습니다. 첫째는 응답성이었습니다. 차단 동작 이슈를 추적하다 main thread가 잡혀 차단 로직 자체가 돌지 못하고 있음을 확인했고, 원인 추적 기준점은 시점 정보였습니다. 원래 없던 증상이 외부 MDM SDK 통합 이후부터 보이기 시작했기 때문입니다. 둘째는 우회 경로였습니다. PIP·음악·녹음처럼 화면 없이 도는 백그라운드 앱은 화면 전환 이벤트가 발화하지 않아 차단 자체가 작동하지 않았습니다.',
-      en: 'Two parallel problems — (1) responsiveness: chasing a blocking-behaviour issue, I found the main thread pinned so the blocking logic itself was not running; decisive clue was timing (only appeared after the external MDM SDK integration). (2) Bypass: headless apps (PIP / music / recorder) never fired the window-state-change event, so the block did not run at all.',
-      ja: '問題は2方向 — ① 応答性：遮断動作のイシューを追うとmainスレッドが詰まり遮断ロジック自体が回っていなかった。決定的手掛かりはタイミング（外部MDM SDK統合後にのみ発生）。② 回避：PIP・音楽・録音のような画面のない背景アプリは画面状態変化イベントが発火せず遮断自体が動作しない。',
+      ko: '문제는 두 갈래로 들어왔습니다. 첫째는 ANR이었습니다. "차단이 안 된다"는 컴플레인을 추적하다 main thread가 잡혀 차단 로직 자체가 돌지 못하고 있음을 확인했고, 원인 추적 기준점은 시점 정보였습니다. 원래 없던 증상이 외부 MDM SDK 통합 이후부터 발생했기 때문입니다. 둘째는 우회 경로였습니다. PIP·음악·녹음처럼 화면 없이 도는 백그라운드 앱은 화면 전환 이벤트가 발화하지 않아 차단 자체가 작동하지 않았습니다.',
+      en: 'Two parallel problems — (1) ANR: chasing "block does not fire" complaints, I found the main thread pinned so the blocking logic itself was not running; decisive clue was timing (only appeared after the external MDM SDK integration). (2) Bypass: headless apps (PIP / music / recorder) never fired the window-state-change event, so the block did not run at all.',
+      ja: '問題は2方向 — ① ANR：「ブロックが効かない」苦情を追うとmainスレッドが詰まり遮断ロジック自体が回っていなかった。決定的手掛かりはタイミング（外部MDM SDK統合後にのみ発生）。② 回避：PIP・音楽・録音のような画面のない背景アプリは画面状態変化イベントが発火せず遮断自体が動作しない。',
     },
     hypothesis: {
       ko: '"변경 이력에서 가장 가까운 원인부터 의심한다"는 원칙으로 외부 MDM SDK 통합 시점을 강한 후보로 잡았고, 그 SDK 호출이 main thread를 잡고 있을 가능성을 가설로 설정했습니다.',
@@ -669,9 +669,9 @@ export const careerStoryBlocksV1: Partial<
       ja: 'systrace・Perfetto・Crashlytics ANR thread dumpは精度は高いがセットアップ・学習コスト負担が大きかった。タイミング手掛かりが明確だったため、Android Studio Logcat + AIコード分析補助のpathを選択。',
     },
     decision: {
-      ko: '무거운 Native 작업을 백그라운드 스레드로 분리했습니다. 외부 MDM SDK 호출을 비동기 실행자로 옮겨, main thread를 잡고 있던 경로를 끊었습니다. 차단 자체도 단일 트리거로는 우회되는 도메인이라 여러 트리거를 함께 짰습니다.',
-      en: 'Moved the heavy native work onto a background thread — the external MDM SDK calls now run async on a dedicated executor, severing the main-thread-pin path. Blocking itself was a multi-trigger problem (single trigger is bypassable), so I composed several triggers.',
-      ja: '重いNative処理をバックグラウンドスレッドに分離 — 外部MDM SDK呼び出しを非同期executor上で動かし、mainスレッドpin経路を断ち切った。遮断自体も単一トリガーでは回避される領域のため、複数のトリガーを組み合わせて構成。',
+      ko: '무거운 Native 작업을 백그라운드 스레드로 분리했습니다. 외부 MDM SDK 호출을 비동기 실행자로 옮겨, main thread를 잡고 있던 경로를 끊었습니다. 차단 자체도 단일 트리거로는 우회되는 도메인이라 다층 방어를 함께 짰습니다.',
+      en: 'Moved the heavy native work onto a background thread — the external MDM SDK calls now run async on a dedicated executor, severing the main-thread-pin path. Blocking itself was a defence-in-depth problem (single trigger is bypassable), so I composed multiple layers.',
+      ja: '重いNative処理をバックグラウンドスレッドに分離 — 外部MDM SDK呼び出しを非同期executor上で動かし、mainスレッドpin経路を断ち切った。遮断自体も単一トリガーでは回避される領域のため、多層防御に構成。',
     },
     execution: {
       ko: '먼저 외부 MDM SDK 호출을 비동기 실행자로 옮겨 메인 스레드를 잡고 있던 경로를 끊었고, 그 과정에서 호출이 폭주하면 큐가 무한히 쌓이는 후속 문제가 확인돼 큐 적체 방지 장치를 함께 넣었습니다. 우회 차단은 처음에는 화면 전환 이벤트 트리거만으로 처리했지만 PIP·음악·녹음 같이 화면 없는 앱은 그 이벤트가 발화하지 않아, 포그라운드 서비스 시작·종료 카운트를 차단 판단에 더했습니다. 시간 안전망은 메인 폴링과 보조 폴링 이중화, 부모 정책 변경은 푸시 알림 즉시 발사와 보조 동기화로 단일 실패 지점이 없도록 묶었습니다.',
@@ -679,9 +679,9 @@ export const careerStoryBlocksV1: Partial<
       ja: 'まず外部MDM SDK呼び出しを非同期executorに移してmainスレッドpin経路を断ち切り、その過程でバースト時にキューが無限に積まれる新たな問題が見えたためbacklog防止策を入れました。回避は当初は画面状態変化イベントトリガのみで処理していましたが、PIP・音楽・録音のように画面のないアプリではこのイベントが発火せず、フォアグラウンドサービス開始・終了カウントを遮断判定に追加しました。時間安全網はメインポーリング + バックアップポーリングの2重化、親ポリシー変更はプッシュ即時 + バックアップ同期で単一障害点が残らないよう束ねました。',
     },
     result: {
-      ko: '응답성 이슈가 해소되고 여러 트리거가 정상 운영되면서, 단일 트리거로는 잡히지 않던 화면 없는 앱(PIP·음악·녹음)도 함께 차단되게 됐습니다. 사용자 측에서는 차단 동작 컴플레인이 줄었고, 운영 측에서는 외부 SDK 큰 변경 후에도 회귀가 잡히는 구조가 만들어졌습니다.',
-      en: 'Responsiveness was restored and the multi-trigger setup running as intended — headless apps that no single trigger could catch (PIP, music, recorder) are now blocked too. On the user side blocking-behaviour complaints dropped; on the operations side there is now a structure that catches regressions even after large external-SDK upgrades.',
-      ja: '応答性のイシューが解消され、複数トリガーが通常稼働することで、単一トリガでは捕まらなかった画面のないアプリ（PIP・音楽・録音）も合わせて遮断されるようになりました。ユーザー側では遮断動作に関する苦情が減り、運用側では外部SDKの大きな変更後でも回帰が捕まる構造ができました。',
+      ko: '반복 발생하던 ANR이 제거되고 다층 방어가 정상 운영되면서, 단일 트리거로는 잡히지 않던 화면 없는 앱(PIP·음악·녹음)도 함께 차단되게 됐습니다. 사용자 측에서는 "차단이 안 된다"는 컴플레인이 사라졌고, 운영 측에서는 외부 SDK 큰 변경 후에도 회귀가 잡히는 구조가 만들어졌습니다.',
+      en: 'Recurring ANR was eliminated and the multi-layer defence running as intended — headless apps that no single trigger could catch (PIP, music, recorder) are now blocked too. On the user side the "blocking does not fire" complaints stopped; on the operations side there is now a structure that catches regressions even after large external-SDK upgrades.',
+      ja: '反復していたANRが除去され、多層防御が通常稼働することで、単一トリガでは捕まらなかった画面のないアプリ（PIP・音楽・録音）も合わせて遮断されるようになりました。ユーザー側では「ブロックが効かない」という苦情が消え、運用側では外部SDKの大きな変更後でも回帰が捕まる構造ができました。',
     },
     improvements: {
       ko: '두 가지를 다시 한다면 다르게 잡았을 것입니다. 첫째, AccessibilityService 클래스가 차단 트리거·우회 감지·PIN 검증·외부 SDK 호출을 한 곳에 모두 끌어안은 채 점점 무거워졌고, 새 기능을 넣을 때마다 사이드 이펙트 위험이 컸습니다. 도메인 단위로 잘라 단위 테스트가 가능한 구조로 가져가는 것이 다음 단계입니다. 둘째, ANR 진단이 사용자 컴플레인을 받은 다음에야 시작됐다는 점이 정직한 회고입니다. Google Play Console의 ANR 비율과 Firebase Crashlytics의 ANR 스레드 덤프를 운영 대시보드에 처음부터 박았더라면 사용자가 알려주기 전에 신호를 받을 수 있었습니다.',
@@ -697,17 +697,17 @@ export const careerStoryBlocksV1: Partial<
       problem: {
         bullets: {
           ko: [
-            '컴플레인 패턴: 차단 동작 이슈 — 백그라운드 서비스 사망이 아니라 main thread pin',
+            '컴플레인 패턴: "차단이 안 된다" — 백그라운드 서비스 사망이 아니라 main thread pin',
             '결정적 단서: 외부 MDM SDK 통합 이후부터 증상 발생 (변경 이력 기반 시점 단서)',
             '우회 경로: PIP·음악 재생·녹음 앱처럼 화면 없는 백그라운드 앱은 화면 전환 이벤트가 발화하지 않음',
           ],
           en: [
-            'Complaint pattern: blocking-behaviour issue — background service was alive, the main thread was pinned',
+            'Complaint pattern: "blocking does not fire" — background service was alive, the main thread was pinned',
             'Decisive clue: symptom only began after the external MDM SDK integration (change-history timing signal)',
             'Bypass path: headless background apps (PIP, music players, recorders) never fire the window-state-change event',
           ],
           ja: [
-            '苦情パターン：遮断動作のイシュー — 背景サービスは生きており、mainスレッドが詰まっていた',
+            '苦情パターン：「ブロックが効かない」 — 背景サービスは生きており、mainスレッドが詰まっていた',
             '決定的手掛かり：外部MDM SDK統合後に症状が出始めた（変更履歴ベースのタイミング手掛かり）',
             '回避経路：PIP・音楽再生・録音アプリのような画面のない背景アプリは画面状態変化イベントが発火しない',
           ],
@@ -773,7 +773,7 @@ export const careerStoryBlocksV1: Partial<
       },
       result: {
         metrics: [
-          { value: '복수 트리거', label: { ko: '하나가 우회당해도 나머지가 잡는 구조 — 앱 전환 감지·주기 폴링·화면 없는 앱 감지·정책 변경 즉시 반영·원격 차단 명령', en: 'Multiple independent triggers — when one is bypassed the others still catch it (app transition · periodic poll · headless-app detection · instant policy propagation · remote block command)', ja: '複数トリガー — 1つが回避されても他が捕える構造（アプリ遷移・周期ポーリング・ヘッドレスアプリ検知・ポリシー即時反映・遠隔遮断コマンド）' } },
+          { value: '다층 방어', label: { ko: '하나가 우회당해도 나머지가 잡는 구조 — 앱 전환 감지·주기 폴링·화면 없는 앱 감지·정책 변경 즉시 반영·원격 차단 명령', en: 'Multiple independent triggers — when one is bypassed the others still catch it (app transition · periodic poll · headless-app detection · instant policy propagation · remote block command)', ja: '多層防御 — 1つが回避されても他が捕える構造（アプリ遷移・周期ポーリング・ヘッドレスアプリ検知・ポリシー即時反映・遠隔遮断コマンド）' } },
           { value: '이중 안전망', label: { ko: '차단 누락 지연 — 메인 폴링이 돌고 실패해도 보조 폴링이 한 번 더 잡고, 부모 정책 변경은 푸시 즉시 + 보조 동기화로 이중화', en: 'Doubled safety net — main poll plus a backup poll, and parent policy changes go out via push with a backup sync', ja: '二重安全網 — メインポーリングが回り、失敗時もバックアップが捕え、親ポリシー変更はプッシュ即時 + バックアップ同期で二重化' } },
           { value: 'PIP·음악·녹음', label: { ko: '화면 없는 앱도 차단 — 포그라운드 서비스 시작·종료 카운트 추적으로 단일 트리거가 못 잡던 우회 경로 봉쇄', en: 'Headless apps blocked too — tracking foreground-service start/stop counts closes the bypass single-trigger schemes miss', ja: '画面のないアプリも遮断 — フォアグラウンドサービスの開始・終了カウント追跡で単一トリガでは捕えられない回避経路を封鎖' } },
         ],
@@ -813,9 +813,9 @@ export const careerStoryBlocksV1: Partial<
       ja: '自作WAVエンコーダ（STTが要求するsample rateでクライアントキャプチャ + ScriptProcessor + 標準WAVヘッダ直接記述）+ 外部STTポーリングでフルスタック構成。',
     },
     execution: {
-      ko: '처음에는 녹음 데이터를 `useState`로 관리했는데 단계 전환 사이에 일어나는 리렌더가 음성 일부를 날리는 케이스가 보였습니다. 원인은 React 상태 업데이트의 비동기 특성이라 `useRef`로 옮겨 음성 누적을 리렌더 사이클 밖으로 빼냈고, 동시에 발음과 말하기는 흐름이 달라 한 state machine으로 묶으면 분기 조건이 복잡해져 따로 잘랐습니다. 학교별 격리는 쿼리 한 곳만 빠뜨려도 다른 학교 데이터가 새는 위험이 있어, 모든 응시·채점 쿼리에 학교 식별자 필터를 강제했습니다. 녹음 음성은 오브젝트 스토리지에 적재해 채점·재청취 경로를 유지합니다.',
-      en: 'First pass kept recorded blobs in `useState`, but stage transitions caused re-renders that dropped chunks of audio (React state updates are async, so the latest blob array could overwrite an in-flight append). Moved the accumulator into `useRef` to pull it outside the render cycle. Pronunciation and speaking flows diverged enough that one combined state machine bloated the branching, so I split them. School isolation was enforced by carrying a school-id filter on every exam and grading query, because a single missed filter would leak across tenants. Recorded audio is persisted to object storage to keep the grading and replay paths intact.',
-      ja: '最初は録音Blobを`useState`で管理しましたが、段階遷移ごとの再レンダ中に音声の一部が消えるケースが出ました（Reactの状態更新は非同期で、最新の配列が進行中のappendを上書きしてしまう）。蓄積を`useRef`に移して描画サイクルの外に出しました。発音とスピーキングはフローが異なり一つのstate machineにまとめると分岐が膨れるため分離。学校別隔離はクエリ1箇所のフィルタ漏れで他校データが漏れる危険があるため、全受験・採点クエリに学校識別子フィルタを強制しました。録音音声はオブジェクトストレージに保存して採点・再聴経路を維持します。',
+      ko: '처음에는 녹음 데이터를 `useState`로 관리했는데 단계 전환 사이에 일어나는 리렌더가 음성 일부를 날리는 케이스가 보였습니다. 원인은 React 상태 업데이트의 비동기 특성이라 `useRef`로 옮겨 음성 누적을 리렌더 사이클 밖으로 빼냈고, 동시에 발음과 말하기는 흐름이 달라 한 state machine으로 묶으면 분기 조건이 복잡해져 따로 잘랐습니다. 학교별 격리는 쿼리 한 곳만 빠뜨려도 다른 학교 데이터가 새는 위험이 있어, 모든 응시·채점 쿼리에 학교 식별자 필터 강제 + 미들웨어가 토큰 소속 학교와 요청 경로 학교 식별자 일치를 검증하는 이중 계층으로 묶었습니다. 녹음 음성은 오브젝트 스토리지에 적재해 채점·재청취 경로를 유지합니다.',
+      en: 'First pass kept recorded blobs in `useState`, but stage transitions caused re-renders that dropped chunks of audio (React state updates are async, so the latest blob array could overwrite an in-flight append). Moved the accumulator into `useRef` to pull it outside the render cycle. Pronunciation and speaking flows diverged enough that one combined state machine bloated the branching, so I split them. School isolation is two-layered because a single missed query filter would leak across tenants: every exam and grading query carries a school-id filter, and middleware verifies the token’s school matches the route’s school id. Recorded audio is persisted to object storage to keep the grading and replay paths intact.',
+      ja: '最初は録音Blobを`useState`で管理しましたが、段階遷移ごとの再レンダ中に音声の一部が消えるケースが出ました（Reactの状態更新は非同期で、最新の配列が進行中のappendを上書きしてしまう）。蓄積を`useRef`に移して描画サイクルの外に出しました。発音とスピーキングはフローが異なり一つのstate machineにまとめると分岐が膨れるため分離。学校別隔離はクエリ1箇所のフィルタ漏れで他校データが漏れる危険があるため、全受験・採点クエリに学校識別子フィルタを強制 + ミドルウェアがトークン所属校とルートの学校識別子一致を検証する2層構造で固めました。録音音声はオブジェクトストレージに保存して採点・再聴経路を維持します。',
     },
     result: {
       ko: '정부 R&D 산출물 납품을 완료했습니다. 자체 WAV 인코더와 STT 폴링이 안정 동작하면서 외부 STT 호환과 음성 정확도를 동시에 확보했고, 학교별 멀티테넌트로 한 DB에서 다수 학교가 동시에 응시·채점 회차를 운영할 수 있게 됐습니다. 컨테이너 보안 강화로 외부에 노출되는 runner 이미지의 공격 표면이 줄어든 상태로 배포됐습니다.',
@@ -916,7 +916,7 @@ export const careerStoryBlocksV1: Partial<
       result: {
         metrics: [
           { value: '폴링 주기 최적화', label: { ko: 'STT 서버 호출 감소 — 폴링 주기를 늘려 호출 수를 절반 수준으로. 사용자 인지 지연 약간은 음성 채점 UX에서 감수할 만한 절충', en: 'STT server calls cut — relaxed polling roughly halves the request count. Small perceived-delay increase is negligible in scoring UX', ja: 'STTサーバー呼び出し削減 — ポーリング周期を延ばし呼び出し数を約半減。体感遅延の微増は採点UXで許容可能なtrade-off' } },
-          { value: '4역할', label: { ko: 'RBAC (학생 / 교사·교사보조 / 관리자) — 미들웨어 + API 라우트 검증', en: 'RBAC (student / teacher + sub-teacher / admin) — middleware + API-route verification', ja: 'RBAC（学生 / 教師・教師補助 / 管理者）— ミドルウェア + APIルート検証' } },
+          { value: '4역할', label: { ko: 'RBAC (학생 / 교사·교사보조 / 관리자) — 미들웨어 + API 라우트 이중 검증', en: 'RBAC (student / teacher + sub-teacher / admin) — middleware + API-route double verification', ja: 'RBAC（学生 / 教師・教師補助 / 管理者）— ミドルウェア + APIルートの2層検証' } },
         ],
       },
     },
