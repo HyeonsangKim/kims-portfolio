@@ -1123,9 +1123,9 @@ export const careerStoryBlocksV1: Partial<
       ja: 'WIGENTで実証したマルチエージェント議論の経験を基に、Snowflakeが指定した4つのデータセット + 11個のCortex機能を単一ユーザーフローに織り込んだ目的駆動型の地域インテリジェンス基盤。Snowflake AI & Data Hackathon Korea 2026 Tech Track 2位。',
     },
     context: {
-      ko: 'WIGENT에서 "토론하는 에이전트가 결과까지 만든다"는 결을 검증했습니다. WIGTN FLAKE의 출발 조건은 정반대였습니다. 모델·아이디어가 자유로운 게 아니라 데이터셋(부동산 시세·유동인구·카드매출·통신계약 4종)과 사용 가능한 Cortex 기능 카탈로그가 미리 정해져 있었습니다. 같은 토론 구조를 이 제약 위에 어떻게 얹을지가 출발점이었습니다.',
-      en: 'WIGENT had already proven that "agents debating each other can produce the final artifact." The starting condition for WIGTN FLAKE flipped that — we did not get free rein on models and ideas; the four datasets (real-estate prices, foot traffic, card sales, telecom contracts) and the catalog of Cortex capabilities were fixed in advance. The opening question was how to layer the same debate structure on top of those constraints.',
-      ja: 'WIGENTで「議論するエージェントが最終成果物まで作る」感触を検証しました。WIGTN FLAKEの出発条件は逆。モデルやアイデアが自由なのではなく、データセット（不動産価格・人流・カード売上・通信契約の4種）と使えるCortex機能カタログが事前に決まっていました。同じ議論構造をこの制約の上にどう乗せるかが出発点でした。',
+      ko: 'Snowflake AI & Data Hackathon Korea 2026 Tech Track에 출전한 프로젝트입니다. 이 해커톤은 Snowflake Cortex 기반으로 데이터 활용 서비스를 만드는 대회였고, 참가 조건으로 데이터셋 4종(부동산 시세·유동인구·카드매출·통신계약)과 사용 가능한 Cortex 기능 11종이 미리 정해져 있었습니다. WIGENT에서 멀티 에이전트 토론 구조가 결과물까지 만들어낸다는 걸 검증한 경험이 있었기에, 같은 접근을 이 제약 위에 얹는 것이 출발점이었습니다.',
+      en: 'This was our entry for the Snowflake AI & Data Hackathon Korea 2026 Tech Track, a competition to build data-driven services on top of Snowflake Cortex. The rules fixed four datasets (real-estate prices, foot traffic, card sales, telecom contracts) and the catalog of 11 Cortex capabilities we could use. We had already proven with WIGENT that a multi-agent debate structure can produce the final artifact, so the starting point was layering that same approach on top of these constraints.',
+      ja: 'Snowflake AI & Data Hackathon Korea 2026 Tech Trackに出場したプロジェクトです。この大会はSnowflake Cortex基盤でデータ活用サービスを作る競技で、参加条件としてデータセット4種（不動産価格・人流・カード売上・通信契約）と使用可能なCortex機能11種が事前に決められていました。WIGENTでマルチエージェント議論構造が成果物まで作り出せることを検証した経験があったため、同じアプローチをこの制約の上に載せることが出発点でした。',
     },
     problem: {
       ko: '핵심 제약은 두 가지였습니다. 첫째, 데이터셋이 고정되어 있어 "사용자 질문에서 적절한 데이터셋으로 자동 라우팅"이 필요했습니다. 둘째, Cortex가 제공하는 기능(Agent·Analyst·ANOMALY_DETECTION·FORECAST·AI_SENTIMENT·AI_CLASSIFY 등 11종)을 데모용 체크리스트가 아니라 사용자 흐름에 자연스럽게 녹여야 했습니다. 단순히 다 호출만 하면 토론은 흩어지고 화면은 SQL 로그가 됩니다.',
@@ -1214,9 +1214,9 @@ export const careerStoryBlocksV1: Partial<
       ja: 'PRD作成 → 画面定義書 → 並列ビルド → コードレビュー → コミットまでを1パイプラインで回すClaude Codeプラグイン。13エージェント・5コマンド・4スキルを束ねてオープンソース公開。',
     },
     context: {
-      ko: 'Claude Code를 처음 알게 됐을 때 정말 놀랐습니다. 하지만 점점 사용하다 보니 결과물이 들쑥날쑥이었고, "이렇게 쓰는 게 맞는 건가"라는 의문이 커졌습니다. 그러다 skill이나 hook 같은 고급 기능을 알게 됐고, AI 시대에는 코드를 잘 짜는 것보다 문제를 정확히 정의하고 초반 명세를 탄탄하게 잡는 게 더 중요하다는 걸 느꼈습니다. PRD를 먼저 제대로 쓰고, AI가 만든 결과물을 자동으로 검증하고, 커밋까지 한 번에 돌아가는 파이프라인이 필요했고, 그걸 직접 만들어 오픈소스로 공개했습니다.',
-      en: 'I was genuinely amazed when I first discovered Claude Code. But the more I used it, the more the output quality swung wildly, and I started wondering whether I was even using it right. Then I discovered advanced features like skills and hooks, and realized that in the AI era, defining the problem precisely and nailing the spec up front matters more than writing code. I needed a pipeline that starts from a solid PRD, auto-validates AI output, and runs all the way to commit, so I built one and open-sourced it.',
-      ja: 'Claude Codeを初めて知った時は本当に驚きました。しかし使えば使うほど結果物にムラが出て、「この使い方で合っているのか」という疑問が大きくなりました。やがてskillやhookなどの高度な機能を知り、AI時代はコードを書く力より問題を正確に定義し初期の仕様をしっかり固めることが重要だと感じました。PRDをまずきちんと書き、AI生成物を自動検証しコミットまで一気に通すパイプラインが必要で、それを作りオープンソースで公開しました。',
+      ko: '사운드마인드에서 팀장으로 여러 프로젝트를 동시에 리딩하면서, 회사에서 유일한 프로젝트 경력자로서 산적한 모든 프로젝트를 혼자 챙기는 데 한계를 느꼈습니다. 내가 업무에 접근하는 방식, 즉 PRD를 먼저 쓰고 설계 검증을 거친 뒤 구현에 들어가는 흐름을 동료들에게도 이식할 수 있으면 좋겠다고 생각했습니다. 그래서 그 노하우를 Claude Code 플러그인으로 만들어 팀 전체가 같은 워크플로우 위에서 움직일 수 있게 했고, 이걸 오픈소스로 공개했습니다.',
+      en: 'As team lead at Soundmind running multiple projects simultaneously, I was the only engineer with project experience and hit a wall trying to lead everything alone. I wanted to transfer the way I approach work — write the PRD first, validate the design, then implement — to the rest of the team. So I packaged that workflow into a Claude Code plugin, put the whole team on the same rails, and open-sourced it.',
+      ja: 'サウンドマインドでチームリーダーとして複数プロジェクトを同時にリードする中、唯一のプロジェクト経験者として山積するすべてを一人で見るのに限界を感じました。自分の業務アプローチ — PRDを先に書き、設計検証を経てから実装に入る流れ — を同僚にも移植できればと考え、そのノウハウをClaude Codeプラグインにまとめてチーム全体が同じワークフロー上で動けるようにし、オープンソースで公開しました。',
     },
     problem: {
       ko: '아래의 문제들을 해결해야 검증된 하네스를 구현할 수 있고, 자동화된 워크플로우를 만들 수 있다고 생각했습니다. 컨텍스트 오염, 역할 경계 부재, 검증 부재를 풀지 않으면 AI가 만든 결과물을 신뢰할 수 없었습니다.',
