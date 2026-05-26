@@ -106,6 +106,7 @@ export interface SlotVisuals {
     | 'kocca'
     | 'purple'
     | 'aigoseo'
+    | 'oem'
   /**
    * Static architecture image. WIGTN 사이드 프로젝트는 별도 SVG 다이어그램을
    * 다시 그리지 않고 wigtn.com / GitHub README에서 가져온 원본 이미지를
@@ -620,6 +621,7 @@ export const careerStoryBlocksV1: Partial<
         },
       },
       decision: {
+        diagramKey: 'oem',
         bullets: {
           ko: [
             '토큰 재사용 탐지 — 회수된 토큰의 재사용이 감지되면 같은 묶음 전체를 즉시 무효화 + 감사 로그',

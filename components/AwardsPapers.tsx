@@ -15,7 +15,7 @@ export default function AwardsPapers() {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-white mb-6 tracking-tight">Awards & Papers</h2>
+      <h2 className="text-2xl font-bold text-white mb-6 tracking-tight">Awards</h2>
 
       <div className="divide-y divide-white/[0.04]">
         {awards.map((award, i) => {

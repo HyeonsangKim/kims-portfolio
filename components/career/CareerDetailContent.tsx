@@ -19,6 +19,7 @@ import MohaniArchitectureDiagram from './diagrams/MohaniArchitectureDiagram'
 import KoccaArchitectureDiagram from './diagrams/KoccaArchitectureDiagram'
 import PurpleArchitectureDiagram from './diagrams/PurpleArchitectureDiagram'
 import AigoseoArchitectureDiagram from './diagrams/AigoseoArchitectureDiagram'
+import OemArchitectureDiagram from './diagrams/OemArchitectureDiagram'
 
 const careerIconMap: Record<CareerStoryBlockSlot, ComponentType<{ className?: string }>> = {
   context: FiCompass, problem: FiAlertTriangle, hypothesis: FiCpu,
@@ -134,6 +135,7 @@ export default function CareerDetailContent({
                   {visuals.diagramKey === 'kocca' && <KoccaArchitectureDiagram />}
                   {visuals.diagramKey === 'purple' && <PurpleArchitectureDiagram />}
                   {visuals.diagramKey === 'aigoseo' && <AigoseoArchitectureDiagram />}
+                  {visuals.diagramKey === 'oem' && <OemArchitectureDiagram />}
                 </div>
               )}
 
