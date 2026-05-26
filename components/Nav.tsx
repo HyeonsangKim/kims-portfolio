@@ -18,11 +18,10 @@ export default function Nav() {
   const { locale, setLocale } = useI18n()
   const pathname = usePathname()
   const isHome = pathname === '/'
-
   return (
     <nav className="sticky top-0 z-50 border-b border-white/[0.06] bg-[#0a0a0f]/80 backdrop-blur-md">
       <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
-        <Link href="/" className="text-sm font-semibold text-white tracking-tight hover:text-gray-300 transition-colors">
+        <Link href="/" className="text-sm font-semibold text-white tracking-tight hover:text-gray-300 transition-colors font-mono">
           Hyeonsang Kim
         </Link>
 

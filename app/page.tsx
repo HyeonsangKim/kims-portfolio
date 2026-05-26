@@ -22,27 +22,10 @@ export default function Home() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="grid grid-cols-1 md:grid-cols-[1fr_200px] gap-10 items-start"
+          className="grid grid-cols-1 md:grid-cols-[1fr_200px] gap-8 md:gap-10 items-start"
         >
-          <div>
-            <p className="text-sm font-semibold tracking-[0.2em] text-gray-500 uppercase mb-4">
-              {t('intro.subtitle') as string}
-            </p>
-            <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tight mb-2">
-              {t('intro.heading1') as string}
-            </h1>
-            <p className="text-lg text-gray-500 mb-8">
-              {t('intro.heading2') as string}
-            </p>
-            <div className="space-y-4 text-[15px] text-gray-300 leading-relaxed">
-              <p>{t('intro.paragraph1') as string}</p>
-              <p>{t('intro.paragraph2') as string}</p>
-              <p>{t('intro.paragraph3') as string}</p>
-            </div>
-          </div>
-
-          <div className="hidden md:block">
-            <div className="w-44 h-44 rounded-2xl overflow-hidden border border-white/[0.06]">
+          <div className="flex justify-center md:justify-start order-first md:order-last">
+            <div className="w-28 h-28 md:w-44 md:h-44 rounded-full overflow-hidden border border-white/[0.06]">
               <Image
                 src="/images/me.JPEG"
                 alt="Hyeonsang Kim"
@@ -53,31 +36,53 @@ export default function Home() {
               />
             </div>
           </div>
+
+          <div>
+            <p className="text-sm font-semibold tracking-[0.2em] text-gray-500 uppercase mb-4">
+              {t('intro.subtitle') as string}
+            </p>
+            <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tight mb-2">
+              {t('intro.heading1') as string}
+            </h1>
+            <p className="text-lg text-gray-400 mb-8">
+              {t('intro.heading2') as string}
+            </p>
+            <div className="space-y-4 text-[15px] text-gray-300 leading-relaxed">
+              <p>{t('intro.paragraph1') as string}</p>
+              <p>{t('intro.paragraph2') as string}</p>
+              <p>{t('intro.paragraph3') as string}</p>
+            </div>
+          </div>
         </motion.div>
       </section>
 
       {/* Tech Stack */}
-      <section id="skills" className="py-16 border-t border-white/[0.04]">
+      <div className="border-t border-white/[0.04]" />
+      <section id="skills" className="py-16">
         <TechStack />
       </section>
 
       {/* Career */}
-      <div className="border-t border-white/[0.04]">
+      <div className="border-t border-white/[0.04]" />
+      <div>
         <CareerList />
       </div>
 
       {/* Projects */}
-      <div className="border-t border-white/[0.04]">
+      <div className="border-t border-white/[0.04]" />
+      <div>
         <ProjectList />
       </div>
 
       {/* Awards */}
-      <section id="awards" className="py-16 border-t border-white/[0.04]">
+      <div className="border-t border-white/[0.04]" />
+      <section id="awards" className="py-16">
         <AwardsPapers />
       </section>
 
       {/* Contact */}
-      <section id="contact" className="py-16 border-t border-white/[0.04]">
+      <div className="border-t border-white/[0.04]" />
+      <section id="contact" className="py-16">
         <Contact />
       </section>
     </>

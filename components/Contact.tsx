@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { SiGithub, SiLinkedin } from 'react-icons/si'
-import { FiMail, FiCopy, FiCheck, FiSend } from 'react-icons/fi'
+import { FiMail, FiCopy, FiCheck, FiSend, FiGlobe } from 'react-icons/fi'
 import { useI18n, type Locale } from '@/lib/i18n'
 
 const CONTACT_EMAIL = 'hyeonsang@wigtn.com'
@@ -50,97 +50,93 @@ export default function Contact() {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-      {/* Left: Info */}
-      <div className="space-y-8">
-        <div>
-          <h2 className="text-2xl font-bold text-white mb-2 tracking-tight">Contact</h2>
-          <p className="text-sm text-gray-500">
-            {locale === 'ko' ? '새로운 프로젝트 논의나 커피챗은 언제나 환영합니다.' : locale === 'ja' ? '新しいプロジェクトやコーヒーチャット、いつでも歓迎です。' : 'Always open for new projects and coffee chats.'}
-          </p>
+        {/* Left: Info */}
+        <div className="space-y-6">
+          <div>
+            <h2 className="text-2xl font-bold text-white tracking-tight mb-2 glitch-hover">Contact</h2>
+            <p className="text-sm text-gray-500">
+              {locale === 'ko' ? '새로운 프로젝트 논의나 커피챗은 언제나 환영합니다.' : locale === 'ja' ? '新しいプロジェクトやコーヒーチャット、いつでも歓迎です。' : 'Always open for new projects and coffee chats.'}
+            </p>
+          </div>
+
+          {/* Email */}
+          <button
+            onClick={copyEmail}
+            className="flex items-center gap-3 px-4 py-2.5 rounded-lg bg-white/[0.04] hover:bg-white/[0.07] border border-white/[0.06] hover:border-white/[0.12] transition-all text-left group w-fit"
+          >
+            <FiMail className="w-4 h-4 text-gray-500 group-hover:text-cyan-400 transition-colors shrink-0" />
+            <span className="text-sm font-mono text-gray-300 group-hover:text-white transition-colors">{CONTACT_EMAIL}</span>
+            <span className="text-gray-600 group-hover:text-gray-400 transition-colors shrink-0">
+              {copied ? <FiCheck className="w-3.5 h-3.5 text-green-400" /> : <FiCopy className="w-3.5 h-3.5" />}
+            </span>
+          </button>
+
+          {/* Links */}
+          <div className="flex flex-col gap-2.5">
+            {[
+              { icon: <SiGithub className="w-4 h-4" />, href: 'https://github.com/HyeonsangKim', label: 'GitHub' },
+              { icon: <SiLinkedin className="w-4 h-4" />, href: 'https://www.linkedin.com/in/hyeonsang-kim-5a7a67260/', label: 'LinkedIn' },
+              { icon: <FiGlobe className="w-4 h-4" />, href: 'https://wigtn.com', label: 'wigtn.com' },
+            ].map((s) => (
+              <a
+                key={s.label}
+                href={s.href}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-3 text-sm text-gray-500 hover:text-white transition-colors w-fit"
+              >
+                {s.icon}
+                <span>{s.label}</span>
+              </a>
+            ))}
+          </div>
         </div>
 
-        {/* Email */}
-        <button
-          onClick={copyEmail}
-          className="flex items-center gap-4 p-4 rounded-xl border border-white/[0.06] bg-white/[0.02] hover:bg-white/[0.04] transition-colors w-full text-left"
-        >
-          <div className="w-10 h-10 rounded-lg bg-white/[0.06] flex items-center justify-center text-gray-400">
-            <FiMail className="w-4 h-4" />
+        {/* Right: Form */}
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div>
+            <label className="text-xs text-gray-500 mb-1.5 block">{locale === 'ko' ? '이름' : locale === 'ja' ? 'お名前' : 'Name'}</label>
+            <input
+              type="text"
+              value={form.name}
+              onChange={(e) => setForm({ ...form, name: e.target.value })}
+              required
+              className="w-full px-4 py-3 rounded-lg bg-white/[0.03] border border-white/[0.06] text-white text-sm placeholder-gray-600 focus:outline-none focus:border-white/[0.15] transition-colors"
+              placeholder="John Doe"
+            />
           </div>
-          <div className="flex-1 min-w-0">
-            <div className="text-xs text-gray-500">Email</div>
-            <div className="text-sm font-mono text-white">{CONTACT_EMAIL}</div>
+          <div>
+            <label className="text-xs text-gray-500 mb-1.5 block">{locale === 'ko' ? '이메일' : locale === 'ja' ? 'メール' : 'Email'}</label>
+            <input
+              type="email"
+              value={form.email}
+              onChange={(e) => setForm({ ...form, email: e.target.value })}
+              required
+              className="w-full px-4 py-3 rounded-lg bg-white/[0.03] border border-white/[0.06] text-white text-sm placeholder-gray-600 focus:outline-none focus:border-white/[0.15] transition-colors"
+              placeholder="john@example.com"
+            />
           </div>
-          <div className="text-gray-500">
-            {copied ? <FiCheck className="w-4 h-4 text-green-400" /> : <FiCopy className="w-4 h-4" />}
+          <div>
+            <label className="text-xs text-gray-500 mb-1.5 block">{locale === 'ko' ? '메시지' : locale === 'ja' ? 'メッセージ' : 'Message'}</label>
+            <textarea
+              rows={4}
+              value={form.message}
+              onChange={(e) => setForm({ ...form, message: e.target.value })}
+              required
+              className="w-full px-4 py-3 rounded-lg bg-white/[0.03] border border-white/[0.06] text-white text-sm placeholder-gray-600 focus:outline-none focus:border-white/[0.15] transition-colors resize-none"
+              placeholder="Hello, I'd like to talk about..."
+            />
           </div>
-        </button>
-
-        {/* Social */}
-        <div className="flex gap-3">
-          {[
-            { icon: <SiGithub className="w-4 h-4" />, href: 'https://github.com/HyeonsangKim', label: 'GitHub' },
-            { icon: <SiLinkedin className="w-4 h-4" />, href: 'https://www.linkedin.com/in/hyeonsang-kim-5a7a67260/', label: 'LinkedIn' },
-          ].map((s) => (
-            <a
-              key={s.label}
-              href={s.href}
-              target="_blank"
-              rel="noreferrer"
-              className="w-10 h-10 rounded-lg border border-white/[0.06] bg-white/[0.02] flex items-center justify-center text-gray-500 hover:text-white hover:border-white/[0.12] transition-colors"
-              aria-label={s.label}
-            >
-              {s.icon}
-            </a>
-          ))}
-        </div>
-      </div>
-
-      {/* Right: Form */}
-      <form onSubmit={handleSubmit} className="space-y-5">
-        <div>
-          <label className="text-xs text-gray-500 mb-1.5 block">{locale === 'ko' ? '이름' : locale === 'ja' ? 'お名前' : 'Name'}</label>
-          <input
-            type="text"
-            value={form.name}
-            onChange={(e) => setForm({ ...form, name: e.target.value })}
-            required
-            className="w-full px-4 py-3 rounded-lg bg-white/[0.03] border border-white/[0.06] text-white text-sm placeholder-gray-600 focus:outline-none focus:border-white/[0.15] transition-colors"
-            placeholder="John Doe"
-          />
-        </div>
-        <div>
-          <label className="text-xs text-gray-500 mb-1.5 block">{locale === 'ko' ? '이메일' : locale === 'ja' ? 'メール' : 'Email'}</label>
-          <input
-            type="email"
-            value={form.email}
-            onChange={(e) => setForm({ ...form, email: e.target.value })}
-            required
-            className="w-full px-4 py-3 rounded-lg bg-white/[0.03] border border-white/[0.06] text-white text-sm placeholder-gray-600 focus:outline-none focus:border-white/[0.15] transition-colors"
-            placeholder="john@example.com"
-          />
-        </div>
-        <div>
-          <label className="text-xs text-gray-500 mb-1.5 block">{locale === 'ko' ? '메시지' : locale === 'ja' ? 'メッセージ' : 'Message'}</label>
-          <textarea
-            rows={4}
-            value={form.message}
-            onChange={(e) => setForm({ ...form, message: e.target.value })}
-            required
-            className="w-full px-4 py-3 rounded-lg bg-white/[0.03] border border-white/[0.06] text-white text-sm placeholder-gray-600 focus:outline-none focus:border-white/[0.15] transition-colors resize-none"
-            placeholder="Hello, I'd like to talk about..."
-          />
-        </div>
-        {status === 'error' && <p className="text-xs text-red-400">{msg.error[locale]}</p>}
-        <button
-          type="submit"
-          disabled={status === 'sending' || status === 'sent'}
-          className="w-full flex items-center justify-center gap-2 py-3 rounded-lg bg-white/[0.06] border border-white/[0.06] text-white text-sm font-medium hover:bg-white/[0.1] disabled:opacity-50 transition-colors"
-        >
-          <FiSend className="w-3.5 h-3.5" />
-          {status === 'sending' ? msg.sending[locale] : status === 'sent' ? msg.sent[locale] : msg.send[locale]}
-        </button>
-      </form>
+          {status === 'error' && <p className="text-xs text-red-400">{msg.error[locale]}</p>}
+          <button
+            type="submit"
+            disabled={status === 'sending' || status === 'sent'}
+            className="w-full flex items-center justify-center gap-2 py-3 rounded-lg bg-white/[0.06] border border-white/[0.06] text-white text-sm font-medium hover:bg-white/[0.1] disabled:opacity-50 transition-colors"
+          >
+            <FiSend className="w-3.5 h-3.5" />
+            {status === 'sending' ? msg.sending[locale] : status === 'sent' ? msg.sent[locale] : msg.send[locale]}
+          </button>
+        </form>
     </div>
   )
 }

@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="160" height="160" shape-rendering="crispEdges">
+  <!-- Hair top -->
+  <rect x="4" y="0" width="8" height="1" fill="#1a1a2e"/>
+  <rect x="3" y="1" width="10" height="1" fill="#1a1a2e"/>
+  <rect x="3" y="2" width="10" height="1" fill="#1a1a2e"/>
+  <!-- Side part (left side slightly lighter) -->
+  <rect x="4" y="1" width="2" height="1" fill="#2a2a4a"/>
+  <!-- Hair sides -->
+  <rect x="3" y="3" width="1" height="2" fill="#1a1a2e"/>
+  <rect x="12" y="3" width="1" height="2" fill="#1a1a2e"/>
+
+  <!-- Face -->
+  <rect x="4" y="3" width="8" height="1" fill="#f5d0a9"/>
+  <rect x="4" y="4" width="8" height="1" fill="#f5d0a9"/>
+  <rect x="4" y="5" width="8" height="1" fill="#f5d0a9"/>
+  <rect x="4" y="6" width="8" height="1" fill="#f5d0a9"/>
+  <rect x="5" y="7" width="6" height="1" fill="#f5d0a9"/>
+
+  <!-- Ears -->
+  <rect x="3" y="4" width="1" height="2" fill="#ebc49a"/>
+  <rect x="12" y="4" width="1" height="2" fill="#ebc49a"/>
+
+  <!-- Eyes (big cute style) -->
+  <rect x="5" y="4" width="1" height="2" fill="#1a1a2e"/>
+  <rect x="6" y="4" width="1" height="2" fill="#1a1a2e"/>
+  <rect x="9" y="4" width="1" height="2" fill="#1a1a2e"/>
+  <rect x="10" y="4" width="1" height="2" fill="#1a1a2e"/>
+  <!-- Eye whites/shine -->
+  <rect x="5" y="4" width="1" height="1" fill="#ffffff"/>
+  <rect x="9" y="4" width="1" height="1" fill="#ffffff"/>
+
+  <!-- Blush -->
+  <rect x="4" y="6" width="1" height="1" fill="#f0a0a0"/>
+  <rect x="11" y="6" width="1" height="1" fill="#f0a0a0"/>
+
+  <!-- Smile -->
+  <rect x="7" y="6" width="2" height="1" fill="#d4956b"/>
+
+  <!-- Neck -->
+  <rect x="7" y="8" width="2" height="1" fill="#f5d0a9"/>
+
+  <!-- Shirt collar -->
+  <rect x="6" y="9" width="1" height="1" fill="#e0e0e0"/>
+  <rect x="9" y="9" width="1" height="1" fill="#e0e0e0"/>
+
+  <!-- Tie -->
+  <rect x="7" y="9" width="2" height="1" fill="#1e3a5f"/>
+  <rect x="7" y="10" width="2" height="1" fill="#2a4a6f"/>
+  <rect x="7" y="11" width="2" height="1" fill="#1e3a5f"/>
+  <!-- Tie stripe -->
+  <rect x="7" y="10" width="1" height="1" fill="#4a7aaf"/>
+
+  <!-- Suit -->
+  <rect x="4" y="9" width="2" height="1" fill="#1a1a3e"/>
+  <rect x="10" y="9" width="2" height="1" fill="#1a1a3e"/>
+  <rect x="3" y="10" width="4" height="1" fill="#1a1a3e"/>
+  <rect x="9" y="10" width="4" height="1" fill="#1a1a3e"/>
+  <rect x="3" y="11" width="4" height="1" fill="#1a1a3e"/>
+  <rect x="9" y="11" width="4" height="1" fill="#1a1a3e"/>
+  <rect x="3" y="12" width="10" height="1" fill="#1a1a3e"/>
+
+  <!-- Lapel -->
+  <rect x="6" y="10" width="1" height="1" fill="#222250"/>
+  <rect x="9" y="10" width="1" height="1" fill="#222250"/>
+
+  <!-- Arms -->
+  <rect x="2" y="10" width="1" height="2" fill="#1a1a3e"/>
+  <rect x="13" y="10" width="1" height="2" fill="#1a1a3e"/>
+  <!-- Hands -->
+  <rect x="2" y="12" width="1" height="1" fill="#f5d0a9"/>
+  <rect x="13" y="12" width="1" height="1" fill="#f5d0a9"/>
+
+  <!-- Pants -->
+  <rect x="5" y="13" width="3" height="1" fill="#12122e"/>
+  <rect x="8" y="13" width="3" height="1" fill="#12122e"/>
+  <rect x="5" y="14" width="3" height="1" fill="#12122e"/>
+  <rect x="8" y="14" width="3" height="1" fill="#12122e"/>
+
+  <!-- Shoes -->
+  <rect x="4" y="15" width="3" height="1" fill="#0a0a1e"/>
+  <rect x="9" y="15" width="3" height="1" fill="#0a0a1e"/>
+</svg>

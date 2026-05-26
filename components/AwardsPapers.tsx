@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { motion } from 'framer-motion'
 import { FiAward, FiFileText, FiArrowUpRight } from 'react-icons/fi'
 import { useI18n } from '@/lib/i18n'
 import { awards, badgeStyleMap, badgeLabelMap, type Award } from '@/data/awards'
@@ -10,14 +11,30 @@ function KindIcon({ kind }: { kind: Award['kind'] }) {
   return <FiAward className="w-3 h-3" />
 }
 
+const rowVariants = {
+  hidden: { opacity: 0, x: -16 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.35 } },
+}
+
 export default function AwardsPapers() {
   const { locale } = useI18n()
 
   return (
-    <div>
-      <h2 className="text-2xl font-bold text-white mb-6 tracking-tight">Awards</h2>
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 0.5 }}
+    >
+      <h2 className="text-2xl font-bold text-white tracking-tight mb-6 glitch-hover">Awards</h2>
 
-      <div className="divide-y divide-white/[0.04]">
+      <motion.div
+        className="divide-y divide-white/[0.04]"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-40px' }}
+        transition={{ staggerChildren: 0.06 }}
+      >
         {awards.map((award, i) => {
           const isClickable = !!award.projectSlug
 
@@ -50,21 +67,25 @@ export default function AwardsPapers() {
 
           if (isClickable) {
             return (
-              <Link key={i} href={`/projects/${award.projectSlug}`}>
-                {content}
-              </Link>
+              <motion.div key={i} variants={rowVariants}>
+                <Link href={`/projects/${award.projectSlug}`}>
+                  {content}
+                </Link>
+              </motion.div>
             )
           }
           if (award.link) {
             return (
-              <a key={i} href={award.link.url} target="_blank" rel="noopener noreferrer">
-                {content}
-              </a>
+              <motion.div key={i} variants={rowVariants}>
+                <a href={award.link.url} target="_blank" rel="noopener noreferrer">
+                  {content}
+                </a>
+              </motion.div>
             )
           }
-          return <div key={i}>{content}</div>
+          return <motion.div key={i} variants={rowVariants}>{content}</motion.div>
         })}
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   )
 }

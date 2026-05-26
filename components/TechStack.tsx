@@ -46,12 +46,22 @@ const skills: Record<Category, Skill[]> = {
   ],
 }
 
+const itemVariants = {
+  hidden: { opacity: 0, y: 16, scale: 0.95 },
+  visible: { opacity: 1, y: 0, scale: 1 },
+}
+
 export default function TechStack() {
   const [active, setActive] = useState<Category>('Frontend')
 
   return (
-    <div>
-      <h2 className="text-2xl font-bold text-white mb-6 tracking-tight">Tech Stack</h2>
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 0.5 }}
+    >
+      <h2 className="text-2xl font-bold text-white tracking-tight mb-6 glitch-hover">Tech Stack</h2>
 
       <div className="flex flex-wrap gap-2 mb-8">
         {(Object.keys(skills) as Category[]).map((cat) => (
@@ -60,7 +70,7 @@ export default function TechStack() {
             onClick={() => setActive(cat)}
             className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
               active === cat
-                ? 'bg-white/[0.08] text-white border border-white/[0.12]'
+                ? 'bg-cyan-400/10 text-cyan-400 border border-cyan-400/20'
                 : 'text-gray-500 hover:text-gray-300 border border-transparent'
             }`}
           >
@@ -72,16 +82,18 @@ export default function TechStack() {
       <AnimatePresence mode="wait">
         <motion.div
           key={active}
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial="hidden"
+          animate="visible"
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
-          className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 gap-4"
+          transition={{ staggerChildren: 0.04 }}
+          className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 gap-4"
         >
           {skills[active].map((skill) => (
-            <div
+            <motion.div
               key={skill.name}
-              className="flex flex-col items-center gap-2 py-4 rounded-xl border border-white/[0.04] hover:border-white/[0.1] hover:bg-white/[0.02] transition-colors group"
+              variants={itemVariants}
+              transition={{ duration: 0.3 }}
+              className="flex flex-col items-center gap-2 py-4 rounded-xl border border-white/[0.04] hover:border-cyan-400/20 hover:bg-cyan-400/[0.03] transition-colors group"
             >
               <div className={`text-2xl ${skill.color} opacity-60 group-hover:opacity-100 transition-opacity`}>
                 {skill.icon}
@@ -89,10 +101,10 @@ export default function TechStack() {
               <span className="text-[11px] text-gray-500 group-hover:text-gray-300 transition-colors">
                 {skill.name}
               </span>
-            </div>
+            </motion.div>
           ))}
         </motion.div>
       </AnimatePresence>
-    </div>
+    </motion.div>
   )
 }

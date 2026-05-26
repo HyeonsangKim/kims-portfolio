@@ -1069,9 +1069,9 @@ export const careerStoryBlocksV1: Partial<
       ja: 'Build with TRAE Seoul（ByteDance）ハッカソン大賞受賞作。複数のAIエージェントが議論で結論に到達し、その成果がビジネスアイデアレポートとランディングページとして即座に出力されるマルチエージェント議論プラットフォーム。',
     },
     context: {
-      ko: '당일치기 해커톤 두 번째 출전이었습니다. 첫 해커톤에서 열심히 준비했는데 수상자들은 라이브 데모 없이 촬영된 동영상으로도 수상하는 모습을 봤기에, 이번에는 프로젝트를 완성한 뒤 동영상 촬영으로 출품하겠다는 전략을 세워갔습니다. 그런데 심사기준이 배포된 프로젝트 URL을 제출하고, 사람 심사위원과 AI 심사위원이 직접 테스트하는 방식이었습니다. 전략이 완전히 어긋나서 멘붕 상태로 시간을 허비했고, 3시간 정도 남았을 때 Agent의 본질을 떠올렸습니다. 사람이 Agent를 만드는 이유는 결국 "자동화" 또는 "자율적인 의사결정을 통한 보조"이고, 그걸 가장 잘 보여주는 건 여러 전문가가 토론으로 결론에 도달하는 모습이라고 판단했습니다.',
-      en: 'This was my second one-day hackathon. At the first one I had prepared hard but noticed that winners shipped pre-recorded videos without live demos, so I came in with a strategy: finish the project, then record a polished video. Except the judging format was different — submit a deployed URL and let human judges and an AI judge test it live. My entire plan fell apart and I froze, burning time. With about three hours left I stepped back and thought about what an agent actually is. People build agents for "automation" or "autonomous decision-making as an assistant." The most convincing way to show that was to let multiple expert personas debate to a conclusion.',
-      ja: '当日完結型ハッカソンへの2回目の出場でした。1回目で一生懸命準備したのに受賞者はライブデモなしの収録動画で入賞していたので、今回は完成後に動画を撮影して提出する戦略で臨みました。ところが審査基準がデプロイ済みURLを提出し、人間審査員とAI審査員が直接テストする方式でした。戦略が完全に外れてパニック状態で時間を浪費し、残り約3時間でAgentの本質を思い出しました。人がAgentを作る理由は「自動化」か「自律的な意思決定による補助」であり、それを最も説得力ある形で見せるのは複数の専門家が議論で結論に到達する姿だと判断しました。',
+      ko: '당일치기 해커톤 두 번째 출전이었습니다. 첫 해커톤에서 열심히 준비했는데 수상자들은 라이브 데모 없이 촬영된 동영상으로도 수상하는 모습을 봤기에, 이번에는 프로젝트를 완성한 뒤 동영상 촬영으로 출품하겠다는 전략을 세워갔습니다. 그런데 심사기준이 배포된 프로젝트 URL을 제출하고, 사람 심사위원과 AI 심사위원이 직접 테스트하는 방식이었습니다. 전략이 완전히 어긋나서 멘붕 상태로 시간을 허비했고, 3시간 정도 남았을 때 Agent의 본질을 떠올렸습니다. 사람이 Agent를 만드는 이유는 결국 "자동화" 또는 "자율적인 의사결정을 통한 보조"인데, 에이전트 하나가 혼자 답을 내는 것보다 여러 전문가 역할의 에이전트가 서로 부딪히면서 결론에 수렴하는 모습이 그 가치를 가장 직관적으로 보여줄 수 있다고 판단했습니다.',
+      en: 'This was my second one-day hackathon. At the first one I had prepared hard but noticed that winners shipped pre-recorded videos without live demos, so I came in with a strategy: finish the project, then record a polished video. Except the judging format was different — submit a deployed URL and let human judges and an AI judge test it live. My entire plan fell apart and I froze, burning time. With about three hours left I stepped back and thought about what an agent actually is. People build agents for "automation" or "autonomous decision-making as an assistant" — and rather than one agent answering alone, multiple expert-role agents clashing and converging toward a conclusion would show that value most intuitively.',
+      ja: '当日完結型ハッカソンへの2回目の出場でした。1回目で一生懸命準備したのに受賞者はライブデモなしの収録動画で入賞していたので、今回は完成後に動画を撮影して提出する戦略で臨みました。ところが審査基準がデプロイ済みURLを提出し、人間審査員とAI審査員が直接テストする方式でした。戦略が完全に外れてパニック状態で時間を浪費し、残り約3時間でAgentの本質を思い出しました。人がAgentを作る理由は「自動化」か「自律的な意思決定による補助」であり、エージェント一つが単独で答えを出すより、複数の専門家役エージェントがぶつかり合いながら結論に収束する姿のほうがその価値を最も直感的に見せられると判断しました。',
     },
     problem: {
       ko: '3시간 안에 배포된 URL을 제출해야 하고, 심사위원이 직접 써보는 방식이라 "에이전트의 가치"를 한 화면에서 체감시켜야 했습니다. 단순히 에이전트를 만드는 게 아니라, 여러 전문가가 자동으로 토론하고 수렴해서 결론까지 도달하는 모습 자체가 데모여야 했습니다.',
@@ -1079,9 +1079,9 @@ export const careerStoryBlocksV1: Partial<
       ja: '残り3時間で、審査員が実際に触るデプロイ済みURLを提出しなければなりませんでした。「エージェントの価値」を1画面で体感させる必要があり、単なるチャットではなく複数の専門家が自律的に議論し収束して結論に到達する姿そのものがデモである必要がありました。',
     },
     hypothesis: {
-      ko: '여러 명의 에이전트가 채팅 UI 안에서 자유 토론으로 충돌하고 수렴하면, 그 결과를 그대로 사업 아이디어 결정 보고서와 랜딩 페이지로 만들어낼 수 있을 거라고 봤습니다. 단순히 여러 에이전트가 대화하는 것에서 끝나지 않고, 오케스트레이터가 지휘하듯 토론 흐름에 따라 필요 없는 페르소나는 퇴장시키고 새로운 전문가를 소환하는 구조까지 포함해야 진짜 "에이전트"를 보여주는 데모가 된다고 봤습니다.',
-      en: 'If several agents collide and converge inside a free-form chat UI, the same debate output should be enough to drop directly into a structured business idea + landing page. But it couldn\'t stop at "agents chatting" — the orchestrator had to conduct the debate like a conductor: retiring personas that have served their purpose and summoning new specialists as the topic deepens. That level of autonomy is what makes it a real agent demo.',
-      ja: '複数のエージェントがチャットUI内で自由議論によって衝突・収束すれば、その結果をそのままビジネスアイデア決定レポート + ランディングページに落とし込めると考えました。単に複数エージェントが会話するだけでは終わらず、オーケストレーターが指揮者のように議論の流れに応じて不要なペルソナを退場させ新たな専門家を召喚する構造まで含めてこそ、本当の「エージェント」を見せるデモになると考えました。',
+      ko: '진짜 에이전틱한 시스템이란 뭔가를 생각했을 때, 핵심은 오케스트레이터(진행자)가 사용자의 도메인에 맞는 전문가 에이전트를 동적으로 생성하고, 토론이 깊어지면 새로운 전문가를 소환하고, 더 이상 필요 없는 에이전트는 퇴장시키는 것까지 전부 사용자 개입 없이 자율적으로 돌아가면서 결론에 도달하는 구조라고 봤습니다. 그래서 에이전트들이 채팅 UI 안에서 자유 토론으로 충돌하고 수렴한 결과가 그대로 사업 아이디어 보고서와 랜딩 페이지로 나오는 흐름을 목표로 잡았습니다.',
+      en: 'What does a truly "agentic" system look like? I concluded the key is an orchestrator that dynamically spawns domain-matched expert agents, brings in new specialists as the debate deepens, and retires those no longer needed — all autonomously, converging toward a conclusion without user intervention. So the target was a flow where agents debate freely inside a chat UI and the converged output drops straight into a business-idea report and landing page.',
+      ja: '本当にエージェンティックなシステムとは何かを考えた時、核心はオーケストレーター（進行役）がユーザーのドメインに合った専門家エージェントを動的に生成し、議論が深まれば新たな専門家を召喚し、不要になったエージェントは退場させる — この全過程がユーザーの介入なく自律的に回りながら結論に到達する構造だと判断しました。そこでエージェントたちがチャットUI内で自由議論により衝突・収束した結果がそのままビジネスアイデアレポートとランディングページとして出力される流れを目標に据えました。',
     },
     alternatives: {
       ko: '단일 챗봇·룰 기반 토론 시뮬레이터·외부 LLM 토론 API도 검토했지만, 모두 발화권 회수와 수렴 강제가 약했습니다. 사용자가 결과를 거절하면 다시 토론이 이어져야 한다는 Human-in-the-Loop 요구까지 합쳐, 직접 오케스트레이터 + 상태 머신을 짜는 쪽이 가장 정확했습니다.',
@@ -1089,14 +1089,14 @@ export const careerStoryBlocksV1: Partial<
       ja: '単一チャットボット・ルールベース議論シミュレーター・外部LLM議論APIも検討しましたが、いずれも発話権の回収と収束強制が弱かったです。ユーザーが結果を拒絶すると議論が再開する必要があるというHuman-in-the-Loop要件まで合わせると、オーケストレーター + 状態マシンを自前で組む方が最も精度が高かったです。',
     },
     decision: {
-      ko: 'AsyncGenerator 기반 오케스트레이터 + SSE 스트림 + useReducer 상태 머신의 3-layer 분리를 채택했습니다. 오케스트레이터는 30턴 자유 토론을 돌리고 12·22턴에 비고정 에이전트를 retire·spawn으로 교체, 25턴 이후 수렴 모드로 강제 전환합니다. 결과는 구조화된 사업 아이디어로 정제된 뒤 9종 디자인 템플릿 중 하나로 즉시 랜딩 페이지가 렌더링됩니다(GPT가 HTML 만들 때까지 기다리지 않음).',
-      en: 'Settled on a three-layer split: an AsyncGenerator orchestrator + SSE stream + useReducer state machine on the client. The orchestrator runs a 30-turn free debate, retires and spawns non-fixed agents at turns 12 and 22 as the topic deepens, and force-flips the loop into convergence mode after turn 25. The conclusion is distilled into a structured business idea, then rendered into one of nine design templates instantly — no waiting on GPT to generate HTML.',
-      ja: 'AsyncGeneratorベースのオーケストレーター + SSEストリーム + useReducer状態マシンという3層分離を採用しました。オーケストレーターは30ターンの自由議論を回し、12・22ターン目に非固定エージェントをretire・spawnで入れ替え、25ターン以降は収束モードに強制転換します。結果は構造化されたビジネスアイデアに精製された後、9種類のデザインテンプレートから1つで即座にランディングページがレンダリングされます（GPTがHTMLを生成するのを待たない）。',
+      ko: 'AsyncGenerator 기반 오케스트레이터 + SSE 스트림 + useReducer 상태 머신의 3-layer 분리를 채택했습니다. 오케스트레이터는 30턴 자유 토론을 돌리고 12·22턴에 비고정 에이전트를 retire·spawn으로 교체, 25턴 이후 수렴 모드로 강제 전환합니다. 결과는 구조화된 사업 아이디어로 정제된 뒤 9종 디자인 템플릿 중 하나로 즉시 랜딩 페이지가 렌더링됩니다.',
+      en: 'Settled on a three-layer split: an AsyncGenerator orchestrator + SSE stream + useReducer state machine on the client. The orchestrator runs a 30-turn free debate, retires and spawns non-fixed agents at turns 12 and 22 as the topic deepens, and force-flips the loop into convergence mode after turn 25. The conclusion is distilled into a structured business idea, then rendered into one of nine design templates instantly.',
+      ja: 'AsyncGeneratorベースのオーケストレーター + SSEストリーム + useReducer状態マシンという3層分離を採用しました。オーケストレーターは30ターンの自由議論を回し、12・22ターン目に非固定エージェントをretire・spawnで入れ替え、25ターン以降は収束モードに強制転換します。結果は構造化されたビジネスアイデアに精製された後、9種類のデザインテンプレートから1つで即座にランディングページがレンダリングされます。',
     },
     execution: {
-      ko: 'PM 에이전트는 항상 존재하며 "누가 이걸 사겠는가" 같은 현실 검증 발언을 던지는 역할입니다. 토픽별 전문가는 동적으로 소환되고, 디자이너 에이전트는 3턴에 합류합니다. 사용자가 결과 랜딩 페이지를 거절하면 PM이 거절을 공지하고 추가 8턴 토론 → 새 랜딩 페이지 생성. 토론에 직접 텍스트를 입력하지 않고도 사람의 결정이 시스템에 반영되는 Human-in-the-Loop 구조입니다.',
-      en: 'The PM agent is always present and plays the realist — "would anyone actually pay for this?" Topic-specific experts spawn dynamically, and a Designer agent joins at turn 3. When the user rejects the landing page, the PM announces the rejection, the team runs 8 more turns, and a new landing page is generated. The user influences the system without ever typing into the debate itself — Human-in-the-Loop, by structure.',
-      ja: 'PMエージェントは常に存在し、「誰がこれを買うのか」のような現実検証発言を投げる役割です。トピック別専門家は動的に召喚され、デザイナーエージェントは3ターン目に合流。ユーザーが結果のランディングページを拒絶するとPMが拒絶を告知し、追加8ターンの議論 → 新しいランディングページが生成されます。議論に直接テキストを入力せずに人の判断がシステムに反映されるHuman-in-the-Loop構造です。',
+      ko: 'PM 에이전트(오케스트레이터)는 항상 존재하며 토론을 진행하는 역할입니다. 각 에이전트가 주제에서 크게 벗어나지 않도록 하네스 역할도 하면서, 토픽별 전문가는 동적으로 소환되고, 디자이너 에이전트는 3턴에 합류합니다. 사용자가 결과 랜딩 페이지를 거절하면 PM이 거절을 공지하고 추가 8턴 토론 → 새 랜딩 페이지 생성. 토론에 직접 텍스트를 입력하지 않고도 사람의 결정이 시스템에 반영되는 Human-in-the-Loop 구조입니다.',
+      en: 'The PM agent (orchestrator) is always present and drives the debate, also acting as a harness to keep each agent from drifting off-topic. Topic-specific experts spawn dynamically, and a Designer agent joins at turn 3. When the user rejects the landing page, the PM announces the rejection, the team runs 8 more turns, and a new landing page is generated. The user influences the system without ever typing into the debate itself: Human-in-the-Loop by structure.',
+      ja: 'PMエージェント（オーケストレーター）は常に存在し、議論を進行する役割です。各エージェントがテーマから大きく逸れないようハーネスの役割も担いつつ、トピック別専門家は動的に召喚され、デザイナーエージェントは3ターン目に合流します。ユーザーが結果のランディングページを拒絶するとPMが拒絶を告知し、追加8ターンの議論 → 新しいランディングページが生成されます。議論に直接テキストを入力せずに人の判断がシステムに反映されるHuman-in-the-Loop構造です。',
     },
     result: {
       ko: 'Build with TRAE Seoul(ByteDance) 대상 수상. 26 커밋·0 머지 충돌로 PRD부터 동작 데모까지 완성했고, 채팅 UI가 그대로 랜딩 페이지로 전환되는 흐름이 심사 핵심 포인트로 작용했습니다. 오케스트레이터 + 상태 머신이 토론의 발산을 막고 수렴으로 끌고 가는 척추 역할을 했습니다.',
@@ -1104,9 +1104,9 @@ export const careerStoryBlocksV1: Partial<
       ja: 'Build with TRAE Seoul（ByteDance）大賞受賞。26コミット・マージ衝突0件でPRDから動作デモまでを完成させ、チャットUIがそのままランディングページに変わる流れが審査の決め手として作用しました。オーケストレーター + 状態マシンが議論の発散を防ぎ収束へ導く脊柱の役割を果たしました。',
     },
     reflection: {
-      ko: '에이전트가 모여 토론한다는 컨셉 자체는 모두 떠올릴 수 있습니다. 차별점은 결국 "토론이 발산하지 않도록 누가 어떻게 조율하는가"였고, 그 답은 시각적으로 보이는 채팅 UI 뒤에 있는 오케스트레이터·발화권 컨트롤러·강제 수렴 모드 같은 시스템 디자인이었습니다. 멀티 에이전트 제품의 본질은 모델 성능이 아니라 "수렴 가능한 상태 머신"이라는 점을 가장 명확히 배운 프로젝트입니다.',
-      en: 'Anyone can imagine "agents debating each other." The real differentiator is the answer to "who keeps the debate from diverging, and how?" — and that answer lives in the invisible layer behind the chat: the orchestrator, the turn controller, the forced-convergence mode. The product takeaway: with multi-agent apps, the model matters less than the convergence-capable state machine you wrap around it.',
-      ja: 'エージェントが集まって議論するというコンセプト自体は誰でも思いつきます。差別化点は結局「議論が発散しないように誰がどう調整するか」で、その答えは可視のチャットUIの背後にあるオーケストレーター・発話権コントローラー・強制収束モードなどのシステムデザインでした。マルチエージェント製品の本質はモデル性能ではなく「収束可能な状態マシン」であることを最も明確に学んだプロジェクトです。',
+      ko: '"에이전트가 모여 토론한다"는 아이디어 자체는 누구나 떠올릴 수 있습니다. 문제는 토론이 발산하지 않게 만드는 쪽이었고, 결국 차이를 만든 건 채팅 UI 뒤에 숨어 있는 오케스트레이터와 상태 머신이었습니다. 모델을 뭘 쓰느냐보다, 수렴을 강제하는 구조를 어떻게 짜느냐가 결과물 품질을 결정한다는 걸 이 프로젝트에서 가장 또렷이 느꼈습니다.',
+      en: 'Anyone can picture "agents debating." The hard part is keeping that debate from flying apart — and the real differentiator turned out to be the orchestrator and state machine hiding behind the chat UI. What model you pick matters less than how you force convergence; that is the sharpest lesson from this project.',
+      ja: '「エージェントが議論する」というアイデア自体は誰でも思いつきます。難しいのは発散を防ぐ側で、結局差を作ったのはチャットUIの裏に隠れたオーケストレーターと状態マシンでした。どのモデルを使うかより、収束を強制する構造をどう組むかが結果物の品質を左右する — このプロジェクトで最も鮮明に感じた教訓です。',
     },
     visuals: {
       decision: {
@@ -1125,14 +1125,14 @@ export const careerStoryBlocksV1: Partial<
       ja: 'WIGENTで実証したマルチエージェント議論の経験を基に、Snowflakeが指定した4つのデータセット + 11個のCortex機能を単一ユーザーフローに織り込んだ目的駆動型の地域インテリジェンス基盤。Snowflake AI & Data Hackathon Korea 2026 Tech Track 2位。',
     },
     context: {
-      ko: 'Snowflake AI & Data Hackathon Korea 2026 Tech Track에 출전한 프로젝트입니다. 이 해커톤은 Snowflake Cortex 기반으로 데이터 활용 서비스를 만드는 대회였고, 참가 조건으로 데이터셋 4종(부동산 시세·유동인구·카드매출·통신계약)과 사용 가능한 Cortex 기능 11종이 미리 정해져 있었습니다. WIGENT에서 멀티 에이전트 토론 구조가 결과물까지 만들어낸다는 걸 검증한 경험이 있었기에, 같은 접근을 이 제약 위에 얹는 것이 출발점이었습니다.',
-      en: 'This was our entry for the Snowflake AI & Data Hackathon Korea 2026 Tech Track, a competition to build data-driven services on top of Snowflake Cortex. The rules fixed four datasets (real-estate prices, foot traffic, card sales, telecom contracts) and the catalog of 11 Cortex capabilities we could use. We had already proven with WIGENT that a multi-agent debate structure can produce the final artifact, so the starting point was layering that same approach on top of these constraints.',
-      ja: 'Snowflake AI & Data Hackathon Korea 2026 Tech Trackに出場したプロジェクトです。この大会はSnowflake Cortex基盤でデータ活用サービスを作る競技で、参加条件としてデータセット4種（不動産価格・人流・カード売上・通信契約）と使用可能なCortex機能11種が事前に決められていました。WIGENTでマルチエージェント議論構造が成果物まで作り出せることを検証した経験があったため、同じアプローチをこの制約の上に載せることが出発点でした。',
+      ko: 'Snowflake AI & Data Hackathon Korea 2026 Tech Track에 출전한 프로젝트입니다. 이 해커톤은 Snowflake Cortex 기반으로 데이터 활용 서비스를 만드는 대회였고, 참가 조건으로 데이터셋 4종(부동산 시세·유동인구·카드매출·통신계약)과 사용 가능한 Cortex 기능 11종이 미리 정해져 있었습니다. 정해진 데이터셋과 Cortex 기능을 어떻게 에이전틱하게 풀어낼 수 있을까 고민하다가, WIGENT에서 멀티 에이전트 토론 구조가 결과물까지 만들어냈던 경험이 떠올랐고 같은 접근을 이 제약 위에 얹는 것이 출발점이 됐습니다.',
+      en: 'This was our entry for the Snowflake AI & Data Hackathon Korea 2026 Tech Track, a competition to build data-driven services on top of Snowflake Cortex. The rules fixed four datasets (real-estate prices, foot traffic, card sales, telecom contracts) and the catalog of 11 Cortex capabilities we could use. While thinking about how to present these fixed datasets and Cortex features in an agentic way, I recalled what we had proven with WIGENT: the multi-agent debate structure can produce the final artifact. That became the starting point for layering the same approach on top of these constraints.',
+      ja: 'Snowflake AI & Data Hackathon Korea 2026 Tech Trackに出場したプロジェクトです。この大会はSnowflake Cortex基盤でデータ活用サービスを作る競技で、参加条件としてデータセット4種（不動産価格・人流・カード売上・通信契約）と使用可能なCortex機能11種が事前に決められていました。決められたデータセットとCortex機能をどうエージェンティックに表現できるか考えた時、WIGENTでマルチエージェント議論構造が成果物まで作り出した経験が思い浮かび、同じアプローチをこの制約の上に載せることが出発点になりました。',
     },
     problem: {
-      ko: '핵심 제약은 두 가지였습니다. 첫째, 데이터셋이 고정되어 있어 "사용자 질문에서 적절한 데이터셋으로 자동 라우팅"이 필요했습니다. 둘째, Cortex가 제공하는 기능(Agent·Analyst·ANOMALY_DETECTION·FORECAST·AI_SENTIMENT·AI_CLASSIFY 등 11종)을 데모용 체크리스트가 아니라 사용자 흐름에 자연스럽게 녹여야 했습니다. 단순히 다 호출만 하면 토론은 흩어지고 화면은 SQL 로그가 됩니다.',
-      en: 'Two constraints sat at the core. First, with the datasets fixed, the system had to route "user question → right dataset" automatically. Second, the 11 Cortex capabilities on offer (Agent, Analyst, ANOMALY_DETECTION, FORECAST, AI_SENTIMENT, AI_CLASSIFY, …) had to be embedded into the user flow naturally — not paraded as a feature checklist. Just calling them all is the fast way to break the debate and turn the screen into an SQL log.',
-      ja: '中核制約は2つ。第一に、データセットが固定されているため「ユーザー質問から適切なデータセットへの自動ルーティング」が必要でした。第二に、Cortexが提供する11個の機能（Agent・Analyst・ANOMALY_DETECTION・FORECAST・AI_SENTIMENT・AI_CLASSIFY等）をデモ用のチェックリストではなくユーザーフローに自然に織り込む必要がありました。全部呼び出すだけでは議論は発散し画面はSQLログになります。',
+      ko: '핵심 제약은 두 가지였습니다. 첫째, 데이터셋이 고정되어 있어 사용자 질문에서 적절한 데이터셋으로 자동 라우팅해야 했습니다. "카페 창업 입지"를 물었을 때 부동산 시세와 유동인구를 동시에 잡아야 하는데, 이 판단을 사용자한테 맡길 수 없었습니다. 둘째, Cortex 기능 11종을 "다 써봤다"는 체크리스트가 아니라 토론 흐름 안에서 각 기능이 필요한 시점에 자동으로 호출되게 만들어야 했습니다. 그냥 전부 호출만 하면 화면은 SQL 로그가 되고 토론은 흩어집니다.',
+      en: 'Two constraints sat at the core. First, with the datasets fixed, the system had to auto-route user questions to the right dataset — when someone asks about café location scouting, the system needs real-estate prices and foot traffic simultaneously, and you cannot push that choice to the user. Second, the 11 Cortex capabilities had to fire at the right moment inside the debate flow, not just parade as a feature checklist. Calling them all blindly turns the screen into an SQL log and scatters the debate.',
+      ja: '中核制約は2つ。第一に、データセットが固定されているためユーザーの質問から適切なデータセットへ自動ルーティングが必要でした。「カフェ創業の立地」を聞いた時に不動産価格と人流を同時に拾わなければならず、その判断をユーザーに任せることはできませんでした。第二に、Cortex機能11種を「全部使った」というチェックリストではなく、議論の流れの中で各機能が必要なタイミングで自動呼び出しされる形にする必要がありました。全部をただ呼ぶだけでは画面はSQLログになり議論は発散します。',
     },
     hypothesis: {
       ko: '"사용자는 SQL을 모른 채 목적만 던지고, GPT-4o 오케스트레이터가 그 목적에 맞는 5명의 Cortex 전문가를 동적으로 소환해 4개 데이터셋을 교차 조회하며 토론한다." Cortex 기능 11개는 토론 중간에 자동 호출되어 각 전문가의 발언 근거로 흘러 들어가게 묶는다는 가설입니다.',
@@ -1140,9 +1140,9 @@ export const careerStoryBlocksV1: Partial<
       ja: '仮説 — 「ユーザーはSQLを知らずに目的だけを投げ、GPT-4oオーケストレーターがその目的に合う5名のCortex専門家を動的に召喚して4データセットを横断照会しながら議論する」。11個のCortex機能は議論の途中で自動呼び出しされ、各専門家の発言根拠として流れ込む形に束ねます。',
     },
     alternatives: {
-      ko: 'Cortex 단일 호출 데모, 룰 기반 추천 엔진, 일반 BI 대시보드도 검토했지만 Cortex 기능 카탈로그를 한 줄 흐름에 통합하면서 동시에 사용자가 SQL을 안 보게 만드는 길은 결국 멀티 에이전트 토론밖에 없었습니다. 또 Cortex Agent의 trial 한계가 데모 중 터질 위험이 있어 3-tier fallback(Cortex Agent → Cortex Analyst 직접 → GPT-4o Function Calling)을 함께 짜야 했습니다.',
-      en: 'Considered single Cortex calls as a demo, rules-based recommendation engines, and standard BI dashboards — but the only path that wove the Cortex catalog into a single flow and kept SQL invisible to the user was multi-agent debate. On top of that, the Cortex Agent trial limit could blow up mid-demo, so we layered a three-tier fallback (Cortex Agent → Cortex Analyst direct → GPT-4o Function Calling) to keep the demo green either way.',
-      ja: 'Cortex単一呼び出しデモ・ルールベース推薦エンジン・通常のBIダッシュボードも検討しましたが、Cortex機能カタログを一連の流れに統合しつつユーザーにSQLを見せない道は結局マルチエージェント議論しかありませんでした。さらにCortex Agentのtrial限界がデモ中に発生するリスクがあり、3層フォールバック（Cortex Agent → Cortex Analyst直接 → GPT-4o Function Calling）を併設する必要がありました。',
+      ko: 'Cortex 기능별 단일 호출 데모, 룰 기반 추천 엔진, 일반 BI 대시보드를 검토했습니다. 단일 호출 데모는 기능은 다 보여줄 수 있지만 사용자 입장에서 "그래서 뭘 해야 하는데?"가 빠집니다. BI 대시보드는 시각화는 강하지만 SQL을 모르는 사용자가 직접 질문을 던지는 흐름을 만들 수 없었습니다. 결국 Cortex 기능 카탈로그를 하나의 흐름에 녹이면서 SQL을 감추는 구조는 멀티 에이전트 토론밖에 없었습니다. 추가로 Cortex Agent가 trial 한계에 걸리면 데모 중간에 멈출 위험이 있어서, 3-tier fallback(Cortex Agent → Cortex Analyst 직접 → GPT-4o Function Calling)을 함께 설계했습니다.',
+      en: 'Evaluated three alternatives: per-capability Cortex demos, rules-based recommendation engines, and standard BI dashboards. Single-capability demos can show every feature, but the user is left asking "so what do I do?" BI dashboards are strong on visualization but cannot let a non-SQL user throw questions freely. The only path that wove the Cortex catalog into one flow while keeping SQL invisible was multi-agent debate. On top of that, the Cortex Agent trial limit could halt the demo mid-run, so we designed a three-tier fallback alongside it (Cortex Agent → Cortex Analyst direct → GPT-4o Function Calling).',
+      ja: 'Cortex機能別の単一呼び出しデモ、ルールベース推薦エンジン、一般的なBIダッシュボードを検討しました。単一呼び出しデモは機能を見せられますが「で、何をすればいいの？」がユーザーに残ります。BIダッシュボードは可視化は強いもののSQLを知らないユーザーが自由に質問を投げる流れは作れませんでした。結局Cortex機能カタログを一つの流れに織り込みつつSQLを隠す構造はマルチエージェント議論しかありませんでした。加えてCortex Agentがtrial限界に引っかかるとデモ途中で止まるリスクがあるため、3層フォールバック（Cortex Agent → Cortex Analyst直接 → GPT-4o Function Calling）を併せて設計しました。',
     },
     decision: {
       ko: 'GPT-4o 오케스트레이터 + 5 Cortex 전문가(PM 진행자·데이터 분석가·예측 분석가·인사이트 분석가·감성 분석가)의 토론 구조를 채택했습니다. Cortex Analyst가 text-to-SQL로 4개 데이터셋(SPH·RichGo·NextTrade·AJD)에 동시 질의하고, ANOMALY_DETECTION·FORECAST는 Promise.all로 병렬 실행해 결과가 웨어하우스에서 합쳐진 뒤 데이터 분석가가 합본 결론을 발언합니다. 4종 Semantic Model YAML + 2종 Dynamic Tables + 2종 Python UDF로 Cortex 기능 11종을 단일 사용자 플로우에 녹였습니다.',
@@ -1216,24 +1216,24 @@ export const careerStoryBlocksV1: Partial<
       ja: 'PRD作成 → 画面定義書 → 並列ビルド → コードレビュー → コミットまでを1パイプラインで回すClaude Codeプラグイン。13エージェント・5コマンド・4スキルを束ねてオープンソース公開。',
     },
     context: {
-      ko: '사운드마인드에서 팀장으로 여러 프로젝트를 동시에 리딩하면서, 회사에서 유일한 프로젝트 경력자로서 산적한 모든 프로젝트를 혼자 챙기는 데 한계를 느꼈습니다. 내가 업무에 접근하는 방식, 즉 PRD를 먼저 쓰고 설계 검증을 거친 뒤 구현에 들어가는 흐름을 동료들에게도 이식할 수 있으면 좋겠다고 생각했습니다. 그래서 그 노하우를 Claude Code 플러그인으로 만들어 팀 전체가 같은 워크플로우 위에서 움직일 수 있게 했고, 이걸 오픈소스로 공개했습니다.',
-      en: 'As team lead at Soundmind running multiple projects simultaneously, I was the only engineer with project experience and hit a wall trying to lead everything alone. I wanted to transfer the way I approach work — write the PRD first, validate the design, then implement — to the rest of the team. So I packaged that workflow into a Claude Code plugin, put the whole team on the same rails, and open-sourced it.',
-      ja: 'サウンドマインドでチームリーダーとして複数プロジェクトを同時にリードする中、唯一のプロジェクト経験者として山積するすべてを一人で見るのに限界を感じました。自分の業務アプローチ — PRDを先に書き、設計検証を経てから実装に入る流れ — を同僚にも移植できればと考え、そのノウハウをClaude Codeプラグインにまとめてチーム全体が同じワークフロー上で動けるようにし、オープンソースで公開しました。',
+      ko: '사운드마인드에서 팀장으로 여러 프로젝트를 동시에 리딩하면서, 회사 내에서 실질적으로 프로젝트 경험이 가장 많은 사람이 저 혼자다 보니 점점 한계를 느끼기 시작했습니다. 모든 프로젝트를 직접 챙기다 보니 병목이 생겼고, 결국 중요한 건 제가 일하는 방식을 팀 전체가 공유할 수 있어야 한다는 생각에 도달했습니다.\n\n특히 저는 구현 전에 항상 PRD를 먼저 작성하고, 설계 검증을 거친 뒤 개발에 들어가는 흐름으로 일해왔는데, 이 과정을 팀원들도 자연스럽게 따라갈 수 있으면 좋겠다고 생각했습니다.\n\n하지만 AI를 실제 개발 흐름 안에 적용해보니, 단순히 AI를 잘 사용하는 것만으로는 결과물 품질을 안정적으로 유지하기 어렵다는 문제를 계속 체감했습니다. 한 세션 안에서 역할과 컨텍스트가 섞이기 시작하면 결과물이 쉽게 흔들렸고, 결국 AI가 일관된 방식으로 동작할 수 있는 워크플로우 자체가 필요하다고 판단했습니다.\n\n그래서 제가 실제로 사용하던 작업 방식을 Claude Code 기반 플러그인 형태로 구조화했고, 팀 전체가 같은 흐름 위에서 작업할 수 있도록 만들었습니다. 이후에는 다른 개발자들도 사용할 수 있게 오픈소스로 공개했습니다.',
+      en: 'As team lead at Soundmind running multiple projects simultaneously, I was practically the only person with real project experience in the company, and the bottleneck was becoming obvious. Every project depended on me, so I concluded that what mattered most was making my way of working something the whole team could share.\n\nI always write the PRD first, validate the design, and only then start building — I wanted the team to follow that same flow naturally.\n\nBut once I started applying AI inside the actual development workflow, I kept running into the same issue: simply "using AI well" wasn\'t enough to keep output quality stable. The moment roles and context got mixed in a single session, results started drifting. I realized we needed the workflow itself to be structured so the AI could behave consistently.\n\nSo I turned my working process into a Claude Code plugin, put the whole team on the same rails, and later open-sourced it for other developers.',
+      ja: 'サウンドマインドでチームリーダーとして複数プロジェクトを同時にリードする中、社内で実質的にプロジェクト経験が最も豊富なのが自分一人という状況で、徐々に限界を感じ始めました。すべてのプロジェクトを自ら管理するうちにボトルネックが生じ、結局重要なのは自分の働き方をチーム全体が共有できることだという結論に至りました。\n\n特に私は実装前に必ずPRDを先に書き、設計検証を経てから開発に入る流れで仕事をしてきましたが、このプロセスをチームメンバーも自然に踏襲できればと考えました。\n\nしかしAIを実際の開発フローに適用してみると、単にAIをうまく使うだけでは成果物の品質を安定的に維持するのが難しいという問題を繰り返し実感しました。一つのセッション内で役割とコンテキストが混ざり始めると結果物が容易に揺らぎ、結局AIが一貫した方式で動作できるワークフロー自体が必要だと判断しました。\n\nそこで実際に使っていた作業方式をClaude Codeベースのプラグイン形態に構造化し、チーム全体が同じフロー上で作業できるようにしました。その後、他の開発者も使えるようオープンソースで公開しました。',
     },
     problem: {
-      ko: '아래의 문제들을 해결해야 검증된 하네스를 구현할 수 있고, 자동화된 워크플로우를 만들 수 있다고 생각했습니다. 컨텍스트 오염, 역할 경계 부재, 검증 부재를 풀지 않으면 AI가 만든 결과물을 신뢰할 수 없었습니다.',
-      en: 'The problems below had to be solved before a validated harness and an automated workflow could exist. Without fixing context contamination, missing role boundaries, and the lack of validation, AI output could not be trusted.',
-      ja: '以下の問題を解決してこそ検証されたハーネスを実装でき、自動化されたワークフローを作れると考えました。コンテキスト汚染、役割境界の不在、検証の不在を解かなければAI生成物を信頼できませんでした。',
+      ko: 'AI를 개발 과정에 본격적으로 넣기 시작하면서 몇 가지 문제를 계속 체감했습니다.\n\n한 세션 안에서 PRD, 설계, 구현이 함께 섞이면 이전 컨텍스트에 끌려가 결과물이 쉽게 흔들렸습니다. PM·아키텍트·개발·리뷰 역할이 같은 흐름 안에서 동시에 동작하면 책임 경계가 흐려지고 품질 편차가 커졌습니다. AI 결과물을 사람이 매번 직접 검수해야 하면 결국 생산성 이점이 사라졌습니다.\n\n결국 컨텍스트 관리, 역할 분리, 자동 검증이 함께 설계되지 않으면 AI 기반 개발 워크플로우를 안정적으로 운영하기 어렵다고 판단했습니다.',
+      en: 'Once AI was seriously embedded in the development process, several issues kept surfacing.\n\nWhen PRD, design, and implementation shared a single session, the output would drift toward earlier context. When PM, architect, developer, and reviewer roles operated in the same flow, responsibility boundaries blurred and quality variance grew. When humans had to manually review every AI output, the productivity advantage disappeared.\n\nI concluded that without designing context management, role separation, and automated validation together, an AI-driven development workflow could not run reliably.',
+      ja: 'AIを開発プロセスに本格的に組み込み始めてから、いくつかの問題を繰り返し実感しました。\n\n一つのセッション内でPRD・設計・実装が混在すると、以前のコンテキストに引きずられて成果物が容易に揺らぎました。PM・アーキテクト・開発・レビューの役割が同じフロー内で同時に動作すると責任境界が曖昧になり品質のばらつきが大きくなりました。AI生成物を人が毎回直接検収しなければならないと、結局生産性の利点が消失しました。\n\nコンテキスト管理・役割分離・自動検証が一緒に設計されなければ、AIベースの開発ワークフローを安定的に運用するのは難しいと判断しました。',
     },
     hypothesis: {
-      ko: '이 문제들은 각각 따로 해결할 수 있는 게 아니라, 하나의 파이프라인 안에서 동시에 제어돼야 한다고 봤습니다.\n\n먼저 PRD 단계에서는 Completeness·Feasibility·Security·Consistency 네 가지 검증 에이전트가 명세 자체를 먼저 점검하도록 만들었습니다. 구현 전에 방향 이탈 가능성을 줄이기 위해서였습니다.\n\n구현 단계에서는 Backend·Frontend·AI Server·Ops를 독립된 팀처럼 병렬 실행하고, SHARED_CONTEXT 파일로 필요한 정보만 공유하도록 구성했습니다. 역할별 컨텍스트를 분리하면서도 협업 흐름은 유지하기 위한 구조였습니다.\n\n마지막으로 커밋 단계에서는 3개의 리뷰 에이전트가 코드 품질을 자동 점수화하고, Security Critical 이슈는 점수와 관계없이 즉시 차단하도록 설계했습니다. 사람이 매번 직접 검수하지 않아도 최소한의 신뢰성을 확보하기 위한 장치였습니다.',
-      en: 'These problems could not be solved in isolation — they had to be controlled simultaneously inside a single pipeline.\n\nAt the PRD stage, four validation agents (Completeness, Feasibility, Security, Consistency) check the spec itself before implementation begins, reducing the chance of directional drift.\n\nAt the build stage, Backend, Frontend, AI Server, and Ops run as independent parallel teams, sharing only what they need through a SHARED_CONTEXT file. The goal was to separate role-level context while keeping the collaboration flow intact.\n\nFinally, at the commit stage, three review agents auto-score code quality, and Security Critical issues are blocked regardless of score. This was the mechanism for maintaining a minimum level of trust without requiring manual review every time.',
-      ja: 'これらの問題はそれぞれ別々に解けるものではなく、一つのパイプライン内で同時に制御する必要があると考えました。\n\nまずPRD段階ではCompleteness・Feasibility・Security・Consistencyの4検証エージェントが仕様自体を先に点検するようにしました。実装前に方向逸脱の可能性を減らすためです。\n\n実装段階ではBackend・Frontend・AI Server・Opsを独立したチームのように並列実行し、SHARED_CONTEXTファイルで必要な情報だけを共有する構成にしました。役割別コンテキストを分離しつつも協業の流れを維持するための構造でした。\n\n最後にコミット段階では3つのレビューエージェントがコード品質を自動スコア化し、Security Criticalのイシューはスコアに関係なく即時遮断するよう設計しました。人が毎回直接検収しなくても最低限の信頼性を確保するための仕組みでした。',
+      ko: '이 문제들은 따로따로 해결되는 게 아니라, 하나의 파이프라인 안에서 동시에 잡아야 한다고 봤습니다.\n\nPRD 단계에서는 Completeness·Feasibility·Security·Consistency 4개 검증 에이전트가 명세 자체를 먼저 점검하게 했습니다. 구현에 들어가기 전에 방향이 틀어질 여지를 줄이기 위해서였습니다.\n\n구현 단계에서는 Backend·Frontend·AI Server·Ops를 독립된 팀처럼 병렬 실행하되, SHARED_CONTEXT 파일 하나로 필요한 인터페이스·데이터 스키마·결과 포맷만 공유하고 이전 단계의 내부 시행착오는 공유하지 않는 구조로 만들었습니다. 이렇게 하면 각 팀의 컨텍스트가 섞이지 않으면서도 결과물은 맞물리게 됩니다.\n\n커밋 단계에서는 3개의 리뷰 에이전트가 코드 품질을 자동 점수화하고, Security Critical 이슈는 점수와 관계없이 즉시 차단하도록 설계했습니다. 사람이 매번 직접 검수하지 않아도 최소한의 신뢰 선을 유지하기 위한 장치였습니다.',
+      en: 'These problems cannot be picked off one by one — they need to be controlled inside a single pipeline at the same time.\n\nAt the PRD stage, four validation agents (Completeness, Feasibility, Security, Consistency) check the spec itself before implementation begins, catching directional drift early.\n\nAt the build stage, Backend, Frontend, AI Server, and Ops run as independent parallel teams, sharing only interfaces, data schemas, and result formats through a single SHARED_CONTEXT file — internal trial-and-error from prior stages stays out. Each team\'s context stays clean while the outputs still interlock.\n\nAt the commit stage, three review agents auto-score code quality, and Security Critical issues are blocked regardless of score — a safety floor that holds without requiring manual review every time.',
+      ja: 'これらの問題は一つずつ解決できるものではなく、一つのパイプライン内で同時に制御する必要がありました。\n\nPRD段階ではCompleteness・Feasibility・Security・Consistencyの4検証エージェントが仕様自体を先に点検し、方向逸脱を早期に捕えるようにしました。\n\n実装段階ではBackend・Frontend・AI Server・Opsを独立チームとして並列実行しつつ、SHARED_CONTEXTファイル一つでインターフェース・データスキーマ・結果フォーマットのみを共有し、前段階の内部試行錯誤は共有しない構造にしました。各チームのコンテキストが混ざらずに成果物は噛み合う形です。\n\nコミット段階では3つのレビューエージェントがコード品質を自動スコア化し、Security Criticalはスコアに関係なく即時遮断 — 人が毎回直接検収しなくても最低限の信頼線を維持する仕組みです。',
     },
     alternatives: {
-      ko: '에이전트마다 개별 호출하는 기존 방식, 단일 메가 에이전트로 통합하는 방식도 검토했지만 전자는 컨텍스트 전달 비용이 누적되고 후자는 한 에이전트가 모든 역할을 떠안아 책임 경계가 무너졌습니다.',
-      en: 'Two alternatives were on the table — invoking each agent separately (the current default) or merging them into one mega-agent. The first kept piling up context-handoff cost; the second collapsed role boundaries because one agent had to wear every hat.',
-      ja: 'エージェントごとに個別呼び出しする既存方式、単一メガエージェントに統合する方式も検討しましたが、前者はコンテキスト引き渡しコストが累積し、後者は一つのエージェントがすべての役割を抱えて責任境界が崩れました。',
+      ko: '에이전트마다 개별 호출하는 기존 방식과 단일 메가 에이전트로 통합하는 방식을 검토했습니다. 개별 호출은 한 에이전트가 끝나면 다음 에이전트에게 이전 결과를 다시 전달해야 해서, 단계가 늘수록 컨텍스트 전달 비용이 누적되고 중간에 정보가 변질될 위험이 커졌습니다. 메가 에이전트는 반대로 하나가 PRD 작성·설계·구현·리뷰를 전부 떠안는 구조라 어느 단계에서 문제가 생겼는지 추적이 안 됐고, 실제로 돌려보면 앞 단계 판단에 뒤 단계가 끌려가는 문제가 반복됐습니다.',
+      en: 'Evaluated two alternatives: invoking each agent individually and merging everything into a single mega-agent. Individual invocations require passing prior results to the next agent at every handoff — context-transfer cost piles up and information degrades mid-chain. The mega-agent has the opposite problem: one agent owns PRD, design, implementation, and review all at once, making it impossible to trace which stage introduced an issue. In practice, later stages kept drifting toward earlier decisions.',
+      ja: 'エージェントごとに個別呼び出しする方式と単一メガエージェントに統合する方式を検討しました。個別呼び出しは一つが終わるたびに次へ結果を受け渡す必要があり、段階が増えるほどコンテキスト引き渡しコストが累積して途中で情報が変質するリスクが大きくなりました。メガエージェントは逆にPRD作成・設計・実装・レビューをすべて一つが担うため、どの段階で問題が生じたか追跡できず、実際に回すと前段階の判断に後段階が引きずられる問題が繰り返されました。',
     },
     decision: {
       ko: '단일 플러그인으로 13 에이전트 + 5 커맨드 + 4 스킬 + 20 디자인 스타일 + 4 안전 훅을 묶었습니다. 핵심은 `/prd → /screen-spec → /implement → /auto-commit` 파이프라인이고, `/screen-spec`은 UI 프로젝트에서 PRD와 구현 사이에 화면정의서 5종을 자동 생성하는 선택적 게이트, `/implement`는 4개 팀에 자동 병렬 분배, `/auto-commit`은 3개 리뷰 에이전트 점수 합산 후 80점 이상이면 자동 머지·Security Critical은 점수 무관 강제 차단입니다.',
@@ -1251,27 +1251,27 @@ export const careerStoryBlocksV1: Partial<
       ja: 'WIGTN-CodingをClaude Codeプラグインとしてオープンソース公開し、他の開発者も同じワークフロー上でエンドツーエンドに作業できる形に整備しました。このワークフロー上でWIGENT（TRAE大賞）・WIGTN FLAKE（Snowflake Tech Track 2位）・WIGVOなど後続プロジェクトがすべて構築され、現在GitHubで約44スターを獲得した状態です。',
     },
     reflection: {
-      ko: 'AI 어시스턴트의 본질은 "더 좋은 답"이 아니라 "사람이 매번 사이를 잇지 않아도 시스템이 끝까지 도는 구조"라는 점을 가장 깊이 배운 프로젝트입니다. 그래서 점수 기반 자동 머지·Security Zero-Tolerance·역할 분리 같은 운영 구조 결정이 모델 선택보다 훨씬 큰 영향을 미쳤습니다.',
-      en: 'The deepest lesson from this one: the real value of AI assistants isn\'t "a better answer," it\'s "a structure that runs end-to-end without a human stitching every gap." Decisions about score-driven auto-merge, Security Zero-Tolerance, and role separation ended up mattering far more than which model we picked.',
-      ja: 'AIアシスタントの本質は「より良い回答」ではなく「人が毎回間を繋がなくてもシステムが最後まで回る構造」だということを最も深く学んだプロジェクトです。そのためスコアベース自動マージ・Security Zero-Tolerance・役割分離のような運用構造の決定がモデル選択よりはるかに大きな影響を与えました。',
+      ko: '팀원들이 이 플러그인 위에서 WIGENT·WIGTN FLAKE·WIGVO를 만들어내는 걸 보면서, 처음에 의도했던 "내 작업 방식의 이식"이 실제로 동작한다는 걸 확인했습니다. 결국 AI 도구의 가치는 답의 품질이 아니라, 사람이 매번 사이를 잇지 않아도 파이프라인이 끝까지 도는 구조에 있었습니다.',
+      en: 'Watching teammates ship WIGENT, WIGTN FLAKE, and WIGVO on top of this plugin confirmed that the original intent — transferring my working process — actually worked. The value of AI tooling turned out to be not the quality of individual answers, but a pipeline structure that runs end-to-end without a human stitching every gap.',
+      ja: 'チームメンバーがこのプラグイン上でWIGENT・WIGTN FLAKE・WIGVOを作り上げるのを見て、当初意図していた「自分の作業方式の移植」が実際に機能することを確認しました。結局AIツールの価値は個々の回答の品質ではなく、人が毎回間を繋がなくてもパイプラインが最後まで回る構造にありました。',
     },
     visuals: {
       problem: {
         bullets: {
           ko: [
-            '컨텍스트 오염 — 한 세션 안에서 PRD·설계·구현이 섞이면 AI가 이전 발화에 끌려가 결과물이 발산',
-            '역할 경계 부재 — PM·아키텍트·구현·리뷰가 같은 컨텍스트에서 동작하면 책임이 흐려져 코드 품질 저하',
-            '검증 부재 — AI 생성 결과를 사람이 매번 검수하면 속도 이득이 사라짐',
+            '컨텍스트 오염 — PRD·설계·구현이 한 세션에 섞이면 이전 컨텍스트에 끌려가 결과물이 쉽게 흔들림',
+            '역할 경계 부재 — PM·아키텍트·개발·리뷰가 같은 흐름에서 동시 동작하면 책임 경계가 흐려지고 품질 편차 증가',
+            '검증 부재 — AI 결과물을 사람이 매번 직접 검수하면 생산성 이점이 사라짐',
           ],
           en: [
-            'Context contamination — when PRD, design, and implementation share one session, the AI gets pulled by prior turns and the output diverges',
-            'No role boundary — PM, architect, implementer, reviewer running in the same context blurs responsibility and erodes code quality',
-            'No validation — if a human has to eyeball every AI output, the speed gain vanishes',
+            'Context contamination — when PRD, design, and implementation share one session, output drifts toward earlier context',
+            'No role boundary — PM, architect, developer, reviewer operating in the same flow blurs responsibility and increases quality variance',
+            'No validation — manual review of every AI output eliminates the productivity advantage',
           ],
           ja: [
-            'コンテキスト汚染 — PRD・設計・実装が1セッションに混ざるとAIが前の発話に引きずられ結果物が発散',
-            '役割境界の不在 — PM・アーキテクト・実装・レビューが同じコンテキストで動くと責任が曖昧になりコード品質が低下',
-            '検証の不在 — AI生成結果を毎回人が見直すと速度の利点が消える',
+            'コンテキスト汚染 — PRD・設計・実装が1セッションに混在すると以前のコンテキストに引きずられ成果物が容易に揺らぐ',
+            '役割境界の不在 — PM・アーキテクト・開発・レビューが同じフローで同時動作すると責任境界が曖昧になり品質のばらつきが増加',
+            '検証の不在 — AI生成物を毎回人が直接検収すると生産性の利点が消失',
           ],
         },
       },
@@ -1330,7 +1330,6 @@ export const careerStoryBlocksV1: Partial<
         metrics: [
           { value: '13 agents', label: { ko: '단일 파이프라인 통합 (PRD → 화면정의서 → 빌드 → 리뷰 → 커밋)', en: 'Bundled into one pipeline (PRD → screen spec → build → review → commit)', ja: '単一パイプライン統合（PRD → 画面定義書 → ビルド → レビュー → コミット）' } },
           { value: '44', label: { ko: 'GitHub stars (오픈소스 공개 후 수신, 외부 개발자 사용 신호)', en: 'GitHub stars after open-sourcing — signal of external adoption', ja: 'GitHubスター（オープンソース公開後、外部開発者の採用シグナル）' } },
-          { value: '3 프로젝트', label: { ko: '이 워크플로우로 만든 후속 프로젝트 (WIGENT·WIGTN FLAKE·WIGVO)', en: 'Downstream projects shipped on this workflow (WIGENT · WIGTN FLAKE · WIGVO)', ja: 'このワークフロー上で構築した後続プロジェクト（WIGENT・WIGTN FLAKE・WIGVO）' } },
         ],
       },
     },
@@ -1343,12 +1342,12 @@ export const careerStoryBlocksV1: Partial<
       ja: '一般電話線（PSTN）上で動作するリアルタイム音声通訳システム。デュアルセッション + エコーゲーティングアーキテクチャで平均557msの遅延・148件の実通話で0件のエコーループを達成し、ACL 2026 System Demonstrationsに採択されました。',
     },
     context: {
-      ko: '수신자가 앱을 깔지 않아도 일반 전화로 받기만 하면 양방향 통역이 동작해야 했습니다. 그러려면 통화 매개체는 PSTN(SIP)으로 가야 하고, 발신자·수신자 양쪽 오디오를 실시간으로 STT → 번역 → TTS로 동시에 처리하면서도 한쪽 출력이 다른 쪽 입력으로 다시 들어가는 에코 루프를 막아야 했습니다.',
-      en: 'The product had to work without asking the called party to install anything — pick up a normal phone, and two-way translation should just run. That meant PSTN/SIP as the transport, with both sides simultaneously running STT → translation → TTS in real time, while preventing the output of one side from leaking back as input on the other (echo loops).',
-      ja: '受信者がアプリを入れなくても普通の電話で出るだけで双方向通訳が動く必要がありました。そのため通話媒体はPSTN（SIP）で、発信者・受信者の双方の音声をリアルタイムでSTT → 翻訳 → TTSと同時処理しつつ、一方の出力がもう一方の入力に戻るエコーループを防ぐ必要がありました。',
+      ko: '부동산 중개소, 병원, 동네 수리점 같은 곳은 아직도 전화가 유일한 창구입니다. 그런데 국내 거주 외국인(220만 명), 통화 불안을 느끼는 세대, 청각·언어 장애인에게 전화 한 통은 여전히 큰 벽입니다. 기존 음성 번역 기술은 앱 대 앱 환경(광대역 오디오 + 클라이언트 AEC)을 전제로 만들어져 있어서, 수신자가 아무것도 설치하지 않은 일반 전화(PSTN)에서는 동작하지 않았습니다. 수신자가 앱 없이 전화를 받기만 하면 양방향 통역이 바로 동작하는 시스템을 만들려면, 통화 매개체를 PSTN(SIP)으로 가져가면서 발신자·수신자 양쪽 오디오를 실시간으로 STT → 번역 → TTS 처리하고 에코 루프까지 막아야 했습니다.',
+      en: 'Real-estate brokerages, hospitals, and neighborhood repair shops still rely on phone calls as their only gateway. Yet for foreign residents in Korea (2.2 million), people with call anxiety, and those with hearing or speech impairments, a single phone call remains a real barrier. Existing speech translation technology assumes app-to-app environments (wideband audio + client-side AEC), so it simply does not work when the called party picks up a plain PSTN phone with nothing installed. To build a system where the receiver just answers a normal phone and two-way translation runs immediately, we had to use PSTN/SIP as the transport, process both sides through STT → translation → TTS in real time, and prevent echo loops at the same time.',
+      ja: '不動産仲介、病院、地域の修理店などは今でも電話が唯一の窓口です。しかし在韓外国人（220万人）、通話不安を感じる世代、聴覚・言語障害者にとって電話一本は依然として大きな壁です。既存の音声翻訳技術はアプリ対アプリ環境（広帯域オーディオ + クライアント側AEC）を前提に作られており、受信者が何もインストールしていない一般電話（PSTN）では動作しませんでした。受信者がアプリなしで電話を取るだけで双方向通訳が即座に動くシステムを作るには、通話媒体をPSTN（SIP）にしつつ発信者・受信者双方の音声をリアルタイムでSTT → 翻訳 → TTS処理し、エコーループまで防ぐ必要がありました。',
     },
     problem: {
-      ko: '핵심 문제는 세 가지였습니다. 첫째, 오디오 환경 격차 — 일반 앱(16~24kHz PCM16 + 클라이언트 AEC)과 달리 PSTN은 G.711 μ-law 8kHz 협대역 코덱에 80~600ms 가변 지연이 깔립니다. 둘째, 에코 루프 — AI가 만든 TTS 음성이 PSTN을 타고 돌아와 다시 STT → 번역 → TTS로 입력되는데, 초기 테스트에서 10통 중 8통이 이 루프에 빠졌습니다. 셋째, VAD 실패 — OpenAI Server VAD는 깨끗한 광대역 입력을 가정해서 PSTN 잡음(RMS 50~200)을 "발화 중"으로 잡고 `speech_stopped` 이벤트가 15~72초 늦게 발화하거나 아예 안 옵니다.',
+      ko: '핵심 문제는 세 가지였습니다. 첫째, 오디오 환경 격차입니다. 일반 앱(16~24kHz PCM16 + 클라이언트 AEC)과 달리 PSTN은 G.711 μ-law 8kHz 협대역 코덱에 80~600ms 가변 지연이 깔립니다. 둘째, 에코 루프입니다. AI가 만든 TTS 음성이 PSTN을 타고 돌아와 다시 STT → 번역 → TTS로 입력되는데, 초기 테스트에서 10통 중 8통이 이 루프에 빠졌습니다. 셋째, VAD 실패입니다. OpenAI Server VAD는 깨끗한 광대역 입력을 가정해서 PSTN 잡음(RMS 50~200)을 "발화 중"으로 잡고 `speech_stopped` 이벤트가 15~72초 늦게 발화하거나 아예 안 옵니다.',
       en: 'Three problems sat at the core. (1) Audio environment gap — unlike high-bandwidth app environments (16-24kHz PCM16 with client-side AEC), PSTN runs on a G.711 μ-law 8kHz narrowband codec with 80-600ms variable delay. (2) Echo loops — the AI\'s TTS audio comes back through PSTN and re-enters the STT → translation → TTS chain; in initial testing, 8 out of 10 test calls fell into this loop. (3) VAD failure — OpenAI Server VAD assumes a clean wideband signal, so PSTN background noise (RMS 50-200) registers as "speech in progress" and `speech_stopped` fires 15-72 seconds late, or not at all.',
       ja: '中核の問題は3つ。(1) オーディオ環境ギャップ — 通常アプリ（16~24kHz PCM16 + クライアント側AEC）と異なり、PSTNはG.711 μ-law 8kHz狭帯域コーデックに80~600msの可変遅延が乗ります。(2) エコーループ — AIが生成したTTS音声がPSTNを経由して戻り再びSTT → 翻訳 → TTSに入力される現象で、初期テストでは10通中8通がこのループに落ちました。(3) VAD失敗 — OpenAI Server VADはクリーンな広帯域入力を前提とするため、PSTN背景ノイズ（RMS 50~200）を「発話中」と誤判定し、`speech_stopped`イベントが15~72秒遅れて発火するか、まったく発火しません。',
     },
@@ -1368,9 +1367,9 @@ export const careerStoryBlocksV1: Partial<
       ja: 'Dual-Session Echo Gatingアーキテクチャを採用しました。一行で要約すると — 方向ごとのRealtimeセッション2つを分離して回し、両セッションの間にソフトウェアエコーゲートを設置、STTと翻訳を分離して幻覚による文の追加を遮断しました。詳細構成は下のカードを参照。',
     },
     execution: {
-      ko: '7단계 진화로 본 단계마다 깨지는 지점을 차례로 잡았습니다. 단일 세션은 에코를 못 잡았고, 단순 듀얼은 두 세션이 서로의 TTS를 듣고 무한 발화 루프에 빠졌습니다. 그 위에 (1) Echo Gate — TTS 출력 시점 자기 음성을 차단, (2) Energy Gate — RMS 임계치로 PSTN 노이즈 필터링, (3) Silero VAD — 클라이언트 측 발화 종료 감지로 OpenAI Server VAD 한계 우회, (4) 세션 상태 공유 컨트롤러, (5) 발화권 우선순위 룰, (6) STT-Translation 분리(Whisper-1 vs GPT-4o-mini), (7) 6-turn sliding context로 메모리 부담 통제까지 단계적으로 쌓아 운영 환경에서 VAD 지연을 480ms까지 끌어내렸습니다.',
-      en: 'Seven rounds of iteration, each pinpointing the specific layer that was breaking. A single session couldn\'t catch echo at all; a naïve dual ended in an infinite loop. On top of that we stacked: (1) Echo Gate — block your own voice when TTS is playing; (2) Energy Gate — filter PSTN noise via RMS threshold; (3) Silero VAD — client-side speech-end detection that sidesteps OpenAI Server VAD\'s limits; (4) shared session-state controller; (5) speaking-turn priority rules; (6) STT-Translation split (Whisper-1 vs GPT-4o-mini); (7) 6-turn sliding context to keep memory pressure bounded. In production this got VAD latency down to 480ms.',
-      ja: '7段階の進化で、本番運用に到達するまで毎段階の破綻点を順に潰しました。単一セッションではエコーを捕えられず、単純なデュアルセッションは無限発話ループに陥りました。その上に (1) Echo Gate — TTS出力時点に自音声を遮断、(2) Energy Gate — RMS閾値でPSTNノイズをフィルタ、(3) Silero VAD — クライアント側で発話終端を検出しOpenAI Server VADの限界を回避、(4) セッション状態共有コントローラー、(5) 発話権優先順位ルール、(6) STT-翻訳分離（Whisper-1 vs GPT-4o-mini）、(7) 6ターンスライディングコンテキストでメモリ負担を制御、と段階的に積み上げ、本番でVAD遅延を480msまで詰めました。',
+      ko: '7단계 진화로 매 단계마다 깨지는 지점을 차례로 잡았습니다. 단일 세션은 에코를 못 잡았고, 단순 듀얼은 두 세션이 서로의 TTS를 듣고 무한 발화 루프에 빠졌습니다. 그 위에 (1) Echo Gate로 TTS 출력 시점에 자기 음성을 차단, (2) Energy Gate로 RMS 임계치 기반 PSTN 노이즈 필터링, (3) Silero VAD로 OpenAI Server VAD가 15~72초씩 지연되던 발화 종료 감지를 클라이언트 측에서 480ms 이내로 단축, (4) 세션 상태 공유 컨트롤러, (5) 발화권 우선순위 룰, (6) STT와 Translation 분리(Whisper-1 vs GPT-4o-mini), (7) 6-turn sliding context로 메모리 부담 통제까지 단계적으로 쌓아 운영 환경에서 종단 간 지연을 557ms까지 끌어내렸습니다.',
+      en: 'Seven rounds of iteration, each pinpointing the specific layer that was breaking. A single session couldn\'t catch echo at all; a naïve dual ended in an infinite loop. On top of that we stacked: (1) Echo Gate — block your own voice when TTS is playing; (2) Energy Gate — filter PSTN noise via RMS threshold; (3) Silero VAD — replaced OpenAI Server VAD\'s 15-72 second speech-end delay with sub-480ms client-side detection; (4) shared session-state controller; (5) speaking-turn priority rules; (6) STT-Translation split (Whisper-1 vs GPT-4o-mini); (7) 6-turn sliding context to keep memory pressure bounded. In production this brought end-to-end latency down to ~557ms.',
+      ja: '7段階の進化で毎段階の破綻点を順に潰しました。単一セッションではエコーを捕えられず、単純なデュアルは無限発話ループに陥りました。その上に (1) Echo Gate — TTS出力時に自音声を遮断、(2) Energy Gate — RMS閾値でPSTNノイズをフィルタ、(3) Silero VAD — OpenAI Server VADで15~72秒かかっていた発話終了検出をクライアント側で480ms以内に短縮、(4) セッション状態共有コントローラー、(5) 発話権優先順位ルール、(6) STT-翻訳分離（Whisper-1 vs GPT-4o-mini）、(7) 6ターンスライディングコンテキストでメモリ負担を制御 — と段階的に積み上げ、本番でエンドツーエンド遅延を557msまで詰めました。',
     },
     result: {
       ko: '실측 기준 평균 종단 간 지연 약 557ms, 148건의 실통화에서 0건의 에코 루프를 기록했습니다. 시스템 논문이 ACL 2026 System Demonstrations Track에 채택됐고, 수신자는 앱 설치 없이 일반 전화로 받기만 하면 양방향 통역이 동작하는 운영 단계에 도달했습니다. 대상 사용자는 국내 거주 외국인(2024년 기준 220만 명) · 재외 국민(280만 명) · 청각·언어 장애인(등록 39만 명) · 통화 회피 세대(MZ 약 40%)까지 포함합니다.',

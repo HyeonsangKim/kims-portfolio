@@ -17,7 +17,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="bg-[#0a0a0f] text-gray-200 antialiased">
+      <head>
+        <link
+          rel="stylesheet"
+          as="style"
+          crossOrigin="anonymous"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+        />
+      </head>
+      <body className="bg-[#0a0a0f] text-gray-200 antialiased font-pretendard">
         <Providers>
           <Nav />
           <main className="max-w-5xl mx-auto px-6">{children}</main>
