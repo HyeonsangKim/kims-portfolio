@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 560" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif">
+  <rect width="1100" height="560" fill="#0a0a0f"/>
+
+  <text x="550" y="38" text-anchor="middle" font-size="18" font-weight="600" fill="#fafafa">WIGVO — Dual-Session Echo Gating Architecture</text>
+
+  <g transform="translate(250,60)">
+    <rect width="10" height="10" rx="3" fill="#22d3ee"/>
+    <text x="16" y="10" font-size="11" fill="rgba(255,255,255,0.6)">App User (Browser)</text>
+    <rect x="180" width="10" height="10" rx="3" fill="#a855f7"/>
+    <text x="196" y="10" font-size="11" fill="rgba(255,255,255,0.6)">Relay Server</text>
+    <rect x="320" width="10" height="10" rx="3" fill="#f472b6"/>
+    <text x="336" y="10" font-size="11" fill="rgba(255,255,255,0.6)">PSTN (Twilio)</text>
+    <rect x="460" width="10" height="10" rx="3" fill="#fbbf24"/>
+    <text x="476" y="10" font-size="11" fill="rgba(255,255,255,0.6)">OpenAI Realtime API</text>
+  </g>
+
+  <!-- APP USER -->
+  <g transform="translate(30,90)">
+    <rect width="180" height="160" rx="12" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.12)" stroke-width="1.2"/>
+    <text x="16" y="26" font-size="10" font-weight="600" fill="rgba(255,255,255,0.4)" letter-spacing="1.5">APP USER</text>
+    <text x="16" y="50" font-size="15" font-weight="700" fill="#fafafa">Browser</text>
+    <text x="16" y="68" font-size="11" fill="rgba(255,255,255,0.5)">PCM16 16kHz</text>
+
+    <rect x="14" y="82" width="152" height="24" rx="5" fill="rgba(34,211,238,0.08)" stroke="#22d3ee" stroke-width="1"/>
+    <text x="90" y="98" text-anchor="middle" font-size="10" fill="#a5f3fc">WebSocket</text>
+
+    <rect x="14" y="112" width="152" height="24" rx="5" fill="rgba(34,211,238,0.08)" stroke="#22d3ee" stroke-width="1"/>
+    <text x="90" y="128" text-anchor="middle" font-size="10" fill="#a5f3fc">Silero VAD (client)</text>
+  </g>
+
+  <!-- Arrow App → Server -->
+  <g transform="translate(212,170)">
+    <line x1="0" y1="0" x2="30" y2="0" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+    <polygon points="30,0 24,-4 24,4" fill="rgba(255,255,255,0.3)"/>
+  </g>
+
+  <!-- RELAY SERVER (main box) -->
+  <g transform="translate(246,90)">
+    <rect width="460" height="340" rx="12" fill="rgba(255,255,255,0.03)" stroke="rgba(168,85,247,0.3)" stroke-width="1.2"/>
+    <text x="16" y="26" font-size="10" font-weight="600" fill="rgba(255,255,255,0.4)" letter-spacing="1.5">RELAY SERVER</text>
+    <text x="16" y="50" font-size="15" font-weight="700" fill="#fafafa">Dual-Session Echo Gating</text>
+
+    <!-- Session A -->
+    <g transform="translate(14,68)">
+      <rect width="210" height="100" rx="8" fill="rgba(34,211,238,0.06)" stroke="rgba(34,211,238,0.3)" stroke-width="1"/>
+      <text x="10" y="20" font-size="10" font-weight="600" fill="#22d3ee">SESSION A (Browser → Phone)</text>
+      <text x="10" y="38" font-size="10" fill="rgba(255,255,255,0.5)">OpenAI Realtime API</text>
+      <text x="10" y="54" font-size="9" fill="rgba(255,255,255,0.4)">V2V: STT → Translation → TTS</text>
+      <text x="10" y="68" font-size="9" fill="rgba(255,255,255,0.4)">6-turn sliding context</text>
+      <text x="10" y="82" font-size="9" fill="rgba(255,255,255,0.4)">Independent system prompt</text>
+    </g>
+
+    <!-- Session B -->
+    <g transform="translate(14,180)">
+      <rect width="210" height="100" rx="8" fill="rgba(244,114,182,0.06)" stroke="rgba(244,114,182,0.3)" stroke-width="1"/>
+      <text x="10" y="20" font-size="10" font-weight="600" fill="#f472b6">SESSION B (Phone → Browser)</text>
+      <text x="10" y="38" font-size="10" fill="rgba(255,255,255,0.5)">OpenAI Realtime API</text>
+      <text x="10" y="54" font-size="9" fill="rgba(255,255,255,0.4)">V2V / T2V / FullAgent</text>
+      <text x="10" y="68" font-size="9" fill="rgba(255,255,255,0.4)">6-turn sliding context</text>
+      <text x="10" y="82" font-size="9" fill="rgba(255,255,255,0.4)">Independent system prompt</text>
+    </g>
+
+    <!-- Echo Gate -->
+    <g transform="translate(240,68)">
+      <rect width="206" height="212" rx="8" fill="rgba(251,191,36,0.04)" stroke="rgba(251,191,36,0.3)" stroke-width="1"/>
+      <text x="103" y="20" text-anchor="middle" font-size="10" font-weight="600" fill="#fbbf24">ECHO GATE</text>
+
+      <rect x="14" y="34" width="178" height="28" rx="5" fill="rgba(251,191,36,0.08)" stroke="rgba(251,191,36,0.2)" stroke-width="1"/>
+      <text x="103" y="52" text-anchor="middle" font-size="9" fill="#fde68a">AudioRouter (Strategy pattern)</text>
+
+      <rect x="14" y="70" width="178" height="28" rx="5" fill="rgba(251,191,36,0.08)" stroke="rgba(251,191,36,0.2)" stroke-width="1"/>
+      <text x="103" y="88" text-anchor="middle" font-size="9" fill="#fde68a">Echo Switch ON/OFF</text>
+
+      <rect x="14" y="106" width="178" height="28" rx="5" fill="rgba(251,191,36,0.08)" stroke="rgba(251,191,36,0.2)" stroke-width="1"/>
+      <text x="103" y="124" text-anchor="middle" font-size="9" fill="#fde68a">Energy Gate (RMS threshold)</text>
+
+      <rect x="14" y="142" width="178" height="28" rx="5" fill="rgba(251,191,36,0.08)" stroke="rgba(251,191,36,0.2)" stroke-width="1"/>
+      <text x="103" y="160" text-anchor="middle" font-size="9" fill="#fde68a">STT-Translation split</text>
+
+      <rect x="14" y="178" width="178" height="24" rx="5" fill="rgba(251,191,36,0.08)" stroke="rgba(251,191,36,0.2)" stroke-width="1"/>
+      <text x="103" y="194" text-anchor="middle" font-size="9" fill="#fde68a">Speaking-turn priority</text>
+    </g>
+
+    <!-- Zero conv label -->
+    <text x="230" y="310" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.4)">G.711 μ-law 8kHz ↔ PCM16</text>
+    <text x="230" y="326" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.3)">Zero server-side conversion</text>
+  </g>
+
+  <!-- Arrow Server → PSTN -->
+  <g transform="translate(708,170)">
+    <line x1="0" y1="0" x2="30" y2="0" stroke="rgba(244,114,182,0.5)" stroke-width="1.5"/>
+    <polygon points="30,0 24,-4 24,4" fill="rgba(244,114,182,0.5)"/>
+  </g>
+  <g transform="translate(708,260)">
+    <line x1="30" y1="0" x2="0" y2="0" stroke="rgba(34,211,238,0.5)" stroke-width="1.5"/>
+    <polygon points="0,0 6,-4 6,4" fill="rgba(34,211,238,0.5)"/>
+  </g>
+
+  <!-- PSTN -->
+  <g transform="translate(742,90)">
+    <rect width="160" height="160" rx="12" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.12)" stroke-width="1.2"/>
+    <text x="16" y="26" font-size="10" font-weight="600" fill="rgba(255,255,255,0.4)" letter-spacing="1.5">PSTN</text>
+    <text x="16" y="50" font-size="15" font-weight="700" fill="#fafafa">Twilio</text>
+    <text x="16" y="68" font-size="11" fill="rgba(255,255,255,0.5)">Media Stream</text>
+
+    <rect x="14" y="82" width="132" height="24" rx="5" fill="rgba(244,114,182,0.08)" stroke="#f472b6" stroke-width="1"/>
+    <text x="80" y="98" text-anchor="middle" font-size="10" fill="#fda4af">G.711 μ-law 8kHz</text>
+
+    <rect x="14" y="112" width="132" height="24" rx="5" fill="rgba(244,114,182,0.08)" stroke="#f472b6" stroke-width="1"/>
+    <text x="80" y="128" text-anchor="middle" font-size="10" fill="#fda4af">80-600ms jitter</text>
+  </g>
+
+  <!-- PHONE USER -->
+  <g transform="translate(920,90)">
+    <rect width="150" height="160" rx="12" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.12)" stroke-width="1.2"/>
+    <text x="16" y="26" font-size="10" font-weight="600" fill="rgba(255,255,255,0.4)" letter-spacing="1.5">PHONE USER</text>
+    <text x="16" y="52" font-size="14" font-weight="700" fill="#fafafa">Regular phone</text>
+    <text x="16" y="70" font-size="11" fill="rgba(255,255,255,0.5)">No app install</text>
+    <text x="16" y="88" font-size="11" fill="rgba(255,255,255,0.5)">Just pick up</text>
+  </g>
+
+  <!-- Arrow PSTN → Phone -->
+  <g transform="translate(904,170)">
+    <line x1="0" y1="0" x2="14" y2="0" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+    <polygon points="14,0 8,-4 8,4" fill="rgba(255,255,255,0.2)"/>
+  </g>
+
+  <!-- METRICS -->
+  <g transform="translate(30,460)">
+    <rect width="1040" height="62" rx="10" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+    <text x="16" y="22" font-size="10" font-weight="600" fill="rgba(255,255,255,0.4)" letter-spacing="1.5">MEASURED RESULTS</text>
+
+    <text x="16" y="46" font-size="11" fill="rgba(255,255,255,0.5)">~557ms avg latency</text>
+    <text x="200" y="46" font-size="11" fill="rgba(255,255,255,0.5)">148 live calls</text>
+    <text x="350" y="46" font-size="11" fill="rgba(255,255,255,0.5)">0 echo loops</text>
+    <text x="500" y="46" font-size="11" fill="rgba(255,255,255,0.5)">7-stage evolution</text>
+    <text x="680" y="46" font-size="11" fill="rgba(255,255,255,0.5)">3 pipeline modes (V2V / T2V / FullAgent)</text>
+  </g>
+
+  <text x="550" y="548" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.25)" font-style="italic">ACL 2026 System Demonstrations Track · Real-time PSTN voice translation</text>
+</svg>

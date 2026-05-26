@@ -1165,7 +1165,7 @@ export const careerStoryBlocksV1: Partial<
     visuals: {
       decision: {
         image: {
-          src: '/images/projects/wigtnflake.png',
+          src: '/images/projects/wigtnflake.svg',
           alt: { ko: 'WIGTN FLAKE 아키텍처', en: 'WIGTN FLAKE architecture', ja: 'WIGTN FLAKEアーキテクチャ' },
         },
       },
@@ -1383,7 +1383,7 @@ export const careerStoryBlocksV1: Partial<
     visuals: {
       decision: {
         image: {
-          src: '/images/projects/wigvo_architecture.png',
+          src: '/images/projects/wigvo_architecture.svg',
           alt: { ko: 'WIGVO Dual-Session Echo Gating 아키텍처', en: 'WIGVO Dual-Session Echo Gating architecture', ja: 'WIGVO Dual-Session Echo Gatingアーキテクチャ' },
           caption: { ko: '브라우저 클라이언트 ↔ 릴레이 서버(WebSocket) ↔ Twilio(PSTN). 방향별 Realtime 세션 2개를 AudioRouter가 3 파이프라인에 위임, 각 세션은 6턴 슬라이딩 컨텍스트를 독립 유지.', en: 'Browser ↔ relay server (WebSocket) ↔ Twilio (PSTN). The AudioRouter delegates two per-direction Realtime sessions across three pipelines; each session keeps its own 6-turn sliding context.', ja: 'ブラウザクライアント ↔ リレーサーバー（WebSocket）↔ Twilio（PSTN）。AudioRouterが方向ごとのRealtimeセッション2つを3パイプラインに委譲、各セッションは6ターンスライディングコンテキストを独立保持。' },
         },

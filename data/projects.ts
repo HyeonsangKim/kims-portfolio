@@ -147,7 +147,7 @@ export const projects: Project[] = [
     media: { type: 'youtube', videoId: '1YzSp3SdzTk' },
     gallery: [
       {
-        src: '/images/projects/wigtnflake.png',
+        src: '/images/projects/wigtnflake.svg',
         alt: 'WIGTN FLAKE — purpose-driven neighborhood intelligence',
         caption: 'WIGTN FLAKE — GPT-4o orchestrator + 5 Cortex expert personas + 4 datasets. Debate triggers ML, not the other way around.',
       },
@@ -176,7 +176,7 @@ export const projects: Project[] = [
     media: { type: 'youtube', videoId: '_ixVEnHJxjk' },
     gallery: [
       {
-        src: '/images/projects/wigvo_architecture.png',
+        src: '/images/projects/wigvo_architecture.svg',
         alt: 'WIGVO dual-session echo-gating architecture',
         caption: 'Dual-session relay — Session A translates user voice to G.711 for Twilio; Session B processes PSTN audio through the 3-stage filter pipeline.',
       },
