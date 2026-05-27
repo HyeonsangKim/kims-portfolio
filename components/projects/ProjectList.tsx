@@ -5,9 +5,6 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { useI18n } from '@/lib/i18n'
 import { projects, badgeStyle, badgePriority } from '@/data/projects'
-import { FiGithub, FiExternalLink } from 'react-icons/fi'
-
-const linkIcon = { github: FiGithub, external: FiExternalLink } as const
 
 const cardVariants = {
   hidden: { opacity: 0, y: 24 },
@@ -87,24 +84,9 @@ export default function ProjectList() {
                     </span>
                   ))}
                 </div>
-                <div className="flex gap-2">
-                  {p.links.map((link) => {
-                    const Icon = linkIcon[link.icon]
-                    return (
-                      <span
-                        key={link.url}
-                        className="text-gray-500 hover:text-white transition-colors"
-                        onClick={(e) => {
-                          e.preventDefault()
-                          e.stopPropagation()
-                          window.open(link.url, '_blank')
-                        }}
-                      >
-                        <Icon className="w-3.5 h-3.5" />
-                      </span>
-                    )
-                  })}
-                </div>
+                <span className="text-[11px] text-gray-600 group-hover:text-cyan-400 transition-colors">
+                  Detail →
+                </span>
               </div>
             </Link>
           </motion.div>
