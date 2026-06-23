@@ -19,6 +19,7 @@ const wigtnReportMeta: Record<string, { period: string; role: string }> = {
   wigtnflake: { period: '2026-04', role: 'Lead Engineer · Hackathon' },
   wigplugin: { period: '2026', role: 'Creator · Open Source' },
   wigvo: { period: '2026', role: 'Side Project' },
+  myunzy: { period: '2026-05', role: 'Agent Engineer · Hackathon' },
 }
 
 const wigtnReportKeys = new Set<string>(Object.keys(wigtnReportMeta))

@@ -197,6 +197,34 @@ export const projects: Project[] = [
       },
     ],
   },
+  {
+    id: 'myunzy',
+    num: '05',
+    title: '면지 (Myunzy)',
+    tagline: 'Tool-Call Harness over a Small Korean Model',
+    description: {
+      ko: '면지는 내 이력서와 실제 채용공고로 AI 면접관을 자동으로 만들어 음성으로 모의면접을 진행하는 플랫폼입니다. LG의 한국어 특화 오픈 모델 EXAONE-4.5를 도구호출 하네스 위에서 굴려, GPT급 자유연기 없이도 끝까지 일관되게 압박·평가하고 한국어 답변의 머뭇거림·표현까지 분석하며 세션 안에서 약점을 학습(자가진화)합니다. mock만으로 전 기능이 동작하고, env만 켜면 EXAONE·음성·외부 API로 무중단 승격됩니다.\nOBA Weekendthon S1 전체 메인 프라이즈 Top 6 · LG U+ Voice AI 트랙(EXAONE).',
+      en: 'An AI mock-interview platform that auto-generates an interviewer from your résumé and a real job posting and runs the interview by voice. It drives EXAONE-4.5, LG’s Korean-specialized open model, through a tool-call harness so a small model can pressure and evaluate consistently to the end, read the hesitations and phrasing in Korean answers, and self-evolve within a session, all without free-form acting. Everything works on mock alone; flipping env vars promotes it to live EXAONE, voice, and external APIs with no downtime.\nTop 6 overall (main prize) at OBA Weekendthon S1 · LG U+ Voice AI Track (EXAONE).',
+      ja: '自分の履歴書と実際の求人票からAI面接官を自動生成し、音声で模擬面接を行うプラットフォーム。LGの韓国語特化オープンモデルEXAONE-4.5をツール呼び出しハーネスの上で回し、GPT級の自由演技なしでも最後まで一貫して圧迫・評価し、韓国語の回答のためらいや言い回しまで分析し、セッション内で弱点を学習（自己進化）します。mockだけで全機能が動作し、env切替でEXAONE・音声・外部APIへ無停止昇格。OBA Weekendthon S1 全体メインプライズTop 6 · LG U+ Voice AIトラック（EXAONE）。',
+    },
+    badges: [
+      { label: 'Top 6', variant: 'award' },
+      { label: 'OBA Weekendthon', variant: 'active' },
+    ],
+    tech: ['Next.js 16', 'React 19', 'Python 3.14', 'FastAPI', 'EXAONE-4.5', 'DeepAgents', 'LangGraph', 'Qwen3 STT/TTS'],
+    links: [
+      { label: 'GitHub', url: 'https://github.com/wigtn/myunzy-hackathone', icon: 'github' },
+    ],
+    gradient: 'from-emerald-500 to-teal-500',
+    media: { type: 'none' },
+    gallery: [
+      {
+        src: '/images/projects/myunzy.svg',
+        alt: 'Myunzy tool-call harness over EXAONE-4.5',
+        caption: 'Myunzy: a deterministic harness (DeepAgents analog) wraps a small open model. wrap_tool_call validates and retries, LangGraph controls the turn loop, and state.py self-evolves the weakness profile. Mock-first, zero-key.',
+      },
+    ],
+  },
   /* Temporarily hidden per feedback (2026-05-24) — kept here so they can be
      restored quickly. Reason: portfolio reads cleaner with 4 hero projects;
      these two add noise for the recruiter scan. */

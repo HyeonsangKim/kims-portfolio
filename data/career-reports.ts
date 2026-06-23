@@ -15,6 +15,7 @@ export type CareerReportKey =
   | 'wigtnflake'
   | 'wigplugin'
   | 'wigvo'
+  | 'myunzy'
 
 export interface CareerReport {
   about: L
@@ -174,7 +175,7 @@ export const projectStoryBlockSlotLabels: Record<
   result: { ko: '결과 & 성과', en: 'Result & Impact', ja: '結果と成果' },
 }
 
-export const wigtnProjectKeys = new Set<CareerReportKey>(['wigent', 'wigtnflake', 'wigplugin', 'wigvo'])
+export const wigtnProjectKeys = new Set<CareerReportKey>(['wigent', 'wigtnflake', 'wigplugin', 'wigvo', 'myunzy'])
 
 // Legacy 3-slot reports (about / role / highlights) — only Career projects use
 // this form. WIGTN side projects rely entirely on the v1 9-slot story blocks
@@ -1412,6 +1413,90 @@ export const careerStoryBlocksV1: Partial<
           { value: '~557ms', label: { ko: '평균 종단 간 지연 (실측, 148건 통화 기준)', en: 'Average end-to-end latency (measured across 148 calls)', ja: '平均エンド・ツー・エンド遅延（148通話の実測）' } },
           { value: '0 / 148', label: { ko: '에코 루프 발생 / 실통화 (소프트웨어 게이팅 적용 후)', en: 'Echo loops / live calls after software gating', ja: 'エコーループ発生 / 実通話（ソフトウェアゲーティング適用後）' } },
           { value: 'ACL 2026', label: { ko: 'System Demonstrations Track 채택', en: 'System Demonstrations Track accepted', ja: 'System Demonstrations Track採択' } },
+        ],
+      },
+    },
+  },
+
+  myunzy: {
+    oneLiner: {
+      ko: '내 이력서와 실제 채용공고로 AI 면접관을 자동으로 만들고, 작은 한국어 오픈 모델(EXAONE-4.5)을 음성·도구호출 하네스 위에서 굴려 끝까지 일관되게 압박하고 평가하며 세션 안에서 약점까지 학습하는 모의면접 플랫폼입니다. OBA Weekendthon S1 전체 Top 6, LG U+ Voice AI 트랙(EXAONE).',
+      en: 'A mock-interview platform that auto-generates an AI interviewer from your résumé and a real job posting, then runs a small Korean open model (EXAONE-4.5) on a voice and tool-call harness so it can pressure, evaluate, and learn your weak points consistently across a whole session. Top 6 overall at OBA Weekendthon S1, LG U+ Voice AI Track (EXAONE).',
+      ja: '自分の履歴書と実際の求人票からAI面接官を自動生成し、小さな韓国語オープンモデル（EXAONE-4.5）を音声・ツール呼び出しハーネスの上で動かして、最後まで一貫して圧迫し評価し、セッション内で弱点まで学習する模擬面接プラットフォームです。OBA Weekendthon S1 全体Top 6、LG U+ Voice AIトラック（EXAONE）。',
+    },
+    context: {
+      ko: 'OBA Weekendthon은 1박 2일 동안 후원사 Open API와 오픈소스로 제품을 만드는 빌드 캠프였습니다. 심사 기준을 뜯어보니 "API·오픈소스 활용도"가 공통심사와 피어리뷰 양쪽에서 25%씩, 사실상 이중으로 걸려 있었습니다. 그래서 우리가 내린 결론은 분명했습니다. 직접 모델을 만들기보다, 오픈소스와 오픈모델을 잘 활용해 제품을 만드는 쪽에 점수가 몰려 있다는 것이었습니다.\n\n우리가 고른 건 LG U+ 트랙이었습니다. 자격요건이 두 가지였는데 둘 다 선택이 아니라 강제였습니다. 하나는 EXAONE를 실제로 쓰는 것, 다른 하나는 음성(Voice AI)으로 동작하는 것이었습니다. GPT-4o로 자유롭게 연기시키는 길은 처음부터 막혀 있었고, 작은 한국어 오픈 모델인 EXAONE-4.5로, 그것도 목소리로 굴러가는 제품을 만들어야 했습니다.\n\n마침 팀원들이 실제로 취업과 이직 면접을 앞두고 있던 시기였습니다. 그래서 우리가 당장 쓰고 싶은 것이 그대로 주제가 됐습니다. 그리고 EXAONE는 트랙이 강제한 모델이긴 했지만, 면접이라는 주제에는 오히려 유리한 카드였습니다. EXAONE는 LG가 만든 한국어 특화 오픈 모델이라 한국어 답변의 뉘앙스를 잘 잡는데, 면접은 한국어로 진행되고 우리가 하려던 일도 결국 지원자의 한국어 답변을 이해하고 머뭇거림이나 표현까지 분석하는 거였으니까요. 작은 모델이라는 점이 한국어 안에서는 약점이 아니었던 셈입니다. 진짜 질문은 여기서 나왔습니다. 한국어에 강한 작은 오픈 모델을, 그것도 음성으로 굴려서, 끝까지 무너지지 않는 면접관을 만들 수 있을까?',
+      en: 'OBA Weekendthon was a 1.5-day build camp where you ship a product on sponsor Open APIs and open source. Reading the rubric closely, "API / open-source usage" counted for 25% on both the panel score and the peer review, effectively a double weight. So our own conclusion was clear: the points were concentrated on building a product by *using* open source and open models well, rather than on building your own model.\n\nThe track we entered was LG U+, and its eligibility came with two hard requirements, neither of them optional. One was using EXAONE for real; the other was running by voice (Voice AI). Free-acting everything with GPT-4o was off the table from the start. We had to build the interviewer on EXAONE-4.5, a small Korean open model, and make it work by voice.\n\nAs it happened, our teammates were preparing for real job and career-change interviews at the time, so the thing we wanted to use ourselves became the product. And EXAONE, even though the track forced it on us, turned out to be the right card for this topic rather than a limitation. EXAONE is a Korean-specialized open model from LG, so it reads the nuance of Korean answers well, and an interview is conducted in Korean and is ultimately about understanding the candidate’s Korean speech down to the hesitations and phrasing. Being a small model was not a weakness within Korean. That is where the real question came from: can a small, Korean-strong open model, running by voice, hold up as an interviewer all the way to the end?',
+      ja: 'OBA Weekendthonは1泊2日でスポンサーのOpen APIとオープンソースを使って製品を作るビルドキャンプでした。審査基準を細かく見ると「API・オープンソース活用度」が共通審査とピアレビューの両方で25%ずつ、事実上二重に効いていました。だから私たちが出した結論は明確でした。自らモデルを作ることより、オープンソースやオープンモデルをうまく活用して製品を作るほうに点数が集中している、ということです。\n\n私たちが選んだのはLG U+トラックでした。資格要件は二つあり、どちらも任意ではなく必須でした。一つはEXAONEを実際に使うこと、もう一つは音声（Voice AI）で動作することです。GPT-4oで自由に演技させる道は最初から閉ざされており、小さな韓国語オープンモデルEXAONE-4.5で、しかも声で動く製品を作る必要がありました。\n\nちょうどチームメンバーが実際に就職・転職の面接を控えていた時期でした。だから自分たちが今すぐ使いたいものが、そのまま製品になりました。そしてEXAONEは、トラックが課したモデルではありましたが、面接というテーマにはむしろ有利なカードでした。EXAONEはLGが作った韓国語特化のオープンモデルで、韓国語の回答のニュアンスをよく捉えます。面接は韓国語で行われ、私たちがやろうとしたことも結局は応募者の韓国語の発話を理解し、ためらいや言い回しまで分析することでした。小さなモデルであることは、韓国語の中では弱点ではなかったわけです。本当の問いはここから生まれました。韓国語に強い小さなオープンモデルを、しかも音声で動かして、最後まで崩れない面接官を作れるか。',
+    },
+    problem: {
+      ko: '작은 오픈 모델한테 프롬프트로 그냥 "면접관이 되라"고 시키면 세 군데에서 무너졌습니다. 첫째는 페르소나 드리프트입니다. 몇 턴만 지나면 압박하던 면접관이 친절한 챗봇으로 풀어졌습니다. 둘째는 tool-call이 자꾸 깨지는 문제였습니다. GPT-4o급의 안정적인 함수호출이 안 나오니까, 꼬리질문을 발사하거나 점수를 매기는 구조화된 도구호출이 비결정적으로 흔들렸습니다. 셋째는 평가 일관성이었습니다. 심사위원이 같은 답변을 두 번 넣었는데 점수가 달라지면 그 순간 신뢰를 잃습니다.\n\n게다가 해커톤이라 후원사 API의 키와 명세가 행사 당일까지 도착하지 않았습니다. 외부 8종(OCR·공고·평판·STT·TTS 등)에 의존한 채로 짜두면, 키가 안 오는 순간 데모 시연 자체가 불가능해질 위험이 있었습니다.',
+      en: 'Telling a small open model to "be an interviewer" with a plain prompt broke in three places. The first was persona drift: within a few turns the pressuring interviewer relaxed back into a friendly chatbot. The second was tool-calls that kept failing. Without GPT-4o-grade function calling, the structured calls that fire a follow-up or produce a score wobbled non-deterministically. The third was evaluation consistency: the moment a judge fed the same answer twice and got a different score, trust was gone.\n\nOn top of that, because it was a hackathon, the sponsor API keys and specs would not arrive until the day of the event. Building directly against eight external dependencies (OCR, postings, reputation, STT, TTS, and so on) meant the demo could become impossible to run the moment a key failed to show up.',
+      ja: '小さなオープンモデルにプロンプトで単に「面接官になれ」と指示すると、三か所で崩れました。一つ目はペルソナドリフトです。数ターン経つと圧迫していた面接官が親切なチャットボットに緩みました。二つ目はtool-callが何度も壊れる問題でした。GPT-4o級の安定した関数呼び出しが出ないため、追い質問を発火したり点数を付けたりする構造化ツール呼び出しが非決定的に揺れました。三つ目は評価の一貫性です。審査員が同じ回答を二度入れて点数が変われば、その瞬間に信頼を失います。\n\nさらにハッカソンなので、スポンサーAPIのキーと仕様が当日まで届きませんでした。外部8種（OCR・求人・評判・STT・TTSなど）に依存して組んでおくと、キーが来ない瞬間にデモ実演そのものが不可能になるリスクがありました。',
+    },
+    hypothesis: {
+      ko: '모델을 더 키우는 대신, 모델 바깥에 결정론 하네스를 두면 작은 모델로도 일관성을 살 수 있다고 봤습니다. 베팅은 세 가지였습니다. 첫째, 턴 루프는 LangGraph식 결정론 컨트롤러가 잡고 모델은 발화만 담당하게 한다. 둘째, tool-call은 wrap_tool_call 미들웨어가 스키마를 검증하고 자동으로 다시 물어보면서 유효율을 끌어올린다. 셋째, 점수와 합격확률, 타이밍 같은 평가는 모델이 아니라 순수함수가 계산한다(랜덤 0). 이 세 가지가 맞으면, 작은 모델에 하네스를 얹은 것이 큰 모델의 자유연기를 대체할 수 있다는 가설이었습니다.',
+      en: 'Instead of scaling the model up, we bet that putting a deterministic harness *outside* the model could buy consistency even from a small one. The bet had three parts. First, a LangGraph-style deterministic controller owns the turn loop and the model only speaks. Second, a wrap_tool_call middleware validates the schema and automatically re-asks, pushing tool-call validity up. Third, evaluation (score, pass probability, timing) is computed by pure functions rather than the model, with zero randomness. If all three held, a small model on a harness could stand in for a big model doing free-form acting.',
+      ja: 'モデルを大きくする代わりに、モデルの外に決定論ハーネスを置けば小さなモデルでも一貫性を買えると考えました。賭けは三つでした。一つ目、ターンループはLangGraph式の決定論コントローラーが握り、モデルは発話だけを担う。二つ目、tool-callはwrap_tool_callミドルウェアがスキーマを検証し、自動で問い直して有効率を引き上げる。三つ目、点数や合格確率、タイミングなどの評価はモデルではなく純粋関数が計算する（ランダム0）。この三つが揃えば、小さなモデルにハーネスを付けたものが、大きなモデルの自由演技を代替できるという仮説でした。',
+    },
+    alternatives: {
+      ko: 'GPT-4o로 전부 자유연기시키는 방식이 가장 쉬웠습니다. 하지만 트랙 자격(EXAONE 실활용)을 충족하지 못하고, OSS 활용도 점수가 0에 가깝고, 평가도 비결정적이라 탈락이었습니다. 룰 기반 질문 뱅크는 일관성은 있지만 이력서와 공고에 반응하지 못해서 "면접관 자동 생성"이라는 핵심 가치가 사라졌습니다. 직접 파인튜닝은 1박 2일에 불가능했고, 무엇보다 이 행사에서 직접 모델을 만드는 건 오히려 감점 신호였습니다. 결국 공개 오픈 모델(EXAONE)에 공개 미들웨어(DeepAgents·LangGraph)를 하네스로 얹는 길만이 트랙 자격과 활용도 점수, 일관성을 한 번에 만족했습니다.',
+      en: 'Letting GPT-4o free-act everything was the easiest path, but it was a non-starter: it failed track eligibility (real EXAONE usage), scored close to zero on OSS usage, and was non-deterministic. A rule-based question bank was consistent but could not react to the résumé or the posting, so the core value of auto-generating the interviewer disappeared. Fine-tuning our own model was impossible in 1.5 days, and more importantly, building your own model was a negative signal at this event. In the end, only one path satisfied track eligibility, the usage score, and consistency at once: putting public middleware (DeepAgents, LangGraph) as a harness on top of a public open model (EXAONE).',
+      ja: 'GPT-4oで全部自由演技させる方式が一番簡単でした。しかしトラック資格（EXAONE実活用）を満たさず、OSS活用度の点数がほぼ0で、評価も非決定的なので除外でした。ルールベースの質問バンクは一貫性はありますが、履歴書や求人に反応できないため「面接官の自動生成」という核心価値が消えました。自前のファインチューニングは1泊2日では不可能で、何よりこの行事で自らモデルを作るのはむしろ減点シグナルでした。結局、公開オープンモデル（EXAONE）に公開ミドルウェア（DeepAgents・LangGraph）をハーネスとして載せる道だけが、トラック資格と活用度の点数、一貫性を一度に満たしました。',
+    },
+    decision: {
+      ko: '3-tier 듀얼 백엔드(mock-first) 구조를 잡고, 각 모듈을 DeepAgents 컴포넌트에 1:1로 매핑했습니다. harness.py는 wrap_tool_call 미들웨어(스키마 검증과 재시도), skills.py는 SkillsMiddleware(SKILL.md 한 장에 페르소나·STAR·플레이북), state.py는 StateBackend(세션이 끝나면 사라지는 weakness_profile 자가진화), engine.py는 LangGraph 결정론 컨트롤러(턴 루프와 verdict 순수집계), llm/base.py는 provider-agnostic 포트(mock과 EXAONE 토글)입니다. 그리고 BFF가 mock 엔진과 Python 프록시 사이를 분기하도록 만들어서, 키가 하나도 없어도 전 기능이 mock으로 완주하고 env만 켜면 무중단으로 실연동으로 승격됩니다. HARNESS=deepagents로 켜면 부트스트랩이 실제 deepagents·langchain 에이전트(wrap_tool_call·write_todos) 위에서 돌아갑니다.',
+      en: 'We set up a 3-tier dual-backend (mock-first) structure and mapped each module 1:1 onto a DeepAgents component. harness.py is the wrap_tool_call middleware (schema validation and retry); skills.py is SkillsMiddleware (one SKILL.md holding persona, STAR, and playbook); state.py is the StateBackend (a session-volatile, self-evolving weakness_profile); engine.py is a LangGraph deterministic controller (turn loop and pure-function verdict); llm/base.py is a provider-agnostic port that toggles between mock and EXAONE. The BFF branches between a built-in mock engine and the Python proxy, so every feature runs to completion on mock with no keys at all, and flipping env vars promotes it to live integration with no downtime. With HARNESS=deepagents, bootstrap actually runs on real deepagents and langchain agents (wrap_tool_call, write_todos).',
+      ja: '3-tierのデュアルバックエンド（mock-first）構造を組み、各モジュールをDeepAgentsコンポーネントに1:1でマッピングしました。harness.pyはwrap_tool_callミドルウェア（スキーマ検証と再試行）、skills.pyはSkillsMiddleware（SKILL.md一枚にペルソナ・STAR・プレイブック）、state.pyはStateBackend（セッションが終わると消えるweakness_profileの自己進化）、engine.pyはLangGraph決定論コントローラー（ターンループとverdictの純粋集計）、llm/base.pyはprovider-agnosticなポート（mockとEXAONEを切り替え）です。そしてBFFがmockエンジンとPythonプロキシの間を分岐するようにして、キーが一つもなくても全機能がmockで完走し、env切替で無停止のまま実連携へ昇格します。HARNESS=deepagentsで起動すると、ブートストラップが実際のdeepagents・langchainエージェント（wrap_tool_call・write_todos）の上で動きます。',
+    },
+    execution: {
+      ko: '전체 흐름은 이렇습니다. 먼저 부트스트랩이 이력서 OCR과 채용공고, 회사 평판을 합쳐 Fit-Gap 공격포인트와 4개 페르소나(기술·컬처핏·임원·HR)를 만듭니다. 사용자가 면접 단계를 고르면 그 순서가 곧 라운드가 되고, 직무 키워드를 감지해 backend·frontend·pm 플레이북이 자동으로 스왑됩니다. 턴 루프에서는 답변의 약점 신호를 잡으면 라운드당 최대 2번 꼬리질문을 던지고, 그 약점을 weakness_profile에 쌓아 단계가 바뀌어도 직전 약점을 이어서 파고듭니다. 음성 면접은 webm으로 녹음한 뒤 Qwen3 ASR로 전사하고(단어 타임스탬프 포함) 머뭇거림과 필러를 분석하며, 면접관 목소리도 골라 들을 수 있습니다. 끝까지 지킨 원칙은 정직성입니다. mock으로 동작하는 부분은 면접관 발화에서 실제 인용인 척 꾸미지 않고, 작업 로그에 [mock] 배지를 그대로 노출했습니다.',
+      en: 'The whole flow goes like this. First, bootstrap fuses résumé OCR, the job posting, and company reputation into Fit-Gap attack points and four personas (technical, culture-fit, executive, HR). When the user picks the interview stages, that order becomes the rounds, and a job-keyword detector auto-swaps the backend, frontend, or pm playbook. In the turn loop, catching a weakness signal fires up to two follow-ups per round, and that weakness accumulates in the weakness_profile so the next stage keeps digging into the prior weak spot. The voice interview records in webm, transcribes with Qwen3 ASR (including word-level timestamps), and analyzes hesitation and fillers, and you can pick the interviewer’s voice. The principle we held to the end was honesty: anything running on mock was never dressed up as a real citation in the interviewer’s speech, and the work log showed a [mock] badge as-is.',
+      ja: '全体の流れはこうです。まずブートストラップが履歴書OCRと求人票、企業評判を合わせてFit-Gap攻撃ポイントと4つのペルソナ（技術・カルチャーフィット・役員・HR）を作ります。ユーザーが面接段階を選ぶとその順序がそのままラウンドになり、職務キーワードを検知してbackend・frontend・pmのプレイブックが自動でスワップされます。ターンループでは回答の弱点シグナルを捕えるとラウンドあたり最大2回追い質問を投げ、その弱点をweakness_profileに積んで、段階が変わっても直前の弱点を続けて突きます。音声面接はwebmで録音したあとQwen3 ASRで文字起こしし（単語タイムスタンプ付き）、ためらいやフィラーを分析します。面接官の声も選んで聞けます。最後まで守った原則は正直さです。mockで動く部分は面接官の発話で実際の引用のように装わず、作業ログに[mock]バッジをそのまま出しました。',
+    },
+    result: {
+      ko: 'OBA Weekendthon S1에서 전체 메인 프라이즈 Top 6에 들었습니다(전 트랙 종합). 키가 하나도 없이 mock으로 전 기능이 완주하는 단독 데모에, EXAONE-4.5 실연동과 실제 DeepAgents 부트스트랩(wrap_tool_call·write_todos), Qwen3 STT/TTS까지 묶어서 1박 2일 안에 동작하는 제품을 완성했습니다. 작업 로그 패널이 ocr → job → fitgap → persona → playbook → harness.validate/retry → followup.fire → evolve.diff를 실시간으로 흘려보내서, "agentic"과 "하네스"가 말이 아니라 화면에서 그대로 보이게 만들었습니다. 점수는 순수함수로 계산하니까 심사위원이 같은 답변을 다시 넣어도 똑같이 재현됐습니다. LG U+ Voice AI(EXAONE)와 GS네오텍 MISO 트랙 요건에도 정면으로 맞췄습니다.',
+      en: 'We placed Top 6 in the overall main prize at OBA Weekendthon S1 (across all tracks). On top of a standalone demo where every feature runs to completion on mock with no keys, we bundled real EXAONE-4.5 integration, a real DeepAgents bootstrap (wrap_tool_call, write_todos), and Qwen3 STT/TTS into a working product within 1.5 days. The work-log panel streams ocr → job → fitgap → persona → playbook → harness.validate/retry → followup.fire → evolve.diff in real time, so "agentic" and "harness" show up on screen instead of just in words. Because scores are computed by pure functions, a judge re-entering the same answer reproduces the identical result. It also lined up directly with the LG U+ Voice AI (EXAONE) and GS Neotek MISO track requirements.',
+      ja: 'OBA Weekendthon S1で全体メインプライズTop 6に入りました（全トラック総合）。キーが一つもなくてもmockで全機能が完走する単独デモに、EXAONE-4.5の実連携と実際のDeepAgentsブートストラップ（wrap_tool_call・write_todos）、Qwen3 STT/TTSまで束ねて、1泊2日で動作する製品を完成させました。作業ログパネルがocr → job → fitgap → persona → playbook → harness.validate/retry → followup.fire → evolve.diffをリアルタイムに流し、「agentic」と「ハーネス」が言葉ではなく画面にそのまま表れるようにしました。点数は純粋関数で計算するので、審査員が同じ回答を再入力しても同一に再現されました。LG U+ Voice AI（EXAONE）とGSネオテックMISOトラックの要件にも正面から合わせました。',
+    },
+    reflection: {
+      ko: '작은 모델이 약한 게 아니라, 받쳐줄 하네스가 없을 때 약해 보였을 뿐입니다. 일관성을 만든 건 모델의 크기가 아니라 모델 바깥의 결정론 구조였습니다. WIGVO에서는 그게 에코 게이팅이었고, WIGTN FLAKE에서는 라우팅, 여기서는 tool-call 검증과 재시도였을 뿐 매번 같은 교훈이 돌아왔습니다. 하나 더 배운 건, mock을 [mock] 배지로 정직하게 드러낸 결정이 오히려 신뢰를 키웠다는 점입니다. 무엇이 진짜 실연동이고 무엇이 폴백인지 심사위원이 화면에서 바로 구분할 수 있었기 때문입니다.',
+      en: 'A small model is not weak; it only looks weak when there is no harness behind it. What produced consistency was never the model’s size but the deterministic structure outside it. In WIGVO that was echo gating, in WIGTN FLAKE it was routing, and here it was tool-call validation and retry, but the same lesson kept coming back. One more thing we learned: choosing to expose mocks honestly with a [mock] badge actually built more trust, because judges could tell at a glance which parts were real integrations and which were fallbacks.',
+      ja: '小さなモデルが弱いのではなく、支えるハーネスがない時に弱く見えただけでした。一貫性を生んだのはモデルの大きさではなく、モデルの外の決定論構造でした。WIGVOではそれがエコーゲーティング、WIGTN FLAKEではルーティング、ここではtool-callの検証と再試行でしたが、毎回同じ教訓が返ってきました。もう一つ学んだのは、mockを[mock]バッジで正直に見せた決定がむしろ信頼を高めたことです。何が本当の実連携で何がフォールバックかを、審査員が画面で即座に区別できたからです。',
+    },
+    visuals: {
+      problem: {
+        bullets: {
+          ko: [
+            '페르소나 드리프트: 몇 턴 지나면 압박 면접관이 친절한 챗봇으로 풀어짐',
+            'tool-call 무효: GPT급 안정 함수호출이 없어 꼬리질문·점수 산출이 비결정적으로 흔들림',
+            '평가 일관성: 같은 답변에 점수가 달라지면 신뢰 상실, 게다가 키·명세가 당일까지 미도착',
+          ],
+          en: [
+            'Persona drift: within a few turns the pressure interviewer relaxes into a friendly chatbot',
+            'Invalid tool-calls: without GPT-grade function calling, follow-ups and scoring wobble non-deterministically',
+            'Evaluation consistency: a different score on the same answer kills trust, and keys/specs arrive only on event day',
+          ],
+          ja: [
+            'ペルソナドリフト: 数ターンで圧迫面接官が親切なチャットボットに緩む',
+            'tool-call無効: GPT級の安定した関数呼び出しがなく追い質問・採点が非決定的に揺れる',
+            '評価の一貫性: 同じ回答で点数が変われば信頼を失う。さらにキー・仕様が当日まで未着',
+          ],
+        },
+      },
+      decision: {
+        image: {
+          src: '/images/projects/myunzy.svg',
+          alt: { ko: 'Myunzy 아키텍처: EXAONE 위에 얹은 도구호출 하네스', en: 'Myunzy architecture: a tool-call harness on top of EXAONE', ja: 'Myunzyアーキテクチャ: EXAONEの上に載せたツール呼び出しハーネス' },
+          caption: { ko: '3-tier 듀얼 백엔드(mock-first). BFF가 mock 엔진과 Python 프록시 사이를 분기하고, 각 모듈이 DeepAgents 컴포넌트(wrap_tool_call·SkillsMiddleware·StateBackend·LangGraph)에 1:1로 매핑됩니다.', en: '3-tier dual backend (mock-first). The BFF branches between a mock engine and the Python proxy, and each module maps 1:1 onto a DeepAgents component (wrap_tool_call, SkillsMiddleware, StateBackend, LangGraph).', ja: '3-tierのデュアルバックエンド（mock-first）。BFFがmockエンジンとPythonプロキシの間を分岐し、各モジュールがDeepAgentsコンポーネント（wrap_tool_call・SkillsMiddleware・StateBackend・LangGraph）に1:1でマッピングされます。' },
+        },
+      },
+      result: {
+        metrics: [
+          { value: 'Top 6', label: { ko: 'OBA Weekendthon S1 전체 메인 프라이즈 (전 트랙 종합)', en: 'Overall main prize, OBA Weekendthon S1 (all tracks)', ja: 'OBA Weekendthon S1 全体メインプライズ（全トラック総合）' } },
+          { value: 'EXAONE-4.5', label: { ko: 'LG 한국어 특화 오픈 모델 실연동 (한국어 답변 평가에 유리)', en: 'LG Korean-specialized open model, real integration (fits Korean-answer evaluation)', ja: 'LG韓国語特化オープンモデル実連携（韓国語回答の評価に有利）' } },
+          { value: 'DeepAgents', label: { ko: 'wrap_tool_call·write_todos 실제 부트스트랩', en: 'Real bootstrap on wrap_tool_call · write_todos', ja: 'wrap_tool_call・write_todos 実ブートストラップ' } },
+          { value: 'Qwen3 음성', label: { ko: '음성 면접에서 단어 타임스탬프로 머뭇거림·필러 분석', en: 'Voice interview: word-timestamp hesitation / filler analysis', ja: '音声面接で単語タイムスタンプによりためらい・フィラーを分析' } },
         ],
       },
     },
