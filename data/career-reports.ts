@@ -16,6 +16,7 @@ export type CareerReportKey =
   | 'wigplugin'
   | 'wigvo'
   | 'myunzy'
+  | 'custos'
 
 export interface CareerReport {
   about: L
@@ -175,7 +176,7 @@ export const projectStoryBlockSlotLabels: Record<
   result: { ko: '결과 & 성과', en: 'Result & Impact', ja: '結果と成果' },
 }
 
-export const wigtnProjectKeys = new Set<CareerReportKey>(['wigent', 'wigtnflake', 'wigplugin', 'wigvo', 'myunzy'])
+export const wigtnProjectKeys = new Set<CareerReportKey>(['wigent', 'wigtnflake', 'wigplugin', 'wigvo', 'myunzy', 'custos'])
 
 // Legacy 3-slot reports (about / role / highlights) — only Career projects use
 // this form. WIGTN side projects rely entirely on the v1 9-slot story blocks
@@ -1497,6 +1498,90 @@ export const careerStoryBlocksV1: Partial<
           { value: 'EXAONE-4.5', label: { ko: 'LG 한국어 특화 오픈 모델 실연동 (한국어 답변 평가에 유리)', en: 'LG Korean-specialized open model, real integration (fits Korean-answer evaluation)', ja: 'LG韓国語特化オープンモデル実連携（韓国語回答の評価に有利）' } },
           { value: 'DeepAgents', label: { ko: 'wrap_tool_call·write_todos 실제 부트스트랩', en: 'Real bootstrap on wrap_tool_call · write_todos', ja: 'wrap_tool_call・write_todos 実ブートストラップ' } },
           { value: 'Qwen3 음성', label: { ko: '음성 면접에서 단어 타임스탬프로 머뭇거림·필러 분석', en: 'Voice interview: word-timestamp hesitation / filler analysis', ja: '音声面接で単語タイムスタンプによりためらい・フィラーを分析' } },
+        ],
+      },
+    },
+  },
+
+  custos: {
+    oneLiner: {
+      ko: 'GitLab 리포에 상주하며 MR 리뷰부터 머지된 코드 감시, 이슈 발급까지 24/7 스스로 돌보는 자가진화 리포 커스토디언입니다. 핵심은 자가발전입니다. "승인됐는가"가 아니라 "머지된 뒤 실제로 사고가 났는가"(Truth ≠ Consent)를 진실 신호로 삼아, 그 신호로 스킬을 재보정하고 사고에서 새 탐지 규칙을 합성하며 점점 우리 팀 시니어가 되어갑니다. Google Cloud Rapid Agent Hackathon 2026 · GitLab Track 출품작(심사 중).',
+      en: 'A self-evolving repo custodian that lives inside a GitLab repo and runs 24/7: reviewing MRs, watching merged code, and filing issues on its own. The heart of it is self-evolution. It judges by post-merge truth rather than approval (Truth ≠ Consent), using that signal to recalibrate its skills and synthesize new detection rules from real incidents, growing into your team’s senior over time. Built for the Google Cloud Rapid Agent Hackathon 2026 · GitLab Track (judging in progress).',
+      ja: 'GitLabリポジトリに常駐し、MRレビューからマージ済みコードの監視、Issue発行まで24/7自ら世話する自己進化型リポ・カストディアンです。核心は自己進化です。「承認されたか」ではなく「マージ後に実際に事故が起きたか」（Truth ≠ Consent）を真実信号とし、その信号でスキルを再調整し、事故から新しい検出ルールを合成して、次第にチームのシニアになっていきます。Google Cloud Rapid Agent Hackathon 2026 · GitLab Track出品作（審査中）。',
+    },
+    context: {
+      ko: '우리는 평소 GitLab으로 협업하면서 매주 똑같은 잡일을 반복하고 있었습니다. 올라온 MR을 리뷰하고, 이미 머지된 코드에서 뒤늦게 버그를 발견하고, 그걸 일일이 이슈로 옮기고, 고치는 MR을 손으로 또 만들고. 리뷰와 분류와 수정이 전부 다른 도구에 흩어져 있다 보니 주말까지 갉아먹혔습니다.\n\n기존 PR 리뷰 봇(Copilot Review, CodeRabbit, GitLab Duo)을 써봐도 갈증은 안 풀렸습니다. 이 봇들은 하나같이 수동적이라, PR이 열려야 깨어나고 머지되는 순간 그 코드를 잊어버립니다. 정작 사고는 머지된 뒤에 터지는데 말이죠. 좋은 시니어는 정반대입니다. 리포 건강을 끝까지 책임지고, 시간이 갈수록 우리 팀 기준에 맞춰갑니다.\n\n그래서 우리가 직접 데인 그 갭을 메우는 걸 목표로 잡았습니다. 단순히 리뷰만 잘하는 봇이 아니라, 머지된 뒤 실제 사고를 보고 스스로 기준을 고쳐가며 점점 우리 시니어처럼 되어가는 커스토디언. 한마디로 "일요일 오후를 돌려주는" 봇을 만들고 싶었습니다.',
+      en: 'We collaborate on GitLab day to day, and we kept repeating the same chores every week: reviewing incoming MRs, discovering bugs in already-merged code after the fact, moving each one into an issue by hand, and writing the fix MR by hand again. With review, triage, and fixing scattered across different tools, it ate into our weekends.\n\nExisting PR-review bots (Copilot Review, CodeRabbit, GitLab Duo) did not scratch the itch. They are all passive: they wake up when a PR opens and forget the code the moment it merges, even though incidents usually surface after the merge. A good senior is the opposite, owning repo health end to end and adjusting to the team’s standards over time.\n\nSo we set out to close the exact gap we had been burned by: not just a bot that reviews well, but a custodian that watches real post-merge incidents, fixes its own standards from them, and grows into our senior. In one line, we wanted a bot that gives you your Sunday afternoon back.',
+      ja: '私たちは普段からGitLabで協業していて、毎週同じ雑務を繰り返していました。上がってきたMRをレビューし、すでにマージされたコードから後になってバグを見つけ、それを一つずつIssueに移し、修正MRを手で作る。レビューとトリアージと修正がバラバラのツールに散らばっていて、週末まで削られました。\n\n既存のPRレビューボット（Copilot Review、CodeRabbit、GitLab Duo）を使っても渇きは癒えませんでした。どれも受動的で、PRが開くと目覚め、マージされた瞬間にそのコードを忘れます。実際の事故はマージ後に起きるのに。良いシニアは正反対で、リポの健全性を最後まで担い、時間とともにチームの基準に合わせていきます。\n\nそこで私たちが直接痛い目に遭ったそのギャップを埋めることを目標にしました。単にレビューが上手いボットではなく、マージ後の実際の事故を見て自ら基準を直し、次第に私たちのシニアになっていくカストディアン。一言で言えば「日曜の午後を返してくれる」ボットを作りたかったのです。',
+    },
+    problem: {
+      ko: '자율적으로 도는 봇을 만들려니 어려운 매듭이 세 개 있었습니다. 첫째, 자율은 곧 위험입니다. 봇이 스스로 코멘트를 달고 이슈를 발급하며(나중엔 수정 MR까지) 움직이면, 잘못 돌면 리포를 망가뜨리거나 자기가 만든 MR에 자기가 다시 반응하는 무한 루프에 빠질 수 있습니다. 둘째, "자가진화"는 거짓이 되기 쉽습니다. 팀이 머지했다거나 좋아요를 눌렀다는 신호(수용)만 학습하면 봇은 점점 무난해질 뿐, 더 정확해지지는 않습니다. 셋째, "agentic"은 말로는 쉽지만 증명이 어렵습니다. 진짜로 에이전트가 판단해서 도구를 고르는 건지, 고정 스크립트가 도는 건지 구분되지 않으면 의미가 없습니다.',
+      en: 'Building a bot that runs autonomously left us with three hard knots. First, autonomy is risk. Once a bot posts comments and files issues on its own (and eventually writes fix MRs), a wrong turn can damage the repo or trap it in an infinite loop where it reacts to its own MRs. Second, "self-evolution" is easy to fake. If it only learns from consent signals (the team merged, someone hit like), the bot just gets more agreeable, not more correct. Third, "agentic" is easy to claim and hard to prove. If you cannot tell whether the agent is genuinely deciding which tools to call or a fixed script is running, the word means nothing.',
+      ja: '自律的に動くボットを作ろうとすると、難しい結び目が三つありました。第一に、自律はすなわちリスクです。ボットが自らコメントを付けIssueを発行し（やがては修正MRまで）動くと、誤動作でリポを壊したり、自分が作ったMRに自分が反応する無限ループに陥ったりしかねません。第二に「自己進化」は容易に偽物になります。チームがマージした、いいねを押したという受容信号だけを学習すると、ボットは次第に無難になるだけで、より正確にはなりません。第三に「agentic」は口では簡単でも証明が難しい。本当にエージェントが判断してツールを選んでいるのか、固定スクリプトが動いているのか区別できなければ意味がありません。',
+    },
+    hypothesis: {
+      ko: '세 매듭을 각각 다른 장치로 풀 수 있다고 봤습니다. 자율의 위험은 권한을 한 번에 주지 않는 3단 신뢰 모드(dry-run → comment-only → full)와 입력 격리, 재귀 가드, 즉시 끄는 kill switch로 묶으면 통제할 수 있다. 자가진화의 함정은 수용이 아니라 "머지 후 진실"을 기준으로 삼으면 피할 수 있다. 머지됐다고 정답이 아니라, 머지된 뒤 실제 사고가 난 파일이 진실 신호이고, 그 신호를 수용보다 3배 무겁게 채점하면 봇은 무난해지는 게 아니라 정확해진다. agentic 증명은 에이전트에게 판단·도구선택·라우팅만 맡기고 결함 탐지 자체는 결정론으로 두면, 도구 선택 정확도를 골든셋으로 측정할 수 있다.',
+      en: 'We bet that each knot needed a different mechanism. The risk of autonomy can be contained by never granting power all at once: a three-mode trust ladder (dry-run → comment-only → full) plus input isolation, recursion guards, and an instant kill switch. The self-evolution trap can be avoided by anchoring to post-merge truth instead of consent. A merge is not correctness; a real incident in a file is the truth signal, and weighting it about 3× over an acceptance makes the bot more accurate rather than more agreeable. And "agentic" becomes provable if the agent only plans, selects tools, and routes while defect detection stays deterministic, because then tool-selection accuracy can be measured on a golden set.',
+      ja: '三つの結び目はそれぞれ別の仕掛けで解けると考えました。自律のリスクは権限を一度に与えないこと、つまり3段の信頼モード（dry-run → comment-only → full）に入力隔離・再帰ガード・即時killスイッチを組み合わせれば制御できる。自己進化の罠は受容ではなく「マージ後の真実」を基準にすれば避けられる。マージされたから正解なのではなく、マージ後に実際の事故が起きたファイルこそ真実の信号で、それを受容より3倍重く採点すれば、ボットは無難になるのではなく正確になる。「agentic」の証明は、エージェントに判断・ツール選択・ルーティングだけを任せ、欠陥検出自体は決定論に置けば、ツール選択の精度をゴールデンセットで測定できる。',
+    },
+    alternatives: {
+      ko: 'LLM 페르소나가 결함까지 직접 찾아내게 하는 방식도 가능했지만, 그러면 같은 코드에 매번 다른 결과가 나와 측정도 디버깅도 안 됩니다. 그래서 결함 탐지는 결정론 체커로 고정하고, 에이전트는 그 위에서 도구를 고르는 오케스트레이션 층으로만 얹었습니다. 모델과 프레임워크도 자유롭게 고를 수 없었습니다. GitLab Track 규칙상 런타임 AI는 Vertex AI Gemini만 허용되고 openai와 anthropic은 런타임 의존성에서 금지였으며, 에이전트 프레임워크는 Google ADK, 도구 연결은 GitLab 네이티브 MCP를 써야 했습니다. 제약이 분명했던 만큼, 우리가 설계할 여지는 "무엇을 결정론으로 두고 무엇을 에이전트에게 맡길지"의 경계와, 그 위에 두를 안전장치 쪽에 집중됐습니다.',
+      en: 'We could have let the LLM personas find the defects directly, but then the same code would yield different results each run, killing both measurement and debuggability. So we fixed defect detection as deterministic checkers and layered the agent on top only as an orchestration layer that selects tools. We were not free to pick the model or framework either: under the GitLab Track rules the runtime AI had to be Vertex AI Gemini only, openai and anthropic were banned from runtime dependencies, the agent framework had to be Google ADK, and tools had to go over GitLab’s native MCP. With the constraints fixed, the room we had to design shrank to the right place: where to draw the line between deterministic and agentic, and what safety rails to wrap around it.',
+      ja: 'LLMペルソナに欠陥まで直接見つけさせる方式も可能でしたが、それでは同じコードに毎回違う結果が出て、測定もデバッグもできません。そこで欠陥検出は決定論チェッカーに固定し、エージェントはその上でツールを選ぶオーケストレーション層としてのみ載せました。モデルやフレームワークも自由に選べませんでした。GitLab Trackのルール上、ランタイムAIはVertex AI Geminiのみ許可され、openai・anthropicはランタイム依存から禁止、エージェントフレームワークはGoogle ADK、ツール接続はGitLabネイティブMCPを使う必要がありました。制約が明確だった分、私たちが設計できる余地は「何を決定論に置き、何をエージェントに任せるか」の境界と、その上に被せる安全装置に集中しました。',
+    },
+    decision: {
+      ko: '2 레인과 자가진화 척추로 구조를 잡았습니다. Reactive 레인은 MR이 열리면 4개 페르소나(보안·성능·테스트·팀리드)가 병렬로 리뷰해 0~100 risk 점수와 인라인 코멘트를 60초 안에 답니다. Proactive 레인은 6시간마다 머지된 코드를 훑어 중복을 제거하고 우선순위 이슈를 자동 발급합니다. 그 위에서 라이브 ADK LlmAgent(Gemini)가 GitLab 네이티브 MCP를 통해 diff·파이프라인·SAST 같은 읽기 도구를 상황에 맞게 골라 호출하고(plan → act → decide), 그 계획을 MR 코멘트와 대시보드에 그대로 노출합니다. 페르소나의 결함 판정은 결정론으로 두고 합성만 가중평균과 거부권으로 처리해, 같은 입력이면 같은 점수가 나오게 했습니다.\n\n그리고 이 위에 핵심인 자가진화 척추를 얹었습니다. 머지 후 사고 신호로 스킬 confidence를 재보정하고, Gemini가 그 사고에서 후보 탐지 규칙(regex)을 귀납 합성한 뒤, 깨끗한 코드에 단 한 번도 오탐하지 않는 골든 게이트를 통과해야만 격리를 거쳐 정식 스킬로 졸업시킵니다. 즉 진화의 모든 단계가 라벨된 골든셋에 묶여 측정됩니다.',
+      en: 'We settled on two lanes plus a self-evolution spine. The Reactive lane fires when an MR opens: four personas (security, performance, test, team-lead) review in parallel and post a 0–100 risk score plus inline comments within 60 seconds. The Proactive lane sweeps merged code every six hours, dedupes, and auto-files prioritized issues. On top of both, a live ADK LlmAgent (Gemini) selects read tools (diff, pipeline, SAST, and more) over GitLab’s native MCP as the situation demands (plan → act → decide) and surfaces that plan on the MR comment and dashboard. Persona findings stay deterministic and only synthesis runs as a weighted average plus veto, so the same input always yields the same score.\n\nOn top of that sits the part that matters most: the self-evolution spine. Post-merge incident signals recalibrate skill confidence; Gemini inductively synthesizes a candidate detection rule (regex) from the incident; and it only graduates into a real skill after passing a golden gate that allows zero false positives on clean code, plus a quarantine period. Every step of the evolution is anchored to a labeled golden set and measured.',
+      ja: '2レーンと自己進化の背骨で構造を組みました。ReactiveレーンはMRが開くと4つのペルソナ（セキュリティ・性能・テスト・チームリード）が並列でレビューし、0〜100のriskスコアとインラインコメントを60秒以内に付けます。Proactiveレーンは6時間ごとにマージ済みコードを掃き、重複を除いて優先度付きIssueを自動発行します。その上でライブのADK LlmAgent（Gemini）がGitLabネイティブMCPを通じてdiff・パイプライン・SASTなどの読み取りツールを状況に応じて選んで呼び（plan → act → decide）、その計画をMRコメントとダッシュボードにそのまま出します。ペルソナの欠陥判定は決定論に置き、合成だけを加重平均と拒否権で処理し、同じ入力なら同じスコアが出るようにしました。\n\nそしてこの上に、核心である自己進化の背骨を載せました。マージ後の事故信号でスキルのconfidenceを再調整し、Geminiがその事故から候補検出ルール（regex）を帰納合成し、クリーンなコードに一度も誤検知しないゴールデンゲートを通過して初めて隔離を経て正式なスキルへ卒業させます。つまり進化のすべての段階がラベル付きゴールデンセットに紐づいて測定されます。',
+    },
+    execution: {
+      ko: '개념을 코드로 옮기면서 실제로 깨진 지점들을 하나씩 잡았습니다. 봇이 만든 MR이 다시 웹훅을 타고 자기 자신을 트리거하는 무한 루프는 봇 계정·메타데이터·idempotency 세 층의 재귀 가드로 끊었습니다. 시드 스킬이 적은 콜드 스타트에서는 벡터 검색 정확도가 낮아, 30개 미만이면 전수 비교 후 LLM rerank로 폴백하게 했습니다. 비용은 Proactive 스윕을 Flash 모델로 다운그레이드하고 파일 해시 캐시로 안 바뀐 파일을 건너뛰어 통제했습니다. Cloud Run에서는 async Firestore 클라이언트가 연결을 못 맺어 웹훅 ACK가 30초씩 멈췄는데, 동기 transport로 바꾸자 0.4초로 떨어졌습니다. 보안 쪽은 입력을 untrusted로 격리하고 시스템 프롬프트를 불변으로 두고, 봇 계정에 Developer 권한만 줘서 보호 브랜치에 직접 push하지 못하게 했습니다.',
+      en: 'Turning the concept into code meant fixing the places that actually broke. The infinite loop where a bot-created MR re-enters the webhook and triggers itself was cut with a triple recursion guard (bot account, metadata, idempotency). On cold start with few seed skills, vector search was inaccurate, so below 30 skills we fall back to brute-force comparison plus LLM rerank. Cost was contained by downgrading the Proactive sweep to the Flash model and skipping unchanged files via a file-hash cache. On Cloud Run, the async Firestore client could not establish connections and stalled webhook ACK by 30 seconds; switching to a sync transport dropped it to 0.4 seconds. On security, input is isolated as untrusted, the system prompt is immutable, and the bot account holds Developer rights only so it cannot push to protected branches directly.',
+      ja: '概念をコードに移す中で、実際に壊れた箇所を一つずつ潰しました。ボットが作ったMRが再びWebhookを通って自分自身をトリガーする無限ループは、ボットアカウント・メタデータ・idempotencyの三層の再帰ガードで断ちました。シードスキルが少ないコールドスタートではベクトル検索の精度が低いため、30個未満なら全数比較とLLM rerankにフォールバックさせました。コストはProactiveスイープをFlashモデルにダウングレードし、ファイルハッシュキャッシュで変わっていないファイルを飛ばして制御しました。Cloud Runではasync Firestoreクライアントが接続を確立できず、Webhook ACKが30秒止まりましたが、同期transportに変えると0.4秒に下がりました。セキュリティ面は入力をuntrustedとして隔離し、システムプロンプトを不変にし、ボットアカウントにDeveloper権限のみを与えて保護ブランチへ直接pushできないようにしました。',
+    },
+    result: {
+      ko: 'Google Cloud Rapid Agent Hackathon 2026 GitLab Track에 제출했고 현재 심사 결과 발표 전입니다. 수상 여부와 무관하게, 가장 강조하고 싶었던 자가진화 스택을 슬라이드가 아니라 코드와 테스트로 끝까지 구현해 라이브 Cloud Run에 올렸고, 대부분의 지표가 공개 대시보드에서 실시간으로 보입니다. 자가진화는 실제로 돌았습니다. 시드 10개였던 스킬이 실제 사고에서 4개를 자가 합성해 14개로 늘었고(저신뢰 1개는 격리), 골든셋(n=38)으로 측정한 Senior Score는 91/100, 규칙엔진 recall 0.964에 오탐은 0이었습니다. 에이전트도 측정됐습니다. 라이브 trajectory에서 도구 선택의 77%가 에이전트 주도(46건은 GitLab 네이티브 MCP 라이브)였고, 리뷰당 평균 2.38개 도구를 9가지 조합으로 골랐으며, "diff 먼저" 정책을 96.6% 스스로 지켰습니다. 전체는 609개 pytest로 회귀 가드됩니다.',
+      en: 'We submitted to the Google Cloud Rapid Agent Hackathon 2026 GitLab Track, and judging results are not announced yet. Regardless of the outcome, the part we most wanted to prove — the self-evolution stack — we built end to end in code and tests rather than slideware and deployed it live on Cloud Run, with most metrics visible in real time on a public dashboard. The evolution actually ran: a seed library of 10 skills grew to 14 by self-synthesizing 4 from real incidents (1 low-confidence skill quarantined), the Senior Score measured on a golden set (n=38) was 91/100, and rule-engine recall was 0.964 with zero false positives. The agent was measured too: 77% of tool selections on the live trajectory were agent-driven (46 of them live over GitLab’s native MCP), it picked an average of 2.38 tools per review across 9 distinct combinations, and it self-enforced the diff-first policy 96.6% of the time. The whole thing is regression-guarded by 609 pytest cases.',
+      ja: 'Google Cloud Rapid Agent Hackathon 2026 GitLab Trackに提出し、現在審査結果は発表前です。受賞の有無に関わらず、最も証明したかった自己進化スタックをスライドではなくコードとテストで最後まで実装し、ライブのCloud Runに載せ、ほとんどの指標を公開ダッシュボードでリアルタイムに見られるようにしました。進化は実際に回りました。シード10個だったスキルが実際の事故から4個を自己合成して14個に増え（低信頼1個は隔離）、ゴールデンセット（n=38）で測定したSenior Scoreは91/100、ルールエンジンrecall 0.964で誤検知は0でした。エージェントも測定されました。ライブtrajectoryでツール選択の77%がエージェント主導（うち46件はGitLabネイティブMCPでライブ）、レビューあたり平均2.38個のツールを9通りの組み合わせで選び、「diff優先」ポリシーを96.6%自ら守りました。全体は609個のpytestで回帰ガードされています。',
+    },
+    reflection: {
+      ko: '이 프로젝트에서 가장 또렷했던 교훈은 자가진화는 정직해야 한다는 것이었습니다. 봇이 팀의 수용만 좇으면 더 정확해지는 게 아니라 그냥 더 무난해질 뿐입니다. 머지 후 진실이라는 앵커가 없으면 결국 동의에 최적화됩니다. 또 하나는 멀티에이전트라도 합성은 결정론이어야 디버깅이 된다는 것, 그리고 에이전트의 본질은 모델 크기가 아니라 스스로 도구를 고르는 데 있고 그 정확도는 측정 가능한 양이라는 점이었습니다. 우리 다른 프로젝트들과 똑같이, 결국 차이를 만든 건 LLM 자체가 아니라 그 주위를 감싼 결정론 구조와 측정 장치였습니다.',
+      en: 'The sharpest lesson here was that self-evolution has to be honest. If the bot chases the team’s acceptance, it does not get more accurate, only more agreeable; without an anchor in post-merge truth, you end up optimizing for consent. Another was that even with multiple agents, synthesis must be deterministic to stay debuggable, and that the essence of an agent is not model size but choosing its own tools, with accuracy you can actually measure. Just like in our other projects, what made the difference in the end was not the LLM itself but the deterministic structure and the measurement harness wrapped around it.',
+      ja: 'このプロジェクトで最も鮮明だった教訓は、自己進化は正直でなければならないということでした。ボットがチームの受容だけを追えば、より正確になるのではなく、ただ無難になるだけです。マージ後の真実というアンカーがなければ、結局は同意に最適化されます。もう一つは、マルチエージェントでも合成は決定論でなければデバッグできないこと、そしてエージェントの本質はモデルのサイズではなく自らツールを選ぶことにあり、その精度は測定可能な量だという点でした。私たちの他のプロジェクトと同じく、最終的に差を作ったのはLLMそのものではなく、その周りを包む決定論構造と測定の仕組みでした。',
+    },
+    visuals: {
+      problem: {
+        bullets: {
+          ko: [
+            '자율 = 위험: 스스로 코멘트·이슈·수정을 하면 오작동·무한 루프·악용 위험',
+            '자가진화의 함정: 수용(머지·좋아요)만 학습하면 정확해지는 게 아니라 무난해질 뿐',
+            'agentic 증명: 에이전트가 진짜 판단하는지 고정 스크립트인지 측정으로 구분돼야 함',
+          ],
+          en: [
+            'Autonomy = risk: acting on its own (comments, issues, fixes) risks malfunction, infinite loops, abuse',
+            'Self-evolution trap: learning only from consent (merge, like) makes it agreeable, not accurate',
+            'Proving agentic: measurement must separate a real deciding agent from a fixed script',
+          ],
+          ja: [
+            '自律＝リスク: 自らコメント・Issue・修正を行うと誤動作・無限ループ・悪用のリスク',
+            '自己進化の罠: 受容（マージ・いいね）だけ学習すると正確ではなく無難になるだけ',
+            'agenticの証明: エージェントが本当に判断するか固定スクリプトか測定で区別する必要',
+          ],
+        },
+      },
+      decision: {
+        image: {
+          src: '/images/projects/custos.svg',
+          alt: { ko: 'Custos 아키텍처 · 2 레인 + 자가진화 척추', en: 'Custos architecture: 2 lanes + self-evolution spine', ja: 'Custosアーキテクチャ · 2レーン + 自己進化の背骨' },
+          caption: { ko: 'Reactive(4 페르소나 MR 리뷰) + Proactive(6시간 머지 코드 sweep)를 GitLab 네이티브 MCP 위에서 돌리고, 머지 후 진실로 스킬을 재보정해 사고에서 합성한 규칙을 오탐 0 게이트로 졸업시키는 자가진화 척추를 얹었다.', en: 'A Reactive lane (4-persona MR review) and a Proactive lane (6h merged-code sweep) over GitLab native MCP, with a self-evolution spine that recalibrates skills from post-merge truth and graduates incident-induced rules through a zero-false-positive gate.', ja: 'Reactive（4ペルソナのMRレビュー）とProactive（6時間ごとのマージコードsweep）をGitLabネイティブMCP上で回し、マージ後の真実でスキルを再調整し、事故から合成したルールを誤検知0ゲートで卒業させる自己進化の背骨を載せた。' },
+        },
+      },
+      result: {
+        metrics: [
+          { value: '10 → 14', label: { ko: '머지 후 사고에서 스킬 4개 자가 합성 (저신뢰 1개 격리)', en: 'Skills self-synthesized from post-merge incidents (1 quarantined)', ja: 'マージ後の事故からスキル4個を自己合成（低信頼1個は隔離）' } },
+          { value: '91/100', label: { ko: 'Senior Score (골든셋 n=38으로 측정한 시니어화 궤적)', en: 'Senior Score, measured on a golden set (n=38)', ja: 'Senior Score（ゴールデンセットn=38で測定）' } },
+          { value: '77%', label: { ko: '도구 선택이 에이전트 주도 (GitLab 네이티브 MCP 라이브)', en: 'tool selections agent-driven (live over GitLab native MCP)', ja: 'ツール選択がエージェント主導（GitLabネイティブMCPでライブ）' } },
+          { value: '609 tests', label: { ko: 'pytest 회귀 가드 · 라이브 Cloud Run 배포', en: '609 pytest cases · live on Cloud Run', ja: '609 pytest · ライブCloud Run配備' } },
         ],
       },
     },

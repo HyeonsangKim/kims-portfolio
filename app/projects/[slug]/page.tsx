@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { FiArrowLeft, FiGithub, FiExternalLink } from 'react-icons/fi'
+import { SiGitlab } from 'react-icons/si'
 import { useI18n } from '@/lib/i18n'
 import { projects } from '@/data/projects'
 import {
@@ -32,7 +33,7 @@ const diagramComponents: Record<string, React.ComponentType> = {
   oem: OemArchitectureDiagram,
 }
 
-const linkIcon = { github: FiGithub, external: FiExternalLink } as const
+const linkIcon = { github: FiGithub, gitlab: SiGitlab, external: FiExternalLink } as const
 
 export default function ProjectDetailPage() {
   const { slug } = useParams<{ slug: string }>()
@@ -95,7 +96,8 @@ export default function ProjectDetailPage() {
           <div className="flex gap-3">
             {project.links.map((link) => {
               const Icon = linkIcon[link.icon]
-              const isGithub = link.icon === 'github'
+              // Repo links (GitHub / GitLab) get the neutral/dark button; live/external links get the cyan accent.
+              const isRepo = link.icon === 'github' || link.icon === 'gitlab'
               return (
                 <a
                   key={link.url}
@@ -103,7 +105,7 @@ export default function ProjectDetailPage() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className={`inline-flex items-center gap-2 text-sm font-medium rounded-lg px-4 py-2 transition-all duration-200 ${
-                    isGithub
+                    isRepo
                       ? 'bg-white/[0.06] text-white border border-white/10 hover:bg-white/[0.12] hover:border-white/20'
                       : 'bg-cyan-400/10 text-cyan-400 border border-cyan-400/20 hover:bg-cyan-400/20 hover:border-cyan-400/40'
                   }`}

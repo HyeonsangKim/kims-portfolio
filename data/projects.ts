@@ -31,7 +31,7 @@ export type Gradient =
 export interface ProjectLink {
   label: string
   url: string
-  icon: 'github' | 'external'
+  icon: 'github' | 'gitlab' | 'external'
 }
 
 export interface ProjectGalleryImage {
@@ -222,6 +222,35 @@ export const projects: Project[] = [
         src: '/images/projects/myunzy.svg',
         alt: 'Myunzy tool-call harness over EXAONE-4.5',
         caption: 'Myunzy: a deterministic harness (DeepAgents analog) wraps a small open model. wrap_tool_call validates and retries, LangGraph controls the turn loop, and state.py self-evolves the weakness profile. Mock-first, zero-key.',
+      },
+    ],
+  },
+  {
+    id: 'custos',
+    num: '06',
+    title: 'WIGTN-CUSTOS',
+    tagline: 'Self-Evolving GitLab Repo Custodian',
+    description: {
+      ko: 'WIGTN-CUSTOS는 GitLab 리포에 상주하며 MR 리뷰부터 머지된 코드 감시, 이슈 발급까지 24/7 스스로 돌보는 자가진화 리포 커스토디언입니다. 핵심은 자가발전입니다. 봇은 "팀이 머지했는가"가 아니라 "머지된 뒤 실제로 사고가 났는가"(Truth ≠ Consent)를 진실 신호로 삼아, 그 신호로 스킬 confidence를 재보정하고 사고에서 새 탐지 규칙을 합성해 점점 우리 팀 시니어가 되어갑니다. 라이브 trajectory 기준 도구 선택의 77%가 에이전트 주도이고 Senior Score 91/100을 골든셋으로 측정합니다.\nGoogle Cloud Rapid Agent Hackathon 2026 · GitLab Track (심사 중).',
+      en: 'WIGTN-CUSTOS is a self-evolving repo custodian that lives inside a GitLab repo and runs 24/7: reviewing MRs, watching merged code, and filing issues on its own. The heart of it is self-evolution. It judges by post-merge truth rather than approval (Truth ≠ Consent), using real incidents to recalibrate skill confidence and synthesize new detection rules, growing into your team’s senior over time. On the live trajectory 77% of tool selections are agent-driven, and a 91/100 Senior Score is measured on a golden set.\nGoogle Cloud Rapid Agent Hackathon 2026 · GitLab Track (judging in progress).',
+      ja: 'WIGTN-CUSTOSはGitLabリポジトリに常駐し、MRレビューからマージ済みコードの監視、Issue発行まで24/7自ら世話する自己進化型リポ・カストディアンです。核心は自己進化です。「チームがマージしたか」ではなく「マージ後に実際に事故が起きたか」（Truth ≠ Consent）を真実信号とし、その信号でスキルのconfidenceを再調整し、事故から新しい検出ルールを合成して、次第にチームのシニアになっていきます。ライブtrajectoryでツール選択の77%がエージェント主導、Senior Score 91/100をゴールデンセットで測定。Google Cloud Rapid Agent Hackathon 2026 · GitLab Track（審査中）。',
+    },
+    badges: [
+      { label: 'Self-Evolving Agent', variant: 'active' },
+      { label: 'Rapid Agent Hackathon', variant: 'active' },
+    ],
+    tech: ['Python 3.13', 'FastAPI', 'Vertex AI Gemini 3', 'Google ADK', 'GitLab MCP', 'Semgrep', 'Cloud Run', 'Firestore'],
+    links: [
+      { label: 'GitLab', url: 'https://gitlab.com/wigtn1/wigtn-gitlab-custos', icon: 'gitlab' },
+      { label: 'Live Dashboard', url: 'https://wigtn-bot-api-959369840538.europe-west1.run.app/dashboard', icon: 'external' },
+    ],
+    gradient: 'from-amber-500 to-orange-500',
+    media: { type: 'none' },
+    gallery: [
+      {
+        src: '/images/projects/custos.svg',
+        alt: 'Custos architecture — 2 lanes + self-evolution spine',
+        caption: 'Custos: a Reactive lane (4-persona MR review) + a Proactive lane (6h merged-code sweep) over GitLab native MCP, with a self-evolution spine that recalibrates skills from post-merge truth and graduates incident-induced rules through a zero-false-positive gate.',
       },
     ],
   },

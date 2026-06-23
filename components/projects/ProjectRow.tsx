@@ -3,12 +3,14 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { FiChevronRight, FiGithub, FiExternalLink } from 'react-icons/fi'
+import { SiGitlab } from 'react-icons/si'
 import type { Project, Gradient } from '@/data/projects'
 import { badgeStyle, badgePriority } from '@/data/projects'
 import ProjectAccordion from './ProjectAccordion'
 
 const linkIconMap = {
   github: FiGithub,
+  gitlab: SiGitlab,
   external: FiExternalLink,
 } as const
 

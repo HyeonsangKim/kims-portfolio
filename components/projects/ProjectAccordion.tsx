@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion'
 import { FiGithub, FiExternalLink, FiPlay, FiArrowRight, FiFileText } from 'react-icons/fi'
+import { SiGitlab } from 'react-icons/si'
 import { useState } from 'react'
 import type { Project, ProjectLink, Gradient } from '@/data/projects'
 import { badgeStyle } from '@/data/projects'
@@ -20,12 +21,14 @@ const wigtnReportMeta: Record<string, { period: string; role: string }> = {
   wigplugin: { period: '2026', role: 'Creator · Open Source' },
   wigvo: { period: '2026', role: 'Side Project' },
   myunzy: { period: '2026-05', role: 'Agent Engineer · Hackathon' },
+  custos: { period: '2026-06', role: 'Agent Engineer · Hackathon' },
 }
 
 const wigtnReportKeys = new Set<string>(Object.keys(wigtnReportMeta))
 
 const iconMap = {
   github: FiGithub,
+  gitlab: SiGitlab,
   external: FiExternalLink,
 } as const
 
