@@ -18,7 +18,8 @@ import { careerStoryBlocksV1, type CareerReportKey } from '@/data/career-reports
 const wigtnReportMeta: Record<string, { period: string; role: string }> = {
   wigent: { period: '2026-03', role: 'Co-creator · Hackathon' },
   wigtnflake: { period: '2026-04', role: 'Lead Engineer · Hackathon' },
-  wigplugin: { period: '2026', role: 'Creator · Open Source' },
+  wigplugin: { period: '2026', role: 'Creator · Open Source · Claude Code' },
+  wigtncodex: { period: '2026', role: 'Creator · Open Source · Codex' },
   wigvo: { period: '2026', role: 'Side Project' },
   myunzy: { period: '2026-05', role: 'Agent Engineer · Hackathon' },
   custos: { period: '2026-06', role: 'Agent Engineer · Hackathon' },

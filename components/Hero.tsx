@@ -89,9 +89,9 @@ export default function Hero() {
       >
         <span className="text-cyan-400/50">$</span>
         <span className="mx-2 text-white/20">~</span>
-        <span className="text-white/85">Soundmind</span>
+        <span className="text-white/85">WIGTN Crew</span>
         <span className="mx-2 text-white/20">/</span>
-        <span className="text-white/55">WIGTN Crew</span>
+        <span className="text-white/55">AI Product Engineer</span>
       </motion.p>
 
       <motion.div

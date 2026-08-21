@@ -14,6 +14,7 @@ export type CareerReportKey =
   | 'wigent'
   | 'wigtnflake'
   | 'wigplugin'
+  | 'wigtncodex'
   | 'wigvo'
   | 'myunzy'
   | 'custos'
@@ -176,7 +177,7 @@ export const projectStoryBlockSlotLabels: Record<
   result: { ko: '결과 & 성과', en: 'Result & Impact', ja: '結果と成果' },
 }
 
-export const wigtnProjectKeys = new Set<CareerReportKey>(['wigent', 'wigtnflake', 'wigplugin', 'wigvo', 'myunzy', 'custos'])
+export const wigtnProjectKeys = new Set<CareerReportKey>(['wigent', 'wigtnflake', 'wigplugin', 'wigtncodex', 'wigvo', 'myunzy', 'custos'])
 
 // Legacy 3-slot reports (about / role / highlights) — only Career projects use
 // this form. WIGTN side projects rely entirely on the v1 9-slot story blocks
@@ -1213,9 +1214,9 @@ export const careerStoryBlocksV1: Partial<
 
   wigplugin: {
     oneLiner: {
-      ko: 'PRD 작성 → 화면정의서 → 병렬 빌드 → 코드 리뷰 → 커밋까지 한 파이프라인으로 돌리는 Claude Code 플러그인. 13개 에이전트·5개 커맨드·4개 스킬을 묶어 오픈소스로 공개.',
-      en: 'A Claude Code plugin that runs PRD → screen spec → parallel build → code review → commit as a single pipeline. Bundles 13 agents, 5 commands, and 4 skills. Open-sourced.',
-      ja: 'PRD作成 → 画面定義書 → 並列ビルド → コードレビュー → コミットまでを1パイプラインで回すClaude Codeプラグイン。13エージェント・5コマンド・4スキルを束ねてオープンソース公開。',
+      ko: 'PRD → 화면정의 → 병렬 구현 → 근거 기반 리뷰 → 커밋·PR을 하나의 계약으로 연결하는 Claude Code 플러그인. v0.1.16 기준 11개 에이전트·5개 커맨드·7개 스킬과 20개 디자인 스타일, Knowledge Wiki를 오픈소스로 제공합니다.',
+      en: 'A Claude Code plugin that connects PRD → screen specification → parallel implementation → evidence-backed review → commit/PR as one contract. v0.1.16 ships 11 agents, 5 commands, 7 skills, 20 design styles, and a gated Knowledge Wiki as open source.',
+      ja: 'PRD → 画面仕様 → 並列実装 → 根拠ベースのレビュー → コミット・PRを一つの契約でつなぐClaude Codeプラグイン。v0.1.16では11エージェント・5コマンド・7スキル、20デザインスタイル、Knowledge Wikiをオープンソースで提供します。',
     },
     context: {
       ko: '사운드마인드에서 팀장으로 여러 프로젝트를 동시에 리딩하면서, 회사 내에서 실질적으로 프로젝트 경험이 가장 많은 사람이 저 혼자다 보니 점점 한계를 느끼기 시작했습니다. 모든 프로젝트를 직접 챙기다 보니 병목이 생겼고, 결국 중요한 건 제가 일하는 방식을 팀 전체가 공유할 수 있어야 한다는 생각에 도달했습니다.\n\n특히 저는 구현 전에 항상 PRD를 먼저 작성하고, 설계 검증을 거친 뒤 개발에 들어가는 흐름으로 일해왔습니다. 구현 단계에서 발생하는 문제 대부분이 개발 능력보다 초기 요구사항과 설계 정렬 실패에서 시작된다는 걸 반복적으로 경험했기 때문입니다. 이 과정을 팀원들도 자연스럽게 따라갈 수 있으면 좋겠다고 생각했습니다.\n\n하지만 AI를 실제 개발 흐름 안에 적용해보니, 단순히 AI를 잘 사용하는 것만으로는 결과물 품질을 안정적으로 유지하기 어렵다는 문제를 계속 체감했습니다. 한 세션 안에서 역할과 컨텍스트가 섞이기 시작하면 결과물이 쉽게 흔들렸고, 결국 문제는 AI 성능이 아니라, AI가 어떤 흐름과 책임 구조 안에서 동작하느냐였습니다.\n\n그래서 제가 실제로 사용하던 작업 방식을 Claude Code 기반 플러그인 형태로 구조화했고, 팀 전체가 같은 흐름 위에서 작업할 수 있도록 만들었습니다. 이후에는 다른 개발자들도 사용할 수 있게 오픈소스로 공개했습니다.',
@@ -1228,9 +1229,9 @@ export const careerStoryBlocksV1: Partial<
       ja: 'AIを開発プロセスに本格的に組み込み始めてから、いくつかの問題を繰り返し実感しました。\n\n一つのセッション内でPRD・設計・実装が混在すると、以前のコンテキストに引きずられて成果物が容易に揺らぎました。PM・アーキテクト・開発・レビューの役割が同じフロー内で同時に動作すると責任境界が曖昧になり品質のばらつきが大きくなりました。AI生成物を人が毎回直接検収しなければならないと、結局生産性の利点が消失しました。\n\nコンテキスト管理・役割分離・自動検証が一緒に設計されなければ、AIベースの開発ワークフローを安定的に運用するのは難しいと判断しました。',
     },
     hypothesis: {
-      ko: '이 문제들은 따로따로 해결되는 게 아니라, 하나의 파이프라인 안에서 동시에 잡아야 한다고 봤습니다.\n\nPRD 단계에서는 Completeness·Feasibility·Security·Consistency 4개 검증 에이전트가 명세 자체를 먼저 점검하게 했습니다. 구현에 들어가기 전에 방향이 틀어질 여지를 줄이기 위해서였습니다.\n\n구현 단계에서는 Backend·Frontend·AI Server·Ops를 독립된 팀처럼 병렬 실행하되, SHARED_CONTEXT 파일 하나로 필요한 인터페이스·데이터 스키마·결과 포맷만 공유하고 이전 단계의 내부 시행착오는 공유하지 않는 구조로 만들었습니다. 이렇게 하면 각 팀의 컨텍스트가 섞이지 않으면서도 결과물은 맞물리게 됩니다.\n\n커밋 단계에서는 3개의 리뷰 에이전트가 코드 품질을 자동 점수화하고, Security Critical 이슈는 점수와 관계없이 즉시 차단하도록 설계했습니다. 사람이 매번 직접 검수하지 않아도 최소한의 신뢰 선을 유지하기 위한 장치였습니다.',
-      en: 'These problems cannot be picked off one by one — they need to be controlled inside a single pipeline at the same time.\n\nAt the PRD stage, four validation agents (Completeness, Feasibility, Security, Consistency) check the spec itself before implementation begins, catching directional drift early.\n\nAt the build stage, Backend, Frontend, AI Server, and Ops run as independent parallel teams, sharing only interfaces, data schemas, and result formats through a single SHARED_CONTEXT file — internal trial-and-error from prior stages stays out. Each team\'s context stays clean while the outputs still interlock.\n\nAt the commit stage, three review agents auto-score code quality, and Security Critical issues are blocked regardless of score — a safety floor that holds without requiring manual review every time.',
-      ja: 'これらの問題は一つずつ解決できるものではなく、一つのパイプライン内で同時に制御する必要がありました。\n\nPRD段階ではCompleteness・Feasibility・Security・Consistencyの4検証エージェントが仕様自体を先に点検し、方向逸脱を早期に捕えるようにしました。\n\n実装段階ではBackend・Frontend・AI Server・Opsを独立チームとして並列実行しつつ、SHARED_CONTEXTファイル一つでインターフェース・データスキーマ・結果フォーマットのみを共有し、前段階の内部試行錯誤は共有しない構造にしました。各チームのコンテキストが混ざらずに成果物は噛み合う形です。\n\nコミット段階では3つのレビューエージェントがコード品質を自動スコア化し、Security Criticalはスコアに関係なく即時遮断 — 人が毎回直接検収しなくても最低限の信頼線を維持する仕組みです。',
+      ko: '이 문제들은 따로따로 해결되는 게 아니라, 명세부터 릴리스까지 하나의 계약 안에서 통제해야 한다고 봤습니다.\n\nPRD 단계에서는 `prd-reviewer`가 Completeness·Feasibility·Security·Consistency 네 관점으로 명세를 검토하고 PASS·WARN·BLOCKED로 판정합니다. 구현 단계에서는 Backend·Frontend·AI·Ops를 독립 팀처럼 병렬 실행하되 SHARED_CONTEXT와 PLAN ledger로 공개 인터페이스와 진행 상태만 공유합니다. 릴리스 단계에서는 `code-reviewer`가 파일·라인·심각도·신뢰도·근거가 있는 finding을 만들고, 타입체크·린트 같은 객관 검사가 통과한 뒤에만 사용자가 선택한 commit-only·draft PR·PR 경계로 진행합니다.',
+      en: 'The answer was not more agents in isolation, but one contract from specification to release. At the PRD stage, `prd-reviewer` evaluates Completeness, Feasibility, Security, and Consistency and returns PASS, WARN, or BLOCKED. During implementation, Backend, Frontend, AI, and Ops run as independent teams while SHARED_CONTEXT and a PLAN ledger share only public interfaces and progress. At release, `code-reviewer` emits findings with file, line, severity, confidence, and evidence; objective checks such as typecheck and lint must pass before the workflow crosses the commit-only, draft-PR, or PR boundary selected by the user.',
+      ja: '答えはエージェントを個別に増やすことではなく、仕様からリリースまで一つの契約でつなぐことでした。PRD段階では`prd-reviewer`がCompleteness・Feasibility・Security・Consistencyの4観点をPASS・WARN・BLOCKEDで判定。実装ではBackend・Frontend・AI・Opsを独立チームとして並列実行し、SHARED_CONTEXTとPLAN ledgerで公開インターフェースと進捗だけを共有します。リリースでは`code-reviewer`がファイル・行・重要度・信頼度・根拠付きfindingを作り、typecheckやlintなどの客観チェック通過後に、ユーザーが選んだcommit-only・draft PR・PR境界だけを越えます。',
     },
     alternatives: {
       ko: '에이전트마다 개별 호출하는 기존 방식과 단일 메가 에이전트로 통합하는 방식을 검토했습니다. 개별 호출은 한 에이전트가 끝나면 다음 에이전트에게 이전 결과를 다시 전달해야 해서, 단계가 늘수록 컨텍스트 전달 비용이 누적되고 중간에 정보가 변질될 위험이 커졌습니다. 메가 에이전트는 반대로 하나가 PRD 작성·설계·구현·리뷰를 전부 떠안는 구조라 어느 단계에서 문제가 생겼는지 추적이 안 됐고, 실제로 돌려보면 앞 단계 판단에 뒤 단계가 끌려가는 문제가 반복됐습니다.',
@@ -1238,19 +1239,19 @@ export const careerStoryBlocksV1: Partial<
       ja: 'エージェントごとに個別呼び出しする方式と単一メガエージェントに統合する方式を検討しました。個別呼び出しは一つが終わるたびに次へ結果を受け渡す必要があり、段階が増えるほどコンテキスト引き渡しコストが累積して途中で情報が変質するリスクが大きくなりました。メガエージェントは逆にPRD作成・設計・実装・レビューをすべて一つが担うため、どの段階で問題が生じたか追跡できず、実際に回すと前段階の判断に後段階が引きずられる問題が繰り返されました。',
     },
     decision: {
-      ko: '핵심 목표는 역할 충돌 없이 병렬 개발을 가능하게 만드는 것이었습니다. 이를 위해 단일 플러그인 안에 13 에이전트 + 5 커맨드 + 4 스킬 + 4 안전 훅을 묶었습니다. 핵심은 `/prd → /screen-spec → /implement → /auto-commit` 파이프라인이고, `/screen-spec`은 UI 프로젝트에서 PRD와 구현 사이에 화면정의서 5종을 자동 생성하는 선택적 게이트, `/implement`는 4개 팀에 자동 병렬 분배, `/auto-commit`은 3개 리뷰 에이전트 점수 합산 후 80점 이상이면 자동 머지·Security Critical은 점수 무관 강제 차단입니다.',
-      en: 'One plugin bundles 13 agents + 5 commands + 4 skills + 20 design styles + 4 safety hooks. The spine is `/prd → /screen-spec → /implement → /auto-commit`: `/screen-spec` is a selective gate that auto-generates five screen-specification artifacts for UI projects between PRD and build; `/implement` auto-dispatches to four teams in parallel; `/auto-commit` aggregates three reviewer scores — commit at ≥80, Security Critical force-fails regardless.',
-      ja: '単一プラグインで13エージェント + 5コマンド + 4スキル + 20デザインスタイル + 4安全フックを束ねました。核心は `/prd → /screen-spec → /implement → /auto-commit` パイプライン: `/screen-spec` はUIプロジェクトでPRDとビルドの間に画面定義書5種を自動生成する選択的ゲート、`/implement` は4チームに自動並列分配、`/auto-commit` は3レビュアースコアを集計してスコア80以上で自動マージ、Security Criticalはスコア無関係に強制遮断します。',
+      ko: 'v0.1.16은 단일 플러그인 안에 11개 에이전트 + 5개 커맨드 + 7개 스킬 + 20개 디자인 스타일을 묶습니다. 주 흐름은 `/prd → /screen-spec → /implement → /auto-commit`이고 `/review-pr`을 독립 제공하며, 숫자 점수 대신 근거가 있는 finding과 실행 검사를 릴리스 게이트로 사용합니다. 세션 종료 시 Knowledge Wiki는 재사용 가능한 학습만 일반화하고, 시크릿·개인정보·조직 식별 정보는 결정론 검사와 별도 LLM 감사를 거쳐 차단합니다.',
+      en: 'v0.1.16 bundles 11 agents, 5 commands, 7 skills, and 20 design styles in one plugin. Its main flow is `/prd → /screen-spec → /implement → /auto-commit`, with `/review-pr` available independently. Evidence-backed findings and executed checks replace opaque numeric scores as the release gate. At session end, Knowledge Wiki generalizes only reusable learning; deterministic scans and a separate LLM audit block secrets, personal data, and organization-identifying information.',
+      ja: 'v0.1.16は11エージェント・5コマンド・7スキル・20デザインスタイルを一つのプラグインに統合します。主フローは`/prd → /screen-spec → /implement → /auto-commit`で、`/review-pr`も独立提供。数値スコアではなく根拠付きfindingと実行チェックをリリースゲートにします。セッション終了時のKnowledge Wikiは再利用可能な学習だけを一般化し、決定論検査と別LLM監査でシークレット・個人情報・組織識別情報を遮断します。',
     },
     execution: {
-      ko: '한 흐름으로 보면 단순합니다. `/prd`가 PRD + 단계별 task plan을 만들면서 4 카테고리 품질 게이트를 통과시키고, UI 프로젝트면 `/screen-spec`이 IA·유저 플로우·화면 명세·와이어프레임·개발 핸드오프 5종을 생성합니다. `/implement`는 설계 에이전트 병렬 실행 후 4팀(Backend·Frontend·AI Server·Ops) 동시 가동, `/auto-commit`은 3 리뷰 점수 합산 + 4 안전 훅이 백그라운드에서 위험 명령·빠진 검증을 차단합니다.',
-      en: 'Linearly the flow is simple. `/prd` produces a PRD + phased task plan while running a four-category quality gate; for UI projects `/screen-spec` generates five artifacts (IA, user flow, screen spec, wireframe, dev handoff). `/implement` runs design agents in parallel, then fires four teams (Backend, Frontend, AI Server, Ops) concurrently; `/auto-commit` aggregates three review scores while four safety hooks block risky commands and missing checks in the background.',
-      ja: '一連の流れは単純です。`/prd` がPRD + 段階別タスクプランを作りつつ4カテゴリ品質ゲートを通し、UIプロジェクトでは `/screen-spec` がIA・ユーザーフロー・画面仕様・ワイヤーフレーム・開発ハンドオフの5種を生成。`/implement` は設計エージェントの並列実行後に4チーム（Backend・Frontend・AI Server・Ops）を同時稼働、`/auto-commit` は3レビュースコアを集計しつつ4安全フックが危険コマンドや漏れた検証をバックグラウンドで遮断します。',
+      ko: '`/prd`는 프로젝트 문맥을 읽고 PRD와 단계별 PLAN을 만들며, UI 작업이면 `/screen-spec`이 IA·User Flow·Screen Spec·클릭 가능한 Wireframe·Dev Handoff를 생성합니다. `/implement`는 의존 작업을 순서대로 두고 독립 작업만 최대 4팀으로 병렬화합니다. `/auto-commit`은 severity finding과 저장소의 실제 검사 명령을 종합하고, 마지막 checkpoint에서 commit only·draft PR·PR 중 사용자가 선택한 액션만 실행합니다. Stop hook의 Knowledge Wiki는 로컬 우선으로 동작하며 remote가 없으면 push하지 않고, `shared/` 승격은 사람의 PR로 남깁니다.',
+      en: '`/prd` reads repository context and creates a PRD plus phased PLAN. For UI work, `/screen-spec` generates IA, User Flow, Screen Spec, a clickable Wireframe, and Dev Handoff. `/implement` keeps dependent work ordered and parallelizes only independent work across up to four teams. `/auto-commit` combines severity findings with the repository’s actual checks, then executes only the commit-only, draft-PR, or PR action selected at the final checkpoint. The Stop-hook Knowledge Wiki is local-first, never pushes without a remote, and leaves promotion into `shared/` to a human PR.',
+      ja: '`/prd`はリポジトリ文脈を読みPRDと段階別PLANを作成。UI作業では`/screen-spec`がIA・User Flow・Screen Spec・クリック可能なWireframe・Dev Handoffを生成します。`/implement`は依存作業を順序化し、独立作業だけを最大4チームで並列化。`/auto-commit`はseverity findingと実際の検査コマンドを統合し、最後のcheckpointで選択されたcommit only・draft PR・PRだけを実行します。Stop hookのKnowledge Wikiはlocal-firstでremoteなしにはpushせず、`shared/`昇格は人のPRに残します。',
     },
     result: {
-      ko: 'WIGTN-Coding을 Claude Code 플러그인으로 오픈소스 공개해 다른 개발자도 동일 워크플로우 위에서 작업할 수 있게 다듬었습니다. 이 워크플로우 위에서 WIGENT(TRAE 대상)·WIGTN FLAKE(Snowflake Tech Track 2위)·WIGVO 등 후속 프로젝트가 모두 만들어졌고, GitHub 별 약 44개 받은 상태입니다.',
-      en: 'Released WIGTN-Coding as an open-source Claude Code plugin so other engineers can run the same workflow end-to-end. Every downstream project — WIGENT (TRAE Grand Prize), WIGTN FLAKE (Snowflake Tech Track 2nd), WIGVO — was built on top of this workflow, and the repo currently sits at ~44 GitHub stars.',
-      ja: 'WIGTN-CodingをClaude Codeプラグインとしてオープンソース公開し、他の開発者も同じワークフロー上でエンドツーエンドに作業できる形に整備しました。このワークフロー上でWIGENT（TRAE大賞）・WIGTN FLAKE（Snowflake Tech Track 2位）・WIGVOなど後続プロジェクトがすべて構築され、現在GitHubで約44スターを獲得した状態です。',
+      ko: 'Claude Code Marketplace에서 설치할 수 있는 v0.1.16 오픈소스 플러그인으로 공개했습니다. WIGENT(TRAE 대상)·WIGTN FLAKE(Snowflake Tech Track 2위)·WIGVO 등 후속 프로젝트에서 이 흐름을 실제로 사용했고, 최신 릴리스에는 화면정의·PR 리뷰·손그림 다이어그램·WIGTN 발표자료·안전한 Knowledge Wiki까지 7개 스킬로 확장했습니다.',
+      en: 'Published as an open-source v0.1.16 plugin installable from the Claude Code Marketplace. The workflow was used on downstream projects including WIGENT (TRAE Grand Prize), WIGTN FLAKE (Snowflake Tech Track 2nd), and WIGVO; the current release has expanded to seven skills spanning screen specification, PR review support, hand-drawn diagrams, WIGTN presentations, and a safety-gated Knowledge Wiki.',
+      ja: 'Claude Code Marketplaceから導入できるv0.1.16オープンソースプラグインとして公開しました。WIGENT（TRAE大賞）・WIGTN FLAKE（Snowflake Tech Track 2位）・WIGVOなどで実運用し、現行リリースは画面仕様、PRレビュー支援、手描き図、WIGTNプレゼン、安全ゲート付きKnowledge Wikiまで7スキルに拡張しています。',
     },
     reflection: {
       ko: '팀원들이 이 플러그인 위에서 WIGENT·WIGTN FLAKE·WIGVO를 만들어내는 걸 보면서, 처음에 의도했던 "내 작업 방식의 이식"이 실제로 동작한다는 걸 확인했습니다. 결국 AI 도구의 가치는 답의 품질이 아니라, 사람이 매번 사이를 잇지 않아도 파이프라인이 끝까지 도는 구조에 있었습니다.',
@@ -1282,18 +1283,18 @@ export const careerStoryBlocksV1: Partial<
           src: '/images/projects/wigtncoding.svg',
           alt: { ko: 'WIGTN Coding 플러그인 아키텍처', en: 'WIGTN Coding plugin architecture', ja: 'WIGTN Codingプラグインアーキテクチャ' },
         },
-        // 12 에이전트의 3 분류 — 본문에서 빼고 표로 시각화해 한눈에 잡힘
+        // 현재 manifest의 11개 에이전트를 역할별로 시각화한다.
         table: {
           columns: [
             { ko: '카테고리', en: 'Category', ja: 'カテゴリ' },
-            { ko: '에이전트 4종', en: '4 agents', ja: 'エージェント4種' },
+            { ko: '에이전트', en: 'Agents', ja: 'エージェント' },
             { ko: '역할', en: 'Role', ja: '役割' },
           ],
           rows: [
             [
               { ko: 'Coordinators', en: 'Coordinators', ja: 'Coordinators' },
-              { ko: 'team-build · parallel-review · parallel-digging · architecture-decision', en: 'team-build · parallel-review · parallel-digging · architecture-decision', ja: 'team-build · parallel-review · parallel-digging · architecture-decision' },
-              { ko: '병렬 분배·점수 합산·아키텍처 결정', en: 'Parallel dispatch · score merge · architecture decisions', ja: '並列分配・スコア集計・アーキテクチャ決定' },
+              { ko: 'team-build-coordinator · architecture-decision', en: 'team-build-coordinator · architecture-decision', ja: 'team-build-coordinator · architecture-decision' },
+              { ko: '의존성 기반 병렬 분배·아키텍처 결정', en: 'Dependency-aware parallel dispatch · architecture decisions', ja: '依存関係ベースの並列分配・アーキテクチャ決定' },
             ],
             [
               { ko: 'Developers', en: 'Developers', ja: 'Developers' },
@@ -1302,36 +1303,108 @@ export const careerStoryBlocksV1: Partial<
             ],
             [
               { ko: 'Quality', en: 'Quality', ja: 'Quality' },
-              { ko: 'code-reviewer · prd-reviewer · code-formatter · design-discovery', en: 'code-reviewer · prd-reviewer · code-formatter · design-discovery', ja: 'code-reviewer · prd-reviewer · code-formatter · design-discovery' },
-              { ko: '100점 스코어·PRD 갭 분석·자동 포맷·디자인 스타일 추천', en: '100-pt scoring · PRD gap analysis · auto-format · style picker', ja: '100点スコア・PRDギャップ分析・自動フォーマット・スタイル推薦' },
+              { ko: 'code-reviewer · pr-reviewer · prd-reviewer · code-formatter · design-discovery', en: 'code-reviewer · pr-reviewer · prd-reviewer · code-formatter · design-discovery', ja: 'code-reviewer · pr-reviewer · prd-reviewer · code-formatter · design-discovery' },
+              { ko: '근거 기반 finding·PR/PRD 검토·포맷·디자인 추천', en: 'Evidence-backed findings · PR/PRD review · formatting · design direction', ja: '根拠付きfinding・PR/PRDレビュー・フォーマット・デザイン推薦' },
             ],
           ],
         },
       },
-      // 4 안전 훅 + 20 디자인 스타일 — 본문에서 빼고 bullets로
+      // 훅 기반 안전 경계 + 20 디자인 스타일을 빠르게 스캔할 수 있게 요약한다.
       execution: {
         bullets: {
           ko: [
-            '4 안전 훅 (백그라운드 자동 실행) — Dangerous Command Blocker · Pipeline Completion 알림 · Frontend Formatting 리마인더 · Backend Pattern Compliance 체크',
-            '3 스킬 — code-review-levels(Level 3 deep review·Level 4 architecture review) · design-system-reference(20 스타일 가이드) · team-memory-protocol(병렬 빌드 공유 컨텍스트)',
+            '훅 기반 안전 경계 — Dangerous Command Blocker · 객관 검사 gate · 포맷/백엔드 패턴 리마인더 · Pipeline Completion · Knowledge Wiki Stop hook',
+            '7 스킬 — 리뷰 레벨·20개 디자인 스타일·화면정의·팀 메모리·손그림 다이어그램·WIGTN 발표자료·Knowledge Wiki',
             '20 디자인 스타일 — Editorial · Brutalist · Glassmorphism · Swiss Minimal · Neomorphism · Bento Grid · Dark Mode First · Retro Pixel · Maximalist · 3D Immersive · Liquid Glass · Claymorphism · Neobrutalism · Aurora/Gradient Mesh · Terminal/Hacker · Kinetic Typography 등 (각각 anti-pattern 체크리스트 동반)',
           ],
           en: [
-            '4 safety hooks (run in background) — Dangerous Command Blocker · Pipeline Completion reminder · Frontend Formatting reminder · Backend Pattern Compliance check',
-            '4 skills — code-review-levels (Level 3 deep · Level 4 architecture review) · design-system-reference (20 style guides) · screen-spec (5-artifact UI spec generation) · team-memory-protocol (shared context across parallel builds)',
+            'Hook-based safety boundaries — dangerous-command blocker, objective-check gate, formatting/backend reminders, pipeline completion, and the Knowledge Wiki Stop hook',
+            '7 skills — review levels, 20 design styles, screen specification, team memory, hand-drawn diagrams, WIGTN presentations, and Knowledge Wiki',
             '20 design styles — Editorial · Brutalist · Glassmorphism · Swiss Minimal · Neomorphism · Bento Grid · Dark Mode First · Retro Pixel · Maximalist · 3D Immersive · Liquid Glass · Claymorphism · Neobrutalism · Aurora/Gradient Mesh · Terminal/Hacker · Kinetic Typography, … (each with an anti-pattern checklist)',
           ],
           ja: [
-            '4安全フック（バックグラウンド自動実行） — Dangerous Command Blocker · Pipeline Completion通知 · Frontend Formattingリマインダー · Backend Pattern Complianceチェック',
-            '4スキル — code-review-levels（Level 3 deep review · Level 4 architecture review）· design-system-reference（20スタイルガイド）· screen-spec（5種UI仕様自動生成）· team-memory-protocol（並列ビルド共有コンテキスト）',
+            'Hookベースの安全境界 — Dangerous Command Blocker・客観検査gate・format/backend reminder・Pipeline Completion・Knowledge Wiki Stop hook',
+            '7スキル — レビューレベル・20デザインスタイル・画面仕様・チームメモリ・手描き図・WIGTNプレゼン・Knowledge Wiki',
             '20デザインスタイル — Editorial · Brutalist · Glassmorphism · Swiss Minimal · Neomorphism · Bento Grid · Dark Mode First · Retro Pixel · Maximalist · 3D Immersive · Liquid Glass · Claymorphism · Neobrutalism · Aurora/Gradient Mesh · Terminal/Hacker · Kinetic Typographyなど（各自anti-patternチェックリスト付き）',
           ],
         },
       },
       result: {
         metrics: [
-          { value: '13 agents', label: { ko: '단일 파이프라인 통합 (PRD → 화면정의서 → 빌드 → 리뷰 → 커밋)', en: 'Bundled into one pipeline (PRD → screen spec → build → review → commit)', ja: '単一パイプライン統合（PRD → 画面定義書 → ビルド → レビュー → コミット）' } },
-          { value: '44', label: { ko: 'GitHub stars (오픈소스 공개 후 수신, 외부 개발자 사용 신호)', en: 'GitHub stars after open-sourcing — signal of external adoption', ja: 'GitHubスター（オープンソース公開後、外部開発者の採用シグナル）' } },
+          { value: '11 agents', label: { ko: '명세·아키텍처·구현·리뷰 역할', en: 'Specialists for specification, architecture, delivery, and review', ja: '仕様・アーキテクチャ・実装・レビューの専門家' } },
+          { value: '5 commands', label: { ko: 'PRD에서 PR 리뷰까지 연결', en: 'Connects PRD through PR review', ja: 'PRDからPRレビューまで接続' } },
+          { value: '7 skills', label: { ko: 'UI 산출물·시각화·지식 축적까지 확장', en: 'Extends into UI artifacts, visuals, and knowledge capture', ja: 'UI成果物・可視化・知識蓄積まで拡張' } },
+        ],
+      },
+    },
+  },
+
+  wigtncodex: {
+    oneLiner: {
+      ko: 'Codex의 기본 자율성은 그대로 두고, PRD·WorkGraph·인수 검증·릴리스 권한처럼 결과가 명확해야 하는 순간에만 Evidence Contract를 더하는 선택적 플러그인입니다. v0.4.0 기준 10개 스킬을 제공합니다.',
+      en: 'A selective plugin that preserves native Codex autonomy and adds Evidence Contracts only where outcomes must be explicit: PRDs, WorkGraphs, acceptance verification, and release authority. v0.4.0 ships 10 focused skills.',
+      ja: 'Codex本来の自律性を保ち、PRD・WorkGraph・受入検証・リリース権限など結果を明確にすべき場面だけにEvidence Contractを加える選択型プラグインです。v0.4.0では10の専用スキルを提供します。',
+    },
+    context: {
+      ko: 'Claude Code 플러그인을 그대로 Codex로 옮기면 플랫폼의 강점을 오히려 가릴 수 있었습니다. Codex는 저장소 탐색, 구현 판단, 기본 검증을 이미 자율적으로 수행하므로 고정된 에이전트 fan-out과 긴 절차를 항상 강제할 이유가 없었습니다. 반면 PRD의 필수 항목, 요구사항과 테스트 증거의 연결, source drift 이후 상태 무효화, commit·push·PR 권한처럼 틀리면 위험한 경계는 모델의 재량만으로 두기 어려웠습니다. 그래서 포팅이 아니라 Codex에 맞는 얇은 제품 개발 계약으로 다시 설계했습니다.',
+      en: 'A directory-for-directory port of the Claude Code plugin would hide the strengths of Codex. Codex already explores repositories, makes implementation decisions, and performs baseline verification autonomously, so fixed agent fan-out and a long mandatory process would add friction. Yet some boundaries cannot remain implicit: required PRD fields, requirement-to-test evidence, invalidation after source drift, and the authority to commit, push, or open a PR. The Codex edition was therefore redesigned as a thin product-contract layer rather than a port.',
+      ja: 'Claude Code版をそのままCodexへ移植すると、Codexの強みを隠してしまいます。Codexはリポジトリ探索・実装判断・基本検証を自律的に行えるため、固定fan-outや長い必須手順は不要です。一方で、PRD必須項目、要件とテスト証拠の接続、source drift後の無効化、commit・push・PR権限は暗黙にできません。そこで単純移植ではなく、Codex向けの薄いプロダクト契約レイヤーとして再設計しました。',
+    },
+    problem: {
+      ko: 'AI 개발 하네스는 많이 넣을수록 좋아 보이지만, 실제 평가에서는 일반 구현에 무거운 절차를 씌울수록 같은 결과에 더 많은 token과 시간이 들 수 있었습니다. 또 “검증됨”이라는 말이 실행 테스트 없이 만들어지거나, 사용자의 “확인해줘”를 commit·push 권한으로 확대 해석하는 문제가 있었습니다. 핵심은 모델을 더 통제하는 것이 아니라, 필요한 순간에만 결과 형태·상태 전이·증거·권한을 정확히 고정하는 일이었습니다.',
+      en: 'More harness is not automatically better. In evaluation, wrapping ordinary implementation in a heavy workflow could spend more tokens and time for the same result. Separately, “verified” could be claimed without an executed check, and a request to “check this” could be over-interpreted as permission to commit or push. The real problem was not controlling the model more; it was making result shape, state transitions, evidence, and authority explicit only when they matter.',
+      ja: 'ハーネスは多いほど良いわけではありません。評価では通常実装を重い手順で包むと、同じ結果により多くのtokenと時間を使う場合がありました。また実行テストなしに「verified」とされたり、「確認して」がcommit・push権限へ拡大解釈される問題もあります。必要なのはモデルを強く縛ることではなく、重要な時だけ成果形式・状態遷移・証拠・権限を正確に固定することでした。',
+    },
+    hypothesis: {
+      ko: '일반 코딩은 Codex에 맡기고, 사용자의 의도가 PRD·화면정의·계획·검증·릴리스와 일치할 때만 가장 작은 스킬을 자연어로 선택하게 하면 자율성과 재현성을 함께 얻을 수 있다고 봤습니다. 요구사항에는 안정적인 ID를 붙이고, WorkGraph가 requirement → artifact → task → executable check → release gate 연결을 보존하며, source hash가 바뀌면 downstream 상태를 stale로 전파하도록 했습니다.',
+      en: 'Keep ordinary coding native to Codex, and select the smallest skill through natural language only when intent matches specification, planning, verification, or release work. Stable requirement IDs and a resumable WorkGraph preserve requirement → artifact → task → executable check → release gate links; source-hash changes propagate stale state downstream. This should retain autonomy while making important outcomes reproducible.',
+      ja: '通常のコーディングはCodexに任せ、仕様・計画・検証・リリース意図がある時だけ最小のスキルを自然言語で選択させます。安定した要件IDと再開可能なWorkGraphがrequirement → artifact → task → executable check → release gateを保持し、source hash変更時は下流をstale化。自律性と再現性を両立できると考えました。',
+    },
+    alternatives: {
+      ko: 'Claude Code판의 11개 역할 에이전트와 5개 슬래시 커맨드를 그대로 복제하는 안, 모든 구현 요청에 하나의 전체 파이프라인을 자동 실행하는 안을 검토했습니다. 전자는 Codex가 이미 가진 탐색·구현 판단과 중복됐고, 후자는 작은 수정까지 무겁게 만들며 외부 mutation 권한을 흐릴 수 있어 기각했습니다.',
+      en: 'We considered copying the Claude Code edition’s 11 role agents and five slash commands, and automatically running one full pipeline for every implementation request. The first duplicated capabilities Codex already has; the second made small changes heavy and blurred authority for external mutation. Both were rejected.',
+      ja: 'Claude Code版の11ロールエージェントと5スラッシュコマンドを複製する案、すべての実装依頼で全パイプラインを自動実行する案を検討しました。前者はCodex既存能力と重複し、後者は小さな変更まで重くして外部mutation権限を曖昧にするため却下しました。',
+    },
+    decision: {
+      ko: '10개 스킬을 네 층으로 나눴습니다. 제품 계약은 product-spec·screen-spec·work-planner, 증거와 전달은 acceptance-verifier·verified-delivery·release-readiness, 프로젝트 네이티브 산출물은 design-direction·handdrawn-diagram·wigtn-presentation, 지식 축적은 knowledge-wiki가 담당합니다. 대부분 자연어로 자동 선택되지만 전체 구현·검증 루프인 `verified-delivery`는 qualified skill name을 명시해야 하며, Knowledge Wiki도 설치만으로는 켜지지 않습니다.',
+      en: 'Ten skills are split into four layers. Product contracts: product-spec, screen-spec, work-planner. Evidence and delivery: acceptance-verifier, verified-delivery, release-readiness. Project-native artifacts: design-direction, handdrawn-diagram, wigtn-presentation. Knowledge capture: knowledge-wiki. Most are selected naturally, but the full implementation-and-verification loop requires the qualified `verified-delivery` name, and Knowledge Wiki remains off until configured.',
+      ja: '10スキルを4層に分割しました。製品契約はproduct-spec・screen-spec・work-planner、証拠とデリバリーはacceptance-verifier・verified-delivery・release-readiness、プロジェクト固有成果物はdesign-direction・handdrawn-diagram・wigtn-presentation、知識蓄積はknowledge-wikiです。多くは自然言語で選択されますが、全実装・検証ループはqualified `verified-delivery`名の明示が必要で、Knowledge Wikiも設定するまで無効です。',
+    },
+    execution: {
+      ko: 'Evidence Contract validator가 거짓 `verified`, 누락 gap, 존재하지 않는 코드 근거, source drift, 권한 없는 외부 작업을 결정론적으로 차단합니다. WorkGraph의 mutation 명령은 `--apply`가 없으면 dry-run이고 동일 import·plan·drift 적용은 revision을 올리지 않습니다. release-readiness는 review·prepare·commit·push·PR 권한을 사용자 문장 그대로 분리합니다. v0.4.0의 Knowledge Wiki는 허용된 저장소에서만 동작하고, 결정론 검사와 독립 LLM 감사를 통과한 일반화 지식만 `per-user/`에 게시하며 `shared/` 자동 게시와 미push 커밋이 있는 상태의 push를 차단합니다.',
+      en: 'Deterministic Evidence Contract validators block false `verified` states, missing gaps, vanished code evidence, source drift, and unauthorized external actions. WorkGraph mutation commands are dry-run without `--apply`, and identical import, plan, or drift applications do not bump revisions. release-readiness separates review, prepare, commit, push, and PR authority exactly as requested. In v0.4.0, Knowledge Wiki runs only for allowed repositories, publishes generalized knowledge to `per-user/` only after deterministic scans and an independent LLM audit, and blocks automatic `shared/` publication or pushes over pre-existing unpushed commits.',
+      ja: 'Evidence Contract validatorが偽の`verified`、不足gap、消えたコード根拠、source drift、無権限の外部操作を決定論的に遮断します。WorkGraph mutationは`--apply`なしではdry-runで、同一import・plan・drift再適用はrevisionを増やしません。release-readinessはreview・prepare・commit・push・PR権限を依頼文どおり分離。v0.4.0のKnowledge Wikiは許可リポジトリだけで動き、決定論検査と独立LLM監査を通った一般化知識だけを`per-user/`へ公開し、`shared/`自動公開や既存未push commit上のpushを遮断します。',
+    },
+    result: {
+      ko: 'Codex용 개인 마켓플레이스에서 설치 가능한 v0.4.0으로 공개했습니다. 10개 스킬과 trigger/evidence 정적 계약, 자연어 trigger 세트, 공식 manifest·skill validator, 저장소 테스트를 함께 제공합니다. 평가 결과 일반 구현의 성공률을 높인다는 과장된 주장은 제거하고, PRD 계약 충족·Evidence status 일관성·Git 권한 경계처럼 실제 근거가 확인된 범위만 제품 설명에 남겼습니다.',
+      en: 'Released v0.4.0 through a Codex personal marketplace with 10 skills, static trigger/evidence contracts, natural-language trigger cases, official manifest and skill validation, and repository tests. The product deliberately drops broad claims that it improves ordinary implementation success and limits its promises to supported outcomes: stronger PRD contracts, consistent evidence status, and explicit Git authority boundaries.',
+      ja: 'Codex個人マーケットプレイスから導入できるv0.4.0として公開しました。10スキル、trigger/evidence静的契約、自然言語triggerケース、公式manifest・skill検証、リポジトリテストを同梱。通常実装の成功率を高めるという過大主張を外し、PRD契約充足・Evidence status一貫性・Git権限境界など根拠のある範囲だけを説明に残しました。',
+    },
+    reflection: {
+      ko: '좋은 AI 하네스는 모델을 가장 많이 통제하는 시스템이 아니라, 모델이 이미 잘하는 일은 방해하지 않고 틀리면 위험한 경계만 코드로 고정하는 시스템이라는 결론에 도달했습니다. Claude Code판과 Codex판을 따로 유지한 이유도 같은 기능 목록보다 각 플랫폼의 작업 방식에 맞는 제약이 더 중요했기 때문입니다.',
+      en: 'A good AI harness is not the system that controls the model most. It leaves work the model already does well alone and encodes only the boundaries where mistakes are costly. That is why the Claude Code and Codex editions stay separate: platform-native constraints matter more than matching feature lists.',
+      ja: '良いAIハーネスはモデルを最も強く統制するものではありません。モデルが得意な作業は邪魔せず、誤ると危険な境界だけをコード化します。Claude Code版とCodex版を分けた理由も、機能数を揃えるより各プラットフォーム固有の制約が重要だからです。',
+    },
+    visuals: {
+      problem: {
+        bullets: {
+          ko: ['Heavy workflow 비용 — 일반 구현까지 긴 절차로 감싸면 token·latency 증가', 'Evidence integrity — 실행 검사 없이 `verified`를 주장할 위험', 'Authority ambiguity — 검토 요청을 commit·push·PR 권한으로 확대할 위험'],
+          en: ['Heavy-workflow cost — long procedures add tokens and latency to ordinary coding', 'Evidence integrity — risk of claiming `verified` without executed checks', 'Authority ambiguity — risk of expanding review into commit, push, or PR permission'],
+          ja: ['Heavy workflowコスト — 通常実装まで長い手順で包むとtoken・latency増加', 'Evidence integrity — 実行検査なしに`verified`とする危険', 'Authority ambiguity — レビュー依頼をcommit・push・PR権限へ拡大する危険'],
+        },
+      },
+      execution: {
+        bullets: {
+          ko: ['일반 코딩은 기본 Codex가 처리', 'PRD·WorkGraph·화면정의·인수검증은 의도에 맞는 최소 스킬만 선택', '`verified-delivery`와 Knowledge Wiki는 명시적 opt-in', 'release-readiness가 commit·push·PR 권한을 각각 보존'],
+          en: ['Ordinary coding stays native to Codex', 'PRDs, WorkGraphs, screen specs, and acceptance checks select only the smallest matching skill', '`verified-delivery` and Knowledge Wiki are explicit opt-ins', 'release-readiness preserves commit, push, and PR as separate authorities'],
+          ja: ['通常コーディングはCodex本体が処理', 'PRD・WorkGraph・画面仕様・受入検証は最小適合スキルだけ選択', '`verified-delivery`とKnowledge Wikiは明示的opt-in', 'release-readinessがcommit・push・PR権限を個別に保持'],
+        },
+      },
+      result: {
+        metrics: [
+          { value: 'v0.4.0', label: { ko: 'Codex 개인 마켓플레이스 릴리스', en: 'Codex personal marketplace release', ja: 'Codex個人マーケットプレイス版' } },
+          { value: '10 skills', label: { ko: '제품 계약·증거·전달·시각화·위키', en: 'Product contracts, evidence, delivery, visuals, and wiki', ja: '製品契約・証拠・デリバリー・可視化・Wiki' } },
+          { value: 'opt-in', label: { ko: '전체 전달 루프와 지식 축적', en: 'Full delivery loop and knowledge capture', ja: '全デリバリーループと知識蓄積' } },
         ],
       },
     },

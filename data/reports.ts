@@ -71,9 +71,9 @@ export const projectReports: Record<string, ProjectReport> = {
   wigplugin: {
     slug: 'wigplugin',
     oneLiner: {
-      en: 'One plugin. 13 agents. From idea to production — in parallel.',
-      ko: '플러그인 하나, 에이전트 13개. 아이디어부터 프로덕션까지 — 병렬로.',
-      ja: 'プラグイン1つ、エージェント13体。アイデアから本番まで — 並列で。',
+      en: 'One Claude Code plugin. 11 agents, 5 commands, and 7 skills from product intent to reviewed delivery.',
+      ko: 'Claude Code 플러그인 하나. 11개 에이전트·5개 커맨드·7개 스킬로 제품 의도부터 검증된 전달까지.',
+      ja: 'Claude Codeプラグイン一つ。11エージェント・5コマンド・7スキルで製品意図から検証済みデリバリーまで。',
     },
     problem: {
       en: [
@@ -97,38 +97,38 @@ export const projectReports: Record<string, ProjectReport> = {
     },
     solution: {
       en: [
-        'Three top-level commands that orchestrate the full workflow: `/prd`, `/implement --parallel`, `/auto-commit`.',
-        '`/prd <feature>` produces a requirements document and phased task plan in ~30 seconds.',
+        'Five commands cover specification, implementation, release, and terminal PR review: `/prd`, `/screen-spec`, `/implement`, `/auto-commit`, `/review-pr`.',
+        '`/prd <feature>` produces a requirements document and phased task plan grounded in repository context.',
         '`/implement --parallel` dispatches 4 specialized teams (Backend · Frontend · AI · Ops) simultaneously via a team-build coordinator.',
-        '`/auto-commit` runs a 3-agent parallel code review with quality gates — ≥80 auto-commits, 60–79 triggers fixes, <60 blocks.',
+        '`/auto-commit` turns file/line/severity/evidence findings plus executed repository checks into an explicit commit, push, or PR checkpoint.',
         '`design-discovery` agent uses Verbalized Sampling over 20 style systems before any frontend work, so the UI is designed — not defaulted.',
       ],
       ko: [
-        '전체 워크플로우를 지휘하는 최상위 커맨드 3개: `/prd`, `/implement --parallel`, `/auto-commit`.',
-        '`/prd <feature>`는 약 30초 안에 요구사항 문서와 단계별 작업 계획을 생성한다.',
+        '명세·구현·릴리스·터미널 PR 리뷰를 다루는 5개 커맨드: `/prd`, `/screen-spec`, `/implement`, `/auto-commit`, `/review-pr`.',
+        '`/prd <feature>`는 저장소 문맥에 근거한 요구사항 문서와 단계별 작업 계획을 생성한다.',
         '`/implement --parallel`은 team-build 코디네이터를 통해 4개 전문 팀(Backend · Frontend · AI · Ops)을 동시에 투입한다.',
-        '`/auto-commit`은 3 에이전트 병렬 코드 리뷰를 품질 게이트와 함께 돌린다 — 80점 이상 자동 커밋, 60~79점은 수정 트리거, 60점 미만은 차단.',
+        '`/auto-commit`은 파일·라인·심각도·근거가 있는 finding과 실제 저장소 검사를 종합해 commit·push·PR checkpoint로 연결한다.',
         '`design-discovery` 에이전트는 프론트엔드 작업 전 20개 스타일 시스템을 대상으로 Verbalized Sampling을 수행한다. UI는 "디자인"되는 것이지 "기본값"이 아니다.',
       ],
       ja: [
-        '全ワークフローを指揮する3つのトップレベルコマンド：`/prd`、`/implement --parallel`、`/auto-commit`。',
-        '`/prd <feature>`は約30秒で要件定義書と段階的タスク計画を生成する。',
+        '仕様・実装・リリース・ターミナルPRレビューを扱う5コマンド：`/prd`、`/screen-spec`、`/implement`、`/auto-commit`、`/review-pr`。',
+        '`/prd <feature>`はリポジトリ文脈に基づく要件定義書と段階的タスク計画を生成する。',
         '`/implement --parallel`はteam-buildコーディネーター経由で4つの専門チーム（Backend · Frontend · AI · Ops）を同時投入する。',
-        '`/auto-commit`は3エージェント並列コードレビューを品質ゲートとともに実行 — 80点以上で自動コミット、60〜79点は修正トリガー、60点未満はブロック。',
+        '`/auto-commit`はファイル・行・重要度・根拠付きfindingと実行済みリポジトリ検査を統合し、commit・push・PR checkpointへ接続する。',
         '`design-discovery`エージェントはフロントエンド作業前に20のスタイルシステムでVerbalized Samplingを行う。UIは「デザイン」されるもので「デフォルト」ではない。',
       ],
     },
     metrics: [
       {
-        value: '~6 min',
+        value: 'v0.1.16',
         label: {
-          en: 'Full Pipeline (vs. 20 min)',
-          ko: '전체 파이프라인 (20분 대비)',
-          ja: '全パイプライン（20分比）',
+          en: 'Current Release',
+          ko: '현재 릴리스',
+          ja: '現行リリース',
         },
       },
       {
-        value: '12',
+        value: '11',
         label: {
           en: 'Specialized Agents',
           ko: '전문 에이전트',
@@ -136,7 +136,7 @@ export const projectReports: Record<string, ProjectReport> = {
         },
       },
       {
-        value: '17',
+        value: '20',
         label: {
           en: 'Design Styles',
           ko: '디자인 스타일',
@@ -144,11 +144,11 @@ export const projectReports: Record<string, ProjectReport> = {
         },
       },
       {
-        value: '44★',
+        value: '7',
         label: {
-          en: 'GitHub Stars',
-          ko: 'GitHub Stars',
-          ja: 'GitHub Stars',
+          en: 'Reusable Skills',
+          ko: '재사용 스킬',
+          ja: '再利用スキル',
         },
       },
     ],
@@ -198,14 +198,14 @@ export const projectReports: Record<string, ProjectReport> = {
     architecture: [
       {
         title: {
-          en: 'Coordinators (4)',
-          ko: '코디네이터 (4)',
-          ja: 'コーディネーター (4)',
+          en: 'Coordinators (2)',
+          ko: '코디네이터 (2)',
+          ja: 'コーディネーター (2)',
         },
         body: {
-          en: 'team-build-coordinator dispatches parallel teams · parallel-review-coordinator merges 3-agent review scores · parallel-digging-coordinator runs a 4-category PRD analysis · architecture-decision picks MSA / Monolithic / Modular Monolith.',
-          ko: 'team-build-coordinator는 병렬 팀 투입 · parallel-review-coordinator는 3 에이전트 리뷰 점수 병합 · parallel-digging-coordinator는 4개 카테고리 PRD 분석 · architecture-decision은 MSA / 모놀리식 / 모듈러 모놀리식 선택.',
-          ja: 'team-build-coordinatorが並列チームを投入 · parallel-review-coordinatorが3エージェントのレビュースコアを統合 · parallel-digging-coordinatorが4カテゴリのPRD分析を実行 · architecture-decisionがMSA / モノリス / モジュラーモノリスを選択。',
+          en: 'team-build-coordinator dispatches only independent work in parallel; architecture-decision chooses MSA, Monolithic, or Modular Monolith.',
+          ko: 'team-build-coordinator는 독립 작업만 병렬 분배하고, architecture-decision은 MSA·모놀리식·모듈러 모놀리식을 선택한다.',
+          ja: 'team-build-coordinatorは独立作業だけを並列分配し、architecture-decisionはMSA・モノリス・モジュラーモノリスを選択する。',
         },
       },
       {
@@ -222,14 +222,14 @@ export const projectReports: Record<string, ProjectReport> = {
       },
       {
         title: {
-          en: 'Quality (4)',
-          ko: '품질 (4)',
-          ja: '品質 (4)',
+          en: 'Quality (5)',
+          ko: '품질 (5)',
+          ja: '品質 (5)',
         },
         body: {
-          en: 'code-reviewer (100-point scoring) · prd-reviewer (completeness / feasibility / security / consistency) · code-formatter (multi-language auto-format) · design-discovery (VS-based style recommendation).',
-          ko: 'code-reviewer (100점 스코어링) · prd-reviewer (완전성 / 실현가능성 / 보안 / 일관성) · code-formatter (다언어 자동 포매팅) · design-discovery (VS 기반 스타일 추천).',
-          ja: 'code-reviewer（100点スコアリング）· prd-reviewer（完全性 / 実現可能性 / セキュリティ / 一貫性）· code-formatter（多言語自動フォーマット）· design-discovery（VSベースのスタイル推薦）。',
+          en: 'code-reviewer (evidence-backed findings) · pr-reviewer · prd-reviewer · code-formatter · design-discovery.',
+          ko: 'code-reviewer(근거 기반 finding) · pr-reviewer · prd-reviewer · code-formatter · design-discovery.',
+          ja: 'code-reviewer（根拠付きfinding）· pr-reviewer · prd-reviewer · code-formatter · design-discovery。',
         },
       },
       {
@@ -253,9 +253,9 @@ export const projectReports: Record<string, ProjectReport> = {
           ja: '並列チームディスパッチ',
         },
         body: {
-          en: 'team-build-coordinator fans out to Backend / Frontend / AI / Ops teams based on PRD analysis, then rejoins at a quality gate. 6 min vs. 20 min sequential.',
-          ko: 'team-build-coordinator가 PRD 분석을 바탕으로 Backend / Frontend / AI / Ops 팀에 팬아웃하고, 품질 게이트에서 다시 합류한다. 6분 vs 순차 20분.',
-          ja: 'team-build-coordinatorがPRD分析に基づきBackend / Frontend / AI / Opsチームにファンアウトし、品質ゲートで再合流する。6分 vs 順次20分。',
+          en: 'team-build-coordinator fans out independent Backend, Frontend, AI, and Ops work while keeping dependency edges ordered, then rejoins at integration and executed checks.',
+          ko: 'team-build-coordinator가 Backend·Frontend·AI·Ops의 독립 작업만 병렬화하고 의존 관계는 순서대로 유지한 뒤 통합과 실행 검사에서 합류한다.',
+          ja: 'team-build-coordinatorがBackend・Frontend・AI・Opsの独立作業だけを並列化し、依存関係は順序を保ったまま統合と実行検査で合流する。',
         },
       },
       {
@@ -265,21 +265,21 @@ export const projectReports: Record<string, ProjectReport> = {
           ja: '4カテゴリPRD分析',
         },
         body: {
-          en: 'parallel-digging-coordinator runs Completeness, Feasibility, Security and Consistency checks as 4 independent agents and cross-synthesizes findings.',
-          ko: 'parallel-digging-coordinator가 완전성 · 실현가능성 · 보안 · 일관성 검사를 4개 독립 에이전트로 돌리고 결과를 교차 종합한다.',
-          ja: 'parallel-digging-coordinatorが完全性・実現可能性・セキュリティ・一貫性の4チェックを独立エージェントで実行し、結果をクロス統合する。',
+          en: 'prd-reviewer applies four adversarial lenses — Completeness, Feasibility, Security, and Consistency — and synthesizes compound risks into PASS, WARN, or BLOCKED.',
+          ko: 'prd-reviewer가 완전성·실현가능성·보안·일관성 네 관점으로 검토하고 복합 위험을 PASS·WARN·BLOCKED로 종합한다.',
+          ja: 'prd-reviewerが完全性・実現可能性・セキュリティ・一貫性の4観点を適用し、複合リスクをPASS・WARN・BLOCKEDへ統合する。',
         },
       },
       {
         title: {
-          en: '3-Agent Parallel Review',
-          ko: '3 에이전트 병렬 리뷰',
-          ja: '3エージェント並列レビュー',
+          en: 'Evidence-backed Review Gate',
+          ko: '근거 기반 리뷰 게이트',
+          ja: '根拠ベースのレビューゲート',
         },
         body: {
-          en: 'auto-commit distributes review across category-specialized agents, merges evidence-based 100-point scores, then enforces a zero-tolerance security policy.',
-          ko: 'auto-commit이 카테고리별 전문 에이전트에 리뷰를 분산시키고, 증거 기반 100점 스코어를 병합한 뒤, 제로 톨러런스 보안 정책을 강제한다.',
-          ja: 'auto-commitがカテゴリ別専門エージェントにレビューを分散し、エビデンスベースの100点スコアを統合、ゼロトレランスのセキュリティポリシーを適用する。',
+          en: 'auto-commit rolls up findings with file, line, severity, confidence, and evidence, then requires the repository’s objective checks before crossing an explicit Git authority boundary.',
+          ko: 'auto-commit이 파일·라인·심각도·신뢰도·근거가 있는 finding을 종합하고 저장소의 객관 검사를 통과한 뒤 명시적인 Git 권한 경계만 넘는다.',
+          ja: 'auto-commitがファイル・行・重要度・信頼度・根拠付きfindingを集約し、リポジトリの客観チェック通過後に明示されたGit権限境界だけを越える。',
         },
       },
       {
@@ -346,22 +346,22 @@ export const projectReports: Record<string, ProjectReport> = {
     lessons: {
       worked: {
         en: [
-          'Parallel-first design: fan out wherever possible, rejoin only at gates. Turned a 20-minute pipeline into ~6 minutes.',
-          'Evidence-based scoring over vibes. 100-point rubric + category split makes review decisions auditable.',
+          'Dependency-aware parallelism: fan out independent work and preserve ordering where contracts depend on one another.',
+          'Evidence-backed findings over opaque scores: file, line, severity, confidence, and executed checks make review decisions auditable.',
           'Design discovery as a first-class step. VS-based recommendation beats "use whatever the model defaults to".',
           'team-memory-protocol: a shared context file prevents parallel agents from silently overwriting each other.',
           'Safety hooks at the Bash layer — destructive ops are blocked by the harness, not by vibes.',
         ],
         ko: [
-          '병렬 우선 설계: 가능한 모든 곳에서 팬아웃, 게이트에서만 합류. 20분 파이프라인을 약 6분으로 단축.',
-          '감이 아닌 증거 기반 스코어링. 100점 루브릭 + 카테고리 분할로 리뷰 결정을 감사할 수 있게 된다.',
+          '의존성 기반 병렬화: 독립 작업만 팬아웃하고 계약이 연결된 단계는 순서를 보존한다.',
+          '불투명한 점수 대신 근거 기반 finding: 파일·라인·심각도·신뢰도·실행 검사가 리뷰 결정을 감사 가능하게 만든다.',
           '디자인 디스커버리를 1급 단계로. "모델 디폴트에 맡기기"보다 VS 기반 추천이 낫다.',
           'team-memory-protocol: 공유 컨텍스트 파일이 병렬 에이전트 간 조용한 덮어쓰기를 방지한다.',
           'Bash 레이어 안전 훅 — 파괴적 작업이 하네스 자체에서 차단된다.',
         ],
         ja: [
-          '並列優先設計：可能な限りファンアウトし、ゲートでのみ合流。20分のパイプラインを約6分に短縮。',
-          '勘ではなくエビデンスベースのスコアリング。100点ルーブリック＋カテゴリ分割でレビュー判断が監査可能に。',
+          '依存関係ベースの並列化：独立作業だけをfan-outし、契約がつながる段階は順序を保持。',
+          '不透明な点数ではなく根拠付きfinding：ファイル・行・重要度・信頼度・実行検査でレビュー判断を監査可能にする。',
           'デザインディスカバリーを第一級のステップに。「モデルのデフォルトに任せる」よりVSベース推薦が優る。',
           'team-memory-protocol：共有コンテキストファイルが並列エージェント間の暗黙の上書きを防ぐ。',
           'Bashレイヤーのセーフティフック — 破壊的操作はハーネス自体でブロックされる。',
@@ -370,17 +370,17 @@ export const projectReports: Record<string, ProjectReport> = {
       wouldChange: {
         en: [
           'Coordinator logic is still plugin-side; a real orchestration runtime would simplify rollback on partial failure.',
-          'Quality-gate thresholds (80 / 60) are hard-coded; should be tunable per-project for different risk appetites.',
+          'Hook and validator behavior must keep evolving with Claude Code changes; versioned compatibility checks are essential.',
           'Design style catalog is flat — grouping by use-case (marketing, dashboard, editorial) would speed discovery.',
         ],
         ko: [
           '코디네이터 로직이 아직 플러그인 쪽에 있다. 제대로 된 오케스트레이션 런타임이 있다면 부분 실패 롤백이 단순해질 것.',
-          '품질 게이트 임계값(80 / 60)이 하드코딩되어 있다. 프로젝트별 리스크 허용치에 따라 튜닝 가능해야 한다.',
+          'Claude Code 변화에 맞춰 hook과 validator 동작을 계속 갱신해야 하므로 버전별 호환성 검사가 중요하다.',
           '디자인 스타일 카탈로그가 플랫하다 — 용도별(마케팅, 대시보드, 에디토리얼) 그룹화가 디스커버리를 가속할 것.',
         ],
         ja: [
           'コーディネーターロジックはまだプラグイン側にある。本格的なオーケストレーションランタイムがあれば部分障害のロールバックが単純になるはず。',
-          '品質ゲートの閾値（80 / 60）がハードコーディングされている。プロジェクト別のリスク許容度に応じて調整可能にすべき。',
+          'Claude Codeの変更に合わせてhookとvalidatorを更新し続ける必要があり、バージョン別互換性検査が重要。',
           'デザインスタイルカタログがフラット — 用途別（マーケティング、ダッシュボード、エディトリアル）のグループ化がディスカバリーを加速する。',
         ],
       },
@@ -388,14 +388,13 @@ export const projectReports: Record<string, ProjectReport> = {
     byTheNumbers: [
       { label: { en: 'Plugins', ko: '플러그인 수', ja: 'プラグイン数' }, value: '1 (WIGTN Coding)' },
       { label: { en: 'Top-level commands', ko: '최상위 커맨드', ja: 'トップレベルコマンド' }, value: '5 (/prd, /screen-spec, /implement, /auto-commit, /review-pr)' },
-      { label: { en: 'Agents', ko: '에이전트', ja: 'エージェント' }, value: '13 (4 coord · 4 dev · 5 quality)' },
-      { label: { en: 'Skills', ko: '스킬', ja: 'スキル' }, value: '4' },
-      { label: { en: 'Hooks', ko: '훅', ja: 'フック' }, value: '4' },
+      { label: { en: 'Agents', ko: '에이전트', ja: 'エージェント' }, value: '11 (2 coord · 4 dev · 5 quality)' },
+      { label: { en: 'Skills', ko: '스킬', ja: 'スキル' }, value: '7' },
+      { label: { en: 'Current release', ko: '현재 릴리스', ja: '現行リリース' }, value: 'v0.1.16' },
       { label: { en: 'Design styles', ko: '디자인 스타일', ja: 'デザインスタイル' }, value: '20' },
       { label: { en: 'PRD analysis categories', ko: 'PRD 분석 카테고리', ja: 'PRD分析カテゴリ' }, value: '4' },
-      { label: { en: 'Code review scoring', ko: '코드 리뷰 스코어링', ja: 'コードレビュースコアリング' }, value: '100-point · 5 categories' },
-      { label: { en: 'Parallel review agents', ko: '병렬 리뷰 에이전트', ja: '並列レビューエージェント' }, value: '3' },
-      { label: { en: 'GitHub stars', ko: 'GitHub 스타', ja: 'GitHub スター' }, value: '44' },
+      { label: { en: 'Review evidence', ko: '리뷰 근거', ja: 'レビュー根拠' }, value: 'file · line · severity · confidence' },
+      { label: { en: 'Knowledge export', ko: '지식 반출', ja: '知識エクスポート' }, value: '4-stage gate' },
       { label: { en: 'License', ko: '라이선스', ja: 'ライセンス' }, value: 'Apache 2.0' },
     ],
     sourceUrl: 'https://wigtn.com/projects/wigtn-coding',

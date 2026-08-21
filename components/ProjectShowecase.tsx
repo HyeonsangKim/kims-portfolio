@@ -27,11 +27,11 @@ const experiences = [
     id: 1,
     company: "Soundmind",
     role: "MX Team Lead",
-    period: "2025.02 - Present",
+    period: "2025.02 - 2026.06",
     tagline: {
-      ko: 'OEM Pre-Installed App Platform — 특화폰 B2B 서비스 + 정부 R&D 리딩.',
-      en: 'OEM pre-installed app platform — leading B2B specialized-phone services and Government R&D.',
-      ja: 'OEMプリインストールアプリプラットフォーム — 特化スマホB2Bサービスと政府R&Dを統括。',
+      ko: 'OEM Pre-Installed App Platform — 특화폰 B2B 서비스와 정부 R&D 리딩.',
+      en: 'OEM pre-installed app platform — led B2B specialized-phone services and government R&D.',
+      ja: 'OEMプリインストールアプリプラットフォーム — 特化スマホB2Bサービスと政府R&Dをリード。',
     } as L,
     projects: [
       {

@@ -1,165 +1,82 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 640" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif">
+  <defs>
+    <linearGradient id="claude" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fb7185"/>
+      <stop offset="1" stop-color="#ec4899"/>
+    </linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="18"/></filter>
+  </defs>
   <rect width="1100" height="640" fill="#0a0a0f"/>
+  <circle cx="870" cy="40" r="170" fill="#ec4899" opacity="0.08" filter="url(#glow)"/>
 
-  <text x="550" y="38" text-anchor="middle" font-size="18" font-weight="600" fill="#fafafa">WIGTN Coding — 4-Stage Pipeline × 3-Tier Agents</text>
-
-  <g transform="translate(310,60)">
-    <rect width="10" height="10" rx="3" fill="#818cf8"/>
-    <text x="16" y="10" font-size="11" fill="rgba(255,255,255,0.6)">Coordinators (4)</text>
-    <rect x="140" width="10" height="10" rx="3" fill="#34d399"/>
-    <text x="156" y="10" font-size="11" fill="rgba(255,255,255,0.6)">Developers (4)</text>
-    <rect x="280" width="10" height="10" rx="3" fill="#fbbf24"/>
-    <text x="296" y="10" font-size="11" fill="rgba(255,255,255,0.6)">Quality (5)</text>
+  <text x="46" y="58" font-size="27" font-weight="750" fill="#fafafa">WIGTN Plugin for Claude Code</text>
+  <text x="46" y="84" font-size="13" fill="#9ca3af">v0.1.16 · one contract from product intent to reviewed delivery</text>
+  <g transform="translate(808 39)">
+    <rect width="246" height="46" rx="23" fill="#ffffff" opacity="0.04" stroke="#ffffff" stroke-opacity="0.12"/>
+    <text x="123" y="29" text-anchor="middle" font-size="13" font-weight="650" fill="#f9a8d4">11 agents · 5 commands · 7 skills</text>
   </g>
 
-  <!-- STAGE 1: /prd -->
-  <g transform="translate(30,95)">
-    <rect width="230" height="280" rx="12" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.12)" stroke-width="1.2"/>
-    <text x="16" y="26" font-size="10" font-weight="600" fill="rgba(255,255,255,0.4)" letter-spacing="1.5">STAGE 1 · PLAN</text>
-    <text x="16" y="52" font-size="20" font-weight="700" fill="#fafafa">/prd</text>
-    <text x="16" y="70" font-size="11" fill="rgba(255,255,255,0.5)">Idea → PRD + PLAN.md</text>
-
-    <g transform="translate(14,88)">
-      <rect width="202" height="32" rx="6" fill="rgba(129,140,248,0.1)" stroke="#818cf8" stroke-width="1"/>
-      <text x="10" y="21" font-size="11" font-weight="500" fill="#c7d2fe">parallel-digging-coordinator</text>
-
-      <rect y="40" width="202" height="32" rx="6" fill="rgba(251,191,36,0.08)" stroke="#fbbf24" stroke-width="1"/>
-      <text x="10" y="61" font-size="11" font-weight="500" fill="#fde68a">prd-reviewer</text>
+  <g transform="translate(46 128)">
+    <g>
+      <rect width="230" height="214" rx="16" fill="#ffffff" opacity="0.035" stroke="#ffffff" stroke-opacity="0.12"/>
+      <rect width="230" height="5" rx="3" fill="url(#claude)"/>
+      <text x="20" y="42" font-size="11" font-weight="700" fill="#fb7185" letter-spacing="1.4">01 · SPECIFY</text>
+      <text x="20" y="74" font-size="24" font-weight="750" fill="#fafafa">/prd</text>
+      <text x="20" y="99" font-size="12" fill="#9ca3af">Repository context → PRD + PLAN</text>
+      <text x="20" y="135" font-size="11" fill="#d1d5db">prd-reviewer</text>
+      <text x="20" y="157" font-size="11" fill="#6b7280">Completeness · Feasibility</text>
+      <text x="20" y="175" font-size="11" fill="#6b7280">Security · Consistency</text>
+      <text x="20" y="198" font-size="11" font-weight="650" fill="#fca5a5">PASS · WARN · BLOCKED</text>
     </g>
 
-    <g transform="translate(16,200)">
-      <text x="0" y="0" font-size="10" font-weight="500" fill="rgba(255,255,255,0.55)">4-category gap analysis</text>
-      <text x="0" y="16" font-size="10" fill="rgba(255,255,255,0.4)">Completeness · Feasibility</text>
-      <text x="0" y="30" font-size="10" fill="rgba(255,255,255,0.4)">Security · Consistency</text>
-      <text x="0" y="52" font-size="10" fill="#ef4444" font-weight="600">≥ 1 critical → BLOCKED</text>
-    </g>
-  </g>
-
-  <!-- Arrow 1→2 -->
-  <g transform="translate(262,235)">
-    <line x1="0" y1="0" x2="24" y2="0" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
-    <polygon points="24,0 18,-4 18,4" fill="rgba(255,255,255,0.3)"/>
-  </g>
-
-  <!-- STAGE 2: /screen-spec -->
-  <g transform="translate(290,95)">
-    <rect width="230" height="280" rx="12" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.12)" stroke-width="1.2"/>
-    <text x="16" y="26" font-size="10" font-weight="600" fill="rgba(255,255,255,0.4)" letter-spacing="1.5">STAGE 2 · SPEC</text>
-    <text x="16" y="52" font-size="20" font-weight="700" fill="#fafafa">/screen-spec</text>
-    <text x="16" y="70" font-size="11" fill="rgba(255,255,255,0.5)">PRD → 5 UI artifacts</text>
-
-    <g transform="translate(14,88)">
-      <rect width="202" height="32" rx="6" fill="rgba(251,191,36,0.08)" stroke="#fbbf24" stroke-width="1"/>
-      <text x="10" y="21" font-size="11" font-weight="500" fill="#fde68a">design-discovery</text>
-
-      <rect y="40" width="202" height="32" rx="6" fill="rgba(251,191,36,0.08)" stroke="#fbbf24" stroke-width="1"/>
-      <text x="10" y="61" font-size="11" font-weight="500" fill="#fde68a">frontend-developer (review)</text>
+    <g transform="translate(258)">
+      <rect width="230" height="214" rx="16" fill="#ffffff" opacity="0.035" stroke="#ffffff" stroke-opacity="0.12"/>
+      <rect width="230" height="5" rx="3" fill="url(#claude)"/>
+      <text x="20" y="42" font-size="11" font-weight="700" fill="#fb7185" letter-spacing="1.4">02 · DESIGN</text>
+      <text x="20" y="74" font-size="24" font-weight="750" fill="#fafafa">/screen-spec</text>
+      <text x="20" y="99" font-size="12" fill="#9ca3af">Optional UI gate · 5 artifacts</text>
+      <text x="20" y="135" font-size="11" fill="#d1d5db">IA · User Flow · Screen Spec</text>
+      <text x="20" y="157" font-size="11" fill="#6b7280">Clickable Wireframe HTML</text>
+      <text x="20" y="175" font-size="11" fill="#6b7280">Dev Handoff</text>
+      <text x="20" y="198" font-size="11" font-weight="650" fill="#c4b5fd">20 design styles</text>
     </g>
 
-    <g transform="translate(16,190)">
-      <text x="0" y="0" font-size="10" font-weight="500" fill="rgba(255,255,255,0.55)">5 artifacts</text>
-      <text x="0" y="16" font-size="10" fill="rgba(255,255,255,0.4)">IA · User Flow</text>
-      <text x="0" y="30" font-size="10" fill="rgba(255,255,255,0.4)">Screen Spec · Wireframe</text>
-      <text x="0" y="44" font-size="10" fill="rgba(255,255,255,0.4)">Dev Handoff</text>
-      <text x="0" y="66" font-size="10" fill="rgba(129,140,248,0.8)" font-style="italic">FE pages only · skip if backend-only</text>
+    <g transform="translate(516)">
+      <rect width="230" height="214" rx="16" fill="#ffffff" opacity="0.035" stroke="#ffffff" stroke-opacity="0.12"/>
+      <rect width="230" height="5" rx="3" fill="url(#claude)"/>
+      <text x="20" y="42" font-size="11" font-weight="700" fill="#fb7185" letter-spacing="1.4">03 · BUILD</text>
+      <text x="20" y="74" font-size="24" font-weight="750" fill="#fafafa">/implement</text>
+      <text x="20" y="99" font-size="12" fill="#9ca3af">Dependency-aware parallel delivery</text>
+      <text x="20" y="135" font-size="11" fill="#d1d5db">Backend · Frontend</text>
+      <text x="20" y="157" font-size="11" fill="#d1d5db">AI Server · Ops</text>
+      <text x="20" y="180" font-size="11" fill="#6b7280">SHARED_CONTEXT + PLAN ledger</text>
+      <text x="20" y="198" font-size="11" font-weight="650" fill="#86efac">Independent work only</text>
+    </g>
+
+    <g transform="translate(774)">
+      <rect width="230" height="214" rx="16" fill="#ffffff" opacity="0.035" stroke="#ffffff" stroke-opacity="0.12"/>
+      <rect width="230" height="5" rx="3" fill="url(#claude)"/>
+      <text x="20" y="42" font-size="11" font-weight="700" fill="#fb7185" letter-spacing="1.4">04 · RELEASE</text>
+      <text x="20" y="74" font-size="24" font-weight="750" fill="#fafafa">/auto-commit</text>
+      <text x="20" y="99" font-size="12" fill="#9ca3af">Evidence → checks → authority</text>
+      <text x="20" y="135" font-size="11" fill="#d1d5db">file · line · severity · evidence</text>
+      <text x="20" y="157" font-size="11" fill="#6b7280">typecheck · lint · repo checks</text>
+      <text x="20" y="180" font-size="11" fill="#6b7280">commit only · draft PR · PR</text>
+      <text x="20" y="198" font-size="11" font-weight="650" fill="#fde68a">Final user checkpoint</text>
     </g>
   </g>
 
-  <!-- Arrow 2→3 -->
-  <g transform="translate(522,235)">
-    <line x1="0" y1="0" x2="24" y2="0" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
-    <polygon points="24,0 18,-4 18,4" fill="rgba(255,255,255,0.3)"/>
+  <g transform="translate(46 370)">
+    <rect width="1004" height="96" rx="16" fill="#ffffff" opacity="0.025" stroke="#ffffff" stroke-opacity="0.1"/>
+    <text x="20" y="31" font-size="11" font-weight="700" fill="#9ca3af" letter-spacing="1.4">7 REUSABLE SKILLS</text>
+    <text x="20" y="58" font-size="12" fill="#d1d5db">review levels · design system · screen spec · team memory · hand-drawn diagrams · WIGTN presentation</text>
+    <text x="20" y="79" font-size="12" fill="#d1d5db">knowledge-wiki · reusable session learning → generalized article → gated local-first publication</text>
   </g>
 
-  <!-- STAGE 3: /implement -->
-  <g transform="translate(550,95)">
-    <rect width="250" height="280" rx="12" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.12)" stroke-width="1.2"/>
-    <text x="16" y="26" font-size="10" font-weight="600" fill="rgba(255,255,255,0.4)" letter-spacing="1.5">STAGE 3 · BUILD</text>
-    <text x="16" y="52" font-size="20" font-weight="700" fill="#fafafa">/implement</text>
-    <text x="16" y="70" font-size="11" fill="rgba(255,255,255,0.5)">PRD → Code (4 teams parallel)</text>
-
-    <g transform="translate(14,86)">
-      <rect width="222" height="28" rx="6" fill="rgba(129,140,248,0.1)" stroke="#818cf8" stroke-width="1"/>
-      <text x="10" y="19" font-size="11" font-weight="500" fill="#c7d2fe">architecture-decision</text>
-
-      <rect y="34" width="222" height="28" rx="6" fill="rgba(129,140,248,0.1)" stroke="#818cf8" stroke-width="1"/>
-      <text x="10" y="53" font-size="11" font-weight="500" fill="#c7d2fe">team-build-coordinator</text>
-    </g>
-
-    <text x="26" y="176" font-size="10" fill="rgba(255,255,255,0.45)" font-style="italic">↳ dispatch 4 teams</text>
-
-    <g transform="translate(14,186)">
-      <rect width="106" height="24" rx="5" fill="rgba(52,211,153,0.08)" stroke="#34d399" stroke-width="1"/>
-      <text x="53" y="16" text-anchor="middle" font-size="10" fill="#a7f3d0">frontend-dev</text>
-
-      <rect x="112" width="106" height="24" rx="5" fill="rgba(52,211,153,0.08)" stroke="#34d399" stroke-width="1"/>
-      <text x="165" y="16" text-anchor="middle" font-size="10" fill="#a7f3d0">backend-arch</text>
-
-      <rect y="30" width="106" height="24" rx="5" fill="rgba(52,211,153,0.08)" stroke="#34d399" stroke-width="1"/>
-      <text x="53" y="46" text-anchor="middle" font-size="10" fill="#a7f3d0">mobile-dev</text>
-
-      <rect x="112" y="30" width="106" height="24" rx="5" fill="rgba(52,211,153,0.08)" stroke="#34d399" stroke-width="1"/>
-      <text x="165" y="46" text-anchor="middle" font-size="10" fill="#a7f3d0">ai-agent</text>
-    </g>
+  <g transform="translate(46 492)">
+    <rect width="1004" height="98" rx="16" fill="#ec4899" opacity="0.055" stroke="#ec4899" stroke-opacity="0.22"/>
+    <text x="20" y="31" font-size="11" font-weight="700" fill="#f9a8d4" letter-spacing="1.4">KNOWLEDGE WIKI · FOUR-GATE EXPORT BOUNDARY</text>
+    <text x="20" y="59" font-size="12" fill="#e5e7eb">scope → deterministic secret scan → LLM compile + independent audit → deterministic output scan</text>
+    <text x="20" y="80" font-size="11" fill="#9ca3af">local by default · no remote, no push · per-user/ only · shared/ promotion stays human-reviewed</text>
   </g>
-
-  <!-- Arrow 3→4 -->
-  <g transform="translate(802,235)">
-    <line x1="0" y1="0" x2="24" y2="0" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
-    <polygon points="24,0 18,-4 18,4" fill="rgba(255,255,255,0.3)"/>
-  </g>
-
-  <!-- STAGE 4: /auto-commit -->
-  <g transform="translate(830,95)">
-    <rect width="240" height="280" rx="12" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.12)" stroke-width="1.2"/>
-    <text x="16" y="26" font-size="10" font-weight="600" fill="rgba(255,255,255,0.4)" letter-spacing="1.5">STAGE 4 · SHIP</text>
-    <text x="16" y="52" font-size="20" font-weight="700" fill="#fafafa">/auto-commit</text>
-    <text x="16" y="70" font-size="11" fill="rgba(255,255,255,0.5)">Code → 100-pt gate → commit</text>
-
-    <g transform="translate(14,86)">
-      <rect width="212" height="28" rx="6" fill="rgba(129,140,248,0.1)" stroke="#818cf8" stroke-width="1"/>
-      <text x="10" y="19" font-size="11" font-weight="500" fill="#c7d2fe">parallel-review-coordinator</text>
-    </g>
-
-    <text x="26" y="138" font-size="10" fill="rgba(255,255,255,0.45)" font-style="italic">↳ 3 reviewers in parallel</text>
-
-    <g transform="translate(14,148)">
-      <rect width="212" height="24" rx="5" fill="rgba(251,191,36,0.08)" stroke="#fbbf24" stroke-width="1"/>
-      <text x="10" y="16" font-size="10" fill="#fde68a">Readability + Maintainability</text>
-
-      <rect y="30" width="212" height="24" rx="5" fill="rgba(251,191,36,0.08)" stroke="#fbbf24" stroke-width="1"/>
-      <text x="10" y="46" font-size="10" fill="#fde68a">Performance + Testability</text>
-
-      <rect y="60" width="212" height="24" rx="5" fill="rgba(251,191,36,0.08)" stroke="#fbbf24" stroke-width="1"/>
-      <text x="10" y="76" font-size="10" fill="#fde68a">Best Practices + Security</text>
-    </g>
-
-    <g transform="translate(16,250)">
-      <text x="0" y="0" font-size="10" fill="#34d399" font-weight="600">≥ 80 → auto-commit</text>
-      <text x="0" y="16" font-size="10" fill="#fbbf24" font-weight="600">60–79 → fix &amp; retry</text>
-      <text x="120" y="16" font-size="10" fill="#ef4444" font-weight="600">Security → force-fail</text>
-    </g>
-  </g>
-
-  <!-- CROSS-CUTTING -->
-  <g transform="translate(30,400)">
-    <rect width="1040" height="72" rx="10" fill="rgba(129,140,248,0.04)" stroke="rgba(129,140,248,0.2)" stroke-width="1"/>
-    <text x="16" y="22" font-size="10" font-weight="600" fill="rgba(129,140,248,0.7)" letter-spacing="1.5">CROSS-CUTTING · ALWAYS ACTIVE</text>
-
-    <text x="16" y="44" font-size="11" font-weight="600" fill="rgba(255,255,255,0.6)">Skills (4)</text>
-    <text x="80" y="44" font-size="11" fill="rgba(255,255,255,0.45)">code-review-levels · design-system-reference (20 styles) · screen-spec (5 templates) · team-memory-protocol</text>
-
-    <text x="16" y="62" font-size="11" font-weight="600" fill="rgba(255,255,255,0.6)">Hooks (4)</text>
-    <text x="80" y="62" font-size="11" fill="rgba(255,255,255,0.45)">Dangerous Cmd Blocker · Frontend Format · Backend Pattern · Pipeline Stop</text>
-  </g>
-
-  <!-- FOOTER -->
-  <g transform="translate(30,490)">
-    <rect width="1040" height="52" rx="10" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-    <text x="16" y="22" font-size="10" font-weight="600" fill="rgba(255,255,255,0.4)" letter-spacing="1.5">OUT-OF-BAND</text>
-    <text x="16" y="40" font-size="11" fill="rgba(255,255,255,0.45)">/review-pr → pr-reviewer (GitHub PR review from terminal) · Apache 2.0 · EN / KO docs</text>
-    <text x="720" y="22" font-size="11" fill="rgba(255,255,255,0.35)">13 agents · 5 commands · 4 skills · 20 design styles · 4 hooks</text>
-  </g>
-
-  <text x="550" y="574" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.25)" font-style="italic">github.com/wigtn/wigtn-plugins-with-claude-code</text>
 </svg>

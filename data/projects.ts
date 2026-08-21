@@ -67,15 +67,15 @@ export const projects: Project[] = [
   {
     id: 'wigplugin',
     num: '01',
-    title: 'WIGTN Coding',
-    tagline: 'Claude Code plugin ecosystem',
+    title: 'WIGTN Plugin for Claude Code',
+    tagline: 'Parallel AI development workflow',
     description: {
-      ko: 'WIGTN Coding은 Claude Code 마켓플레이스에 공개된 AI 개발 워크플로우 플러그인입니다(44★). 13개의 전문 에이전트가 병렬로 PRD 생성, 화면정의서, 아키텍처 결정, 빌드, 코드 리뷰, 커밋까지 자동화합니다.',
-      en: 'AI development workflow plugin on Claude Code marketplace (44★). 13 specialized agents run in parallel to automate PRD, screen spec, architecture, build, review, and commit.',
-      ja: 'Claude Codeマーケットプレイス公開のAI開発ワークフロープラグイン（44★）。13の専門エージェントが並列でPRD生成、画面定義書、アーキテクチャ決定、ビルド、レビュー、コミットまで自動化。',
+      ko: 'Claude Code용 오픈소스 개발 워크플로우 플러그인입니다. v0.1.16 기준 11개 전문 에이전트·5개 커맨드·7개 스킬이 PRD, 화면정의, 병렬 구현, 근거 기반 리뷰, 안전한 커밋·PR을 하나의 계약으로 연결합니다. 세션의 재사용 가능한 학습만 4단 게이트로 일반화해 축적하는 Knowledge Wiki도 포함합니다.',
+      en: 'An open-source development workflow plugin for Claude Code. As of v0.1.16, 11 specialized agents, 5 commands, and 7 skills connect PRD, screen specification, parallel implementation, evidence-backed review, and safe commit/PR handoff. It also includes a gated Knowledge Wiki that turns reusable session learning into generalized articles.',
+      ja: 'Claude Code向けのオープンソース開発ワークフロープラグイン。v0.1.16時点で11の専門エージェント・5コマンド・7スキルが、PRD、画面仕様、並列実装、根拠ベースのレビュー、安全なコミット・PRを一つの契約でつなぎます。再利用可能なセッション学習だけを4段階ゲートで一般化して蓄積するKnowledge Wikiも含みます。',
     },
-    badges: [{ label: '44★', variant: 'award' }, { label: 'Open Source', variant: 'active' }],
-    tech: ['Claude Code', 'TypeScript', 'MCP', 'Bash hooks'],
+    badges: [{ label: 'v0.1.16', variant: 'active' }, { label: 'Open Source', variant: 'active' }],
+    tech: ['Claude Code', '11 Agents', '5 Commands', '7 Skills', 'Bash Hooks', 'Knowledge Wiki'],
     links: [
       { label: 'wigtn.com', url: 'https://wigtn.com/projects/wigtn-coding', icon: 'external' },
       { label: 'GitHub', url: 'https://github.com/wigtn/wigtn-plugins-with-claude-code', icon: 'github' },
@@ -86,13 +86,31 @@ export const projects: Project[] = [
       {
         src: '/images/projects/wigtncoding.svg',
         alt: 'WIGTN Coding — Claude Code plugin overview',
-        caption: 'WIGTN Coding — 13 agents, 4 skills, and 5 commands orchestrated in a single pipeline (/prd → /screen-spec → /implement → /auto-commit).',
+        caption: 'WIGTN Plugin for Claude Code v0.1.16 — 11 agents, 5 commands, and 7 skills connect specification, parallel delivery, evidence-backed review, and gated knowledge capture.',
       },
     ],
   },
   {
-    id: 'wigent',
+    id: 'wigtncodex',
     num: '02',
+    title: 'WIGTN Plugin for Codex',
+    tagline: 'Selective, evidence-first lifecycle skills',
+    description: {
+      ko: 'Codex의 기본 자율성은 유지하고 PRD·WorkGraph·화면정의·인수 검증·Git 권한처럼 결과가 명확해야 하는 순간에만 얇은 계약을 더하는 오픈소스 플러그인입니다. v0.4.0의 10개 스킬은 자연어로 선택되며, 전체 구현·검증 루프와 Knowledge Wiki는 명시적으로 켰을 때만 동작합니다.',
+      en: 'An open-source plugin that keeps ordinary Codex work unconstrained and adds thin contracts only where outcomes must be explicit: PRDs, resumable WorkGraphs, screen specs, acceptance evidence, and Git authority. Its 10 skills in v0.4.0 are selected through natural language, while full verified delivery and Knowledge Wiki capture remain explicit opt-ins.',
+      ja: '通常のCodex作業は自由なまま、PRD、再開可能なWorkGraph、画面仕様、受入証拠、Git権限など結果を明確にすべき場面だけに薄い契約を加えるオープンソースプラグインです。v0.4.0の10スキルは自然言語で選択され、完全な実装・検証ループとKnowledge Wikiは明示的なオプトイン時のみ動作します。',
+    },
+    badges: [{ label: 'v0.4.0', variant: 'active' }, { label: 'Open Source', variant: 'active' }],
+    tech: ['OpenAI Codex', '10 Skills', 'Evidence Contract', 'WorkGraph', 'Knowledge Wiki'],
+    links: [
+      { label: 'GitHub', url: 'https://github.com/wigtn/wigtn-plugins-codex', icon: 'github' },
+    ],
+    gradient: 'from-sky-500 to-cyan-500',
+    media: { type: 'none' },
+  },
+  {
+    id: 'wigent',
+    num: '03',
     title: 'WIGENT',
     tagline: 'Multi-Agent AI Debate Platform',
     description: {
@@ -126,7 +144,7 @@ export const projects: Project[] = [
   },
   {
     id: 'wigtnflake',
-    num: '03',
+    num: '04',
     title: 'WIGTN FLAKE',
     tagline: 'Purpose-Driven Neighborhood Intelligence',
     description: {
@@ -155,7 +173,7 @@ export const projects: Project[] = [
   },
   {
     id: 'wigvo',
-    num: '04',
+    num: '05',
     title: 'WIGVO',
     tagline: 'Real-time Phone Interpreter',
     description: {
@@ -199,7 +217,7 @@ export const projects: Project[] = [
   },
   {
     id: 'myunzy',
-    num: '05',
+    num: '06',
     title: '면지 (Myunzy)',
     tagline: 'Tool-Call Harness over a Small Korean Model',
     description: {
@@ -227,7 +245,7 @@ export const projects: Project[] = [
   },
   {
     id: 'custos',
-    num: '06',
+    num: '07',
     title: 'WIGTN-CUSTOS',
     tagline: 'Self-Evolving GitLab Repo Custodian',
     description: {
